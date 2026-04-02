@@ -1,0 +1,3266 @@
+[
+  {
+    "func": "acos",
+    "args": [
+      "1.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "acos",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "acos",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "acos",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "asin",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "asin",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "asin",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "asin",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "asin",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "atan",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "atan",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "atan",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "-M_PI/2.0",
+    "is_nan": false
+  },
+  {
+    "func": "atan",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "M_PI/2.0",
+    "is_nan": false
+  },
+  {
+    "func": "atan",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "atan2",
+    "args": [
+      "-0.0",
+      "-0.0"
+    ],
+    "expected": "-M_PI",
+    "is_nan": false
+  },
+  {
+    "func": "atan2",
+    "args": [
+      "-0.0",
+      "+0.0"
+    ],
+    "expected": "M_PI",
+    "is_nan": false
+  },
+  {
+    "func": "atan2",
+    "args": [
+      "+0.0",
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "atan2",
+    "args": [
+      "+0.0",
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "atan2",
+    "args": [
+      "INFINITY",
+      "-INFINITY"
+    ],
+    "expected": "-M_PI/4.0",
+    "is_nan": false
+  },
+  {
+    "func": "atan2",
+    "args": [
+      "INFINITY",
+      "INFINITY"
+    ],
+    "expected": "M_PI/4.0",
+    "is_nan": false
+  },
+  {
+    "func": "cos",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "1",
+    "is_nan": false
+  },
+  {
+    "func": "cos",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "1",
+    "is_nan": false
+  },
+  {
+    "func": "cos",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "cos",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "cos",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "sin",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "sin",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "sin",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "sin",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "sin",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "tan",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "tan",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "tan",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "tan",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "tan",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "acosh",
+    "args": [
+      "1.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "acosh",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "acosh",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "acosh",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "asinh",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "asinh",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "asinh",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "asinh",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "asinh",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "atanh",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "atanh",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "atanh",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "atanh",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "atanh",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "cosh",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "1",
+    "is_nan": false
+  },
+  {
+    "func": "cosh",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "1",
+    "is_nan": false
+  },
+  {
+    "func": "cosh",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "cosh",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "cosh",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "sinh",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "sinh",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "sinh",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "sinh",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "sinh",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "tanh",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "tanh",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "tanh",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "exp",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "1",
+    "is_nan": false
+  },
+  {
+    "func": "exp",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "1",
+    "is_nan": false
+  },
+  {
+    "func": "exp",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "exp",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "exp",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "exp2",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "1",
+    "is_nan": false
+  },
+  {
+    "func": "exp2",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "1",
+    "is_nan": false
+  },
+  {
+    "func": "exp2",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "exp2",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "exp2",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "expm1",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "expm1",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "expm1",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "-1.0",
+    "is_nan": false
+  },
+  {
+    "func": "expm1",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "expm1",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "frexp",
+    "args": [
+      "NAN",
+      "0"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "log",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "log",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "log",
+    "args": [
+      "1"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "log",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "log",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "log10",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "log10",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "log10",
+    "args": [
+      "1"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "log10",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "log10",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "log1p",
+    "args": [
+      "-1.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "log1p",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "log1p",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "log1p",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "log1p",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "log2",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "log2",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "log2",
+    "args": [
+      "1"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "log2",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "log2",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "logb",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "logb",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "logb",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "logb",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "logb",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "modf",
+    "args": [
+      "-INFINITY",
+      "-INFINITY"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "modf",
+    "args": [
+      "INFINITY",
+      "INFINITY"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "modf",
+    "args": [
+      "NAN",
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "cbrt",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "cbrt",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "cbrt",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "cbrt",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "cbrt",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "fabs",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "fabs",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "fabs",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "fabs",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "fabs",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "fabs",
+    "args": [
+      "__builtin_nans(\"\")"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "pow",
+    "args": [
+      "1.0",
+      "NAN"
+    ],
+    "expected": "1.0",
+    "is_nan": false
+  },
+  {
+    "func": "pow",
+    "args": [
+      "1.0",
+      "__builtin_nans(\"\")"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "sqrt",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "sqrt",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "sqrt",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "sqrt",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "sqrt",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "erf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "erf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "erf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "erf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "erf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "erfc",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "1.0",
+    "is_nan": false
+  },
+  {
+    "func": "erfc",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "1.0",
+    "is_nan": false
+  },
+  {
+    "func": "erfc",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "2.0",
+    "is_nan": false
+  },
+  {
+    "func": "erfc",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "erfc",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "lgamma",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "lgamma",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "lgamma",
+    "args": [
+      "1.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "lgamma",
+    "args": [
+      "2.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "lgamma",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "lgamma",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "lgamma",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "tgamma",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "tgamma",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "tgamma",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "ceil",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "ceil",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "ceil",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "ceil",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "ceil",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "floor",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "floor",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "floor",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "floor",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "floor",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "nearbyint",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "nearbyint",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "nearbyint",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "nearbyint",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "nearbyint",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "rint",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "rint",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "rint",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "rint",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "rint",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "lrint",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "0",
+    "is_nan": false
+  },
+  {
+    "func": "lrint",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "0",
+    "is_nan": false
+  },
+  {
+    "func": "llrint",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "0",
+    "is_nan": false
+  },
+  {
+    "func": "llrint",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "0",
+    "is_nan": false
+  },
+  {
+    "func": "round",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "round",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "round",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "round",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "round",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "lround",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "0",
+    "is_nan": false
+  },
+  {
+    "func": "lround",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "0",
+    "is_nan": false
+  },
+  {
+    "func": "llround",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "0",
+    "is_nan": false
+  },
+  {
+    "func": "llround",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "0",
+    "is_nan": false
+  },
+  {
+    "func": "trunc",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "trunc",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "trunc",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "trunc",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "trunc",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "fdim",
+    "args": [
+      "INFINITY",
+      "-INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "fdim",
+    "args": [
+      "INFINITY",
+      "INFINITY"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "fmax",
+    "args": [
+      "NAN",
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "fmin",
+    "args": [
+      "NAN",
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "j0",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "j0",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "j0",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "j1",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "j1",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "j1",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "y0",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "y0",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "y0",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "y0",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "y0",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "y1",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "y1",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "y1",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "y1",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "y1",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "acosf",
+    "args": [
+      "1.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "acosf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "acosf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "acosf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "asinf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "asinf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "asinf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "asinf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "asinf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "atanf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "atanf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "atanf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "-M_PI/2.0",
+    "is_nan": false
+  },
+  {
+    "func": "atanf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "M_PI/2.0",
+    "is_nan": false
+  },
+  {
+    "func": "atanf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "atan2f",
+    "args": [
+      "-0.0",
+      "-0.0"
+    ],
+    "expected": "-M_PI",
+    "is_nan": false
+  },
+  {
+    "func": "atan2f",
+    "args": [
+      "-0.0",
+      "+0.0"
+    ],
+    "expected": "M_PI",
+    "is_nan": false
+  },
+  {
+    "func": "atan2f",
+    "args": [
+      "+0.0",
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "atan2f",
+    "args": [
+      "+0.0",
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "atan2f",
+    "args": [
+      "INFINITY",
+      "-INFINITY"
+    ],
+    "expected": "-M_PI/4.0",
+    "is_nan": false
+  },
+  {
+    "func": "atan2f",
+    "args": [
+      "INFINITY",
+      "INFINITY"
+    ],
+    "expected": "M_PI/4.0",
+    "is_nan": false
+  },
+  {
+    "func": "cosf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "1",
+    "is_nan": false
+  },
+  {
+    "func": "cosf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "1",
+    "is_nan": false
+  },
+  {
+    "func": "cosf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "cosf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "cosf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "sinf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "sinf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "sinf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "sinf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "sinf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "tanf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "tanf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "tanf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "tanf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "tanf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "acoshf",
+    "args": [
+      "1.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "acoshf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "acoshf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "acoshf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "asinhf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "asinhf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "asinhf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "asinhf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "asinhf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "atanhf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "atanhf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "atanhf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "atanhf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "atanhf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "coshf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "1",
+    "is_nan": false
+  },
+  {
+    "func": "coshf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "1",
+    "is_nan": false
+  },
+  {
+    "func": "coshf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "coshf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "coshf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "sinhf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "sinhf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "sinhf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "sinhf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "sinhf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "tanhf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "tanhf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "tanhf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "expf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "1",
+    "is_nan": false
+  },
+  {
+    "func": "expf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "1",
+    "is_nan": false
+  },
+  {
+    "func": "expf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "expf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "expf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "exp2f",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "1",
+    "is_nan": false
+  },
+  {
+    "func": "exp2f",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "1",
+    "is_nan": false
+  },
+  {
+    "func": "exp2f",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "exp2f",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "exp2f",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "expm1f",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "expm1f",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "expm1f",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "-1.0",
+    "is_nan": false
+  },
+  {
+    "func": "expm1f",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "expm1f",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "frexpf",
+    "args": [
+      "NAN",
+      "0"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "logf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "logf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "logf",
+    "args": [
+      "1"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "logf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "logf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "log10f",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "log10f",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "log10f",
+    "args": [
+      "1"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "log10f",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "log10f",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "log1pf",
+    "args": [
+      "-1.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "log1pf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "log1pf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "log1pf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "log1pf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "log2f",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "log2f",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "log2f",
+    "args": [
+      "1"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "log2f",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "log2f",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "logbf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "logbf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "logbf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "logbf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "logbf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "modff",
+    "args": [
+      "-INFINITY",
+      "-INFINITY"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "modff",
+    "args": [
+      "INFINITY",
+      "INFINITY"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "modff",
+    "args": [
+      "NAN",
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "cbrtf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "cbrtf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "cbrtf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "cbrtf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "cbrtf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "fabsf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "fabsf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "fabsf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "fabsf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "fabsf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "fabsf",
+    "args": [
+      "__builtin_nans(\"\")"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "powf",
+    "args": [
+      "1.0",
+      "NAN"
+    ],
+    "expected": "1.0",
+    "is_nan": false
+  },
+  {
+    "func": "powf",
+    "args": [
+      "1.0",
+      "__builtin_nans(\"\")"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "sqrtf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "sqrtf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "sqrtf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "sqrtf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "sqrtf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "erff",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "erff",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "erff",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "erff",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "erff",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "erfcf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "1.0",
+    "is_nan": false
+  },
+  {
+    "func": "erfcf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "1.0",
+    "is_nan": false
+  },
+  {
+    "func": "erfcf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "2.0",
+    "is_nan": false
+  },
+  {
+    "func": "erfcf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "erfcf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "lgammaf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "lgammaf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "lgammaf",
+    "args": [
+      "1.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "lgammaf",
+    "args": [
+      "2.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "lgammaf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "lgammaf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "lgammaf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "tgammaf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "tgammaf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "tgammaf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "ceilf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "ceilf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "ceilf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "ceilf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "ceilf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "floorf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "floorf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "floorf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "floorf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "floorf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "nearbyintf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "nearbyintf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "nearbyintf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "nearbyintf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "nearbyintf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "rintf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "rintf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "rintf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "rintf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "rintf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "lrintf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "0",
+    "is_nan": false
+  },
+  {
+    "func": "lrintf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "0",
+    "is_nan": false
+  },
+  {
+    "func": "llrintf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "0",
+    "is_nan": false
+  },
+  {
+    "func": "llrintf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "0",
+    "is_nan": false
+  },
+  {
+    "func": "roundf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "roundf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "roundf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "roundf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "roundf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "lroundf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "0",
+    "is_nan": false
+  },
+  {
+    "func": "lroundf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "0",
+    "is_nan": false
+  },
+  {
+    "func": "llroundf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "0",
+    "is_nan": false
+  },
+  {
+    "func": "llroundf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "0",
+    "is_nan": false
+  },
+  {
+    "func": "truncf",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "truncf",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-0.0",
+    "is_nan": false
+  },
+  {
+    "func": "truncf",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "truncf",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "INPUT",
+    "is_nan": false
+  },
+  {
+    "func": "truncf",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "fdimf",
+    "args": [
+      "INFINITY",
+      "-INFINITY"
+    ],
+    "expected": "INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "fdimf",
+    "args": [
+      "INFINITY",
+      "INFINITY"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "fmaxf",
+    "args": [
+      "NAN",
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "fminf",
+    "args": [
+      "NAN",
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "j0f",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "j0f",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "j0f",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "j1f",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "j1f",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "j1f",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "y0f",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "y0f",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "y0f",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "y0f",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "y0f",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "y1f",
+    "args": [
+      "-INFINITY"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  },
+  {
+    "func": "y1f",
+    "args": [
+      "+0.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "y1f",
+    "args": [
+      "-0.0"
+    ],
+    "expected": "-INFINITY",
+    "is_nan": false
+  },
+  {
+    "func": "y1f",
+    "args": [
+      "INFINITY"
+    ],
+    "expected": "+0.0",
+    "is_nan": false
+  },
+  {
+    "func": "y1f",
+    "args": [
+      "NAN"
+    ],
+    "expected": "NAN",
+    "is_nan": true
+  }
+]
