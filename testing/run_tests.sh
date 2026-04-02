@@ -94,9 +94,29 @@ if [ -f "$NEWLIB_TEST" ]; then
     echo ""
 fi
 
+# ── Core-Math MPFR Tests ──────────────────────────────────────────────
+COREMATH_TEST="${SCRIPT_DIR}/coremath_tests/test_coremath.c"
+if [ -f "$COREMATH_TEST" ]; then
+    echo "--- Core-Math MPFR Tests ---"
+    if $CC -O2 -o "$BUILDDIR/test_coremath" "$COREMATH_TEST" "$LIBPATH" \
+        -lmpfr -lgmp -lm -fno-builtin 2>/dev/null; then
+        cm_output=$(timeout 120 "$BUILDDIR/test_coremath" 10000 2>&1)
+        cm_summary=$(echo "$cm_output" | grep "^Core-Math MPFR:")
+        echo "  $cm_summary"
+        [ "$VERBOSE" -eq 1 ] && echo "$cm_output" | grep "FAIL" | sed 's/^/    /'
+    else
+        cm_summary="Core-Math MPFR: COMPILE ERROR (is libmpfr-dev installed?)"
+        echo "  $cm_summary"
+    fi
+    echo ""
+fi
+
 # ── Summary ──────────────────────────────────────────────────────────
 echo "========================================"
 echo "TOTAL: ${total_pass} passed, ${total_fail} failed out of ${total_tests}"
+if [ -n "${cm_summary:-}" ]; then
+    echo "  + $cm_summary"
+fi
 echo "========================================"
 
 exit $( [ "$total_fail" -eq 0 ] && echo 0 || echo 1 )
