@@ -1,0 +1,2470 @@
+208c208
+< acosf -0x1.5c28f6p-2 = 0x1.eaef4p+0
+---
+> acosf -0x1.5c28f6p-2 = 0x1.eaef42p+0
+211c211
+< acosf -0x1.3d70a4p-2 = 0x1.e2d034p+0
+---
+> acosf -0x1.3d70a4p-2 = 0x1.e2d032p+0
+226c226
+< acosf -0x1.47ae14p-3 = 0x1.bb42bcp+0
+---
+> acosf -0x1.47ae14p-3 = 0x1.bb42bap+0
+259c259
+< acosf 0x1.5c28f6p-3 = 0x1.666438p+0
+---
+> acosf 0x1.5c28f6p-3 = 0x1.666436p+0
+266c266
+< acosf 0x1.eb851ep-3 = 0x1.541404p+0
+---
+> acosf 0x1.eb851ep-3 = 0x1.541406p+0
+268c268
+< acosf 0x1.0a3d7p-2 = 0x1.4eca48p+0
+---
+> acosf 0x1.0a3d7p-2 = 0x1.4eca4ap+0
+281c281
+< acosf 0x1.8f5c28p-2 = 0x1.2b8fecp+0
+---
+> acosf 0x1.8f5c28p-2 = 0x1.2b8feap+0
+290c290
+< acosf 0x1.eb851ep-2 = 0x1.11f4ccp+0
+---
+> acosf 0x1.eb851ep-2 = 0x1.11f4cep+0
+309c309
+< acosf 0x1.570a3ep-1 = 0x1.ac5534p-1
+---
+> acosf 0x1.570a3ep-1 = 0x1.ac5532p-1
+394c394
+< acoshf 0x1.34ccccp+4 = 0x1.d387cp+1
+---
+> acoshf 0x1.34ccccp+4 = 0x1.d387c2p+1
+620c620
+< asinf -0x1.a8f5c2p-1 = -0x1.f54d98p-1
+---
+> asinf -0x1.a8f5c2p-1 = -0x1.f54d9ap-1
+623c623
+< asinf -0x1.99999ap-1 = -0x1.dac67p-1
+---
+> asinf -0x1.99999ap-1 = -0x1.dac672p-1
+642c642
+< asinf -0x1.3851ecp-1 = -0x1.4fe72cp-1
+---
+> asinf -0x1.3851ecp-1 = -0x1.4fe72ep-1
+645c645
+< asinf -0x1.28f5c2p-1 = -0x1.3ccap-1
+---
+> asinf -0x1.28f5c2p-1 = -0x1.3cca02p-1
+652c652
+< asinf -0x1.051eb8p-1 = -0x1.1203bcp-1
+---
+> asinf -0x1.051eb8p-1 = -0x1.1203bep-1
+667c667
+< asinf -0x1.70a3d8p-2 = -0x1.791b38p-2
+---
+> asinf -0x1.70a3d8p-2 = -0x1.791b3ap-2
+738c738
+< asinf 0x1.70a3d8p-2 = 0x1.791b38p-2
+---
+> asinf 0x1.70a3d8p-2 = 0x1.791b3ap-2
+753c753
+< asinf 0x1.051eb8p-1 = 0x1.1203bcp-1
+---
+> asinf 0x1.051eb8p-1 = 0x1.1203bep-1
+760c760
+< asinf 0x1.28f5c2p-1 = 0x1.3ccap-1
+---
+> asinf 0x1.28f5c2p-1 = 0x1.3cca02p-1
+763c763
+< asinf 0x1.3851ecp-1 = 0x1.4fe72cp-1
+---
+> asinf 0x1.3851ecp-1 = 0x1.4fe72ep-1
+782c782
+< asinf 0x1.99999ap-1 = 0x1.dac67p-1
+---
+> asinf 0x1.99999ap-1 = 0x1.dac672p-1
+785c785
+< asinf 0x1.a8f5c2p-1 = 0x1.f54d98p-1
+---
+> asinf 0x1.a8f5c2p-1 = 0x1.f54d9ap-1
+1102c1102
+< asinhf -0x1.11eb86p+0 = -0x1.dc2af4p-1
+---
+> asinhf -0x1.11eb86p+0 = -0x1.dc2af6p-1
+1105,1106c1105,1106
+< asinhf -0x1.0a3d7p+0 = -0x1.d199d8p-1
+< asinhf -0x1.07ae14p+0 = -0x1.ce0b1cp-1
+---
+> asinhf -0x1.0a3d7p+0 = -0x1.d199dap-1
+> asinhf -0x1.07ae14p+0 = -0x1.ce0b1ap-1
+1111c1111
+< asinhf -0x1.f5c29p-1 = -0x1.bbfc78p-1
+---
+> asinhf -0x1.f5c29p-1 = -0x1.bbfc76p-1
+1115c1115
+< asinhf -0x1.e147aep-1 = -0x1.ad364p-1
+---
+> asinhf -0x1.e147aep-1 = -0x1.ad3642p-1
+1117c1117
+< asinhf -0x1.d70a3ep-1 = -0x1.a5b6a4p-1
+---
+> asinhf -0x1.d70a3ep-1 = -0x1.a5b6a6p-1
+1119c1119
+< asinhf -0x1.ccccccp-1 = -0x1.9e23ccp-1
+---
+> asinhf -0x1.ccccccp-1 = -0x1.9e23cep-1
+1124,1127c1124,1127
+< asinhf -0x1.b33334p-1 = -0x1.8adfa4p-1
+< asinhf -0x1.ae147ap-1 = -0x1.86f678p-1
+< asinhf -0x1.a8f5c2p-1 = -0x1.830862p-1
+< asinhf -0x1.a3d70ap-1 = -0x1.7f1554p-1
+---
+> asinhf -0x1.b33334p-1 = -0x1.8adfa2p-1
+> asinhf -0x1.ae147ap-1 = -0x1.86f67ap-1
+> asinhf -0x1.a8f5c2p-1 = -0x1.83086p-1
+> asinhf -0x1.a3d70ap-1 = -0x1.7f1552p-1
+1129c1129
+< asinhf -0x1.99999ap-1 = -0x1.77204ap-1
+---
+> asinhf -0x1.99999ap-1 = -0x1.77204cp-1
+1137c1137
+< asinhf -0x1.70a3d8p-1 = -0x1.5683ccp-1
+---
+> asinhf -0x1.70a3d8p-1 = -0x1.5683cap-1
+1141c1141
+< asinhf -0x1.5c28f6p-1 = -0x1.45bcaap-1
+---
+> asinhf -0x1.5c28f6p-1 = -0x1.45bca8p-1
+1143c1143
+< asinhf -0x1.51eb86p-1 = -0x1.3d3ad8p-1
+---
+> asinhf -0x1.51eb86p-1 = -0x1.3d3adap-1
+1146c1146
+< asinhf -0x1.428f5cp-1 = -0x1.30527p-1
+---
+> asinhf -0x1.428f5cp-1 = -0x1.30526ep-1
+1149,1150c1149,1150
+< asinhf -0x1.333334p-1 = -0x1.233d04p-1
+< asinhf -0x1.2e147ap-1 = -0x1.1ed69cp-1
+---
+> asinhf -0x1.333334p-1 = -0x1.233d06p-1
+> asinhf -0x1.2e147ap-1 = -0x1.1ed69ap-1
+1153c1153
+< asinhf -0x1.1eb852p-1 = -0x1.1185dp-1
+---
+> asinhf -0x1.1eb852p-1 = -0x1.1185d2p-1
+1156c1156
+< asinhf -0x1.0f5c28p-1 = -0x1.040928p-1
+---
+> asinhf -0x1.0f5c28p-1 = -0x1.04092ap-1
+1159,1162c1159,1162
+< asinhf -0x1p-1 = -0x1.ecc2ccp-2
+< asinhf -0x1.f5c29p-2 = -0x1.e3956cp-2
+< asinhf -0x1.eb851ep-2 = -0x1.da5ec4p-2
+< asinhf -0x1.e147aep-2 = -0x1.d11eep-2
+---
+> asinhf -0x1p-1 = -0x1.ecc2cap-2
+> asinhf -0x1.f5c29p-2 = -0x1.e3956ep-2
+> asinhf -0x1.eb851ep-2 = -0x1.da5ec2p-2
+> asinhf -0x1.e147aep-2 = -0x1.d11ee2p-2
+1164c1164
+< asinhf -0x1.ccccccp-2 = -0x1.be83ccp-2
+---
+> asinhf -0x1.ccccccp-2 = -0x1.be83cep-2
+1168c1168
+< asinhf -0x1.a3d70ap-2 = -0x1.98e324p-2
+---
+> asinhf -0x1.a3d70ap-2 = -0x1.98e326p-2
+1170c1170
+< asinhf -0x1.8f5c28p-2 = -0x1.85df4ap-2
+---
+> asinhf -0x1.8f5c28p-2 = -0x1.85df4cp-2
+1172c1172
+< asinhf -0x1.7ae148p-2 = -0x1.72ba64p-2
+---
+> asinhf -0x1.7ae148p-2 = -0x1.72ba62p-2
+1178c1178
+< asinhf -0x1.3d70a4p-2 = -0x1.389052p-2
+---
+> asinhf -0x1.3d70a4p-2 = -0x1.38905p-2
+1183,1185c1183,1185
+< asinhf -0x1.0a3d7p-2 = -0x1.0753fcp-2
+< asinhf -0x1p-2 = -0x1.facfb4p-3
+< asinhf -0x1.eb851ep-3 = -0x1.e6eb6ep-3
+---
+> asinhf -0x1.0a3d7p-2 = -0x1.0753fep-2
+> asinhf -0x1p-2 = -0x1.facfb2p-3
+> asinhf -0x1.eb851ep-3 = -0x1.e6eb7p-3
+1187c1187
+< asinhf -0x1.c28f5cp-3 = -0x1.bf009ep-3
+---
+> asinhf -0x1.c28f5cp-3 = -0x1.bf00ap-3
+1189c1189
+< asinhf -0x1.99999ap-3 = -0x1.96ead6p-3
+---
+> asinhf -0x1.99999ap-3 = -0x1.96ead8p-3
+1191,1192c1191,1192
+< asinhf -0x1.70a3d8p-3 = -0x1.6ead88p-3
+< asinhf -0x1.5c28f6p-3 = -0x1.5a8124p-3
+---
+> asinhf -0x1.70a3d8p-3 = -0x1.6ead86p-3
+> asinhf -0x1.5c28f6p-3 = -0x1.5a8126p-3
+1197c1197
+< asinhf -0x1.eb851ep-4 = -0x1.ea591p-4
+---
+> asinhf -0x1.eb851ep-4 = -0x1.ea5912p-4
+1221c1221
+< asinhf 0x1.eb851ep-4 = 0x1.ea591p-4
+---
+> asinhf 0x1.eb851ep-4 = 0x1.ea5912p-4
+1226,1227c1226,1227
+< asinhf 0x1.5c28f6p-3 = 0x1.5a8124p-3
+< asinhf 0x1.70a3d8p-3 = 0x1.6ead88p-3
+---
+> asinhf 0x1.5c28f6p-3 = 0x1.5a8126p-3
+> asinhf 0x1.70a3d8p-3 = 0x1.6ead86p-3
+1229c1229
+< asinhf 0x1.99999ap-3 = 0x1.96ead6p-3
+---
+> asinhf 0x1.99999ap-3 = 0x1.96ead8p-3
+1231c1231
+< asinhf 0x1.c28f5cp-3 = 0x1.bf009ep-3
+---
+> asinhf 0x1.c28f5cp-3 = 0x1.bf00ap-3
+1233,1235c1233,1235
+< asinhf 0x1.eb851ep-3 = 0x1.e6eb6ep-3
+< asinhf 0x1p-2 = 0x1.facfb4p-3
+< asinhf 0x1.0a3d7p-2 = 0x1.0753fcp-2
+---
+> asinhf 0x1.eb851ep-3 = 0x1.e6eb7p-3
+> asinhf 0x1p-2 = 0x1.facfb2p-3
+> asinhf 0x1.0a3d7p-2 = 0x1.0753fep-2
+1240c1240
+< asinhf 0x1.3d70a4p-2 = 0x1.389052p-2
+---
+> asinhf 0x1.3d70a4p-2 = 0x1.38905p-2
+1246c1246
+< asinhf 0x1.7ae148p-2 = 0x1.72ba64p-2
+---
+> asinhf 0x1.7ae148p-2 = 0x1.72ba62p-2
+1248c1248
+< asinhf 0x1.8f5c28p-2 = 0x1.85df4ap-2
+---
+> asinhf 0x1.8f5c28p-2 = 0x1.85df4cp-2
+1250c1250
+< asinhf 0x1.a3d70ap-2 = 0x1.98e324p-2
+---
+> asinhf 0x1.a3d70ap-2 = 0x1.98e326p-2
+1254c1254
+< asinhf 0x1.ccccccp-2 = 0x1.be83ccp-2
+---
+> asinhf 0x1.ccccccp-2 = 0x1.be83cep-2
+1256,1259c1256,1259
+< asinhf 0x1.e147aep-2 = 0x1.d11eep-2
+< asinhf 0x1.eb851ep-2 = 0x1.da5ec4p-2
+< asinhf 0x1.f5c29p-2 = 0x1.e3956cp-2
+< asinhf 0x1p-1 = 0x1.ecc2ccp-2
+---
+> asinhf 0x1.e147aep-2 = 0x1.d11ee2p-2
+> asinhf 0x1.eb851ep-2 = 0x1.da5ec2p-2
+> asinhf 0x1.f5c29p-2 = 0x1.e3956ep-2
+> asinhf 0x1p-1 = 0x1.ecc2cap-2
+1262c1262
+< asinhf 0x1.0f5c28p-1 = 0x1.040928p-1
+---
+> asinhf 0x1.0f5c28p-1 = 0x1.04092ap-1
+1265c1265
+< asinhf 0x1.1eb852p-1 = 0x1.1185dp-1
+---
+> asinhf 0x1.1eb852p-1 = 0x1.1185d2p-1
+1268,1269c1268,1269
+< asinhf 0x1.2e147ap-1 = 0x1.1ed69cp-1
+< asinhf 0x1.333334p-1 = 0x1.233d04p-1
+---
+> asinhf 0x1.2e147ap-1 = 0x1.1ed69ap-1
+> asinhf 0x1.333334p-1 = 0x1.233d06p-1
+1272c1272
+< asinhf 0x1.428f5cp-1 = 0x1.30527p-1
+---
+> asinhf 0x1.428f5cp-1 = 0x1.30526ep-1
+1275c1275
+< asinhf 0x1.51eb86p-1 = 0x1.3d3ad8p-1
+---
+> asinhf 0x1.51eb86p-1 = 0x1.3d3adap-1
+1277c1277
+< asinhf 0x1.5c28f6p-1 = 0x1.45bcaap-1
+---
+> asinhf 0x1.5c28f6p-1 = 0x1.45bca8p-1
+1281c1281
+< asinhf 0x1.70a3d8p-1 = 0x1.5683ccp-1
+---
+> asinhf 0x1.70a3d8p-1 = 0x1.5683cap-1
+1289c1289
+< asinhf 0x1.99999ap-1 = 0x1.77204ap-1
+---
+> asinhf 0x1.99999ap-1 = 0x1.77204cp-1
+1291,1294c1291,1294
+< asinhf 0x1.a3d70ap-1 = 0x1.7f1554p-1
+< asinhf 0x1.a8f5c2p-1 = 0x1.830862p-1
+< asinhf 0x1.ae147ap-1 = 0x1.86f678p-1
+< asinhf 0x1.b33334p-1 = 0x1.8adfa4p-1
+---
+> asinhf 0x1.a3d70ap-1 = 0x1.7f1552p-1
+> asinhf 0x1.a8f5c2p-1 = 0x1.83086p-1
+> asinhf 0x1.ae147ap-1 = 0x1.86f67ap-1
+> asinhf 0x1.b33334p-1 = 0x1.8adfa2p-1
+1299c1299
+< asinhf 0x1.ccccccp-1 = 0x1.9e23ccp-1
+---
+> asinhf 0x1.ccccccp-1 = 0x1.9e23cep-1
+1301c1301
+< asinhf 0x1.d70a3ep-1 = 0x1.a5b6a4p-1
+---
+> asinhf 0x1.d70a3ep-1 = 0x1.a5b6a6p-1
+1303c1303
+< asinhf 0x1.e147aep-1 = 0x1.ad364p-1
+---
+> asinhf 0x1.e147aep-1 = 0x1.ad3642p-1
+1307c1307
+< asinhf 0x1.f5c29p-1 = 0x1.bbfc78p-1
+---
+> asinhf 0x1.f5c29p-1 = 0x1.bbfc76p-1
+1312,1313c1312,1313
+< asinhf 0x1.07ae14p+0 = 0x1.ce0b1cp-1
+< asinhf 0x1.0a3d7p+0 = 0x1.d199d8p-1
+---
+> asinhf 0x1.07ae14p+0 = 0x1.ce0b1ap-1
+> asinhf 0x1.0a3d7p+0 = 0x1.d199dap-1
+1316c1316
+< asinhf 0x1.11eb86p+0 = 0x1.dc2af4p-1
+---
+> asinhf 0x1.11eb86p+0 = 0x1.dc2af6p-1
+1331c1331
+< asinhf -0x1.921fb6p+0 = -0x1.3bc05p+0
+---
+> asinhf -0x1.921fb6p+0 = -0x1.3bc04ep+0
+1333c1333
+< asinhf 0x1.921fb6p+0 = 0x1.3bc05p+0
+---
+> asinhf 0x1.921fb6p+0 = 0x1.3bc04ep+0
+1343,1344c1343,1344
+< asinhf -0x1.066666p+4 = -0x1.bee4c8p+1
+< asinhf -0x1.d66666p+3 = -0x1.b0ea46p+1
+---
+> asinhf -0x1.066666p+4 = -0x1.bee4c6p+1
+> asinhf -0x1.d66666p+3 = -0x1.b0ea48p+1
+1352c1352
+< asinhf 0x1.333334p-1 = 0x1.233d04p-1
+---
+> asinhf 0x1.333334p-1 = 0x1.233d06p-1
+3262c3262
+< atan2f -0x1p+0 -0x1.19999ap-1 = -0x1.096d04p+1
+---
+> atan2f -0x1p+0 -0x1.19999ap-1 = -0x1.096d06p+1
+3265,3269c3265,3269
+< atan2f -0x1p+0 -0x1.99999ap-2 = -0x1.f38892p+0
+< atan2f -0x1p+0 -0x1.666666p-2 = -0x1.e85006p+0
+< atan2f -0x1p+0 -0x1.333334p-2 = -0x1.dcbc9ep+0
+< atan2f -0x1p+0 -0x1p-2 = -0x1.d0d6ap+0
+< atan2f -0x1p+0 -0x1.99999ap-3 = -0x1.c4a838p+0
+---
+> atan2f -0x1p+0 -0x1.99999ap-2 = -0x1.f38894p+0
+> atan2f -0x1p+0 -0x1.666666p-2 = -0x1.e85008p+0
+> atan2f -0x1p+0 -0x1.333334p-2 = -0x1.dcbcap+0
+> atan2f -0x1p+0 -0x1p-2 = -0x1.d0d6a2p+0
+> atan2f -0x1p+0 -0x1.99999ap-3 = -0x1.c4a83ap+0
+3299c3299
+< atan2f -0x1.e66666p-1 -0x1.666666p-1 = -0x1.1a586ap+1
+---
+> atan2f -0x1.e66666p-1 -0x1.666666p-1 = -0x1.1a5868p+1
+3319,3320c3319,3320
+< atan2f -0x1.e66666p-1 0x1.333334p-2 = -0x1.43d1ap+0
+< atan2f -0x1.e66666p-1 0x1.666666p-2 = -0x1.37c22p+0
+---
+> atan2f -0x1.e66666p-1 0x1.333334p-2 = -0x1.43d1a2p+0
+> atan2f -0x1.e66666p-1 0x1.666666p-2 = -0x1.37c222p+0
+3324c3324
+< atan2f -0x1.e66666p-1 0x1.19999ap-1 = -0x1.0bc6bp+0
+---
+> atan2f -0x1.e66666p-1 0x1.19999ap-1 = -0x1.0bc6b2p+0
+3326,3327c3326,3327
+< atan2f -0x1.e66666p-1 0x1.4cccccp-1 = -0x1.f105a4p-1
+< atan2f -0x1.e66666p-1 0x1.666666p-1 = -0x1.df1d3p-1
+---
+> atan2f -0x1.e66666p-1 0x1.4cccccp-1 = -0x1.f105a2p-1
+> atan2f -0x1.e66666p-1 0x1.666666p-1 = -0x1.df1d32p-1
+3333c3333
+< atan2f -0x1.ccccccp-1 -0x1p+0 = -0x1.3452d4p+1
+---
+> atan2f -0x1.ccccccp-1 -0x1p+0 = -0x1.3452d2p+1
+3336c3336
+< atan2f -0x1.ccccccp-1 -0x1.b33334p-1 = -0x1.29efdp+1
+---
+> atan2f -0x1.ccccccp-1 -0x1.b33334p-1 = -0x1.29efcep+1
+3339c3339
+< atan2f -0x1.ccccccp-1 -0x1.666666p-1 = -0x1.1dacecp+1
+---
+> atan2f -0x1.ccccccp-1 -0x1.666666p-1 = -0x1.1daceap+1
+3343c3343
+< atan2f -0x1.ccccccp-1 -0x1p-1 = -0x1.09f874p+1
+---
+> atan2f -0x1.ccccccp-1 -0x1p-1 = -0x1.09f876p+1
+3345c3345
+< atan2f -0x1.ccccccp-1 -0x1.99999ap-2 = -0x1.fd3074p+0
+---
+> atan2f -0x1.ccccccp-1 -0x1.99999ap-2 = -0x1.fd3076p+0
+3348c3348
+< atan2f -0x1.ccccccp-1 -0x1p-2 = -0x1.d77c7ap+0
+---
+> atan2f -0x1.ccccccp-1 -0x1p-2 = -0x1.d77c7cp+0
+3351c3351
+< atan2f -0x1.ccccccp-1 -0x1.99999ap-4 = -0x1.ae73bcp+0
+---
+> atan2f -0x1.ccccccp-1 -0x1.99999ap-4 = -0x1.ae73bep+0
+3364c3364
+< atan2f -0x1.ccccccp-1 0x1.19999ap-1 = -0x1.05b1f8p+0
+---
+> atan2f -0x1.ccccccp-1 0x1.19999ap-1 = -0x1.05b1fap+0
+3369c3369
+< atan2f -0x1.ccccccp-1 0x1.99999ap-1 = -0x1.b034f4p-1
+---
+> atan2f -0x1.ccccccp-1 0x1.99999ap-1 = -0x1.b034f2p-1
+3372c3372
+< atan2f -0x1.ccccccp-1 0x1.e66666p-1 = -0x1.844a14p-1
+---
+> atan2f -0x1.ccccccp-1 0x1.e66666p-1 = -0x1.844a16p-1
+3374c3374
+< atan2f -0x1.b33334p-1 -0x1.e66666p-1 = -0x1.34b25cp+1
+---
+> atan2f -0x1.b33334p-1 -0x1.e66666p-1 = -0x1.34b25ap+1
+3378c3378
+< atan2f -0x1.b33334p-1 -0x1.8p-1 = -0x1.259a72p+1
+---
+> atan2f -0x1.b33334p-1 -0x1.8p-1 = -0x1.259a7p+1
+3384,3385c3384,3385
+< atan2f -0x1.b33334p-1 -0x1.ccccccp-2 = -0x1.07629p+1
+< atan2f -0x1.b33334p-1 -0x1.99999ap-2 = -0x1.015c9cp+1
+---
+> atan2f -0x1.b33334p-1 -0x1.ccccccp-2 = -0x1.076292p+1
+> atan2f -0x1.b33334p-1 -0x1.99999ap-2 = -0x1.015c9ep+1
+3389c3389
+< atan2f -0x1.b33334p-1 -0x1.99999ap-3 = -0x1.cd4876p+0
+---
+> atan2f -0x1.b33334p-1 -0x1.99999ap-3 = -0x1.cd4878p+0
+3408c3408
+< atan2f -0x1.b33334p-1 0x1.8p-1 = -0x1.b2151p-1
+---
+> atan2f -0x1.b33334p-1 0x1.8p-1 = -0x1.b21512p-1
+3423c3423
+< atan2f -0x1.99999ap-1 -0x1p-1 = -0x1.109008p+1
+---
+> atan2f -0x1.99999ap-1 -0x1p-1 = -0x1.10900ap+1
+3429c3429
+< atan2f -0x1.99999ap-1 -0x1.99999ap-3 = -0x1.d0d6ap+0
+---
+> atan2f -0x1.99999ap-1 -0x1.99999ap-3 = -0x1.d0d6a2p+0
+3432c3432
+< atan2f -0x1.99999ap-1 -0x1.99999ap-5 = -0x1.a21a62p+0
+---
+> atan2f -0x1.99999ap-1 -0x1.99999ap-5 = -0x1.a21a64p+0
+3442c3442
+< atan2f -0x1.99999ap-1 0x1.ccccccp-2 = -0x1.0ef3c2p+0
+---
+> atan2f -0x1.99999ap-1 0x1.ccccccp-2 = -0x1.0ef3cp+0
+3444c3444
+< atan2f -0x1.99999ap-1 0x1.19999ap-1 = -0x1.efe06ap-1
+---
+> atan2f -0x1.99999ap-1 0x1.19999ap-1 = -0x1.efe068p-1
+3447c3447
+< atan2f -0x1.99999ap-1 0x1.666666p-1 = -0x1.b434fp-1
+---
+> atan2f -0x1.99999ap-1 0x1.666666p-1 = -0x1.b434eep-1
+3453c3453
+< atan2f -0x1.8p-1 -0x1p+0 = -0x1.3fc178p+1
+---
+> atan2f -0x1.8p-1 -0x1p+0 = -0x1.3fc176p+1
+3456c3456
+< atan2f -0x1.8p-1 -0x1.b33334p-1 = -0x1.35952p+1
+---
+> atan2f -0x1.8p-1 -0x1.b33334p-1 = -0x1.35951ep+1
+3464c3464
+< atan2f -0x1.8p-1 -0x1.ccccccp-2 = -0x1.0e3c5p+1
+---
+> atan2f -0x1.8p-1 -0x1.ccccccp-2 = -0x1.0e3c52p+1
+3467c3467
+< atan2f -0x1.8p-1 -0x1.333334p-2 = -0x1.f38892p+0
+---
+> atan2f -0x1.8p-1 -0x1.333334p-2 = -0x1.f38894p+0
+3470c3470
+< atan2f -0x1.8p-1 -0x1.333334p-3 = -0x1.c4a838p+0
+---
+> atan2f -0x1.8p-1 -0x1.333334p-3 = -0x1.c4a83ap+0
+3480c3480
+< atan2f -0x1.8p-1 0x1.666666p-2 = -0x1.2258e8p+0
+---
+> atan2f -0x1.8p-1 0x1.666666p-2 = -0x1.2258eap+0
+3482c3482
+< atan2f -0x1.8p-1 0x1.ccccccp-2 = -0x1.07c6c8p+0
+---
+> atan2f -0x1.8p-1 0x1.ccccccp-2 = -0x1.07c6c6p+0
+3485,3486c3485,3486
+< atan2f -0x1.8p-1 0x1.333334p-1 = -0x1.cac7c6p-1
+< atan2f -0x1.8p-1 0x1.4cccccp-1 = -0x1.b6a21ep-1
+---
+> atan2f -0x1.8p-1 0x1.333334p-1 = -0x1.cac7c4p-1
+> atan2f -0x1.8p-1 0x1.4cccccp-1 = -0x1.b6a22p-1
+3490,3491c3490,3491
+< atan2f -0x1.8p-1 0x1.b33334p-1 = -0x1.722a58p-1
+< atan2f -0x1.8p-1 0x1.ccccccp-1 = -0x1.63b4bep-1
+---
+> atan2f -0x1.8p-1 0x1.b33334p-1 = -0x1.722a5ap-1
+> atan2f -0x1.8p-1 0x1.ccccccp-1 = -0x1.63b4bcp-1
+3494c3494
+< atan2f -0x1.666666p-1 -0x1.e66666p-1 = -0x1.40d728p+1
+---
+> atan2f -0x1.666666p-1 -0x1.e66666p-1 = -0x1.40d726p+1
+3501c3501
+< atan2f -0x1.666666p-1 -0x1.333334p-1 = -0x1.23c42p+1
+---
+> atan2f -0x1.666666p-1 -0x1.333334p-1 = -0x1.23c41ep+1
+3526c3526
+< atan2f -0x1.666666p-1 0x1.4cccccp-1 = -0x1.a51404p-1
+---
+> atan2f -0x1.666666p-1 0x1.4cccccp-1 = -0x1.a51402p-1
+3538c3538
+< atan2f -0x1.4cccccp-1 -0x1.8p-1 = -0x1.36b864p+1
+---
+> atan2f -0x1.4cccccp-1 -0x1.8p-1 = -0x1.36b862p+1
+3541c3541
+< atan2f -0x1.4cccccp-1 -0x1.333334p-1 = -0x1.2879c4p+1
+---
+> atan2f -0x1.4cccccp-1 -0x1.333334p-1 = -0x1.2879c2p+1
+3568c3568
+< atan2f -0x1.4cccccp-1 0x1.8p-1 = -0x1.6d9d4ap-1
+---
+> atan2f -0x1.4cccccp-1 0x1.8p-1 = -0x1.6d9d4cp-1
+3576,3577c3576,3577
+< atan2f -0x1.333334p-1 -0x1.b33334p-1 = -0x1.43727p+1
+< atan2f -0x1.333334p-1 -0x1.99999ap-1 = -0x1.3fc178p+1
+---
+> atan2f -0x1.333334p-1 -0x1.b33334p-1 = -0x1.43726ep+1
+> atan2f -0x1.333334p-1 -0x1.99999ap-1 = -0x1.3fc176p+1
+3579c3579
+< atan2f -0x1.333334p-1 -0x1.666666p-1 = -0x1.376b7p+1
+---
+> atan2f -0x1.333334p-1 -0x1.666666p-1 = -0x1.376b72p+1
+3584c3584
+< atan2f -0x1.333334p-1 -0x1.ccccccp-2 = -0x1.1b6e1ap+1
+---
+> atan2f -0x1.333334p-1 -0x1.ccccccp-2 = -0x1.1b6e18p+1
+3590c3590
+< atan2f -0x1.333334p-1 -0x1.333334p-3 = -0x1.d0d6ap+0
+---
+> atan2f -0x1.333334p-1 -0x1.333334p-3 = -0x1.d0d6a2p+0
+3602,3603c3602,3603
+< atan2f -0x1.333334p-1 0x1.ccccccp-2 = -0x1.dac67p-1
+< atan2f -0x1.333334p-1 0x1p-1 = -0x1.c08abp-1
+---
+> atan2f -0x1.333334p-1 0x1.ccccccp-2 = -0x1.dac672p-1
+> atan2f -0x1.333334p-1 0x1p-1 = -0x1.c08aaep-1
+3613c3613
+< atan2f -0x1.19999ap-1 -0x1p+0 = -0x1.51c28cp+1
+---
+> atan2f -0x1.19999ap-1 -0x1p+0 = -0x1.51c28ap+1
+3620c3620
+< atan2f -0x1.19999ap-1 -0x1.4cccccp-1 = -0x1.383c28p+1
+---
+> atan2f -0x1.19999ap-1 -0x1.4cccccp-1 = -0x1.383c26p+1
+3636c3636
+< atan2f -0x1.19999ap-1 0x1.333334p-3 = -0x1.4df69cp+0
+---
+> atan2f -0x1.19999ap-1 0x1.333334p-3 = -0x1.4df69ep+0
+3655c3655
+< atan2f -0x1p-1 -0x1.ccccccp-1 = -0x1.51371cp+1
+---
+> atan2f -0x1p-1 -0x1.ccccccp-1 = -0x1.51371ap+1
+3657c3657
+< atan2f -0x1p-1 -0x1.99999ap-1 = -0x1.4a9f88p+1
+---
+> atan2f -0x1p-1 -0x1.99999ap-1 = -0x1.4a9f86p+1
+3669,3671c3669,3671
+< atan2f -0x1p-1 -0x1.99999ap-3 = -0x1.f38892p+0
+< atan2f -0x1p-1 -0x1.333334p-3 = -0x1.dcbc9ep+0
+< atan2f -0x1p-1 -0x1.99999ap-4 = -0x1.c4a838p+0
+---
+> atan2f -0x1p-1 -0x1.99999ap-3 = -0x1.f38894p+0
+> atan2f -0x1p-1 -0x1.333334p-3 = -0x1.dcbcap+0
+> atan2f -0x1p-1 -0x1.99999ap-4 = -0x1.c4a83ap+0
+3686c3686
+< atan2f -0x1p-1 0x1.4cccccp-1 = -0x1.4fb758p-1
+---
+> atan2f -0x1p-1 0x1.4cccccp-1 = -0x1.4fb756p-1
+3701c3701
+< atan2f -0x1.ccccccp-2 -0x1.333334p-1 = -0x1.3fc178p+1
+---
+> atan2f -0x1.ccccccp-2 -0x1.333334p-1 = -0x1.3fc176p+1
+3703c3703
+< atan2f -0x1.ccccccp-2 -0x1p-1 = -0x1.3452d4p+1
+---
+> atan2f -0x1.ccccccp-2 -0x1p-1 = -0x1.3452d2p+1
+3706c3706
+< atan2f -0x1.ccccccp-2 -0x1.666666p-2 = -0x1.1dacecp+1
+---
+> atan2f -0x1.ccccccp-2 -0x1.666666p-2 = -0x1.1daceap+1
+3708,3709c3708,3709
+< atan2f -0x1.ccccccp-2 -0x1p-2 = -0x1.09f874p+1
+< atan2f -0x1.ccccccp-2 -0x1.99999ap-3 = -0x1.fd3074p+0
+---
+> atan2f -0x1.ccccccp-2 -0x1p-2 = -0x1.09f876p+1
+> atan2f -0x1.ccccccp-2 -0x1.99999ap-3 = -0x1.fd3076p+0
+3712c3712
+< atan2f -0x1.ccccccp-2 -0x1.99999ap-5 = -0x1.ae73bcp+0
+---
+> atan2f -0x1.ccccccp-2 -0x1.99999ap-5 = -0x1.ae73bep+0
+3721c3721
+< atan2f -0x1.ccccccp-2 0x1.99999ap-2 = -0x1.b034f4p-1
+---
+> atan2f -0x1.ccccccp-2 0x1.99999ap-2 = -0x1.b034f2p-1
+3725c3725
+< atan2f -0x1.ccccccp-2 0x1.333334p-1 = -0x1.4978f8p-1
+---
+> atan2f -0x1.ccccccp-2 0x1.333334p-1 = -0x1.4978fap-1
+3729c3729
+< atan2f -0x1.ccccccp-2 0x1.99999ap-1 = -0x1.0657eap-1
+---
+> atan2f -0x1.ccccccp-2 0x1.99999ap-1 = -0x1.0657e8p-1
+3732c3732
+< atan2f -0x1.ccccccp-2 0x1.e66666p-1 = -0x1.c4fdbep-2
+---
+> atan2f -0x1.ccccccp-2 0x1.e66666p-1 = -0x1.c4fdcp-2
+3735c3735
+< atan2f -0x1.99999ap-2 -0x1.ccccccp-1 = -0x1.5c9754p+1
+---
+> atan2f -0x1.99999ap-2 -0x1.ccccccp-1 = -0x1.5c9756p+1
+3738c3738
+< atan2f -0x1.99999ap-2 -0x1.8p-1 = -0x1.5368c8p+1
+---
+> atan2f -0x1.99999ap-2 -0x1.8p-1 = -0x1.5368cap+1
+3748c3748
+< atan2f -0x1.99999ap-2 -0x1p-2 = -0x1.109008p+1
+---
+> atan2f -0x1.99999ap-2 -0x1p-2 = -0x1.10900ap+1
+3751c3751
+< atan2f -0x1.99999ap-2 -0x1.99999ap-4 = -0x1.d0d6ap+0
+---
+> atan2f -0x1.99999ap-2 -0x1.99999ap-4 = -0x1.d0d6a2p+0
+3760c3760
+< atan2f -0x1.99999ap-2 0x1.666666p-2 = -0x1.b434fp-1
+---
+> atan2f -0x1.99999ap-2 0x1.666666p-2 = -0x1.b434eep-1
+3764c3764
+< atan2f -0x1.99999ap-2 0x1.19999ap-1 = -0x1.41f198p-1
+---
+> atan2f -0x1.99999ap-2 0x1.19999ap-1 = -0x1.41f196p-1
+3768c3768
+< atan2f -0x1.99999ap-2 0x1.8p-1 = -0x1.f5b762p-2
+---
+> atan2f -0x1.99999ap-2 0x1.8p-1 = -0x1.f5b76p-2
+3771,3772c3771,3772
+< atan2f -0x1.99999ap-2 0x1.ccccccp-1 = -0x1.ac4302p-2
+< atan2f -0x1.99999ap-2 0x1.e66666p-1 = -0x1.981644p-2
+---
+> atan2f -0x1.99999ap-2 0x1.ccccccp-1 = -0x1.ac43p-2
+> atan2f -0x1.99999ap-2 0x1.e66666p-1 = -0x1.981646p-2
+3787c3787
+< atan2f -0x1.666666p-2 -0x1.333334p-2 = -0x1.23c42p+1
+---
+> atan2f -0x1.666666p-2 -0x1.333334p-2 = -0x1.23c41ep+1
+3806c3806
+< atan2f -0x1.666666p-2 0x1.4cccccp-1 = -0x1.f9cbc6p-2
+---
+> atan2f -0x1.666666p-2 0x1.4cccccp-1 = -0x1.f9cbc4p-2
+3825,3826c3825,3826
+< atan2f -0x1.333334p-2 -0x1.99999ap-2 = -0x1.3fc178p+1
+< atan2f -0x1.333334p-2 -0x1.666666p-2 = -0x1.376b7p+1
+---
+> atan2f -0x1.333334p-2 -0x1.99999ap-2 = -0x1.3fc176p+1
+> atan2f -0x1.333334p-2 -0x1.666666p-2 = -0x1.376b72p+1
+3838c3838
+< atan2f -0x1.333334p-2 0x1p-2 = -0x1.c08abp-1
+---
+> atan2f -0x1.333334p-2 0x1p-2 = -0x1.c08aaep-1
+3851c3851
+< atan2f -0x1.333334p-2 0x1.ccccccp-1 = -0x1.4978fap-2
+---
+> atan2f -0x1.333334p-2 0x1.ccccccp-1 = -0x1.4978fcp-2
+3864,3865c3864,3865
+< atan2f -0x1p-2 -0x1.ccccccp-2 = -0x1.51371cp+1
+< atan2f -0x1p-2 -0x1.99999ap-2 = -0x1.4a9f88p+1
+---
+> atan2f -0x1p-2 -0x1.ccccccp-2 = -0x1.51371ap+1
+> atan2f -0x1p-2 -0x1.99999ap-2 = -0x1.4a9f86p+1
+3871,3872c3871,3872
+< atan2f -0x1p-2 -0x1.99999ap-4 = -0x1.f38892p+0
+< atan2f -0x1p-2 -0x1.99999ap-5 = -0x1.c4a838p+0
+---
+> atan2f -0x1p-2 -0x1.99999ap-4 = -0x1.f38894p+0
+> atan2f -0x1p-2 -0x1.99999ap-5 = -0x1.c4a83ap+0
+3895c3895
+< atan2f -0x1.99999ap-3 -0x1.ccccccp-1 = -0x1.76225cp+1
+---
+> atan2f -0x1.99999ap-3 -0x1.ccccccp-1 = -0x1.76225ep+1
+3904c3904
+< atan2f -0x1.99999ap-3 -0x1.ccccccp-2 = -0x1.5c9754p+1
+---
+> atan2f -0x1.99999ap-3 -0x1.ccccccp-2 = -0x1.5c9756p+1
+3912c3912
+< atan2f -0x1.99999ap-3 -0x1.99999ap-5 = -0x1.d0d6ap+0
+---
+> atan2f -0x1.99999ap-3 -0x1.99999ap-5 = -0x1.d0d6a2p+0
+3922c3922
+< atan2f -0x1.99999ap-3 0x1.ccccccp-2 = -0x1.ac4302p-2
+---
+> atan2f -0x1.99999ap-3 0x1.ccccccp-2 = -0x1.ac43p-2
+3926c3926
+< atan2f -0x1.99999ap-3 0x1.4cccccp-1 = -0x1.31a9b4p-2
+---
+> atan2f -0x1.99999ap-3 0x1.4cccccp-1 = -0x1.31a9b6p-2
+3928c3928
+< atan2f -0x1.99999ap-3 0x1.8p-1 = -0x1.0adb5cp-2
+---
+> atan2f -0x1.99999ap-3 0x1.8p-1 = -0x1.0adb5ap-2
+3931c3931
+< atan2f -0x1.99999ap-3 0x1.ccccccp-1 = -0x1.bfd584p-3
+---
+> atan2f -0x1.99999ap-3 0x1.ccccccp-1 = -0x1.bfd582p-3
+3942c3942
+< atan2f -0x1.333334p-3 -0x1.19999ap-1 = -0x1.700b28p+1
+---
+> atan2f -0x1.333334p-3 -0x1.19999ap-1 = -0x1.700b2ap+1
+3949c3949
+< atan2f -0x1.333334p-3 -0x1.99999ap-3 = -0x1.3fc178p+1
+---
+> atan2f -0x1.333334p-3 -0x1.99999ap-3 = -0x1.3fc176p+1
+3962c3962
+< atan2f -0x1.333334p-3 0x1.ccccccp-2 = -0x1.4978fap-2
+---
+> atan2f -0x1.333334p-3 0x1.ccccccp-2 = -0x1.4978fcp-2
+3964c3964
+< atan2f -0x1.333334p-3 0x1.19999ap-1 = -0x1.10a462p-2
+---
+> atan2f -0x1.333334p-3 0x1.19999ap-1 = -0x1.10a46p-2
+3969c3969
+< atan2f -0x1.333334p-3 0x1.99999ap-1 = -0x1.7b97b4p-3
+---
+> atan2f -0x1.333334p-3 0x1.99999ap-1 = -0x1.7b97b6p-3
+3971c3971
+< atan2f -0x1.333334p-3 0x1.ccccccp-1 = -0x1.523978p-3
+---
+> atan2f -0x1.333334p-3 0x1.ccccccp-1 = -0x1.52397ap-3
+3984c3984
+< atan2f -0x1.99999ap-4 -0x1.ccccccp-2 = -0x1.76225cp+1
+---
+> atan2f -0x1.99999ap-4 -0x1.ccccccp-2 = -0x1.76225ep+1
+4002c4002
+< atan2f -0x1.99999ap-4 0x1.ccccccp-2 = -0x1.bfd584p-3
+---
+> atan2f -0x1.99999ap-4 0x1.ccccccp-2 = -0x1.bfd582p-3
+4005,4007c4005,4007
+< atan2f -0x1.99999ap-4 0x1.333334p-1 = -0x1.523976p-3
+< atan2f -0x1.99999ap-4 0x1.4cccccp-1 = -0x1.38a036p-3
+< atan2f -0x1.99999ap-4 0x1.666666p-1 = -0x1.229aeep-3
+---
+> atan2f -0x1.99999ap-4 0x1.333334p-1 = -0x1.523978p-3
+> atan2f -0x1.99999ap-4 0x1.4cccccp-1 = -0x1.38a038p-3
+> atan2f -0x1.99999ap-4 0x1.666666p-1 = -0x1.229aecp-3
+4010,4011c4010,4011
+< atan2f -0x1.99999ap-4 0x1.b33334p-1 = -0x1.dfad6cp-4
+< atan2f -0x1.99999ap-4 0x1.ccccccp-1 = -0x1.c54084p-4
+---
+> atan2f -0x1.99999ap-4 0x1.b33334p-1 = -0x1.dfad6ap-4
+> atan2f -0x1.99999ap-4 0x1.ccccccp-1 = -0x1.c54082p-4
+4039,4040c4039,4040
+< atan2f -0x1.99999ap-5 0x1.333334p-2 = -0x1.523976p-3
+< atan2f -0x1.99999ap-5 0x1.666666p-2 = -0x1.229aeep-3
+---
+> atan2f -0x1.99999ap-5 0x1.333334p-2 = -0x1.523978p-3
+> atan2f -0x1.99999ap-5 0x1.666666p-2 = -0x1.229aecp-3
+4042c4042
+< atan2f -0x1.99999ap-5 0x1.ccccccp-2 = -0x1.c54084p-4
+---
+> atan2f -0x1.99999ap-5 0x1.ccccccp-2 = -0x1.c54082p-4
+4051,4052c4051,4052
+< atan2f -0x1.99999ap-5 0x1.ccccccp-1 = -0x1.c6a4dp-5
+< atan2f -0x1.99999ap-5 0x1.e66666p-1 = -0x1.aec2acp-5
+---
+> atan2f -0x1.99999ap-5 0x1.ccccccp-1 = -0x1.c6a4cep-5
+> atan2f -0x1.99999ap-5 0x1.e66666p-1 = -0x1.aec2aep-5
+4119,4120c4119,4120
+< atan2f 0x1.99999ap-5 0x1.333334p-2 = 0x1.523976p-3
+< atan2f 0x1.99999ap-5 0x1.666666p-2 = 0x1.229aeep-3
+---
+> atan2f 0x1.99999ap-5 0x1.333334p-2 = 0x1.523978p-3
+> atan2f 0x1.99999ap-5 0x1.666666p-2 = 0x1.229aecp-3
+4122c4122
+< atan2f 0x1.99999ap-5 0x1.ccccccp-2 = 0x1.c54084p-4
+---
+> atan2f 0x1.99999ap-5 0x1.ccccccp-2 = 0x1.c54082p-4
+4131,4132c4131,4132
+< atan2f 0x1.99999ap-5 0x1.ccccccp-1 = 0x1.c6a4dp-5
+< atan2f 0x1.99999ap-5 0x1.e66666p-1 = 0x1.aec2acp-5
+---
+> atan2f 0x1.99999ap-5 0x1.ccccccp-1 = 0x1.c6a4cep-5
+> atan2f 0x1.99999ap-5 0x1.e66666p-1 = 0x1.aec2aep-5
+4144c4144
+< atan2f 0x1.99999ap-4 -0x1.ccccccp-2 = 0x1.76225cp+1
+---
+> atan2f 0x1.99999ap-4 -0x1.ccccccp-2 = 0x1.76225ep+1
+4162c4162
+< atan2f 0x1.99999ap-4 0x1.ccccccp-2 = 0x1.bfd584p-3
+---
+> atan2f 0x1.99999ap-4 0x1.ccccccp-2 = 0x1.bfd582p-3
+4165,4167c4165,4167
+< atan2f 0x1.99999ap-4 0x1.333334p-1 = 0x1.523976p-3
+< atan2f 0x1.99999ap-4 0x1.4cccccp-1 = 0x1.38a036p-3
+< atan2f 0x1.99999ap-4 0x1.666666p-1 = 0x1.229aeep-3
+---
+> atan2f 0x1.99999ap-4 0x1.333334p-1 = 0x1.523978p-3
+> atan2f 0x1.99999ap-4 0x1.4cccccp-1 = 0x1.38a038p-3
+> atan2f 0x1.99999ap-4 0x1.666666p-1 = 0x1.229aecp-3
+4170,4171c4170,4171
+< atan2f 0x1.99999ap-4 0x1.b33334p-1 = 0x1.dfad6cp-4
+< atan2f 0x1.99999ap-4 0x1.ccccccp-1 = 0x1.c54084p-4
+---
+> atan2f 0x1.99999ap-4 0x1.b33334p-1 = 0x1.dfad6ap-4
+> atan2f 0x1.99999ap-4 0x1.ccccccp-1 = 0x1.c54082p-4
+4182c4182
+< atan2f 0x1.333334p-3 -0x1.19999ap-1 = 0x1.700b28p+1
+---
+> atan2f 0x1.333334p-3 -0x1.19999ap-1 = 0x1.700b2ap+1
+4189c4189
+< atan2f 0x1.333334p-3 -0x1.99999ap-3 = 0x1.3fc178p+1
+---
+> atan2f 0x1.333334p-3 -0x1.99999ap-3 = 0x1.3fc176p+1
+4202c4202
+< atan2f 0x1.333334p-3 0x1.ccccccp-2 = 0x1.4978fap-2
+---
+> atan2f 0x1.333334p-3 0x1.ccccccp-2 = 0x1.4978fcp-2
+4204c4204
+< atan2f 0x1.333334p-3 0x1.19999ap-1 = 0x1.10a462p-2
+---
+> atan2f 0x1.333334p-3 0x1.19999ap-1 = 0x1.10a46p-2
+4209c4209
+< atan2f 0x1.333334p-3 0x1.99999ap-1 = 0x1.7b97b4p-3
+---
+> atan2f 0x1.333334p-3 0x1.99999ap-1 = 0x1.7b97b6p-3
+4211c4211
+< atan2f 0x1.333334p-3 0x1.ccccccp-1 = 0x1.523978p-3
+---
+> atan2f 0x1.333334p-3 0x1.ccccccp-1 = 0x1.52397ap-3
+4215c4215
+< atan2f 0x1.99999ap-3 -0x1.ccccccp-1 = 0x1.76225cp+1
+---
+> atan2f 0x1.99999ap-3 -0x1.ccccccp-1 = 0x1.76225ep+1
+4224c4224
+< atan2f 0x1.99999ap-3 -0x1.ccccccp-2 = 0x1.5c9754p+1
+---
+> atan2f 0x1.99999ap-3 -0x1.ccccccp-2 = 0x1.5c9756p+1
+4232c4232
+< atan2f 0x1.99999ap-3 -0x1.99999ap-5 = 0x1.d0d6ap+0
+---
+> atan2f 0x1.99999ap-3 -0x1.99999ap-5 = 0x1.d0d6a2p+0
+4242c4242
+< atan2f 0x1.99999ap-3 0x1.ccccccp-2 = 0x1.ac4302p-2
+---
+> atan2f 0x1.99999ap-3 0x1.ccccccp-2 = 0x1.ac43p-2
+4246c4246
+< atan2f 0x1.99999ap-3 0x1.4cccccp-1 = 0x1.31a9b4p-2
+---
+> atan2f 0x1.99999ap-3 0x1.4cccccp-1 = 0x1.31a9b6p-2
+4248c4248
+< atan2f 0x1.99999ap-3 0x1.8p-1 = 0x1.0adb5cp-2
+---
+> atan2f 0x1.99999ap-3 0x1.8p-1 = 0x1.0adb5ap-2
+4251c4251
+< atan2f 0x1.99999ap-3 0x1.ccccccp-1 = 0x1.bfd584p-3
+---
+> atan2f 0x1.99999ap-3 0x1.ccccccp-1 = 0x1.bfd582p-3
+4264,4265c4264,4265
+< atan2f 0x1p-2 -0x1.ccccccp-2 = 0x1.51371cp+1
+< atan2f 0x1p-2 -0x1.99999ap-2 = 0x1.4a9f88p+1
+---
+> atan2f 0x1p-2 -0x1.ccccccp-2 = 0x1.51371ap+1
+> atan2f 0x1p-2 -0x1.99999ap-2 = 0x1.4a9f86p+1
+4271,4272c4271,4272
+< atan2f 0x1p-2 -0x1.99999ap-4 = 0x1.f38892p+0
+< atan2f 0x1p-2 -0x1.99999ap-5 = 0x1.c4a838p+0
+---
+> atan2f 0x1p-2 -0x1.99999ap-4 = 0x1.f38894p+0
+> atan2f 0x1p-2 -0x1.99999ap-5 = 0x1.c4a83ap+0
+4305,4306c4305,4306
+< atan2f 0x1.333334p-2 -0x1.99999ap-2 = 0x1.3fc178p+1
+< atan2f 0x1.333334p-2 -0x1.666666p-2 = 0x1.376b7p+1
+---
+> atan2f 0x1.333334p-2 -0x1.99999ap-2 = 0x1.3fc176p+1
+> atan2f 0x1.333334p-2 -0x1.666666p-2 = 0x1.376b72p+1
+4318c4318
+< atan2f 0x1.333334p-2 0x1p-2 = 0x1.c08abp-1
+---
+> atan2f 0x1.333334p-2 0x1p-2 = 0x1.c08aaep-1
+4331c4331
+< atan2f 0x1.333334p-2 0x1.ccccccp-1 = 0x1.4978fap-2
+---
+> atan2f 0x1.333334p-2 0x1.ccccccp-1 = 0x1.4978fcp-2
+4347c4347
+< atan2f 0x1.666666p-2 -0x1.333334p-2 = 0x1.23c42p+1
+---
+> atan2f 0x1.666666p-2 -0x1.333334p-2 = 0x1.23c41ep+1
+4366c4366
+< atan2f 0x1.666666p-2 0x1.4cccccp-1 = 0x1.f9cbc6p-2
+---
+> atan2f 0x1.666666p-2 0x1.4cccccp-1 = 0x1.f9cbc4p-2
+4375c4375
+< atan2f 0x1.99999ap-2 -0x1.ccccccp-1 = 0x1.5c9754p+1
+---
+> atan2f 0x1.99999ap-2 -0x1.ccccccp-1 = 0x1.5c9756p+1
+4378c4378
+< atan2f 0x1.99999ap-2 -0x1.8p-1 = 0x1.5368c8p+1
+---
+> atan2f 0x1.99999ap-2 -0x1.8p-1 = 0x1.5368cap+1
+4388c4388
+< atan2f 0x1.99999ap-2 -0x1p-2 = 0x1.109008p+1
+---
+> atan2f 0x1.99999ap-2 -0x1p-2 = 0x1.10900ap+1
+4391c4391
+< atan2f 0x1.99999ap-2 -0x1.99999ap-4 = 0x1.d0d6ap+0
+---
+> atan2f 0x1.99999ap-2 -0x1.99999ap-4 = 0x1.d0d6a2p+0
+4400c4400
+< atan2f 0x1.99999ap-2 0x1.666666p-2 = 0x1.b434fp-1
+---
+> atan2f 0x1.99999ap-2 0x1.666666p-2 = 0x1.b434eep-1
+4404c4404
+< atan2f 0x1.99999ap-2 0x1.19999ap-1 = 0x1.41f198p-1
+---
+> atan2f 0x1.99999ap-2 0x1.19999ap-1 = 0x1.41f196p-1
+4408c4408
+< atan2f 0x1.99999ap-2 0x1.8p-1 = 0x1.f5b762p-2
+---
+> atan2f 0x1.99999ap-2 0x1.8p-1 = 0x1.f5b76p-2
+4411,4412c4411,4412
+< atan2f 0x1.99999ap-2 0x1.ccccccp-1 = 0x1.ac4302p-2
+< atan2f 0x1.99999ap-2 0x1.e66666p-1 = 0x1.981644p-2
+---
+> atan2f 0x1.99999ap-2 0x1.ccccccp-1 = 0x1.ac43p-2
+> atan2f 0x1.99999ap-2 0x1.e66666p-1 = 0x1.981646p-2
+4421c4421
+< atan2f 0x1.ccccccp-2 -0x1.333334p-1 = 0x1.3fc178p+1
+---
+> atan2f 0x1.ccccccp-2 -0x1.333334p-1 = 0x1.3fc176p+1
+4423c4423
+< atan2f 0x1.ccccccp-2 -0x1p-1 = 0x1.3452d4p+1
+---
+> atan2f 0x1.ccccccp-2 -0x1p-1 = 0x1.3452d2p+1
+4426c4426
+< atan2f 0x1.ccccccp-2 -0x1.666666p-2 = 0x1.1dacecp+1
+---
+> atan2f 0x1.ccccccp-2 -0x1.666666p-2 = 0x1.1daceap+1
+4428,4429c4428,4429
+< atan2f 0x1.ccccccp-2 -0x1p-2 = 0x1.09f874p+1
+< atan2f 0x1.ccccccp-2 -0x1.99999ap-3 = 0x1.fd3074p+0
+---
+> atan2f 0x1.ccccccp-2 -0x1p-2 = 0x1.09f876p+1
+> atan2f 0x1.ccccccp-2 -0x1.99999ap-3 = 0x1.fd3076p+0
+4432c4432
+< atan2f 0x1.ccccccp-2 -0x1.99999ap-5 = 0x1.ae73bcp+0
+---
+> atan2f 0x1.ccccccp-2 -0x1.99999ap-5 = 0x1.ae73bep+0
+4441c4441
+< atan2f 0x1.ccccccp-2 0x1.99999ap-2 = 0x1.b034f4p-1
+---
+> atan2f 0x1.ccccccp-2 0x1.99999ap-2 = 0x1.b034f2p-1
+4445c4445
+< atan2f 0x1.ccccccp-2 0x1.333334p-1 = 0x1.4978f8p-1
+---
+> atan2f 0x1.ccccccp-2 0x1.333334p-1 = 0x1.4978fap-1
+4449c4449
+< atan2f 0x1.ccccccp-2 0x1.99999ap-1 = 0x1.0657eap-1
+---
+> atan2f 0x1.ccccccp-2 0x1.99999ap-1 = 0x1.0657e8p-1
+4452c4452
+< atan2f 0x1.ccccccp-2 0x1.e66666p-1 = 0x1.c4fdbep-2
+---
+> atan2f 0x1.ccccccp-2 0x1.e66666p-1 = 0x1.c4fdcp-2
+4455c4455
+< atan2f 0x1p-1 -0x1.ccccccp-1 = 0x1.51371cp+1
+---
+> atan2f 0x1p-1 -0x1.ccccccp-1 = 0x1.51371ap+1
+4457c4457
+< atan2f 0x1p-1 -0x1.99999ap-1 = 0x1.4a9f88p+1
+---
+> atan2f 0x1p-1 -0x1.99999ap-1 = 0x1.4a9f86p+1
+4469,4471c4469,4471
+< atan2f 0x1p-1 -0x1.99999ap-3 = 0x1.f38892p+0
+< atan2f 0x1p-1 -0x1.333334p-3 = 0x1.dcbc9ep+0
+< atan2f 0x1p-1 -0x1.99999ap-4 = 0x1.c4a838p+0
+---
+> atan2f 0x1p-1 -0x1.99999ap-3 = 0x1.f38894p+0
+> atan2f 0x1p-1 -0x1.333334p-3 = 0x1.dcbcap+0
+> atan2f 0x1p-1 -0x1.99999ap-4 = 0x1.c4a83ap+0
+4486c4486
+< atan2f 0x1p-1 0x1.4cccccp-1 = 0x1.4fb758p-1
+---
+> atan2f 0x1p-1 0x1.4cccccp-1 = 0x1.4fb756p-1
+4493c4493
+< atan2f 0x1.19999ap-1 -0x1p+0 = 0x1.51c28cp+1
+---
+> atan2f 0x1.19999ap-1 -0x1p+0 = 0x1.51c28ap+1
+4500c4500
+< atan2f 0x1.19999ap-1 -0x1.4cccccp-1 = 0x1.383c28p+1
+---
+> atan2f 0x1.19999ap-1 -0x1.4cccccp-1 = 0x1.383c26p+1
+4516c4516
+< atan2f 0x1.19999ap-1 0x1.333334p-3 = 0x1.4df69cp+0
+---
+> atan2f 0x1.19999ap-1 0x1.333334p-3 = 0x1.4df69ep+0
+4536,4537c4536,4537
+< atan2f 0x1.333334p-1 -0x1.b33334p-1 = 0x1.43727p+1
+< atan2f 0x1.333334p-1 -0x1.99999ap-1 = 0x1.3fc178p+1
+---
+> atan2f 0x1.333334p-1 -0x1.b33334p-1 = 0x1.43726ep+1
+> atan2f 0x1.333334p-1 -0x1.99999ap-1 = 0x1.3fc176p+1
+4539c4539
+< atan2f 0x1.333334p-1 -0x1.666666p-1 = 0x1.376b7p+1
+---
+> atan2f 0x1.333334p-1 -0x1.666666p-1 = 0x1.376b72p+1
+4544c4544
+< atan2f 0x1.333334p-1 -0x1.ccccccp-2 = 0x1.1b6e1ap+1
+---
+> atan2f 0x1.333334p-1 -0x1.ccccccp-2 = 0x1.1b6e18p+1
+4550c4550
+< atan2f 0x1.333334p-1 -0x1.333334p-3 = 0x1.d0d6ap+0
+---
+> atan2f 0x1.333334p-1 -0x1.333334p-3 = 0x1.d0d6a2p+0
+4562,4563c4562,4563
+< atan2f 0x1.333334p-1 0x1.ccccccp-2 = 0x1.dac67p-1
+< atan2f 0x1.333334p-1 0x1p-1 = 0x1.c08abp-1
+---
+> atan2f 0x1.333334p-1 0x1.ccccccp-2 = 0x1.dac672p-1
+> atan2f 0x1.333334p-1 0x1p-1 = 0x1.c08aaep-1
+4578c4578
+< atan2f 0x1.4cccccp-1 -0x1.8p-1 = 0x1.36b864p+1
+---
+> atan2f 0x1.4cccccp-1 -0x1.8p-1 = 0x1.36b862p+1
+4581c4581
+< atan2f 0x1.4cccccp-1 -0x1.333334p-1 = 0x1.2879c4p+1
+---
+> atan2f 0x1.4cccccp-1 -0x1.333334p-1 = 0x1.2879c2p+1
+4608c4608
+< atan2f 0x1.4cccccp-1 0x1.8p-1 = 0x1.6d9d4ap-1
+---
+> atan2f 0x1.4cccccp-1 0x1.8p-1 = 0x1.6d9d4cp-1
+4614c4614
+< atan2f 0x1.666666p-1 -0x1.e66666p-1 = 0x1.40d728p+1
+---
+> atan2f 0x1.666666p-1 -0x1.e66666p-1 = 0x1.40d726p+1
+4621c4621
+< atan2f 0x1.666666p-1 -0x1.333334p-1 = 0x1.23c42p+1
+---
+> atan2f 0x1.666666p-1 -0x1.333334p-1 = 0x1.23c41ep+1
+4646c4646
+< atan2f 0x1.666666p-1 0x1.4cccccp-1 = 0x1.a51404p-1
+---
+> atan2f 0x1.666666p-1 0x1.4cccccp-1 = 0x1.a51402p-1
+4653c4653
+< atan2f 0x1.8p-1 -0x1p+0 = 0x1.3fc178p+1
+---
+> atan2f 0x1.8p-1 -0x1p+0 = 0x1.3fc176p+1
+4656c4656
+< atan2f 0x1.8p-1 -0x1.b33334p-1 = 0x1.35952p+1
+---
+> atan2f 0x1.8p-1 -0x1.b33334p-1 = 0x1.35951ep+1
+4664c4664
+< atan2f 0x1.8p-1 -0x1.ccccccp-2 = 0x1.0e3c5p+1
+---
+> atan2f 0x1.8p-1 -0x1.ccccccp-2 = 0x1.0e3c52p+1
+4667c4667
+< atan2f 0x1.8p-1 -0x1.333334p-2 = 0x1.f38892p+0
+---
+> atan2f 0x1.8p-1 -0x1.333334p-2 = 0x1.f38894p+0
+4670c4670
+< atan2f 0x1.8p-1 -0x1.333334p-3 = 0x1.c4a838p+0
+---
+> atan2f 0x1.8p-1 -0x1.333334p-3 = 0x1.c4a83ap+0
+4680c4680
+< atan2f 0x1.8p-1 0x1.666666p-2 = 0x1.2258e8p+0
+---
+> atan2f 0x1.8p-1 0x1.666666p-2 = 0x1.2258eap+0
+4682c4682
+< atan2f 0x1.8p-1 0x1.ccccccp-2 = 0x1.07c6c8p+0
+---
+> atan2f 0x1.8p-1 0x1.ccccccp-2 = 0x1.07c6c6p+0
+4685,4686c4685,4686
+< atan2f 0x1.8p-1 0x1.333334p-1 = 0x1.cac7c6p-1
+< atan2f 0x1.8p-1 0x1.4cccccp-1 = 0x1.b6a21ep-1
+---
+> atan2f 0x1.8p-1 0x1.333334p-1 = 0x1.cac7c4p-1
+> atan2f 0x1.8p-1 0x1.4cccccp-1 = 0x1.b6a22p-1
+4690,4691c4690,4691
+< atan2f 0x1.8p-1 0x1.b33334p-1 = 0x1.722a58p-1
+< atan2f 0x1.8p-1 0x1.ccccccp-1 = 0x1.63b4bep-1
+---
+> atan2f 0x1.8p-1 0x1.b33334p-1 = 0x1.722a5ap-1
+> atan2f 0x1.8p-1 0x1.ccccccp-1 = 0x1.63b4bcp-1
+4703c4703
+< atan2f 0x1.99999ap-1 -0x1p-1 = 0x1.109008p+1
+---
+> atan2f 0x1.99999ap-1 -0x1p-1 = 0x1.10900ap+1
+4709c4709
+< atan2f 0x1.99999ap-1 -0x1.99999ap-3 = 0x1.d0d6ap+0
+---
+> atan2f 0x1.99999ap-1 -0x1.99999ap-3 = 0x1.d0d6a2p+0
+4712c4712
+< atan2f 0x1.99999ap-1 -0x1.99999ap-5 = 0x1.a21a62p+0
+---
+> atan2f 0x1.99999ap-1 -0x1.99999ap-5 = 0x1.a21a64p+0
+4722c4722
+< atan2f 0x1.99999ap-1 0x1.ccccccp-2 = 0x1.0ef3c2p+0
+---
+> atan2f 0x1.99999ap-1 0x1.ccccccp-2 = 0x1.0ef3cp+0
+4724c4724
+< atan2f 0x1.99999ap-1 0x1.19999ap-1 = 0x1.efe06ap-1
+---
+> atan2f 0x1.99999ap-1 0x1.19999ap-1 = 0x1.efe068p-1
+4727c4727
+< atan2f 0x1.99999ap-1 0x1.666666p-1 = 0x1.b434fp-1
+---
+> atan2f 0x1.99999ap-1 0x1.666666p-1 = 0x1.b434eep-1
+4734c4734
+< atan2f 0x1.b33334p-1 -0x1.e66666p-1 = 0x1.34b25cp+1
+---
+> atan2f 0x1.b33334p-1 -0x1.e66666p-1 = 0x1.34b25ap+1
+4738c4738
+< atan2f 0x1.b33334p-1 -0x1.8p-1 = 0x1.259a72p+1
+---
+> atan2f 0x1.b33334p-1 -0x1.8p-1 = 0x1.259a7p+1
+4744,4745c4744,4745
+< atan2f 0x1.b33334p-1 -0x1.ccccccp-2 = 0x1.07629p+1
+< atan2f 0x1.b33334p-1 -0x1.99999ap-2 = 0x1.015c9cp+1
+---
+> atan2f 0x1.b33334p-1 -0x1.ccccccp-2 = 0x1.076292p+1
+> atan2f 0x1.b33334p-1 -0x1.99999ap-2 = 0x1.015c9ep+1
+4749c4749
+< atan2f 0x1.b33334p-1 -0x1.99999ap-3 = 0x1.cd4876p+0
+---
+> atan2f 0x1.b33334p-1 -0x1.99999ap-3 = 0x1.cd4878p+0
+4768c4768
+< atan2f 0x1.b33334p-1 0x1.8p-1 = 0x1.b2151p-1
+---
+> atan2f 0x1.b33334p-1 0x1.8p-1 = 0x1.b21512p-1
+4773c4773
+< atan2f 0x1.ccccccp-1 -0x1p+0 = 0x1.3452d4p+1
+---
+> atan2f 0x1.ccccccp-1 -0x1p+0 = 0x1.3452d2p+1
+4776c4776
+< atan2f 0x1.ccccccp-1 -0x1.b33334p-1 = 0x1.29efdp+1
+---
+> atan2f 0x1.ccccccp-1 -0x1.b33334p-1 = 0x1.29efcep+1
+4779c4779
+< atan2f 0x1.ccccccp-1 -0x1.666666p-1 = 0x1.1dacecp+1
+---
+> atan2f 0x1.ccccccp-1 -0x1.666666p-1 = 0x1.1daceap+1
+4783c4783
+< atan2f 0x1.ccccccp-1 -0x1p-1 = 0x1.09f874p+1
+---
+> atan2f 0x1.ccccccp-1 -0x1p-1 = 0x1.09f876p+1
+4785c4785
+< atan2f 0x1.ccccccp-1 -0x1.99999ap-2 = 0x1.fd3074p+0
+---
+> atan2f 0x1.ccccccp-1 -0x1.99999ap-2 = 0x1.fd3076p+0
+4788c4788
+< atan2f 0x1.ccccccp-1 -0x1p-2 = 0x1.d77c7ap+0
+---
+> atan2f 0x1.ccccccp-1 -0x1p-2 = 0x1.d77c7cp+0
+4791c4791
+< atan2f 0x1.ccccccp-1 -0x1.99999ap-4 = 0x1.ae73bcp+0
+---
+> atan2f 0x1.ccccccp-1 -0x1.99999ap-4 = 0x1.ae73bep+0
+4804c4804
+< atan2f 0x1.ccccccp-1 0x1.19999ap-1 = 0x1.05b1f8p+0
+---
+> atan2f 0x1.ccccccp-1 0x1.19999ap-1 = 0x1.05b1fap+0
+4809c4809
+< atan2f 0x1.ccccccp-1 0x1.99999ap-1 = 0x1.b034f4p-1
+---
+> atan2f 0x1.ccccccp-1 0x1.99999ap-1 = 0x1.b034f2p-1
+4812c4812
+< atan2f 0x1.ccccccp-1 0x1.e66666p-1 = 0x1.844a14p-1
+---
+> atan2f 0x1.ccccccp-1 0x1.e66666p-1 = 0x1.844a16p-1
+4819c4819
+< atan2f 0x1.e66666p-1 -0x1.666666p-1 = 0x1.1a586ap+1
+---
+> atan2f 0x1.e66666p-1 -0x1.666666p-1 = 0x1.1a5868p+1
+4839,4840c4839,4840
+< atan2f 0x1.e66666p-1 0x1.333334p-2 = 0x1.43d1ap+0
+< atan2f 0x1.e66666p-1 0x1.666666p-2 = 0x1.37c22p+0
+---
+> atan2f 0x1.e66666p-1 0x1.333334p-2 = 0x1.43d1a2p+0
+> atan2f 0x1.e66666p-1 0x1.666666p-2 = 0x1.37c222p+0
+4844c4844
+< atan2f 0x1.e66666p-1 0x1.19999ap-1 = 0x1.0bc6bp+0
+---
+> atan2f 0x1.e66666p-1 0x1.19999ap-1 = 0x1.0bc6b2p+0
+4846,4847c4846,4847
+< atan2f 0x1.e66666p-1 0x1.4cccccp-1 = 0x1.f105a4p-1
+< atan2f 0x1.e66666p-1 0x1.666666p-1 = 0x1.df1d3p-1
+---
+> atan2f 0x1.e66666p-1 0x1.4cccccp-1 = 0x1.f105a2p-1
+> atan2f 0x1.e66666p-1 0x1.666666p-1 = 0x1.df1d32p-1
+4853c4853
+< atanf -0x1.333334p+0 = -0x1.c08abp-1
+---
+> atanf -0x1.333334p+0 = -0x1.c08aaep-1
+4889c4889
+< atanf -0x1.ae147ap-1 = -0x1.65b6bcp-1
+---
+> atanf -0x1.ae147ap-1 = -0x1.65b6bep-1
+4899,4900c4899,4900
+< atanf -0x1.7ae148p-1 = -0x1.462e14p-1
+< atanf -0x1.75c29p-1 = -0x1.42db18p-1
+---
+> atanf -0x1.7ae148p-1 = -0x1.462e16p-1
+> atanf -0x1.75c29p-1 = -0x1.42db16p-1
+5046,5047c5046,5047
+< atanf 0x1.75c29p-1 = 0x1.42db18p-1
+< atanf 0x1.7ae148p-1 = 0x1.462e14p-1
+---
+> atanf 0x1.75c29p-1 = 0x1.42db16p-1
+> atanf 0x1.7ae148p-1 = 0x1.462e16p-1
+5057c5057
+< atanf 0x1.ae147ap-1 = 0x1.65b6bcp-1
+---
+> atanf 0x1.ae147ap-1 = 0x1.65b6bep-1
+5116c5116
+< atanf -0x1.2p+2 = -0x1.5a2504p+0
+---
+> atanf -0x1.2p+2 = -0x1.5a2506p+0
+5360c5360
+< atanhf -0x1.8p-1 = -0x1.f2272cp-1
+---
+> atanhf -0x1.8p-1 = -0x1.f2272ap-1
+5364c5364
+< atanhf -0x1.6b851ep-1 = -0x1.c63cf4p-1
+---
+> atanhf -0x1.6b851ep-1 = -0x1.c63cf6p-1
+5367c5367
+< atanhf -0x1.5c28f6p-1 = -0x1.a881a2p-1
+---
+> atanhf -0x1.5c28f6p-1 = -0x1.a881a4p-1
+5375c5375
+< atanhf -0x1.333334p-1 = -0x1.62e43p-1
+---
+> atanhf -0x1.333334p-1 = -0x1.62e432p-1
+5377c5377
+< atanhf -0x1.28f5c2p-1 = -0x1.532e4ep-1
+---
+> atanhf -0x1.28f5c2p-1 = -0x1.532e5p-1
+5389c5389
+< atanhf -0x1.d70a3ep-2 = -0x1.fd3f2ep-2
+---
+> atanhf -0x1.d70a3ep-2 = -0x1.fd3f2cp-2
+5395c5395
+< atanhf -0x1.99999ap-2 = -0x1.b1d108p-2
+---
+> atanhf -0x1.99999ap-2 = -0x1.b1d106p-2
+5399,5401c5399,5401
+< atanhf -0x1.70a3d8p-2 = -0x1.81ee6p-2
+< atanhf -0x1.666666p-2 = -0x1.7636e4p-2
+< atanhf -0x1.5c28f6p-2 = -0x1.6a973ap-2
+---
+> atanhf -0x1.70a3d8p-2 = -0x1.81ee62p-2
+> atanhf -0x1.666666p-2 = -0x1.7636e2p-2
+> atanhf -0x1.5c28f6p-2 = -0x1.6a973cp-2
+5412,5413c5412,5413
+< atanhf -0x1.d70a3ep-3 = -0x1.df9ebcp-3
+< atanhf -0x1.c28f5cp-3 = -0x1.ca0c38p-3
+---
+> atanhf -0x1.d70a3ep-3 = -0x1.df9ebap-3
+> atanhf -0x1.c28f5cp-3 = -0x1.ca0c36p-3
+5415c5415
+< atanhf -0x1.99999ap-3 = -0x1.9f323ep-3
+---
+> atanhf -0x1.99999ap-3 = -0x1.9f324p-3
+5418,5419c5418,5419
+< atanhf -0x1.5c28f6p-3 = -0x1.5f92c4p-3
+< atanhf -0x1.47ae14p-3 = -0x1.4a851ap-3
+---
+> atanhf -0x1.5c28f6p-3 = -0x1.5f92c6p-3
+> atanhf -0x1.47ae14p-3 = -0x1.4a851cp-3
+5421,5423c5421,5423
+< atanhf -0x1.1eb852p-3 = -0x1.209d98p-3
+< atanhf -0x1.0a3d7p-3 = -0x1.0bc156p-3
+< atanhf -0x1.eb851ep-4 = -0x1.ede65cp-4
+---
+> atanhf -0x1.1eb852p-3 = -0x1.209d96p-3
+> atanhf -0x1.0a3d7p-3 = -0x1.0bc154p-3
+> atanhf -0x1.eb851ep-4 = -0x1.ede65ep-4
+5425c5425
+< atanhf -0x1.99999ap-4 = -0x1.9af93cp-4
+---
+> atanhf -0x1.99999ap-4 = -0x1.9af93ep-4
+5427c5427
+< atanhf -0x1.47ae14p-4 = -0x1.4861b8p-4
+---
+> atanhf -0x1.47ae14p-4 = -0x1.4861bap-4
+5429,5430c5429,5430
+< atanhf -0x1.eb851ep-5 = -0x1.ec1c72p-5
+< atanhf -0x1.99999ap-5 = -0x1.99f11cp-5
+---
+> atanhf -0x1.eb851ep-5 = -0x1.ec1c7p-5
+> atanhf -0x1.99999ap-5 = -0x1.99f11ep-5
+5432c5432
+< atanhf -0x1.eb851ep-6 = -0x1.ebaae4p-6
+---
+> atanhf -0x1.eb851ep-6 = -0x1.ebaae2p-6
+5437c5437
+< atanhf 0x1.eb851ep-6 = 0x1.ebaae4p-6
+---
+> atanhf 0x1.eb851ep-6 = 0x1.ebaae2p-6
+5439,5440c5439,5440
+< atanhf 0x1.99999ap-5 = 0x1.99f11cp-5
+< atanhf 0x1.eb851ep-5 = 0x1.ec1c72p-5
+---
+> atanhf 0x1.99999ap-5 = 0x1.99f11ep-5
+> atanhf 0x1.eb851ep-5 = 0x1.ec1c7p-5
+5442c5442
+< atanhf 0x1.47ae14p-4 = 0x1.4861b8p-4
+---
+> atanhf 0x1.47ae14p-4 = 0x1.4861bap-4
+5444c5444
+< atanhf 0x1.99999ap-4 = 0x1.9af93cp-4
+---
+> atanhf 0x1.99999ap-4 = 0x1.9af93ep-4
+5446,5448c5446,5448
+< atanhf 0x1.eb851ep-4 = 0x1.ede65cp-4
+< atanhf 0x1.0a3d7p-3 = 0x1.0bc156p-3
+< atanhf 0x1.1eb852p-3 = 0x1.209d98p-3
+---
+> atanhf 0x1.eb851ep-4 = 0x1.ede65ep-4
+> atanhf 0x1.0a3d7p-3 = 0x1.0bc154p-3
+> atanhf 0x1.1eb852p-3 = 0x1.209d96p-3
+5450,5451c5450,5451
+< atanhf 0x1.47ae14p-3 = 0x1.4a851ap-3
+< atanhf 0x1.5c28f6p-3 = 0x1.5f92c4p-3
+---
+> atanhf 0x1.47ae14p-3 = 0x1.4a851cp-3
+> atanhf 0x1.5c28f6p-3 = 0x1.5f92c6p-3
+5454c5454
+< atanhf 0x1.99999ap-3 = 0x1.9f323ep-3
+---
+> atanhf 0x1.99999ap-3 = 0x1.9f324p-3
+5456,5457c5456,5457
+< atanhf 0x1.c28f5cp-3 = 0x1.ca0c38p-3
+< atanhf 0x1.d70a3ep-3 = 0x1.df9ebcp-3
+---
+> atanhf 0x1.c28f5cp-3 = 0x1.ca0c36p-3
+> atanhf 0x1.d70a3ep-3 = 0x1.df9ebap-3
+5468,5470c5468,5470
+< atanhf 0x1.5c28f6p-2 = 0x1.6a973ap-2
+< atanhf 0x1.666666p-2 = 0x1.7636e4p-2
+< atanhf 0x1.70a3d8p-2 = 0x1.81ee6p-2
+---
+> atanhf 0x1.5c28f6p-2 = 0x1.6a973cp-2
+> atanhf 0x1.666666p-2 = 0x1.7636e2p-2
+> atanhf 0x1.70a3d8p-2 = 0x1.81ee62p-2
+5474c5474
+< atanhf 0x1.99999ap-2 = 0x1.b1d108p-2
+---
+> atanhf 0x1.99999ap-2 = 0x1.b1d106p-2
+5480c5480
+< atanhf 0x1.d70a3ep-2 = 0x1.fd3f2ep-2
+---
+> atanhf 0x1.d70a3ep-2 = 0x1.fd3f2cp-2
+5492c5492
+< atanhf 0x1.28f5c2p-1 = 0x1.532e4ep-1
+---
+> atanhf 0x1.28f5c2p-1 = 0x1.532e5p-1
+5494c5494
+< atanhf 0x1.333334p-1 = 0x1.62e43p-1
+---
+> atanhf 0x1.333334p-1 = 0x1.62e432p-1
+5502c5502
+< atanhf 0x1.5c28f6p-1 = 0x1.a881a2p-1
+---
+> atanhf 0x1.5c28f6p-1 = 0x1.a881a4p-1
+5505c5505
+< atanhf 0x1.6b851ep-1 = 0x1.c63cf4p-1
+---
+> atanhf 0x1.6b851ep-1 = 0x1.c63cf6p-1
+5509c5509
+< atanhf 0x1.8p-1 = 0x1.f2272cp-1
+---
+> atanhf 0x1.8p-1 = 0x1.f2272ap-1
+5532c5532
+< atanhf 0x1.333334p-1 = 0x1.62e43p-1
+---
+> atanhf 0x1.333334p-1 = 0x1.62e432p-1
+7685c7685
+< erfcf -0x1.19999ap+0 = 0x1.e1552p+0
+---
+> erfcf -0x1.19999ap+0 = 0x1.e1551ep+0
+7688c7688
+< erfcf -0x1.11eb86p+0 = 0x1.dea978p+0
+---
+> erfcf -0x1.11eb86p+0 = 0x1.dea976p+0
+7693,7695c7693,7695
+< erfcf -0x1.051eb8p+0 = 0x1.d9d084p+0
+< erfcf -0x1.028f5cp+0 = 0x1.d8c894p+0
+< erfcf -0x1p+0 = 0x1.d7bb3cp+0
+---
+> erfcf -0x1.051eb8p+0 = 0x1.d9d086p+0
+> erfcf -0x1.028f5cp+0 = 0x1.d8c892p+0
+> erfcf -0x1p+0 = 0x1.d7bb3ep+0
+7698,7699c7698,7699
+< erfcf -0x1.f0a3d8p-1 = 0x1.d4726p+0
+< erfcf -0x1.eb851ep-1 = 0x1.d34ef8p+0
+---
+> erfcf -0x1.f0a3d8p-1 = 0x1.d47262p+0
+> erfcf -0x1.eb851ep-1 = 0x1.d34ef6p+0
+7701c7701
+< erfcf -0x1.dc28f6p-1 = 0x1.cfc2ap+0
+---
+> erfcf -0x1.dc28f6p-1 = 0x1.cfc2a2p+0
+7704,7705c7704,7705
+< erfcf -0x1.ccccccp-1 = 0x1.cc022cp+0
+< erfcf -0x1.c7ae14p-1 = 0x1.cab63cp+0
+---
+> erfcf -0x1.ccccccp-1 = 0x1.cc022ep+0
+> erfcf -0x1.c7ae14p-1 = 0x1.cab63ep+0
+7707c7707
+< erfcf -0x1.bd70a4p-1 = 0x1.c80c7p+0
+---
+> erfcf -0x1.bd70a4p-1 = 0x1.c80c72p+0
+7715,7716c7715,7716
+< erfcf -0x1.947ae2p-1 = 0x1.bc7148p+0
+< erfcf -0x1.8f5c28p-1 = 0x1.bae1f8p+0
+---
+> erfcf -0x1.947ae2p-1 = 0x1.bc7146p+0
+> erfcf -0x1.8f5c28p-1 = 0x1.bae1f6p+0
+7726c7726
+< erfcf -0x1.5c28f6p-1 = 0x1.a9edap+0
+---
+> erfcf -0x1.5c28f6p-1 = 0x1.a9eda2p+0
+7728c7728
+< erfcf -0x1.51eb86p-1 = 0x1.a63d8cp+0
+---
+> erfcf -0x1.51eb86p-1 = 0x1.a63d8ep+0
+7735,7738c7735,7738
+< erfcf -0x1.2e147ap-1 = 0x1.988f4cp+0
+< erfcf -0x1.28f5c2p-1 = 0x1.96821cp+0
+< erfcf -0x1.23d70ap-1 = 0x1.946edp+0
+< erfcf -0x1.1eb852p-1 = 0x1.925568p+0
+---
+> erfcf -0x1.2e147ap-1 = 0x1.988f4ap+0
+> erfcf -0x1.28f5c2p-1 = 0x1.96821ep+0
+> erfcf -0x1.23d70ap-1 = 0x1.946ecep+0
+> erfcf -0x1.1eb852p-1 = 0x1.92556ap+0
+7742c7742
+< erfcf -0x1.0a3d7p-1 = 0x1.89b3b8p+0
+---
+> erfcf -0x1.0a3d7p-1 = 0x1.89b3bap+0
+7744,7745c7744,7745
+< erfcf -0x1p-1 = 0x1.853f7cp+0
+< erfcf -0x1.f5c29p-2 = 0x1.82fcbp+0
+---
+> erfcf -0x1p-1 = 0x1.853f7ap+0
+> erfcf -0x1.f5c29p-2 = 0x1.82fcb2p+0
+7751c7751
+< erfcf -0x1.b851ecp-2 = 0x1.74f688p+0
+---
+> erfcf -0x1.b851ecp-2 = 0x1.74f686p+0
+7757c7757
+< erfcf -0x1.7ae148p-2 = 0x1.66325cp+0
+---
+> erfcf -0x1.7ae148p-2 = 0x1.66325ep+0
+7765c7765
+< erfcf -0x1.28f5c2p-2 = 0x1.517b08p+0
+---
+> erfcf -0x1.28f5c2p-2 = 0x1.517b06p+0
+7787c7787
+< erfcf -0x1.1eb852p-4 = 0x1.143004p+0
+---
+> erfcf -0x1.1eb852p-4 = 0x1.143006p+0
+7797c7797
+< erfcf 0x1.eb851ep-6 = 0x1.eeac5cp-1
+---
+> erfcf 0x1.eb851ep-6 = 0x1.eeac5ep-1
+7811c7811
+< erfcf 0x1.5c28f6p-3 = 0x1.9eb95p-1
+---
+> erfcf 0x1.5c28f6p-3 = 0x1.9eb94ep-1
+7814c7814
+< erfcf 0x1.99999ap-3 = 0x1.8df9ecp-1
+---
+> erfcf 0x1.99999ap-3 = 0x1.8df9eep-1
+7817c7817
+< erfcf 0x1.d70a3ep-3 = 0x1.7d6dacp-1
+---
+> erfcf 0x1.d70a3ep-3 = 0x1.7d6daep-1
+7828c7828
+< erfcf 0x1.5c28f6p-2 = 0x1.42e2a8p-1
+---
+> erfcf 0x1.5c28f6p-2 = 0x1.42e2a6p-1
+7833c7833
+< erfcf 0x1.8f5c28p-2 = 0x1.299b14p-1
+---
+> erfcf 0x1.8f5c28p-2 = 0x1.299b16p-1
+7852c7852
+< erfcf 0x1.28f5c2p-1 = 0x1.a5f78cp-2
+---
+> erfcf 0x1.28f5c2p-1 = 0x1.a5f78ap-2
+7858c7858
+< erfcf 0x1.47ae14p-1 = 0x1.762f24p-2
+---
+> erfcf 0x1.47ae14p-1 = 0x1.762f22p-2
+7860c7860
+< erfcf 0x1.51eb86p-1 = 0x1.6709ccp-2
+---
+> erfcf 0x1.51eb86p-1 = 0x1.6709cap-2
+7871c7871
+< erfcf 0x1.8a3d7p-1 = 0x1.1ace84p-2
+---
+> erfcf 0x1.8a3d7p-1 = 0x1.1ace82p-2
+7875,7876c7875,7876
+< erfcf 0x1.9eb852p-1 = 0x1.020b6cp-2
+< erfcf 0x1.a3d70ap-1 = 0x1.f8321p-3
+---
+> erfcf 0x1.9eb852p-1 = 0x1.020b6ep-2
+> erfcf 0x1.a3d70ap-1 = 0x1.f83212p-3
+7878,7879c7878,7879
+< erfcf 0x1.ae147ap-1 = 0x1.e0fcep-3
+< erfcf 0x1.b33334p-1 = 0x1.d5abfcp-3
+---
+> erfcf 0x1.ae147ap-1 = 0x1.e0fcdep-3
+> erfcf 0x1.b33334p-1 = 0x1.d5abfap-3
+7890c7890
+< erfcf 0x1.f0a3d8p-1 = 0x1.5c6cf4p-3
+---
+> erfcf 0x1.f0a3d8p-1 = 0x1.5c6cf6p-3
+7901c7901
+< erfcf 0x1.147ae2p+0 = 0x1.036d9p-3
+---
+> erfcf 0x1.147ae2p+0 = 0x1.036d92p-3
+7922c7922
+< erfcf -0x1.19999ap+0 = 0x1.e1552p+0
+---
+> erfcf -0x1.19999ap+0 = 0x1.e1551ep+0
+7937c7937
+< erff -0x1.30a3d8p+0 = -0x1.d0b208p-1
+---
+> erff -0x1.30a3d8p+0 = -0x1.d0b20ap-1
+7977c7977
+< erff -0x1.8f5c28p-1 = -0x1.75c3eep-1
+---
+> erff -0x1.8f5c28p-1 = -0x1.75c3ecp-1
+7986c7986
+< erff -0x1.6147aep-1 = -0x1.577858p-1
+---
+> erff -0x1.6147aep-1 = -0x1.57785ap-1
+8024c8024
+< erff -0x1.3d70a4p-2 = -0x1.5b0abcp-2
+---
+> erff -0x1.3d70a4p-2 = -0x1.5b0abep-2
+8083c8083
+< erff 0x1.3d70a4p-2 = 0x1.5b0abcp-2
+---
+> erff 0x1.3d70a4p-2 = 0x1.5b0abep-2
+8121c8121
+< erff 0x1.6147aep-1 = 0x1.577858p-1
+---
+> erff 0x1.6147aep-1 = 0x1.57785ap-1
+8130c8130
+< erff 0x1.8f5c28p-1 = 0x1.75c3eep-1
+---
+> erff 0x1.8f5c28p-1 = 0x1.75c3ecp-1
+8170c8170
+< erff 0x1.30a3d8p+0 = 0x1.d0b208p-1
+---
+> erff 0x1.30a3d8p+0 = 0x1.d0b20ap-1
+10189c10189
+< hypot -0x1.170a3d70a3d7p+0 0x1.747ae147ae148p+1 = 0x1.8dc0ae831ea21p+1
+---
+> hypot -0x1.170a3d70a3d7p+0 0x1.747ae147ae148p+1 = 0x1.8dc0ae831ea22p+1
+10195,10196c10195,10196
+< hypot -0x1.07ae147ae147ap+0 0x1.7c28f5c28f5c3p+1 = 0x1.925f4a715ffap+1
+< hypot -0x1.051eb851eb851p+0 0x1.7d70a3d70a3d8p+1 = 0x1.932a5b82a9c04p+1
+---
+> hypot -0x1.07ae147ae147ap+0 0x1.7c28f5c28f5c3p+1 = 0x1.925f4a715ffa1p+1
+> hypot -0x1.051eb851eb851p+0 0x1.7d70a3d70a3d8p+1 = 0x1.932a5b82a9c05p+1
+10206c10206
+< hypot -0x1.d70a3d70a3d6ep-1 0x1.8a3d70a3d70a4p+1 = 0x1.9b73aa142ccc3p+1
+---
+> hypot -0x1.d70a3d70a3d6ep-1 0x1.8a3d70a3d70a4p+1 = 0x1.9b73aa142ccc2p+1
+10208c10208
+< hypot -0x1.ccccccccccccap-1 0x1.8cccccccccccep+1 = 0x1.9d2f2f69e1e1bp+1
+---
+> hypot -0x1.ccccccccccccap-1 0x1.8cccccccccccep+1 = 0x1.9d2f2f69e1e1ap+1
+10213c10213
+< hypot -0x1.b33333333333p-1 0x1.9333333333334p+1 = 0x1.a19f17b3455fp+1
+---
+> hypot -0x1.b33333333333p-1 0x1.9333333333334p+1 = 0x1.a19f17b3455f1p+1
+10215,10217c10215,10217
+< hypot -0x1.a8f5c28f5c28cp-1 0x1.95c28f5c28f5dp+1 = 0x1.a3701757c5746p+1
+< hypot -0x1.a3d70a3d70a3ap-1 0x1.970a3d70a3d72p+1 = 0x1.a45ad49657972p+1
+< hypot -0x1.9eb851eb851e8p-1 0x1.9851eb851eb86p+1 = 0x1.a5470cca70743p+1
+---
+> hypot -0x1.a8f5c28f5c28cp-1 0x1.95c28f5c28f5dp+1 = 0x1.a3701757c5745p+1
+> hypot -0x1.a3d70a3d70a3ap-1 0x1.970a3d70a3d72p+1 = 0x1.a45ad49657973p+1
+> hypot -0x1.9eb851eb851e8p-1 0x1.9851eb851eb86p+1 = 0x1.a5470cca70742p+1
+10219c10219
+< hypot -0x1.947ae147ae144p-1 0x1.9ae147ae147afp+1 = 0x1.a723e424927d8p+1
+---
+> hypot -0x1.947ae147ae144p-1 0x1.9ae147ae147afp+1 = 0x1.a723e424927d7p+1
+10221c10221
+< hypot -0x1.8a3d70a3d70ap-1 0x1.9d70a3d70a3d8p+1 = 0x1.a9068999b24b3p+1
+---
+> hypot -0x1.8a3d70a3d70ap-1 0x1.9d70a3d70a3d8p+1 = 0x1.a9068999b24b4p+1
+10223c10223
+< hypot -0x1.7fffffffffffcp-1 0x1.a000000000001p+1 = 0x1.aaeee979b4838p+1
+---
+> hypot -0x1.7fffffffffffcp-1 0x1.a000000000001p+1 = 0x1.aaeee979b4839p+1
+10243c10243
+< hypot -0x1.1999999999994p-1 0x1.b99999999999bp+1 = 0x1.bf2d279e581ep+1
+---
+> hypot -0x1.1999999999994p-1 0x1.b99999999999bp+1 = 0x1.bf2d279e581dfp+1
+10248c10248
+< hypot -0x1.ffffffffffff4p-2 0x1.c000000000002p+1 = 0x1.c48c6001f0ac1p+1
+---
+> hypot -0x1.ffffffffffff4p-2 0x1.c000000000002p+1 = 0x1.c48c6001f0ac2p+1
+10251c10251
+< hypot -0x1.e147ae147ae08p-2 0x1.c3d70a3d70a3fp+1 = 0x1.c7d3cff48187dp+1
+---
+> hypot -0x1.e147ae147ae08p-2 0x1.c3d70a3d70a3fp+1 = 0x1.c7d3cff48187cp+1
+10253c10253
+< hypot -0x1.ccccccccccccp-2 0x1.c666666666668p+1 = 0x1.ca0941814c988p+1
+---
+> hypot -0x1.ccccccccccccp-2 0x1.c666666666668p+1 = 0x1.ca0941814c987p+1
+10258c10258
+< hypot -0x1.999999999998cp-2 0x1.ccccccccccccep+1 = 0x1.cfa2be7c326ap+1
+---
+> hypot -0x1.999999999998cp-2 0x1.ccccccccccccep+1 = 0x1.cfa2be7c326a1p+1
+10263,10265c10263,10265
+< hypot -0x1.6666666666658p-2 0x1.d333333333335p+1 = 0x1.d557d0d3cecfdp+1
+< hypot -0x1.5c28f5c28f5b4p-2 0x1.d47ae147ae14ap+1 = 0x1.d67f4087fd6f5p+1
+< hypot -0x1.51eb851eb851p-2 0x1.d5c28f5c28f5ep+1 = 0x1.d7a7be7cf69d6p+1
+---
+> hypot -0x1.6666666666658p-2 0x1.d333333333335p+1 = 0x1.d557d0d3cecfcp+1
+> hypot -0x1.5c28f5c28f5b4p-2 0x1.d47ae147ae14ap+1 = 0x1.d67f4087fd6f4p+1
+> hypot -0x1.51eb851eb851p-2 0x1.d5c28f5c28f5ep+1 = 0x1.d7a7be7cf69d7p+1
+10270,10271c10270,10271
+< hypot -0x1.1eb851eb851dcp-2 0x1.dc28f5c28f5c4p+1 = 0x1.dd81c4ff7e6fep+1
+< hypot -0x1.147ae147ae138p-2 0x1.dd70a3d70a3d9p+1 = 0x1.deb06f34c0f39p+1
+---
+> hypot -0x1.1eb851eb851dcp-2 0x1.dc28f5c28f5c4p+1 = 0x1.dd81c4ff7e6ffp+1
+> hypot -0x1.147ae147ae138p-2 0x1.dd70a3d70a3d9p+1 = 0x1.deb06f34c0f38p+1
+10277c10277
+< hypot -0x1.ae147ae147acp-3 0x1.e51eb851eb854p+1 = 0x1.e5dd375a3e7c5p+1
+---
+> hypot -0x1.ae147ae147acp-3 0x1.e51eb851eb854p+1 = 0x1.e5dd375a3e7c6p+1
+10282,10283c10282,10283
+< hypot -0x1.47ae147ae1458p-3 0x1.eb851eb851ebap+1 = 0x1.ebf24c9ef2e7cp+1
+< hypot -0x1.333333333331p-3 0x1.ecccccccccccfp+1 = 0x1.ed2c83abd075dp+1
+---
+> hypot -0x1.47ae147ae1458p-3 0x1.eb851eb851ebap+1 = 0x1.ebf24c9ef2e7bp+1
+> hypot -0x1.333333333331p-3 0x1.ecccccccccccfp+1 = 0x1.ed2c83abd075cp+1
+10289c10289
+< hypot -0x1.70a3d70a3d6c4p-4 0x1.f47ae147ae14ap+1 = 0x1.f49cd118c5972p+1
+---
+> hypot -0x1.70a3d70a3d6c4p-4 0x1.f47ae147ae14ap+1 = 0x1.f49cd118c5973p+1
+10300,10301c10300,10301
+< hypot 0x1.47ae147ae1594p-6 0x1.0147ae147ae16p+2 = 0x1.01487ec024043p+2
+< hypot 0x1.eb851eb851fd2p-6 0x1.01eb851eb852p+2 = 0x1.01ed5975c9ea9p+2
+---
+> hypot 0x1.47ae147ae1594p-6 0x1.0147ae147ae16p+2 = 0x1.01487ec024042p+2
+> hypot 0x1.eb851eb851fd2p-6 0x1.01eb851eb852p+2 = 0x1.01ed5975c9eaap+2
+10304,10305c10304,10305
+< hypot 0x1.eb851eb851f46p-5 0x1.03d70a3d70a3fp+2 = 0x1.03de4dae9fccap+2
+< hypot 0x1.1eb851eb85232p-4 0x1.047ae147ae149p+2 = 0x1.0484bdeb8811p+2
+---
+> hypot 0x1.eb851eb851f46p-5 0x1.03d70a3d70a3fp+2 = 0x1.03de4dae9fcc9p+2
+> hypot 0x1.1eb851eb85232p-4 0x1.047ae147ae149p+2 = 0x1.0484bdeb8810fp+2
+10318c10318
+< hypot 0x1.99999999999bep-3 0x1.0cccccccccccep+2 = 0x1.0d1ac65dd4164p+2
+---
+> hypot 0x1.99999999999bep-3 0x1.0cccccccccccep+2 = 0x1.0d1ac65dd4163p+2
+10324c10324
+< hypot 0x1.0a3d70a3d70b7p-2 0x1.10a3d70a3d70bp+2 = 0x1.1125b6db5162ap+2
+---
+> hypot 0x1.0a3d70a3d70b7p-2 0x1.10a3d70a3d70bp+2 = 0x1.1125b6db51629p+2
+10326,10327c10326,10327
+< hypot 0x1.1eb851eb851ffp-2 0x1.11eb851eb852p+2 = 0x1.12816b39c9aaep+2
+< hypot 0x1.28f5c28f5c2a3p-2 0x1.128f5c28f5c2ap+2 = 0x1.132fc54d11c28p+2
+---
+> hypot 0x1.1eb851eb851ffp-2 0x1.11eb851eb852p+2 = 0x1.12816b39c9aafp+2
+> hypot 0x1.28f5c28f5c2a3p-2 0x1.128f5c28f5c2ap+2 = 0x1.132fc54d11c27p+2
+10329c10329
+< hypot 0x1.3d70a3d70a3ebp-2 0x1.13d70a3d70a3fp+2 = 0x1.148d761571176p+2
+---
+> hypot 0x1.3d70a3d70a3ebp-2 0x1.13d70a3d70a3fp+2 = 0x1.148d761571175p+2
+10331c10331
+< hypot 0x1.51eb851eb8533p-2 0x1.151eb851eb853p+2 = 0x1.15ec73918052fp+2
+---
+> hypot 0x1.51eb851eb8533p-2 0x1.151eb851eb853p+2 = 0x1.15ec73918053p+2
+10342c10342
+< hypot 0x1.c28f5c28f5c3fp-2 0x1.1c28f5c28f5c4p+2 = 0x1.1d8d49bb74665p+2
+---
+> hypot 0x1.c28f5c28f5c3fp-2 0x1.1c28f5c28f5c4p+2 = 0x1.1d8d49bb74664p+2
+10352c10352
+< hypot 0x1.147ae147ae153p-1 0x1.228f5c28f5c2ap+2 = 0x1.249bad3a24176p+2
+---
+> hypot 0x1.147ae147ae153p-1 0x1.228f5c28f5c2ap+2 = 0x1.249bad3a24177p+2
+10369c10369
+< hypot 0x1.6b851eb851ec5p-1 0x1.2d70a3d70a3d9p+2 = 0x1.30d87c2ebf681p+2
+---
+> hypot 0x1.6b851eb851ec5p-1 0x1.2d70a3d70a3d9p+2 = 0x1.30d87c2ebf68p+2
+10373c10373
+< hypot 0x1.800000000000dp-1 0x1.3000000000002p+2 = 0x1.33c42213ee0cbp+2
+---
+> hypot 0x1.800000000000dp-1 0x1.3000000000002p+2 = 0x1.33c42213ee0ccp+2
+10375,10376c10375,10376
+< hypot 0x1.8a3d70a3d70b1p-1 0x1.3147ae147ae16p+2 = 0x1.353b60da4321fp+2
+< hypot 0x1.8f5c28f5c2903p-1 0x1.31eb851eb852p+2 = 0x1.35f759b155e78p+2
+---
+> hypot 0x1.8a3d70a3d70b1p-1 0x1.3147ae147ae16p+2 = 0x1.353b60da4322p+2
+> hypot 0x1.8f5c28f5c2903p-1 0x1.31eb851eb852p+2 = 0x1.35f759b155e79p+2
+10382,10383c10382,10383
+< hypot 0x1.ae147ae147aefp-1 0x1.35c28f5c28f5ep+2 = 0x1.3a63f8b73e1fdp+2
+< hypot 0x1.b333333333341p-1 0x1.3666666666668p+2 = 0x1.3b218664491bbp+2
+---
+> hypot 0x1.ae147ae147aefp-1 0x1.35c28f5c28f5ep+2 = 0x1.3a63f8b73e1fep+2
+> hypot 0x1.b333333333341p-1 0x1.3666666666668p+2 = 0x1.3b218664491bcp+2
+10407c10407
+< hypot 0x1.170a3d70a3d78p+0 0x1.45c28f5c28f5ep+2 = 0x1.4d254a68a8688p+2
+---
+> hypot 0x1.170a3d70a3d78p+0 0x1.45c28f5c28f5ep+2 = 0x1.4d254a68a8687p+2
+10424c10424
+< hypot 0x1.921fb54442d18p+1 0x1.c90fdaa22168cp+2 = 0x1.f354c05689f99p+2
+---
+> hypot 0x1.921fb54442d18p+1 0x1.c90fdaa22168cp+2 = 0x1.f354c05689f98p+2
+10440c10440
+< hypot -0x1.8ccccccccccd6p+2 -0x1.19999999999acp+1 = 0x1.a50a4ce178366p+2
+---
+> hypot -0x1.8ccccccccccd6p+2 -0x1.19999999999acp+1 = 0x1.a50a4ce178367p+2
+10442c10442
+< hypot -0x1.6666666666678p+1 0x1.333333333331p+0 = 0x1.85ed7614b0396p+1
+---
+> hypot -0x1.6666666666678p+1 0x1.333333333331p+0 = 0x1.85ed7614b0395p+1
+10453c10453
+< hypot 0x1.fccccccccccc7p+3 0x1.3e66666666664p+4 = 0x1.978d1691b0d29p+4
+---
+> hypot 0x1.fccccccccccc7p+3 0x1.3e66666666664p+4 = 0x1.978d1691b0d28p+4
+11196,11198c11196,11198
+< log10 0x1.19p-50 = -0x1.e05a62c6e0cb1p+3
+< log10 0x1.47ae147ae16adp-7 = -0x1.fffffffffff41p+0
+< log10 0x1.47ae147ae1594p-6 = -0x1.b2efb2bd82121p+0
+---
+> log10 0x1.19p-50 = -0x1.e05a62c6e0cbp+3
+> log10 0x1.47ae147ae16adp-7 = -0x1.fffffffffff42p+0
+> log10 0x1.47ae147ae1594p-6 = -0x1.b2efb2bd8212p+0
+11200c11200
+< log10 0x1.47ae147ae1508p-5 = -0x1.65df657b042d1p+0
+---
+> log10 0x1.47ae147ae1508p-5 = -0x1.65df657b042dp+0
+11209,11210c11209,11210
+< log10 0x1.0a3d70a3d70c6p-3 = -0x1.c5a937887db45p-1
+< log10 0x1.1eb851eb8520ep-3 = -0x1.b52eb4c3776a7p-1
+---
+> log10 0x1.0a3d70a3d70c6p-3 = -0x1.c5a937887db46p-1
+> log10 0x1.1eb851eb8520ep-3 = -0x1.b52eb4c3776a6p-1
+11213,11215c11213,11215
+< log10 0x1.5c28f5c28f5e6p-3 = -0x1.8a029956904bbp-1
+< log10 0x1.70a3d70a3d72ep-3 = -0x1.7d4cec1606ceep-1
+< log10 0x1.851eb851eb876p-3 = -0x1.7147354087dcap-1
+---
+> log10 0x1.5c28f5c28f5e6p-3 = -0x1.8a029956904bap-1
+> log10 0x1.70a3d70a3d72ep-3 = -0x1.7d4cec1606cedp-1
+> log10 0x1.851eb851eb876p-3 = -0x1.7147354087dcbp-1
+11223c11223
+< log10 0x1.147ae147ae15bp-2 = -0x1.232449e883ef5p-1
+---
+> log10 0x1.147ae147ae15bp-2 = -0x1.232449e883ef4p-1
+11227,11228c11227,11228
+< log10 0x1.3d70a3d70a3ebp-2 = -0x1.046c3d74f3026p-1
+< log10 0x1.47ae147ae148fp-2 = -0x1.fab9f6ce29deap-2
+---
+> log10 0x1.3d70a3d70a3ebp-2 = -0x1.046c3d74f3025p-1
+> log10 0x1.47ae147ae148fp-2 = -0x1.fab9f6ce29de9p-2
+11231,11232c11231,11232
+< log10 0x1.666666666667bp-2 = -0x1.d2dfd39ade167p-2
+< log10 0x1.70a3d70a3d71fp-2 = -0x1.c658a32215fefp-2
+---
+> log10 0x1.666666666667bp-2 = -0x1.d2dfd39ade166p-2
+> log10 0x1.70a3d70a3d71fp-2 = -0x1.c658a32215feep-2
+11234,11235c11234,11235
+< log10 0x1.851eb851eb867p-2 = -0x1.ae4d3577181a7p-2
+< log10 0x1.8f5c28f5c290bp-2 = -0x1.a2bff5abfe0aep-2
+---
+> log10 0x1.851eb851eb867p-2 = -0x1.ae4d3577181a8p-2
+> log10 0x1.8f5c28f5c290bp-2 = -0x1.a2bff5abfe0afp-2
+11244c11244
+< log10 0x1.eb851eb851ecfp-2 = -0x1.4668b273241f3p-2
+---
+> log10 0x1.eb851eb851ecfp-2 = -0x1.4668b273241f2p-2
+11248,11250c11248,11250
+< log10 0x1.0a3d70a3d70afp-1 = -0x1.22d004fd0c2b3p-2
+< log10 0x1.0f5c28f5c2901p-1 = -0x1.1a576d2b216ep-2
+< log10 0x1.147ae147ae153p-1 = -0x1.12075ec7103f8p-2
+---
+> log10 0x1.0a3d70a3d70afp-1 = -0x1.22d004fd0c2b2p-2
+> log10 0x1.0f5c28f5c2901p-1 = -0x1.1a576d2b216dfp-2
+> log10 0x1.147ae147ae153p-1 = -0x1.12075ec7103f7p-2
+11255c11255
+< log10 0x1.2e147ae147aedp-1 = -0x1.d54b8a5f8786fp-3
+---
+> log10 0x1.2e147ae147aedp-1 = -0x1.d54b8a5f8786ep-3
+11264c11264
+< log10 0x1.5c28f5c28f5cfp-1 = -0x1.5705913262b2bp-3
+---
+> log10 0x1.5c28f5c28f5cfp-1 = -0x1.5705913262b2ap-3
+11274c11274
+< log10 0x1.8f5c28f5c2903p-1 = -0x1.b9fb028819ae2p-4
+---
+> log10 0x1.8f5c28f5c2903p-1 = -0x1.b9fb028819ae1p-4
+11276c11276
+< log10 0x1.99999999999a7p-1 = -0x1.8cf18388647d2p-4
+---
+> log10 0x1.99999999999a7p-1 = -0x1.8cf18388647d3p-4
+11278c11278
+< log10 0x1.a3d70a3d70a4bp-1 = -0x1.6104b9d615248p-4
+---
+> log10 0x1.a3d70a3d70a4bp-1 = -0x1.6104b9d615247p-4
+11282,11283c11282,11283
+< log10 0x1.b851eb851eb93p-1 = -0x1.0c4b5a1bf0874p-4
+< log10 0x1.bd70a3d70a3e5p-1 = -0x1.ef7552014d267p-5
+---
+> log10 0x1.b851eb851eb93p-1 = -0x1.0c4b5a1bf0875p-4
+> log10 0x1.bd70a3d70a3e5p-1 = -0x1.ef7552014d268p-5
+11286c11286
+< log10 0x1.cccccccccccdbp-1 = -0x1.76d869b029fc2p-5
+---
+> log10 0x1.cccccccccccdbp-1 = -0x1.76d869b029fc1p-5
+11288c11288
+< log10 0x1.d70a3d70a3d7fp-1 = -0x1.28a66e2892fbfp-5
+---
+> log10 0x1.d70a3d70a3d7fp-1 = -0x1.28a66e2892fbep-5
+11290c11290
+< log10 0x1.e147ae147ae23p-1 = -0x1.b845f37d9b7cbp-6
+---
+> log10 0x1.e147ae147ae23p-1 = -0x1.b845f37d9b7ccp-6
+11304c11304
+< log10 0x1.147ae147ae14fp+0 = 0x1.11ceb2173b006p-5
+---
+> log10 0x1.147ae147ae14fp+0 = 0x1.11ceb2173b007p-5
+11311c11311
+< log10 0x1.266666666666ep+0 = 0x1.f13c98e83604ap-5
+---
+> log10 0x1.266666666666ep+0 = 0x1.f13c98e836049p-5
+11313,11315c11313,11315
+< log10 0x1.2b851eb851ecp+0 = 0x1.174a0ee3fd509p-4
+< log10 0x1.2e147ae147ae9p+0 = 0x1.266dbf68cf706p-4
+< log10 0x1.30a3d70a3d712p+0 = 0x1.3570bb07e3b9ap-4
+---
+> log10 0x1.2b851eb851ecp+0 = 0x1.174a0ee3fd50ap-4
+> log10 0x1.2e147ae147ae9p+0 = 0x1.266dbf68cf707p-4
+> log10 0x1.30a3d70a3d712p+0 = 0x1.3570bb07e3b99p-4
+11319c11319
+< log10 0x1.33333333332ecp-1 = -0x1.c658a322160d6p-3
+---
+> log10 0x1.33333333332ecp-1 = -0x1.c658a322160d5p-3
+11323c11323
+< log10 0x1.d999999999991p+2 = 0x1.bd0bf0a1c7dfcp-1
+---
+> log10 0x1.d999999999991p+2 = 0x1.bd0bf0a1c7dfbp-1
+11325c11325
+< log10 0x1.5999999999995p+3 = 0x1.088e7590b9d7cp+0
+---
+> log10 0x1.5999999999995p+3 = 0x1.088e7590b9d7bp+0
+12215c12215
+< log2f 0x1.333334p-3 = -0x1.5e54e4p+1
+---
+> log2f 0x1.333334p-3 = -0x1.5e54e2p+1
+12248c12248
+< log2f 0x1.d9999ap+0 = 0x1.c669b8p-1
+---
+> log2f 0x1.d9999ap+0 = 0x1.c669b6p-1
+12261c12261
+< log2f 0x1.4p+1 = 0x1.5269ep+0
+---
+> log2f 0x1.4p+1 = 0x1.5269e2p+0
+12307c12307
+< log2f 0x1.333334p+2 = 0x1.21ab1cp+1
+---
+> log2f 0x1.333334p+2 = 0x1.21ab1ep+1
+12316c12316
+< log2f 0x1.5p+2 = 0x1.323774p+1
+---
+> log2f 0x1.5p+2 = 0x1.323776p+1
+12319c12319
+< log2f 0x1.59999ap+2 = 0x1.376b38p+1
+---
+> log2f 0x1.59999ap+2 = 0x1.376b36p+1
+12331c12331
+< log2f 0x1.8p+2 = 0x1.4ae00cp+1
+---
+> log2f 0x1.8p+2 = 0x1.4ae00ep+1
+12403c12403
+< log2f 0x1.333334p+3 = 0x1.a1ab1cp+1
+---
+> log2f 0x1.333334p+3 = 0x1.a1ab1ep+1
+12412c12412
+< log2f 0x1.41999ap+3 = 0x1.aa20b8p+1
+---
+> log2f 0x1.41999ap+3 = 0x1.aa20bap+1
+12421c12421
+< log2f 0x1.5p+3 = 0x1.b23774p+1
+---
+> log2f 0x1.5p+3 = 0x1.b23776p+1
+12427c12427
+< log2f 0x1.59999ap+3 = 0x1.b76b38p+1
+---
+> log2f 0x1.59999ap+3 = 0x1.b76b36p+1
+12451c12451
+< log2f 0x1.8p+3 = 0x1.cae00cp+1
+---
+> log2f 0x1.8p+3 = 0x1.cae00ep+1
+13466c13466
+< sinhf -0x1.30a3d8p+0 = -0x1.7dce5ep+0
+---
+> sinhf -0x1.30a3d8p+0 = -0x1.7dce5cp+0
+13469c13469
+< sinhf -0x1.28f5c2p+0 = -0x1.702f6cp+0
+---
+> sinhf -0x1.28f5c2p+0 = -0x1.702f6ap+0
+13472,13475c13472,13475
+< sinhf -0x1.2147aep+0 = -0x1.62e55p+0
+< sinhf -0x1.1eb852p+0 = -0x1.5e899ap+0
+< sinhf -0x1.1c28f6p+0 = -0x1.5a36ep+0
+< sinhf -0x1.19999ap+0 = -0x1.55edp+0
+---
+> sinhf -0x1.2147aep+0 = -0x1.62e552p+0
+> sinhf -0x1.1eb852p+0 = -0x1.5e899cp+0
+> sinhf -0x1.1c28f6p+0 = -0x1.5a36dep+0
+> sinhf -0x1.19999ap+0 = -0x1.55ecfep+0
+13481,13482c13481,13482
+< sinhf -0x1.0a3d7p+0 = -0x1.3ce5c8p+0
+< sinhf -0x1.07ae14p+0 = -0x1.38d6eap+0
+---
+> sinhf -0x1.0a3d7p+0 = -0x1.3ce5c6p+0
+> sinhf -0x1.07ae14p+0 = -0x1.38d6ecp+0
+13490c13490
+< sinhf -0x1.e66666p-1 = -0x1.1977ccp+0
+---
+> sinhf -0x1.e66666p-1 = -0x1.1977cep+0
+13497,13498c13497,13498
+< sinhf -0x1.c28f5cp-1 = -0x1.ff018p-1
+< sinhf -0x1.bd70a4p-1 = -0x1.f7cc3p-1
+---
+> sinhf -0x1.c28f5cp-1 = -0x1.ff0182p-1
+> sinhf -0x1.bd70a4p-1 = -0x1.f7cc2ep-1
+13500c13500
+< sinhf -0x1.b33334p-1 = -0x1.e98808p-1
+---
+> sinhf -0x1.b33334p-1 = -0x1.e9880ap-1
+13502c13502
+< sinhf -0x1.a8f5c2p-1 = -0x1.db7604p-1
+---
+> sinhf -0x1.a8f5c2p-1 = -0x1.db7602p-1
+13504,13506c13504,13506
+< sinhf -0x1.9eb852p-1 = -0x1.cd94bp-1
+< sinhf -0x1.99999ap-1 = -0x1.c6b5d6p-1
+< sinhf -0x1.947ae2p-1 = -0x1.bfe29cp-1
+---
+> sinhf -0x1.9eb852p-1 = -0x1.cd94aep-1
+> sinhf -0x1.99999ap-1 = -0x1.c6b5d4p-1
+> sinhf -0x1.947ae2p-1 = -0x1.bfe29ep-1
+13512c13512
+< sinhf -0x1.75c29p-1 = -0x1.97da18p-1
+---
+> sinhf -0x1.75c29p-1 = -0x1.97da1ap-1
+13514c13514
+< sinhf -0x1.6b851ep-1 = -0x1.8ad742p-1
+---
+> sinhf -0x1.6b851ep-1 = -0x1.8ad74p-1
+13520c13520
+< sinhf -0x1.4cccccp-1 = -0x1.64bc18p-1
+---
+> sinhf -0x1.4cccccp-1 = -0x1.64bc16p-1
+13525,13526c13525,13526
+< sinhf -0x1.333334p-1 = -0x1.45f778p-1
+< sinhf -0x1.2e147ap-1 = -0x1.3fe9c8p-1
+---
+> sinhf -0x1.333334p-1 = -0x1.45f776p-1
+> sinhf -0x1.2e147ap-1 = -0x1.3fe9cap-1
+13529,13531c13529,13531
+< sinhf -0x1.1eb852p-1 = -0x1.2df152p-1
+< sinhf -0x1.19999ap-1 = -0x1.28037cp-1
+< sinhf -0x1.147ae2p-1 = -0x1.221d3cp-1
+---
+> sinhf -0x1.1eb852p-1 = -0x1.2df15p-1
+> sinhf -0x1.19999ap-1 = -0x1.28037ep-1
+> sinhf -0x1.147ae2p-1 = -0x1.221d3ep-1
+13540c13540
+< sinhf -0x1.ccccccp-2 = -0x1.dc829cp-2
+---
+> sinhf -0x1.ccccccp-2 = -0x1.dc829ep-2
+13543,13544c13543,13544
+< sinhf -0x1.ae147ap-2 = -0x1.bad61cp-2
+< sinhf -0x1.a3d70ap-2 = -0x1.afb3a6p-2
+---
+> sinhf -0x1.ae147ap-2 = -0x1.bad61ap-2
+> sinhf -0x1.a3d70ap-2 = -0x1.afb3a8p-2
+13547,13548c13547,13548
+< sinhf -0x1.851eb8p-2 = -0x1.8e8d7ap-2
+< sinhf -0x1.7ae148p-2 = -0x1.83958cp-2
+---
+> sinhf -0x1.851eb8p-2 = -0x1.8e8d7cp-2
+> sinhf -0x1.7ae148p-2 = -0x1.83958ap-2
+13550,13551c13550,13551
+< sinhf -0x1.666666p-2 = -0x1.6dc326p-2
+< sinhf -0x1.5c28f6p-2 = -0x1.62e82p-2
+---
+> sinhf -0x1.666666p-2 = -0x1.6dc324p-2
+> sinhf -0x1.5c28f6p-2 = -0x1.62e822p-2
+13553,13554c13553,13554
+< sinhf -0x1.47ae14p-2 = -0x1.4d4d16p-2
+< sinhf -0x1.3d70a4p-2 = -0x1.428c7ep-2
+---
+> sinhf -0x1.47ae14p-2 = -0x1.4d4d14p-2
+> sinhf -0x1.3d70a4p-2 = -0x1.428c8p-2
+13557c13557
+< sinhf -0x1.1eb852p-2 = -0x1.227b2ep-2
+---
+> sinhf -0x1.1eb852p-2 = -0x1.227b3p-2
+13562c13562
+< sinhf -0x1.d70a3ep-3 = -0x1.db343cp-3
+---
+> sinhf -0x1.d70a3ep-3 = -0x1.db343ap-3
+13566c13566
+< sinhf -0x1.851eb8p-3 = -0x1.877728p-3
+---
+> sinhf -0x1.851eb8p-3 = -0x1.877726p-3
+13570c13570
+< sinhf -0x1.333334p-3 = -0x1.345a74p-3
+---
+> sinhf -0x1.333334p-3 = -0x1.345a72p-3
+13578c13578
+< sinhf -0x1.1eb852p-4 = -0x1.1ef446p-4
+---
+> sinhf -0x1.1eb852p-4 = -0x1.1ef448p-4
+13584,13585c13584,13585
+< sinhf -0x1.47ae14p-7 = -0x1.47af78p-7
+< sinhf 0x1.47ae14p-7 = 0x1.47af78p-7
+---
+> sinhf -0x1.47ae14p-7 = -0x1.47af7ap-7
+> sinhf 0x1.47ae14p-7 = 0x1.47af7ap-7
+13591c13591
+< sinhf 0x1.1eb852p-4 = 0x1.1ef446p-4
+---
+> sinhf 0x1.1eb852p-4 = 0x1.1ef448p-4
+13599c13599
+< sinhf 0x1.333334p-3 = 0x1.345a74p-3
+---
+> sinhf 0x1.333334p-3 = 0x1.345a72p-3
+13603c13603
+< sinhf 0x1.851eb8p-3 = 0x1.877728p-3
+---
+> sinhf 0x1.851eb8p-3 = 0x1.877726p-3
+13607c13607
+< sinhf 0x1.d70a3ep-3 = 0x1.db343cp-3
+---
+> sinhf 0x1.d70a3ep-3 = 0x1.db343ap-3
+13612c13612
+< sinhf 0x1.1eb852p-2 = 0x1.227b2ep-2
+---
+> sinhf 0x1.1eb852p-2 = 0x1.227b3p-2
+13615,13616c13615,13616
+< sinhf 0x1.3d70a4p-2 = 0x1.428c7ep-2
+< sinhf 0x1.47ae14p-2 = 0x1.4d4d16p-2
+---
+> sinhf 0x1.3d70a4p-2 = 0x1.428c8p-2
+> sinhf 0x1.47ae14p-2 = 0x1.4d4d14p-2
+13618,13619c13618,13619
+< sinhf 0x1.5c28f6p-2 = 0x1.62e82p-2
+< sinhf 0x1.666666p-2 = 0x1.6dc326p-2
+---
+> sinhf 0x1.5c28f6p-2 = 0x1.62e822p-2
+> sinhf 0x1.666666p-2 = 0x1.6dc324p-2
+13621,13622c13621,13622
+< sinhf 0x1.7ae148p-2 = 0x1.83958cp-2
+< sinhf 0x1.851eb8p-2 = 0x1.8e8d7ap-2
+---
+> sinhf 0x1.7ae148p-2 = 0x1.83958ap-2
+> sinhf 0x1.851eb8p-2 = 0x1.8e8d7cp-2
+13625,13626c13625,13626
+< sinhf 0x1.a3d70ap-2 = 0x1.afb3a6p-2
+< sinhf 0x1.ae147ap-2 = 0x1.bad61cp-2
+---
+> sinhf 0x1.a3d70ap-2 = 0x1.afb3a8p-2
+> sinhf 0x1.ae147ap-2 = 0x1.bad61ap-2
+13629c13629
+< sinhf 0x1.ccccccp-2 = 0x1.dc829cp-2
+---
+> sinhf 0x1.ccccccp-2 = 0x1.dc829ep-2
+13638,13640c13638,13640
+< sinhf 0x1.147ae2p-1 = 0x1.221d3cp-1
+< sinhf 0x1.19999ap-1 = 0x1.28037cp-1
+< sinhf 0x1.1eb852p-1 = 0x1.2df152p-1
+---
+> sinhf 0x1.147ae2p-1 = 0x1.221d3ep-1
+> sinhf 0x1.19999ap-1 = 0x1.28037ep-1
+> sinhf 0x1.1eb852p-1 = 0x1.2df15p-1
+13643,13644c13643,13644
+< sinhf 0x1.2e147ap-1 = 0x1.3fe9c8p-1
+< sinhf 0x1.333334p-1 = 0x1.45f778p-1
+---
+> sinhf 0x1.2e147ap-1 = 0x1.3fe9cap-1
+> sinhf 0x1.333334p-1 = 0x1.45f776p-1
+13649c13649
+< sinhf 0x1.4cccccp-1 = 0x1.64bc18p-1
+---
+> sinhf 0x1.4cccccp-1 = 0x1.64bc16p-1
+13655c13655
+< sinhf 0x1.6b851ep-1 = 0x1.8ad742p-1
+---
+> sinhf 0x1.6b851ep-1 = 0x1.8ad74p-1
+13657c13657
+< sinhf 0x1.75c29p-1 = 0x1.97da18p-1
+---
+> sinhf 0x1.75c29p-1 = 0x1.97da1ap-1
+13663,13665c13663,13665
+< sinhf 0x1.947ae2p-1 = 0x1.bfe29cp-1
+< sinhf 0x1.99999ap-1 = 0x1.c6b5d6p-1
+< sinhf 0x1.9eb852p-1 = 0x1.cd94bp-1
+---
+> sinhf 0x1.947ae2p-1 = 0x1.bfe29ep-1
+> sinhf 0x1.99999ap-1 = 0x1.c6b5d4p-1
+> sinhf 0x1.9eb852p-1 = 0x1.cd94aep-1
+13667c13667
+< sinhf 0x1.a8f5c2p-1 = 0x1.db7604p-1
+---
+> sinhf 0x1.a8f5c2p-1 = 0x1.db7602p-1
+13669c13669
+< sinhf 0x1.b33334p-1 = 0x1.e98808p-1
+---
+> sinhf 0x1.b33334p-1 = 0x1.e9880ap-1
+13671,13672c13671,13672
+< sinhf 0x1.bd70a4p-1 = 0x1.f7cc3p-1
+< sinhf 0x1.c28f5cp-1 = 0x1.ff018p-1
+---
+> sinhf 0x1.bd70a4p-1 = 0x1.f7cc2ep-1
+> sinhf 0x1.c28f5cp-1 = 0x1.ff0182p-1
+13679c13679
+< sinhf 0x1.e66666p-1 = 0x1.1977ccp+0
+---
+> sinhf 0x1.e66666p-1 = 0x1.1977cep+0
+13687,13688c13687,13688
+< sinhf 0x1.07ae14p+0 = 0x1.38d6eap+0
+< sinhf 0x1.0a3d7p+0 = 0x1.3ce5c8p+0
+---
+> sinhf 0x1.07ae14p+0 = 0x1.38d6ecp+0
+> sinhf 0x1.0a3d7p+0 = 0x1.3ce5c6p+0
+13694,13697c13694,13697
+< sinhf 0x1.19999ap+0 = 0x1.55edp+0
+< sinhf 0x1.1c28f6p+0 = 0x1.5a36ep+0
+< sinhf 0x1.1eb852p+0 = 0x1.5e899ap+0
+< sinhf 0x1.2147aep+0 = 0x1.62e55p+0
+---
+> sinhf 0x1.19999ap+0 = 0x1.55ecfep+0
+> sinhf 0x1.1c28f6p+0 = 0x1.5a36dep+0
+> sinhf 0x1.1eb852p+0 = 0x1.5e899cp+0
+> sinhf 0x1.2147aep+0 = 0x1.62e552p+0
+13700c13700
+< sinhf 0x1.28f5c2p+0 = 0x1.702f6cp+0
+---
+> sinhf 0x1.28f5c2p+0 = 0x1.702f6ap+0
+13703c13703
+< sinhf 0x1.30a3d8p+0 = 0x1.7dce5ep+0
+---
+> sinhf 0x1.30a3d8p+0 = 0x1.7dce5cp+0
+13706,13707c13706,13707
+< sinhf -0x1.19999ap+0 = -0x1.55edp+0
+< sinhf 0x1.333334p-1 = 0x1.45f778p-1
+---
+> sinhf -0x1.19999ap+0 = -0x1.55ecfep+0
+> sinhf 0x1.333334p-1 = 0x1.45f776p-1
+13709c13709
+< sinhf 0x1p+2 = 0x1.b4a382p+4
+---
+> sinhf 0x1p+2 = 0x1.b4a38p+4
+14795c14795
+< tanhf -0x1.1c28f6p+0 = -0x1.9bae1p-1
+---
+> tanhf -0x1.1c28f6p+0 = -0x1.9bae12p-1
+14805c14805
+< tanhf -0x1.028f5cp+0 = -0x1.8811f4p-1
+---
+> tanhf -0x1.028f5cp+0 = -0x1.8811f6p-1
+14807,14808c14807,14808
+< tanhf -0x1.fae148p-1 = -0x1.83c4fcp-1
+< tanhf -0x1.f5c29p-1 = -0x1.8191dcp-1
+---
+> tanhf -0x1.fae148p-1 = -0x1.83c4fep-1
+> tanhf -0x1.f5c29p-1 = -0x1.8191dap-1
+14811c14811
+< tanhf -0x1.e66666p-1 = -0x1.7ac4dap-1
+---
+> tanhf -0x1.e66666p-1 = -0x1.7ac4d8p-1
+14813c14813
+< tanhf -0x1.dc28f6p-1 = -0x1.76106ap-1
+---
+> tanhf -0x1.dc28f6p-1 = -0x1.761068p-1
+14817c14817
+< tanhf -0x1.c7ae14p-1 = -0x1.6c3bcap-1
+---
+> tanhf -0x1.c7ae14p-1 = -0x1.6c3bccp-1
+14823,14825c14823,14825
+< tanhf -0x1.a8f5c2p-1 = -0x1.5c6758p-1
+< tanhf -0x1.a3d70ap-1 = -0x1.59a2c4p-1
+< tanhf -0x1.9eb852p-1 = -0x1.56d48ap-1
+---
+> tanhf -0x1.a8f5c2p-1 = -0x1.5c675ap-1
+> tanhf -0x1.a3d70ap-1 = -0x1.59a2c2p-1
+> tanhf -0x1.9eb852p-1 = -0x1.56d488p-1
+14827,14828c14827,14828
+< tanhf -0x1.947ae2p-1 = -0x1.511bp-1
+< tanhf -0x1.8f5c28p-1 = -0x1.4e2f94p-1
+---
+> tanhf -0x1.947ae2p-1 = -0x1.511afep-1
+> tanhf -0x1.8f5c28p-1 = -0x1.4e2f92p-1
+14832c14832
+< tanhf -0x1.7ae148p-1 = -0x1.421f52p-1
+---
+> tanhf -0x1.7ae148p-1 = -0x1.421f5p-1
+14836c14836
+< tanhf -0x1.666666p-1 = -0x1.356fbp-1
+---
+> tanhf -0x1.666666p-1 = -0x1.356fb2p-1
+14838,14841c14838,14841
+< tanhf -0x1.5c28f6p-1 = -0x1.2edba4p-1
+< tanhf -0x1.570a3ep-1 = -0x1.2b827ep-1
+< tanhf -0x1.51eb86p-1 = -0x1.281f42p-1
+< tanhf -0x1.4cccccp-1 = -0x1.24b1eep-1
+---
+> tanhf -0x1.5c28f6p-1 = -0x1.2edba2p-1
+> tanhf -0x1.570a3ep-1 = -0x1.2b827cp-1
+> tanhf -0x1.51eb86p-1 = -0x1.281f4p-1
+> tanhf -0x1.4cccccp-1 = -0x1.24b1ecp-1
+14844c14844
+< tanhf -0x1.3d70a4p-1 = -0x1.1a2d72p-1
+---
+> tanhf -0x1.3d70a4p-1 = -0x1.1a2d74p-1
+14848c14848
+< tanhf -0x1.28f5c2p-1 = -0x1.0b9accp-1
+---
+> tanhf -0x1.28f5c2p-1 = -0x1.0b9acep-1
+14850c14850
+< tanhf -0x1.1eb852p-1 = -0x1.0415ap-1
+---
+> tanhf -0x1.1eb852p-1 = -0x1.04159ep-1
+14853c14853
+< tanhf -0x1.0f5c28p-1 = -0x1.f107bep-2
+---
+> tanhf -0x1.0f5c28p-1 = -0x1.f107bcp-2
+14859,14860c14859,14860
+< tanhf -0x1.e147aep-2 = -0x1.c0b75p-2
+< tanhf -0x1.d70a3ep-2 = -0x1.b867fep-2
+---
+> tanhf -0x1.e147aep-2 = -0x1.c0b752p-2
+> tanhf -0x1.d70a3ep-2 = -0x1.b868p-2
+14862c14862
+< tanhf -0x1.c28f5cp-2 = -0x1.a7926ap-2
+---
+> tanhf -0x1.c28f5cp-2 = -0x1.a79268p-2
+14865c14865
+< tanhf -0x1.a3d70ap-2 = -0x1.8dcbcap-2
+---
+> tanhf -0x1.a3d70ap-2 = -0x1.8dcbc8p-2
+14870c14870
+< tanhf -0x1.70a3d8p-2 = -0x1.617fc8p-2
+---
+> tanhf -0x1.70a3d8p-2 = -0x1.617fcap-2
+14872,14874c14872,14874
+< tanhf -0x1.5c28f6p-2 = -0x1.4f563ep-2
+< tanhf -0x1.51eb86p-2 = -0x1.462a52p-2
+< tanhf -0x1.47ae14p-2 = -0x1.3cef6p-2
+---
+> tanhf -0x1.5c28f6p-2 = -0x1.4f563cp-2
+> tanhf -0x1.51eb86p-2 = -0x1.462a5p-2
+> tanhf -0x1.47ae14p-2 = -0x1.3cef62p-2
+14876c14876
+< tanhf -0x1.333334p-2 = -0x1.2a4ddap-2
+---
+> tanhf -0x1.333334p-2 = -0x1.2a4ddcp-2
+14882c14882
+< tanhf -0x1.eb851ep-3 = -0x1.e24b94p-3
+---
+> tanhf -0x1.eb851ep-3 = -0x1.e24b98p-3
+14884,14885c14884,14885
+< tanhf -0x1.c28f5cp-3 = -0x1.bb6dd4p-3
+< tanhf -0x1.ae147ap-3 = -0x1.a7de0ep-3
+---
+> tanhf -0x1.c28f5cp-3 = -0x1.bb6dd2p-3
+> tanhf -0x1.ae147ap-3 = -0x1.a7de0cp-3
+14887,14888c14887,14888
+< tanhf -0x1.851eb8p-3 = -0x1.808116p-3
+< tanhf -0x1.70a3d8p-3 = -0x1.6cb5acp-3
+---
+> tanhf -0x1.851eb8p-3 = -0x1.808114p-3
+> tanhf -0x1.70a3d8p-3 = -0x1.6cb5aap-3
+14890c14890
+< tanhf -0x1.47ae14p-3 = -0x1.44e98p-3
+---
+> tanhf -0x1.47ae14p-3 = -0x1.44e982p-3
+14894,14895c14894,14895
+< tanhf -0x1.eb851ep-4 = -0x1.e92c9ap-4
+< tanhf -0x1.c28f5cp-4 = -0x1.c0c06p-4
+---
+> tanhf -0x1.eb851ep-4 = -0x1.e92c98p-4
+> tanhf -0x1.c28f5cp-4 = -0x1.c0c062p-4
+14900,14901c14900,14901
+< tanhf -0x1.eb851ep-5 = -0x1.eaee58p-5
+< tanhf -0x1.99999ap-5 = -0x1.99425p-5
+---
+> tanhf -0x1.eb851ep-5 = -0x1.eaee56p-5
+> tanhf -0x1.99999ap-5 = -0x1.99424ep-5
+14910,14911c14910,14911
+< tanhf 0x1.99999ap-5 = 0x1.99425p-5
+< tanhf 0x1.eb851ep-5 = 0x1.eaee58p-5
+---
+> tanhf 0x1.99999ap-5 = 0x1.99424ep-5
+> tanhf 0x1.eb851ep-5 = 0x1.eaee56p-5
+14916,14917c14916,14917
+< tanhf 0x1.c28f5cp-4 = 0x1.c0c06p-4
+< tanhf 0x1.eb851ep-4 = 0x1.e92c9ap-4
+---
+> tanhf 0x1.c28f5cp-4 = 0x1.c0c062p-4
+> tanhf 0x1.eb851ep-4 = 0x1.e92c98p-4
+14921c14921
+< tanhf 0x1.47ae14p-3 = 0x1.44e98p-3
+---
+> tanhf 0x1.47ae14p-3 = 0x1.44e982p-3
+14923,14924c14923,14924
+< tanhf 0x1.70a3d8p-3 = 0x1.6cb5acp-3
+< tanhf 0x1.851eb8p-3 = 0x1.808116p-3
+---
+> tanhf 0x1.70a3d8p-3 = 0x1.6cb5aap-3
+> tanhf 0x1.851eb8p-3 = 0x1.808114p-3
+14926,14927c14926,14927
+< tanhf 0x1.ae147ap-3 = 0x1.a7de0ep-3
+< tanhf 0x1.c28f5cp-3 = 0x1.bb6dd4p-3
+---
+> tanhf 0x1.ae147ap-3 = 0x1.a7de0cp-3
+> tanhf 0x1.c28f5cp-3 = 0x1.bb6dd2p-3
+14929c14929
+< tanhf 0x1.eb851ep-3 = 0x1.e24b94p-3
+---
+> tanhf 0x1.eb851ep-3 = 0x1.e24b98p-3
+14935c14935
+< tanhf 0x1.333334p-2 = 0x1.2a4ddap-2
+---
+> tanhf 0x1.333334p-2 = 0x1.2a4ddcp-2
+14937,14939c14937,14939
+< tanhf 0x1.47ae14p-2 = 0x1.3cef6p-2
+< tanhf 0x1.51eb86p-2 = 0x1.462a52p-2
+< tanhf 0x1.5c28f6p-2 = 0x1.4f563ep-2
+---
+> tanhf 0x1.47ae14p-2 = 0x1.3cef62p-2
+> tanhf 0x1.51eb86p-2 = 0x1.462a5p-2
+> tanhf 0x1.5c28f6p-2 = 0x1.4f563cp-2
+14941c14941
+< tanhf 0x1.70a3d8p-2 = 0x1.617fc8p-2
+---
+> tanhf 0x1.70a3d8p-2 = 0x1.617fcap-2
+14946c14946
+< tanhf 0x1.a3d70ap-2 = 0x1.8dcbcap-2
+---
+> tanhf 0x1.a3d70ap-2 = 0x1.8dcbc8p-2
+14949c14949
+< tanhf 0x1.c28f5cp-2 = 0x1.a7926ap-2
+---
+> tanhf 0x1.c28f5cp-2 = 0x1.a79268p-2
+14951,14952c14951,14952
+< tanhf 0x1.d70a3ep-2 = 0x1.b867fep-2
+< tanhf 0x1.e147aep-2 = 0x1.c0b75p-2
+---
+> tanhf 0x1.d70a3ep-2 = 0x1.b868p-2
+> tanhf 0x1.e147aep-2 = 0x1.c0b752p-2
+14958c14958
+< tanhf 0x1.0f5c28p-1 = 0x1.f107bep-2
+---
+> tanhf 0x1.0f5c28p-1 = 0x1.f107bcp-2
+14961c14961
+< tanhf 0x1.1eb852p-1 = 0x1.0415ap-1
+---
+> tanhf 0x1.1eb852p-1 = 0x1.04159ep-1
+14963c14963
+< tanhf 0x1.28f5c2p-1 = 0x1.0b9accp-1
+---
+> tanhf 0x1.28f5c2p-1 = 0x1.0b9acep-1
+14967c14967
+< tanhf 0x1.3d70a4p-1 = 0x1.1a2d72p-1
+---
+> tanhf 0x1.3d70a4p-1 = 0x1.1a2d74p-1
+14970,14973c14970,14973
+< tanhf 0x1.4cccccp-1 = 0x1.24b1eep-1
+< tanhf 0x1.51eb86p-1 = 0x1.281f42p-1
+< tanhf 0x1.570a3ep-1 = 0x1.2b827ep-1
+< tanhf 0x1.5c28f6p-1 = 0x1.2edba4p-1
+---
+> tanhf 0x1.4cccccp-1 = 0x1.24b1ecp-1
+> tanhf 0x1.51eb86p-1 = 0x1.281f4p-1
+> tanhf 0x1.570a3ep-1 = 0x1.2b827cp-1
+> tanhf 0x1.5c28f6p-1 = 0x1.2edba2p-1
+14975c14975
+< tanhf 0x1.666666p-1 = 0x1.356fbp-1
+---
+> tanhf 0x1.666666p-1 = 0x1.356fb2p-1
+14979c14979
+< tanhf 0x1.7ae148p-1 = 0x1.421f52p-1
+---
+> tanhf 0x1.7ae148p-1 = 0x1.421f5p-1
+14983,14984c14983,14984
+< tanhf 0x1.8f5c28p-1 = 0x1.4e2f94p-1
+< tanhf 0x1.947ae2p-1 = 0x1.511bp-1
+---
+> tanhf 0x1.8f5c28p-1 = 0x1.4e2f92p-1
+> tanhf 0x1.947ae2p-1 = 0x1.511afep-1
+14986,14988c14986,14988
+< tanhf 0x1.9eb852p-1 = 0x1.56d48ap-1
+< tanhf 0x1.a3d70ap-1 = 0x1.59a2c4p-1
+< tanhf 0x1.a8f5c2p-1 = 0x1.5c6758p-1
+---
+> tanhf 0x1.9eb852p-1 = 0x1.56d488p-1
+> tanhf 0x1.a3d70ap-1 = 0x1.59a2c2p-1
+> tanhf 0x1.a8f5c2p-1 = 0x1.5c675ap-1
+14994c14994
+< tanhf 0x1.c7ae14p-1 = 0x1.6c3bcap-1
+---
+> tanhf 0x1.c7ae14p-1 = 0x1.6c3bccp-1
+14998c14998
+< tanhf 0x1.dc28f6p-1 = 0x1.76106ap-1
+---
+> tanhf 0x1.dc28f6p-1 = 0x1.761068p-1
+15000c15000
+< tanhf 0x1.e66666p-1 = 0x1.7ac4dap-1
+---
+> tanhf 0x1.e66666p-1 = 0x1.7ac4d8p-1
+15003,15004c15003,15004
+< tanhf 0x1.f5c29p-1 = 0x1.8191dcp-1
+< tanhf 0x1.fae148p-1 = 0x1.83c4fcp-1
+---
+> tanhf 0x1.f5c29p-1 = 0x1.8191dap-1
+> tanhf 0x1.fae148p-1 = 0x1.83c4fep-1
+15006c15006
+< tanhf 0x1.028f5cp+0 = 0x1.8811f4p-1
+---
+> tanhf 0x1.028f5cp+0 = 0x1.8811f6p-1
+15016c15016
+< tanhf 0x1.1c28f6p+0 = 0x1.9bae1p-1
+---
+> tanhf 0x1.1c28f6p+0 = 0x1.9bae12p-1

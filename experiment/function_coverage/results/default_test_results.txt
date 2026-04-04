@@ -1,0 +1,44 @@
+========================================
+DEFAULT TEST RESULTS (Bitwise C vs Rust)
+Date: 2026-04-03
+========================================
+C library:    /home/leochanj/Desktop/libmcs/build-x86_64-linux-gnu/bin/libm.a
+Rust library: /home/leochanj/Desktop/libmcs/rust-libmcs/target/release/libm.a
+Method:       bitwise %a comparison, zero tolerance — same input compiled
+              against C lib and Rust lib, outputs diffed exactly.
+Script:       testing/run_bitwise_diff.sh
+Diff details: testing/sdd_bitwise_diff.txt, testing/newlib_bitwise_diff.txt
+
+Generated test suite (function coverage): 168/168 PASS (bitwise exact)
+
+=== SDD (364 test cases) ===
+Divergences: 32
+Type: NaN sign bit — C produces -nan, Rust produces nan for ±inf inputs.
+      Invisible to SDD pass/fail (both satisfy isnan() check).
+Functions:
+  acos, asin, cos, sin, tan, atanh, acosf, asinf, cosf, sinf, tanf, atanhf  (2 each)
+  acosh, sqrt, tgamma, y0, y1, acoshf, sqrtf, tgammaf                        (1 each)
+
+=== Newlib (15349 test cases) ===
+Divergences: 705
+Type: 1 ULP differences on float (and some double) functions.
+      Invisible to Newlib's ±2 ULP tolerance.
+Functions:
+  atan2f  236    tanhf    82    sinhf    81    asinhf   79
+  hypot    49    atanhf   47    erfcf    43    log10    38
+  log2f    12    asinf    12    acosf     9    erff      8
+  atanf     8    acoshf    1
+
+=== SUMMARY ===
+Total test cases:              15713
+Total bitwise divergences:       737
+  - NaN sign bit (SDD):           32
+  - 1 ULP float/double (Newlib): 705
+
+Note: These divergences were NOT detected by the previous pass/fail approach,
+which reported 0 regressions. The old approach used ±2 ULP tolerance and only
+compared FAIL lines, masking all 737 divergences.
+
+Next step: Option 3 — redo transpilation from scratch with testing/ blocked
+to determine whether these 737 divergences were pre-existing or introduced
+by the fix loop.

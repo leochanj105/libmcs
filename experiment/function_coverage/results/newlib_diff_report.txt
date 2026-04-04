@@ -1,0 +1,6 @@
+57d56
+< FAIL erfcf vec 201: got 0x1.f8321p-3 exp 0x1.f83216p-3 inp 0x1.a3d70ap-1
+526c525
+< Newlib: 14825 passed, 524 failed out of 15349
+---
+> Newlib: 14826 passed, 523 failed out of 15349

@@ -1,0 +1,45 @@
+========================================
+LibmCS Bitwise Differential Test
+Date: 2026-04-04 01:02
+========================================
+C library:    /home/leochanj/Desktop/libmcs/build-x86_64-linux-gnu/bin/libm.a
+Rust library: /home/leochanj/Desktop/libmcs/rust-libmcs/target/release/libm.a
+Method:       bitwise %%a comparison, zero tolerance
+
+--- sdd ---
+  Test cases:  364
+  Divergences: 32
+  By function:
+          2 tanf
+          2 tan
+          2 sinf
+          2 sin
+          2 cosf
+          2 cos
+          2 atanhf
+          2 atanh
+          2 asinf
+          2 asin
+          2 acosf
+          2 acos
+          1 y1
+          1 y0
+          1 tgammaf
+          1 tgamma
+          1 sqrtf
+          1 sqrt
+          1 acoshf
+          1 acosh
+  Saved: /home/leochanj/Desktop/libmcs/testing/sdd_bitwise_diff.txt
+
+--- newlib ---
+  Test cases:  15349
+  Divergences: 0
+
+========================================
+SUMMARY
+========================================
+Total test cases: 15713
+Total divergences (C != Rust): 32
+
+Result: 32 BITWISE DIVERGENCES

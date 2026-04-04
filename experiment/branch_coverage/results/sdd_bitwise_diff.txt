@@ -1,0 +1,104 @@
+2,3c2,3
+< acos inf = -nan
+< acos -inf = -nan
+---
+> acos inf = nan
+> acos -inf = nan
+7,8c7,8
+< asin inf = -nan
+< asin -inf = -nan
+---
+> asin inf = nan
+> asin -inf = nan
+23,24c23,24
+< cos inf = -nan
+< cos -inf = -nan
+---
+> cos inf = nan
+> cos -inf = nan
+28,29c28,29
+< sin inf = -nan
+< sin -inf = -nan
+---
+> sin inf = nan
+> sin -inf = nan
+33,34c33,34
+< tan inf = -nan
+< tan -inf = -nan
+---
+> tan inf = nan
+> tan -inf = nan
+37c37
+< acosh -inf = -nan
+---
+> acosh -inf = nan
+47,48c47,48
+< atanh inf = -nan
+< atanh -inf = -nan
+---
+> atanh inf = nan
+> atanh -inf = nan
+118c118
+< sqrt -inf = -nan
+---
+> sqrt -inf = nan
+138c138
+< tgamma -inf = -nan
+---
+> tgamma -inf = nan
+181c181
+< y0 -inf = -nan
+---
+> y0 -inf = nan
+186c186
+< y1 -inf = -nan
+---
+> y1 -inf = nan
+192,193c192,193
+< acosf inf = -nan
+< acosf -inf = -nan
+---
+> acosf inf = nan
+> acosf -inf = nan
+197,198c197,198
+< asinf inf = -nan
+< asinf -inf = -nan
+---
+> asinf inf = nan
+> asinf -inf = nan
+213,214c213,214
+< cosf inf = -nan
+< cosf -inf = -nan
+---
+> cosf inf = nan
+> cosf -inf = nan
+218,219c218,219
+< sinf inf = -nan
+< sinf -inf = -nan
+---
+> sinf inf = nan
+> sinf -inf = nan
+223,224c223,224
+< tanf inf = -nan
+< tanf -inf = -nan
+---
+> tanf inf = nan
+> tanf -inf = nan
+227c227
+< acoshf -inf = -nan
+---
+> acoshf -inf = nan
+237,238c237,238
+< atanhf inf = -nan
+< atanhf -inf = -nan
+---
+> atanhf inf = nan
+> atanhf -inf = nan
+308c308
+< sqrtf -inf = -nan
+---
+> sqrtf -inf = nan
+328c328
+< tgammaf -inf = -nan
+---
+> tgammaf -inf = nan
