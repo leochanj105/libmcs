@@ -1,0 +1,41 @@
+========================================
+CoreMath C vs Rust Bitwise Comparison
+Date: 2026-04-04 02:21
+Input: deterministic sweep — NaN,±Inf,±0,subnormal,normal ranges
+Method: compile same test against C and Rust libs, diff %a outputs
+========================================
+Total cases:       2982
+Total divergences: 316
+
+By function:
+       25 acosh
+       20 acoshf
+       17 atanh
+       17 asin
+       17 acos
+       15 sqrt
+       15 log2
+       15 log10
+       15 log
+       15 atanhf
+       15 asinf
+       15 acosf
+       14 pow
+       12 sqrtf
+       12 logf
+       12 log2f
+       12 log10f
+       11 powf
+        8 tgamma
+        8 log1p
+        7 tgammaf
+        7 log1pf
+        2 tanf
+        2 tan
+        2 sinf
+        2 sin
+        2 cosf
+        2 cos
+
+Type: ALL are -nan vs nan sign-bit differences on out-of-domain inputs.
+      No actual math divergences.

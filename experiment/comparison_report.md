@@ -166,6 +166,66 @@ is direct evidence that branch coverage closed these gaps.
 
 ---
 
+## Remaining divergences — what branch coverage still did not fix
+
+All 32 remaining C-vs-Rust divergences share a single root cause: **NaN sign-bit propagation**.
+
+### Pattern
+
+The C library returns `-nan` (sign bit set) for out-of-domain inputs. The Rust transpile
+returns `nan` (sign bit clear). Every one of the 32 cases fits this pattern exactly:
+
+```
+C:    acos(inf)  = -nan
+Rust: acos(inf)  =  nan
+
+C:    sqrt(-inf) = -nan
+Rust: sqrt(-inf) =  nan
+```
+
+### Affected functions (20 total)
+
+| Double | Float |
+|--------|-------|
+| acos(±inf) | acosf(±inf) |
+| asin(±inf) | asinf(±inf) |
+| cos(±inf) | cosf(±inf) |
+| sin(±inf) | sinf(±inf) |
+| tan(±inf) | tanf(±inf) |
+| acosh(-inf) | acoshf(-inf) |
+| atanh(±inf) | atanhf(±inf) |
+| sqrt(-inf) | sqrtf(-inf) |
+| tgamma(-inf) | tgammaf(-inf) |
+| y0(-inf), y1(-inf) | — |
+
+### Why branch coverage did not fix these
+
+These are not missed branches — the inf/NaN branches **were** covered by the test suite
+(T057, T281, T282, T287, etc. all include ±inf inputs). The fix loop saw them, but
+the judge classified them as **non-critical** because:
+
+1. Both `-nan` and `nan` satisfy `isnan()` — any NaN-aware caller sees identical behavior
+2. The C standard does not mandate which NaN bit pattern is returned for domain errors
+3. The sign bit of a NaN is not meaningful under IEEE 754 for arithmetic purposes
+
+### Why these persist
+
+The divergence comes from how Rust and C propagate NaN sign bits through arithmetic.
+The C library uses `x + x` or similar idioms that preserve the sign bit of the input;
+Rust's float operations produce canonical positive NaN. This is a **language-level ABI
+difference**, not a transpilation error. Fixing it would require inserting sign-bit
+manipulation (`-f64::NAN`) at every NaN-returning site — a cosmetic change that would
+make the code less idiomatic Rust for no functional benefit.
+
+### Are these real bugs?
+
+No. IEEE 754 NaN sign bits carry no mathematical meaning. No standard math library
+consumer checks the sign of a NaN. The SDD test suite itself marks these as passing
+(its pass/fail criterion uses `isnan()`, not bitwise equality). They only appear as
+divergences under strict bitwise comparison.
+
+---
+
 ## Limitations
 
 - The previous function-coverage test suite (168 tests) was overwritten; no direct side-by-side

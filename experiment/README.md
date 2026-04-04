@@ -37,17 +37,17 @@ experiment/
 
 ---
 
-## Key Results
+## Key Results — C vs Rust Bitwise Divergences
 
-| Test Suite | Function coverage | Branch coverage | Delta |
-|---|---|---|---|
-| SDD (364 cases) | 32 C-vs-Rust divergences | 32 C-vs-Rust divergences | 0 |
-| Newlib (15,349 cases) | **705 C-vs-Rust divergences** | **0** | **-705** |
-| Core-Math check_special | 0 C-vs-Rust divergences | 0 C-vs-Rust divergences | 0 |
-| **Total** | **737** | **32** | **-705** |
+| Test Suite | Cases | Function coverage | Branch coverage | Delta |
+|---|---|---|---|---|
+| SDD | 364 | 32 (-nan vs nan) | 32 (-nan vs nan) | 0 |
+| Newlib | 15,349 | **705** (real 1-ULP errors) | **0** | **-705** |
+| CoreMath (deterministic) | 2,982 | n/a (old Rust gone) | 316 (-nan vs nan) | — |
+| **Real math errors** | | **705** | **0** | **-705** |
 
-The 32 remaining divergences are `-nan` vs `nan` sign-bit differences — present in
-both runs, not introduced by the transpile, not real math errors.
+All remaining divergences in branch_coverage are `-nan` vs `nan` sign-bit differences
+on out-of-domain inputs — present in both runs, not real math errors.
 
 ---
 

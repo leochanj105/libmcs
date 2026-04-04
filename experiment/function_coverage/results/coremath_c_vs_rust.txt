@@ -1,0 +1,10 @@
+========================================
+CoreMath C vs Rust Bitwise Comparison
+Run: function_coverage era
+========================================
+NOTE: Old Rust source was not preserved before fresh transpile.
+      This comparison cannot be performed.
+
+Known from other test suites:
+  SDD divergences (function_coverage):    32 (-nan vs nan)
+  Newlib divergences (function_coverage): 705 (real 1-ULP math errors)
