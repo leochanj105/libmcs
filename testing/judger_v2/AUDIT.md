@@ -50,7 +50,7 @@ and Rust lib separately, diff outputs for bitwise comparison.
 - For symmetric functions, both +x and -x are tested
 - Binary functions (pow, atan2, hypot): entries are `x,y` pairs
 - Float literals: bare integers get `.0f` suffix (e.g., `1` → `1.0f`)
-- Entries with sNaN/NaN/Inf are skipped (tested by GLIBC suite instead)
+- Special values mapped: `+inf`→`INFINITY`, `nan`→`NAN`, `+snan`→`__builtin_nans("")`, `+0`→`0.0`, etc.
 
 ## Running
 
