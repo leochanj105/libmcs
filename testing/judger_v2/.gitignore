@@ -1,0 +1,8 @@
+# Generated test files — regenerate with scripts/gen_*.py
+tests/test_glibc_bitwise.c
+tests/wc/
+tests/wc_manifest.txt
+tests/*_diff.txt
+
+# Cloned repos — re-clone with setup.sh
+glibc_repo/
