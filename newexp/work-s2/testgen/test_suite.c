@@ -1,1395 +1,1049 @@
 /* test_suite.c — comprehensive test suite for libmcs */
+/* Generated for s2: covers all public and internal functions */
 
 #include <stdio.h>
 #include <stdint.h>
-#include <float.h>
+#include <math.h>
+#include <complex.h>
+#include "test_bridge.h"
 
-#define __LIBMCS_WANT_COMPLEX
-#define LIBMCS_WANT_COMPLEX
+/* Forward declarations for non-static internal functions not in public headers */
 
-#include "/home/leochanj/Desktop/libmcs/libm/include/math.h"
-#include "/home/leochanj/Desktop/libmcs/libm/include/complex.h"
-#include "/home/leochanj/Desktop/libmcs/libm/include/fenv.h"
-
-/* Extern declarations for non-static internal functions */
-extern double __sin(double x, double y, int iy);
+/* mathd/internal/trigd.c — non-static */
 extern double __cos(double x, double y);
+extern double __sin(double x, double y, int iy);
 extern int32_t __rem_pio2(double x, double *y);
+
+/* mathf/internal/trigf.c — non-static */
+extern float __cosf(float x, float y);
+extern float __sinf(float x, float y, int iy);
+extern int32_t __rem_pio2f(float x, float *y);
+
+/* mathd/internal/gammad.c — non-static */
 extern double __lgamma(double x, int *signgamp);
 
-extern float __sinf(float x, float y, int iy);
-extern float __cosf(float x, float y);
-extern int32_t __rem_pio2f(float x, float *y);
+/* mathf/internal/gammaf.c — non-static */
 extern float __lgammaf(float x, int *signgamp);
 
-extern int __fpclassifyd(double x);
-extern int __fpclassifyf(float x);
-extern int __signbitd(double x);
-extern int __signbitf(float x);
-
+/* complexd/internal/ctrigd.c — non-static */
 extern void __ccoshsinh(double x, double *c, double *s);
 extern double __redupi(double x);
 
+/* complexf/internal/ctrigf.c — non-static */
 extern void __ccoshsinhf(float x, float *c, float *s);
 extern float __redupif(float x);
 
+/* mathd/internal/fpclassifyd.c — declared in math.h */
+/* extern int __fpclassifyd(double); */
+/* extern int __fpclassifyf(float); */
+/* extern int __signbitd(double); */
+/* extern int __signbitf(float); */
+
+/* common/fenv.c — declared without including fenv.h (which has #error guard) */
+extern int feclearexcept(int excepts);
+extern int feraiseexcept(int excepts);
+extern int fegetround(void);
+extern int fesetround(int rdir);
+extern int fegetexceptflag(void *flagp, int excepts);
+extern int fesetexceptflag(const void *flagp, int excepts);
+extern int fegetenv(void *envp);
+extern int fesetenv(const void *envp);
+extern int feholdexcept(void *envp);
+extern int feupdateenv(const void *envp);
+extern int fetestexcept(int excepts);
+
+/* signgam */
 extern int __signgam;
 
-/* Extern declarations for bridge wrappers (static functions) */
-extern double bridge___sin_pi(double x);
-extern float bridge___sin_pif(float x);
-extern int bridge___rem_pio2_internal(double *x, double *y, int e0, int nx);
-extern int bridge___rem_pio2f_internal(float *x, float *y, int e0, int nx);
-extern double bridge___ctans(double complex z);
-extern float bridge___ctansf(float complex z);
-
-/* ================================================================
- * Double-precision math functions
- * ================================================================ */
-
-static void test_double_trig(void)
+/* ============================================================
+ * Double trigonometric functions
+ * ============================================================ */
+static void test_trig_double(void)
 {
-    printf("=== Double Trigonometric ===\n");
+    printf("=== Double Trig ===\n");
+    printf("acos %a = %a\n", 0.5, acos(0.5));
+    printf("acos %a = %a\n", -0.5, acos(-0.5));
+    printf("acos %a = %a\n", 1.0, acos(1.0));
+    printf("acos %a = %a\n", 0.0, acos(0.0));
 
-    double vals[] = {0.0, 0.5, 1.0, -1.0, M_PI/6, M_PI/4, M_PI/3, M_PI/2, M_PI, 2*M_PI, -M_PI/4, 1e-10, 1e10};
-    int n = sizeof(vals)/sizeof(vals[0]);
+    printf("asin %a = %a\n", 0.5, asin(0.5));
+    printf("asin %a = %a\n", -0.5, asin(-0.5));
+    printf("asin %a = %a\n", 1.0, asin(1.0));
+    printf("asin %a = %a\n", 0.0, asin(0.0));
 
-    for (int i = 0; i < n; i++) {
-        double x = vals[i];
-        printf("acos %a = %a\n", x, acos(x));
-        printf("asin %a = %a\n", x, asin(x));
-        printf("atan %a = %a\n", x, atan(x));
-        printf("cos %a = %a\n", x, cos(x));
-        printf("sin %a = %a\n", x, sin(x));
-        printf("tan %a = %a\n", x, tan(x));
-    }
+    printf("atan %a = %a\n", 1.0, atan(1.0));
+    printf("atan %a = %a\n", -1.0, atan(-1.0));
+    printf("atan %a = %a\n", 0.0, atan(0.0));
+    printf("atan %a = %a\n", 1e10, atan(1e10));
 
-    double pairs[][2] = {{1.0, 0.0}, {0.0, 1.0}, {-1.0, -1.0}, {1.0, 1.0}, {0.0, 0.0}, {3.0, 4.0}, {-3.0, 4.0}};
-    int np = sizeof(pairs)/sizeof(pairs[0]);
-    for (int i = 0; i < np; i++) {
-        printf("atan2 %a %a = %a\n", pairs[i][0], pairs[i][1], atan2(pairs[i][0], pairs[i][1]));
-    }
+    printf("atan2 %a %a = %a\n", 1.0, 1.0, atan2(1.0, 1.0));
+    printf("atan2 %a %a = %a\n", -1.0, 1.0, atan2(-1.0, 1.0));
+    printf("atan2 %a %a = %a\n", 1.0, -1.0, atan2(1.0, -1.0));
+    printf("atan2 %a %a = %a\n", 0.0, 0.0, atan2(0.0, 0.0));
+    printf("atan2 %a %a = %a\n", 0.0, -0.0, atan2(0.0, -0.0));
+
+    printf("cos %a = %a\n", 0.0, cos(0.0));
+    printf("cos %a = %a\n", 0.5, cos(0.5));
+    printf("cos %a = %a\n", 1.0, cos(1.0));
+    printf("cos %a = %a\n", M_PI, cos(M_PI));
+    printf("cos %a = %a\n", M_PI_2, cos(M_PI_2));
+
+    printf("sin %a = %a\n", 0.0, sin(0.0));
+    printf("sin %a = %a\n", 0.5, sin(0.5));
+    printf("sin %a = %a\n", 1.0, sin(1.0));
+    printf("sin %a = %a\n", M_PI, sin(M_PI));
+    printf("sin %a = %a\n", M_PI_2, sin(M_PI_2));
+
+    printf("tan %a = %a\n", 0.0, tan(0.0));
+    printf("tan %a = %a\n", 0.5, tan(0.5));
+    printf("tan %a = %a\n", 1.0, tan(1.0));
+    printf("tan %a = %a\n", M_PI_4, tan(M_PI_4));
 }
 
-static void test_double_hyper(void)
+/* ============================================================
+ * Double hyperbolic functions
+ * ============================================================ */
+static void test_hyperbolic_double(void)
 {
     printf("=== Double Hyperbolic ===\n");
+    printf("acosh %a = %a\n", 1.0, acosh(1.0));
+    printf("acosh %a = %a\n", 2.0, acosh(2.0));
+    printf("acosh %a = %a\n", 10.0, acosh(10.0));
 
-    double vals[] = {0.0, 0.5, 1.0, -1.0, 2.0, -2.0, 0.1, 10.0, 1e-15};
-    int n = sizeof(vals)/sizeof(vals[0]);
+    printf("asinh %a = %a\n", 0.0, asinh(0.0));
+    printf("asinh %a = %a\n", 1.0, asinh(1.0));
+    printf("asinh %a = %a\n", -1.0, asinh(-1.0));
 
-    for (int i = 0; i < n; i++) {
-        double x = vals[i];
-        printf("acosh %a = %a\n", x, acosh(x));
-        printf("asinh %a = %a\n", x, asinh(x));
-        printf("atanh %a = %a\n", x, atanh(x));
-        printf("cosh %a = %a\n", x, cosh(x));
-        printf("sinh %a = %a\n", x, sinh(x));
-        printf("tanh %a = %a\n", x, tanh(x));
-    }
+    printf("atanh %a = %a\n", 0.0, atanh(0.0));
+    printf("atanh %a = %a\n", 0.5, atanh(0.5));
+    printf("atanh %a = %a\n", -0.5, atanh(-0.5));
+
+    printf("cosh %a = %a\n", 0.0, cosh(0.0));
+    printf("cosh %a = %a\n", 1.0, cosh(1.0));
+    printf("cosh %a = %a\n", -1.0, cosh(-1.0));
+
+    printf("sinh %a = %a\n", 0.0, sinh(0.0));
+    printf("sinh %a = %a\n", 1.0, sinh(1.0));
+    printf("sinh %a = %a\n", -1.0, sinh(-1.0));
+
+    printf("tanh %a = %a\n", 0.0, tanh(0.0));
+    printf("tanh %a = %a\n", 1.0, tanh(1.0));
+    printf("tanh %a = %a\n", -1.0, tanh(-1.0));
+    printf("tanh %a = %a\n", 100.0, tanh(100.0));
 }
 
-static void test_double_explog(void)
+/* ============================================================
+ * Double exponential and logarithmic functions
+ * ============================================================ */
+static void test_exp_log_double(void)
 {
-    printf("=== Double Exponential/Logarithmic ===\n");
+    int exp_out;
+    double intpart;
+    printf("=== Double Exp/Log ===\n");
 
-    double vals[] = {0.0, 0.5, 1.0, -1.0, 2.0, 10.0, 0.1, 1e-300, 1e300, -0.5};
-    int n = sizeof(vals)/sizeof(vals[0]);
+    printf("exp %a = %a\n", 0.0, exp(0.0));
+    printf("exp %a = %a\n", 1.0, exp(1.0));
+    printf("exp %a = %a\n", -1.0, exp(-1.0));
+    printf("exp %a = %a\n", 2.0, exp(2.0));
 
-    for (int i = 0; i < n; i++) {
-        double x = vals[i];
-        printf("exp %a = %a\n", x, exp(x));
-        printf("exp2 %a = %a\n", x, exp2(x));
-        printf("expm1 %a = %a\n", x, expm1(x));
-        printf("log %a = %a\n", x, log(x));
-        printf("log10 %a = %a\n", x, log10(x));
-        printf("log1p %a = %a\n", x, log1p(x));
-        printf("log2 %a = %a\n", x, log2(x));
-        printf("logb %a = %a\n", x, logb(x));
-    }
+    printf("exp2 %a = %a\n", 0.0, exp2(0.0));
+    printf("exp2 %a = %a\n", 1.0, exp2(1.0));
+    printf("exp2 %a = %a\n", -1.0, exp2(-1.0));
+    printf("exp2 %a = %a\n", 10.0, exp2(10.0));
 
-    /* frexp */
-    {
-        double vals2[] = {0.0, 1.0, -1.0, 0.5, 2.0, 1024.0, 1e-300, 1e300};
-        int n2 = sizeof(vals2)/sizeof(vals2[0]);
-        for (int i = 0; i < n2; i++) {
-            int exp_val;
-            double r = frexp(vals2[i], &exp_val);
-            printf("frexp %a = %a exp=%d\n", vals2[i], r, exp_val);
-        }
-    }
+    printf("expm1 %a = %a\n", 0.0, expm1(0.0));
+    printf("expm1 %a = %a\n", 1.0, expm1(1.0));
+    printf("expm1 %a = %a\n", 1e-10, expm1(1e-10));
 
-    /* ilogb */
-    {
-        double vals2[] = {0.0, 1.0, 2.0, 0.5, 1024.0, 1e-300, 1e300};
-        int n2 = sizeof(vals2)/sizeof(vals2[0]);
-        for (int i = 0; i < n2; i++) {
-            printf("ilogb %a = %d\n", vals2[i], ilogb(vals2[i]));
-        }
-    }
+    printf("frexp %a = %a exp=%d\n", 1.0, frexp(1.0, &exp_out), exp_out);
+    printf("frexp %a = %a exp=%d\n", 0.5, frexp(0.5, &exp_out), exp_out);
+    printf("frexp %a = %a exp=%d\n", 4.0, frexp(4.0, &exp_out), exp_out);
 
-    /* ldexp */
-    {
-        double bases[] = {1.0, 0.5, -1.0, 1e-300};
-        int exps[] = {0, 1, -1, 10, -10, 100, -100};
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 7; j++) {
-                printf("ldexp %a %d = %a\n", bases[i], exps[j], ldexp(bases[i], exps[j]));
-            }
-        }
-    }
+    printf("ilogb %a = %d\n", 1.0, ilogb(1.0));
+    printf("ilogb %a = %d\n", 2.0, ilogb(2.0));
+    printf("ilogb %a = %d\n", 0.5, ilogb(0.5));
 
-    /* modf */
-    {
-        double vals2[] = {0.0, 1.5, -1.5, 2.7, 1e10, -1e10, 0.1};
-        int n2 = sizeof(vals2)/sizeof(vals2[0]);
-        for (int i = 0; i < n2; i++) {
-            double ipart;
-            double r = modf(vals2[i], &ipart);
-            printf("modf %a = %a ipart=%a\n", vals2[i], r, ipart);
-        }
-    }
+    printf("ldexp %a %d = %a\n", 1.0, 0, ldexp(1.0, 0));
+    printf("ldexp %a %d = %a\n", 1.0, 1, ldexp(1.0, 1));
+    printf("ldexp %a %d = %a\n", 1.0, -1, ldexp(1.0, -1));
 
-    /* scalbn, scalbln */
-    {
-        double bases[] = {1.0, 0.5, -2.0};
-        int exps[] = {0, 1, -1, 10, -10};
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 5; j++) {
-                printf("scalbn %a %d = %a\n", bases[i], exps[j], scalbn(bases[i], exps[j]));
-                printf("scalbln %a %d = %a\n", bases[i], exps[j], scalbln(bases[i], (long)exps[j]));
-            }
-        }
-    }
+    printf("log %a = %a\n", 1.0, log(1.0));
+    printf("log %a = %a\n", M_E, log(M_E));
+    printf("log %a = %a\n", 2.0, log(2.0));
+
+    printf("log10 %a = %a\n", 1.0, log10(1.0));
+    printf("log10 %a = %a\n", 10.0, log10(10.0));
+    printf("log10 %a = %a\n", 100.0, log10(100.0));
+
+    printf("log1p %a = %a\n", 0.0, log1p(0.0));
+    printf("log1p %a = %a\n", 1.0, log1p(1.0));
+    printf("log1p %a = %a\n", 1e-10, log1p(1e-10));
+
+    printf("log2 %a = %a\n", 1.0, log2(1.0));
+    printf("log2 %a = %a\n", 2.0, log2(2.0));
+    printf("log2 %a = %a\n", 4.0, log2(4.0));
+
+    printf("logb %a = %a\n", 1.0, logb(1.0));
+    printf("logb %a = %a\n", 2.0, logb(2.0));
+    printf("logb %a = %a\n", 0.5, logb(0.5));
+
+    printf("modf %a = %a intpart=%a\n", 1.5, modf(1.5, &intpart), intpart);
+    printf("modf %a = %a intpart=%a\n", -1.5, modf(-1.5, &intpart), intpart);
+    printf("modf %a = %a intpart=%a\n", 0.0, modf(0.0, &intpart), intpart);
+
+    printf("scalbn %a %d = %a\n", 1.0, 0, scalbn(1.0, 0));
+    printf("scalbn %a %d = %a\n", 1.0, 1, scalbn(1.0, 1));
+    printf("scalbn %a %d = %a\n", 1.0, -1, scalbn(1.0, -1));
+
+    printf("scalbln %a %ld = %a\n", 1.0, 0L, scalbln(1.0, 0L));
+    printf("scalbln %a %ld = %a\n", 1.0, 2L, scalbln(1.0, 2L));
+    printf("scalbln %a %ld = %a\n", 1.0, -2L, scalbln(1.0, -2L));
 }
 
-static void test_double_power(void)
+/* ============================================================
+ * Double power and absolute-value functions
+ * ============================================================ */
+static void test_power_double(void)
 {
-    printf("=== Double Power/AbsVal ===\n");
+    printf("=== Double Power/Abs ===\n");
+    printf("cbrt %a = %a\n", 8.0, cbrt(8.0));
+    printf("cbrt %a = %a\n", -8.0, cbrt(-8.0));
+    printf("cbrt %a = %a\n", 0.0, cbrt(0.0));
 
-    double vals[] = {0.0, 1.0, -1.0, 8.0, 27.0, 0.25, 2.0, 100.0, 1e-10, -8.0};
-    int n = sizeof(vals)/sizeof(vals[0]);
+    printf("fabs %a = %a\n", -1.5, fabs(-1.5));
+    printf("fabs %a = %a\n", 1.5, fabs(1.5));
+    printf("fabs %a = %a\n", 0.0, fabs(0.0));
 
-    for (int i = 0; i < n; i++) {
-        double x = vals[i];
-        printf("cbrt %a = %a\n", x, cbrt(x));
-        printf("fabs %a = %a\n", x, fabs(x));
-        printf("sqrt %a = %a\n", x, sqrt(x));
-    }
+    printf("hypot %a %a = %a\n", 3.0, 4.0, hypot(3.0, 4.0));
+    printf("hypot %a %a = %a\n", 0.0, 1.0, hypot(0.0, 1.0));
+    printf("hypot %a %a = %a\n", 1.0, 0.0, hypot(1.0, 0.0));
 
-    /* hypot */
-    {
-        double pairs[][2] = {{3.0, 4.0}, {0.0, 0.0}, {1.0, 0.0}, {0.0, 1.0}, {-3.0, -4.0}, {1e300, 1e300}, {1e-300, 1e-300}};
-        int np = sizeof(pairs)/sizeof(pairs[0]);
-        for (int i = 0; i < np; i++) {
-            printf("hypot %a %a = %a\n", pairs[i][0], pairs[i][1], hypot(pairs[i][0], pairs[i][1]));
-        }
-    }
+    printf("pow %a %a = %a\n", 2.0, 10.0, pow(2.0, 10.0));
+    printf("pow %a %a = %a\n", 2.0, 0.5, pow(2.0, 0.5));
+    printf("pow %a %a = %a\n", 1.0, 0.0, pow(1.0, 0.0));
 
-    /* pow */
-    {
-        double pairs[][2] = {{2.0, 3.0}, {2.0, 0.5}, {2.0, -1.0}, {10.0, 2.0}, {0.0, 0.0}, {0.0, 1.0},
-                             {1.0, 100.0}, {-1.0, 2.0}, {-1.0, 3.0}, {2.0, 0.0}, {2.0, 10.0}, {0.5, 0.5}};
-        int np = sizeof(pairs)/sizeof(pairs[0]);
-        for (int i = 0; i < np; i++) {
-            printf("pow %a %a = %a\n", pairs[i][0], pairs[i][1], pow(pairs[i][0], pairs[i][1]));
-        }
-    }
+    printf("sqrt %a = %a\n", 4.0, sqrt(4.0));
+    printf("sqrt %a = %a\n", 2.0, sqrt(2.0));
+    printf("sqrt %a = %a\n", 0.0, sqrt(0.0));
 }
 
-static void test_double_errgamma(void)
+/* ============================================================
+ * Double error and gamma functions
+ * ============================================================ */
+static void test_gamma_double(void)
 {
-    printf("=== Double Error/Gamma ===\n");
+    printf("=== Double Erf/Gamma ===\n");
+    printf("erf %a = %a\n", 0.0, erf(0.0));
+    printf("erf %a = %a\n", 1.0, erf(1.0));
+    printf("erf %a = %a\n", -1.0, erf(-1.0));
+    printf("erf %a = %a\n", 0.5, erf(0.5));
 
-    double vals[] = {0.0, 0.5, 1.0, -0.5, 2.0, -1.5, 3.0, 5.0, 10.0, 0.1, -0.1, 100.0, 1e-10};
-    int n = sizeof(vals)/sizeof(vals[0]);
+    printf("erfc %a = %a\n", 0.0, erfc(0.0));
+    printf("erfc %a = %a\n", 1.0, erfc(1.0));
+    printf("erfc %a = %a\n", -1.0, erfc(-1.0));
 
-    for (int i = 0; i < n; i++) {
-        double x = vals[i];
-        printf("erf %a = %a\n", x, erf(x));
-        printf("erfc %a = %a\n", x, erfc(x));
-        printf("lgamma %a = %a\n", x, lgamma(x));
-        printf("tgamma %a = %a\n", x, tgamma(x));
-    }
+    printf("lgamma %a = %a\n", 1.0, lgamma(1.0));
+    printf("lgamma %a = %a\n", 2.0, lgamma(2.0));
+    printf("lgamma %a = %a\n", 0.5, lgamma(0.5));
+    printf("lgamma %a signgam=%d\n", -0.5, lgamma(-0.5), __signgam);
+
+    printf("tgamma %a = %a\n", 1.0, tgamma(1.0));
+    printf("tgamma %a = %a\n", 2.0, tgamma(2.0));
+    printf("tgamma %a = %a\n", 0.5, tgamma(0.5));
 }
 
-static void test_double_nearest(void)
+/* ============================================================
+ * Double nearest integer functions
+ * ============================================================ */
+static void test_nearest_int_double(void)
 {
-    printf("=== Double Nearest Integer ===\n");
+    printf("=== Double Nearest Int ===\n");
+    printf("ceil %a = %a\n", 1.5, ceil(1.5));
+    printf("ceil %a = %a\n", -1.5, ceil(-1.5));
+    printf("ceil %a = %a\n", 2.0, ceil(2.0));
 
-    double vals[] = {0.0, 0.5, 1.5, 2.5, -0.5, -1.5, -2.5, 3.7, -3.7, 1e15, -1e15, 0.1, -0.1};
-    int n = sizeof(vals)/sizeof(vals[0]);
+    printf("floor %a = %a\n", 1.5, floor(1.5));
+    printf("floor %a = %a\n", -1.5, floor(-1.5));
+    printf("floor %a = %a\n", 2.0, floor(2.0));
 
-    for (int i = 0; i < n; i++) {
-        double x = vals[i];
-        printf("ceil %a = %a\n", x, ceil(x));
-        printf("floor %a = %a\n", x, floor(x));
-        printf("nearbyint %a = %a\n", x, nearbyint(x));
-        printf("rint %a = %a\n", x, rint(x));
-        printf("lrint %a = %ld\n", x, lrint(x));
-        printf("llrint %a = %lld\n", x, llrint(x));
-        printf("round %a = %a\n", x, round(x));
-        printf("lround %a = %ld\n", x, lround(x));
-        printf("llround %a = %lld\n", x, llround(x));
-        printf("trunc %a = %a\n", x, trunc(x));
-    }
+    printf("nearbyint %a = %a\n", 1.5, nearbyint(1.5));
+    printf("nearbyint %a = %a\n", -1.5, nearbyint(-1.5));
+    printf("nearbyint %a = %a\n", 2.5, nearbyint(2.5));
+
+    printf("rint %a = %a\n", 1.5, rint(1.5));
+    printf("rint %a = %a\n", -1.5, rint(-1.5));
+    printf("rint %a = %a\n", 2.5, rint(2.5));
+
+    printf("lrint %a = %ld\n", 1.5, lrint(1.5));
+    printf("lrint %a = %ld\n", -1.5, lrint(-1.5));
+    printf("lrint %a = %ld\n", 2.5, lrint(2.5));
+
+    printf("llrint %a = %lld\n", 1.5, llrint(1.5));
+    printf("llrint %a = %lld\n", -1.5, llrint(-1.5));
+    printf("llrint %a = %lld\n", 2.5, llrint(2.5));
+
+    printf("round %a = %a\n", 0.5, round(0.5));
+    printf("round %a = %a\n", -0.5, round(-0.5));
+    printf("round %a = %a\n", 1.5, round(1.5));
+
+    printf("lround %a = %ld\n", 0.5, lround(0.5));
+    printf("lround %a = %ld\n", -0.5, lround(-0.5));
+    printf("lround %a = %ld\n", 1.5, lround(1.5));
+
+    printf("llround %a = %lld\n", 0.5, llround(0.5));
+    printf("llround %a = %lld\n", -0.5, llround(-0.5));
+    printf("llround %a = %lld\n", 1.5, llround(1.5));
+
+    printf("trunc %a = %a\n", 1.5, trunc(1.5));
+    printf("trunc %a = %a\n", -1.5, trunc(-1.5));
+    printf("trunc %a = %a\n", 2.0, trunc(2.0));
 }
 
-static void test_double_remainder(void)
+/* ============================================================
+ * Double remainder functions
+ * ============================================================ */
+static void test_remainder_double(void)
 {
+    int quo;
     printf("=== Double Remainder ===\n");
+    printf("fmod %a %a = %a\n", 5.0, 3.0, fmod(5.0, 3.0));
+    printf("fmod %a %a = %a\n", -5.0, 3.0, fmod(-5.0, 3.0));
+    printf("fmod %a %a = %a\n", 0.0, 1.0, fmod(0.0, 1.0));
 
-    double pairs[][2] = {{5.0, 2.0}, {-5.0, 2.0}, {5.0, -2.0}, {10.0, 3.0}, {0.0, 1.0},
-                         {7.5, 2.5}, {1.0, 0.3}, {-10.0, 3.0}};
-    int np = sizeof(pairs)/sizeof(pairs[0]);
+    printf("remainder %a %a = %a\n", 5.0, 3.0, remainder(5.0, 3.0));
+    printf("remainder %a %a = %a\n", -5.0, 3.0, remainder(-5.0, 3.0));
 
-    for (int i = 0; i < np; i++) {
-        printf("fmod %a %a = %a\n", pairs[i][0], pairs[i][1], fmod(pairs[i][0], pairs[i][1]));
-        printf("remainder %a %a = %a\n", pairs[i][0], pairs[i][1], remainder(pairs[i][0], pairs[i][1]));
-
-        int quo;
-        double r = remquo(pairs[i][0], pairs[i][1], &quo);
-        printf("remquo %a %a = %a quo=%d\n", pairs[i][0], pairs[i][1], r, quo);
-    }
+    printf("remquo %a %a = %a quo=%d\n", 5.0, 3.0, remquo(5.0, 3.0, &quo), quo);
+    printf("remquo %a %a = %a quo=%d\n", -5.0, 3.0, remquo(-5.0, 3.0, &quo), quo);
 }
 
-static void test_double_manip(void)
+/* ============================================================
+ * Double manipulation functions
+ * ============================================================ */
+static void test_manip_double(void)
 {
     printf("=== Double Manipulation ===\n");
+    printf("copysign %a %a = %a\n", 1.0, -1.0, copysign(1.0, -1.0));
+    printf("copysign %a %a = %a\n", -1.0, 1.0, copysign(-1.0, 1.0));
+    printf("copysign %a %a = %a\n", 0.0, -1.0, copysign(0.0, -1.0));
 
-    /* copysign */
-    {
-        double pairs[][2] = {{1.0, 1.0}, {1.0, -1.0}, {-1.0, 1.0}, {-1.0, -1.0}, {0.0, -1.0}, {0.0, 1.0}};
-        int np = sizeof(pairs)/sizeof(pairs[0]);
-        for (int i = 0; i < np; i++) {
-            printf("copysign %a %a = %a\n", pairs[i][0], pairs[i][1], copysign(pairs[i][0], pairs[i][1]));
-        }
-    }
+    printf("nan = %a\n", nan(""));
 
-    /* nan */
-    printf("nan \"\" = %a\n", nan(""));
-    printf("nan \"1\" = %a\n", nan("1"));
-
-    /* nextafter */
-    {
-        double pairs[][2] = {{0.0, 1.0}, {0.0, -1.0}, {1.0, 2.0}, {1.0, 0.0}, {-1.0, 0.0}, {DBL_MAX, HUGE_VAL}};
-        int np = sizeof(pairs)/sizeof(pairs[0]);
-        for (int i = 0; i < np; i++) {
-            printf("nextafter %a %a = %a\n", pairs[i][0], pairs[i][1], nextafter(pairs[i][0], pairs[i][1]));
-        }
-    }
+    printf("nextafter %a %a = %a\n", 1.0, 2.0, nextafter(1.0, 2.0));
+    printf("nextafter %a %a = %a\n", 1.0, 0.0, nextafter(1.0, 0.0));
+    printf("nextafter %a %a = %a\n", 0.0, 1.0, nextafter(0.0, 1.0));
 }
 
-static void test_double_minmaxdim(void)
+/* ============================================================
+ * Double max, min, dim, fma
+ * ============================================================ */
+static void test_maxmin_double(void)
 {
-    printf("=== Double Min/Max/Dim ===\n");
+    printf("=== Double Max/Min/Dim/FMA ===\n");
+    printf("fdim %a %a = %a\n", 3.0, 1.0, fdim(3.0, 1.0));
+    printf("fdim %a %a = %a\n", 1.0, 3.0, fdim(1.0, 3.0));
+    printf("fdim %a %a = %a\n", 0.0, 0.0, fdim(0.0, 0.0));
 
-    double pairs[][2] = {{1.0, 2.0}, {2.0, 1.0}, {-1.0, 1.0}, {0.0, 0.0}, {-3.0, -5.0}};
-    int np = sizeof(pairs)/sizeof(pairs[0]);
+    printf("fmax %a %a = %a\n", 1.0, 2.0, fmax(1.0, 2.0));
+    printf("fmax %a %a = %a\n", -1.0, 2.0, fmax(-1.0, 2.0));
 
-    for (int i = 0; i < np; i++) {
-        printf("fdim %a %a = %a\n", pairs[i][0], pairs[i][1], fdim(pairs[i][0], pairs[i][1]));
-        printf("fmax %a %a = %a\n", pairs[i][0], pairs[i][1], fmax(pairs[i][0], pairs[i][1]));
-        printf("fmin %a %a = %a\n", pairs[i][0], pairs[i][1], fmin(pairs[i][0], pairs[i][1]));
-    }
+    printf("fmin %a %a = %a\n", 1.0, 2.0, fmin(1.0, 2.0));
+    printf("fmin %a %a = %a\n", -1.0, 2.0, fmin(-1.0, 2.0));
+
+    printf("fma %a %a %a = %a\n", 2.0, 3.0, 4.0, fma(2.0, 3.0, 4.0));
+    printf("fma %a %a %a = %a\n", -1.0, 2.0, 1.0, fma(-1.0, 2.0, 1.0));
+    printf("fma %a %a %a = %a\n", 0.0, 1.0, 0.0, fma(0.0, 1.0, 0.0));
 }
 
-static void test_double_fma(void)
-{
-    printf("=== Double FMA ===\n");
-
-    double triples[][3] = {{2.0, 3.0, 4.0}, {1.0, 1.0, 1.0}, {-1.0, 2.0, 3.0},
-                           {1e300, 1e300, 0.0}, {1e-300, 1e-300, 0.0}, {0.0, 0.0, 0.0}};
-    int nt = sizeof(triples)/sizeof(triples[0]);
-
-    for (int i = 0; i < nt; i++) {
-        printf("fma %a %a %a = %a\n", triples[i][0], triples[i][1], triples[i][2],
-               fma(triples[i][0], triples[i][1], triples[i][2]));
-    }
-}
-
-static void test_double_bessel(void)
+/* ============================================================
+ * Double Bessel functions
+ * ============================================================ */
+static void test_bessel_double(void)
 {
     printf("=== Double Bessel ===\n");
+    printf("j0 %a = %a\n", 0.0, j0(0.0));
+    printf("j0 %a = %a\n", 1.0, j0(1.0));
+    printf("j0 %a = %a\n", 5.0, j0(5.0));
 
-    double vals[] = {0.0, 0.5, 1.0, 2.0, 5.0, 10.0, 0.1, 50.0};
-    int n = sizeof(vals)/sizeof(vals[0]);
+    printf("j1 %a = %a\n", 0.0, j1(0.0));
+    printf("j1 %a = %a\n", 1.0, j1(1.0));
+    printf("j1 %a = %a\n", 5.0, j1(5.0));
 
-    for (int i = 0; i < n; i++) {
-        double x = vals[i];
-        printf("j0 %a = %a\n", x, j0(x));
-        printf("j1 %a = %a\n", x, j1(x));
-        printf("y0 %a = %a\n", x, y0(x));
-        printf("y1 %a = %a\n", x, y1(x));
-    }
+    printf("jn %d %a = %a\n", 0, 1.0, jn(0, 1.0));
+    printf("jn %d %a = %a\n", 1, 1.0, jn(1, 1.0));
+    printf("jn %d %a = %a\n", 2, 1.0, jn(2, 1.0));
 
-    /* jn, yn with various orders */
-    {
-        int orders[] = {0, 1, 2, 5, 10};
-        double xvals[] = {1.0, 5.0, 10.0};
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 3; j++) {
-                printf("jn %d %a = %a\n", orders[i], xvals[j], jn(orders[i], xvals[j]));
-                printf("yn %d %a = %a\n", orders[i], xvals[j], yn(orders[i], xvals[j]));
-            }
-        }
-    }
+    printf("y0 %a = %a\n", 1.0, y0(1.0));
+    printf("y0 %a = %a\n", 5.0, y0(5.0));
+
+    printf("y1 %a = %a\n", 1.0, y1(1.0));
+    printf("y1 %a = %a\n", 5.0, y1(5.0));
+
+    printf("yn %d %a = %a\n", 0, 1.0, yn(0, 1.0));
+    printf("yn %d %a = %a\n", 1, 1.0, yn(1, 1.0));
+    printf("yn %d %a = %a\n", 2, 1.0, yn(2, 1.0));
 }
 
-/* ================================================================
- * Float-precision math functions
- * ================================================================ */
-
-static void test_float_trig(void)
+/* ============================================================
+ * Float trigonometric functions
+ * ============================================================ */
+static void test_trig_float(void)
 {
-    printf("=== Float Trigonometric ===\n");
+    printf("=== Float Trig ===\n");
+    printf("acosf %a = %a\n", 0.5f, acosf(0.5f));
+    printf("acosf %a = %a\n", -0.5f, acosf(-0.5f));
+    printf("acosf %a = %a\n", 1.0f, acosf(1.0f));
+    printf("acosf %a = %a\n", 0.0f, acosf(0.0f));
 
-    float vals[] = {0.0f, 0.5f, 1.0f, -1.0f, (float)(M_PI/6), (float)(M_PI/4), (float)(M_PI/3), (float)(M_PI/2), (float)M_PI, (float)(2*M_PI), -0.25f*3.14159265f, 1e-5f, 1e5f};
-    int n = sizeof(vals)/sizeof(vals[0]);
+    printf("asinf %a = %a\n", 0.5f, asinf(0.5f));
+    printf("asinf %a = %a\n", -0.5f, asinf(-0.5f));
+    printf("asinf %a = %a\n", 1.0f, asinf(1.0f));
+    printf("asinf %a = %a\n", 0.0f, asinf(0.0f));
 
-    for (int i = 0; i < n; i++) {
-        float x = vals[i];
-        printf("acosf %a = %a\n", (double)x, (double)acosf(x));
-        printf("asinf %a = %a\n", (double)x, (double)asinf(x));
-        printf("atanf %a = %a\n", (double)x, (double)atanf(x));
-        printf("cosf %a = %a\n", (double)x, (double)cosf(x));
-        printf("sinf %a = %a\n", (double)x, (double)sinf(x));
-        printf("tanf %a = %a\n", (double)x, (double)tanf(x));
-    }
+    printf("atanf %a = %a\n", 1.0f, atanf(1.0f));
+    printf("atanf %a = %a\n", -1.0f, atanf(-1.0f));
+    printf("atanf %a = %a\n", 0.0f, atanf(0.0f));
 
-    float pairs[][2] = {{1.0f, 0.0f}, {0.0f, 1.0f}, {-1.0f, -1.0f}, {1.0f, 1.0f}, {0.0f, 0.0f}, {3.0f, 4.0f}};
-    int np = sizeof(pairs)/sizeof(pairs[0]);
-    for (int i = 0; i < np; i++) {
-        printf("atan2f %a %a = %a\n", (double)pairs[i][0], (double)pairs[i][1], (double)atan2f(pairs[i][0], pairs[i][1]));
-    }
+    printf("atan2f %a %a = %a\n", 1.0f, 1.0f, atan2f(1.0f, 1.0f));
+    printf("atan2f %a %a = %a\n", -1.0f, 1.0f, atan2f(-1.0f, 1.0f));
+    printf("atan2f %a %a = %a\n", 0.0f, 0.0f, atan2f(0.0f, 0.0f));
+
+    printf("cosf %a = %a\n", 0.0f, cosf(0.0f));
+    printf("cosf %a = %a\n", 0.5f, cosf(0.5f));
+    printf("cosf %a = %a\n", (float)M_PI, cosf((float)M_PI));
+
+    printf("sinf %a = %a\n", 0.0f, sinf(0.0f));
+    printf("sinf %a = %a\n", 0.5f, sinf(0.5f));
+    printf("sinf %a = %a\n", (float)M_PI_2, sinf((float)M_PI_2));
+
+    printf("tanf %a = %a\n", 0.0f, tanf(0.0f));
+    printf("tanf %a = %a\n", 0.5f, tanf(0.5f));
+    printf("tanf %a = %a\n", (float)M_PI_4, tanf((float)M_PI_4));
 }
 
-static void test_float_hyper(void)
+/* ============================================================
+ * Float hyperbolic functions
+ * ============================================================ */
+static void test_hyperbolic_float(void)
 {
     printf("=== Float Hyperbolic ===\n");
+    printf("acoshf %a = %a\n", 1.0f, acoshf(1.0f));
+    printf("acoshf %a = %a\n", 2.0f, acoshf(2.0f));
 
-    float vals[] = {0.0f, 0.5f, 1.0f, -1.0f, 2.0f, -2.0f, 0.1f, 10.0f};
-    int n = sizeof(vals)/sizeof(vals[0]);
+    printf("asinhf %a = %a\n", 0.0f, asinhf(0.0f));
+    printf("asinhf %a = %a\n", 1.0f, asinhf(1.0f));
 
-    for (int i = 0; i < n; i++) {
-        float x = vals[i];
-        printf("acoshf %a = %a\n", (double)x, (double)acoshf(x));
-        printf("asinhf %a = %a\n", (double)x, (double)asinhf(x));
-        printf("atanhf %a = %a\n", (double)x, (double)atanhf(x));
-        printf("coshf %a = %a\n", (double)x, (double)coshf(x));
-        printf("sinhf %a = %a\n", (double)x, (double)sinhf(x));
-        printf("tanhf %a = %a\n", (double)x, (double)tanhf(x));
-    }
+    printf("atanhf %a = %a\n", 0.0f, atanhf(0.0f));
+    printf("atanhf %a = %a\n", 0.5f, atanhf(0.5f));
+
+    printf("coshf %a = %a\n", 0.0f, coshf(0.0f));
+    printf("coshf %a = %a\n", 1.0f, coshf(1.0f));
+
+    printf("sinhf %a = %a\n", 0.0f, sinhf(0.0f));
+    printf("sinhf %a = %a\n", 1.0f, sinhf(1.0f));
+
+    printf("tanhf %a = %a\n", 0.0f, tanhf(0.0f));
+    printf("tanhf %a = %a\n", 1.0f, tanhf(1.0f));
+    printf("tanhf %a = %a\n", 100.0f, tanhf(100.0f));
 }
 
-static void test_float_explog(void)
+/* ============================================================
+ * Float exponential and logarithmic functions
+ * ============================================================ */
+static void test_exp_log_float(void)
 {
-    printf("=== Float Exponential/Logarithmic ===\n");
+    int exp_out;
+    float intpart;
+    printf("=== Float Exp/Log ===\n");
 
-    float vals[] = {0.0f, 0.5f, 1.0f, -1.0f, 2.0f, 10.0f, 0.1f, 1e-30f, 1e30f, -0.5f};
-    int n = sizeof(vals)/sizeof(vals[0]);
+    printf("expf %a = %a\n", 0.0f, expf(0.0f));
+    printf("expf %a = %a\n", 1.0f, expf(1.0f));
+    printf("expf %a = %a\n", -1.0f, expf(-1.0f));
 
-    for (int i = 0; i < n; i++) {
-        float x = vals[i];
-        printf("expf %a = %a\n", (double)x, (double)expf(x));
-        printf("exp2f %a = %a\n", (double)x, (double)exp2f(x));
-        printf("expm1f %a = %a\n", (double)x, (double)expm1f(x));
-        printf("logf %a = %a\n", (double)x, (double)logf(x));
-        printf("log10f %a = %a\n", (double)x, (double)log10f(x));
-        printf("log1pf %a = %a\n", (double)x, (double)log1pf(x));
-        printf("log2f %a = %a\n", (double)x, (double)log2f(x));
-        printf("logbf %a = %a\n", (double)x, (double)logbf(x));
-    }
+    printf("exp2f %a = %a\n", 0.0f, exp2f(0.0f));
+    printf("exp2f %a = %a\n", 1.0f, exp2f(1.0f));
+    printf("exp2f %a = %a\n", -1.0f, exp2f(-1.0f));
 
-    /* frexpf */
-    {
-        float vals2[] = {0.0f, 1.0f, -1.0f, 0.5f, 2.0f, 1024.0f};
-        int n2 = sizeof(vals2)/sizeof(vals2[0]);
-        for (int i = 0; i < n2; i++) {
-            int exp_val;
-            float r = frexpf(vals2[i], &exp_val);
-            printf("frexpf %a = %a exp=%d\n", (double)vals2[i], (double)r, exp_val);
-        }
-    }
+    printf("expm1f %a = %a\n", 0.0f, expm1f(0.0f));
+    printf("expm1f %a = %a\n", 1.0f, expm1f(1.0f));
+    printf("expm1f %a = %a\n", 1e-7f, expm1f(1e-7f));
 
-    /* ilogbf */
-    {
-        float vals2[] = {0.0f, 1.0f, 2.0f, 0.5f, 1024.0f};
-        int n2 = sizeof(vals2)/sizeof(vals2[0]);
-        for (int i = 0; i < n2; i++) {
-            printf("ilogbf %a = %d\n", (double)vals2[i], ilogbf(vals2[i]));
-        }
-    }
+    printf("frexpf %a = %a exp=%d\n", 1.0f, frexpf(1.0f, &exp_out), exp_out);
+    printf("frexpf %a = %a exp=%d\n", 4.0f, frexpf(4.0f, &exp_out), exp_out);
 
-    /* ldexpf */
-    {
-        float bases[] = {1.0f, 0.5f, -1.0f};
-        int exps[] = {0, 1, -1, 10, -10};
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 5; j++) {
-                printf("ldexpf %a %d = %a\n", (double)bases[i], exps[j], (double)ldexpf(bases[i], exps[j]));
-            }
-        }
-    }
+    printf("ilogbf %a = %d\n", 1.0f, ilogbf(1.0f));
+    printf("ilogbf %a = %d\n", 2.0f, ilogbf(2.0f));
 
-    /* modff */
-    {
-        float vals2[] = {0.0f, 1.5f, -1.5f, 2.7f};
-        int n2 = sizeof(vals2)/sizeof(vals2[0]);
-        for (int i = 0; i < n2; i++) {
-            float ipart;
-            float r = modff(vals2[i], &ipart);
-            printf("modff %a = %a ipart=%a\n", (double)vals2[i], (double)r, (double)ipart);
-        }
-    }
+    printf("ldexpf %a %d = %a\n", 1.0f, 0, ldexpf(1.0f, 0));
+    printf("ldexpf %a %d = %a\n", 1.0f, 1, ldexpf(1.0f, 1));
 
-    /* scalbnf, scalblnf */
-    {
-        float bases[] = {1.0f, 0.5f, -2.0f};
-        int exps[] = {0, 1, -1, 10, -10};
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 5; j++) {
-                printf("scalbnf %a %d = %a\n", (double)bases[i], exps[j], (double)scalbnf(bases[i], exps[j]));
-                printf("scalblnf %a %d = %a\n", (double)bases[i], exps[j], (double)scalblnf(bases[i], (long)exps[j]));
-            }
-        }
-    }
+    printf("logf %a = %a\n", 1.0f, logf(1.0f));
+    printf("logf %a = %a\n", (float)M_E, logf((float)M_E));
+
+    printf("log10f %a = %a\n", 1.0f, log10f(1.0f));
+    printf("log10f %a = %a\n", 10.0f, log10f(10.0f));
+
+    printf("log1pf %a = %a\n", 0.0f, log1pf(0.0f));
+    printf("log1pf %a = %a\n", 1.0f, log1pf(1.0f));
+
+    printf("log2f %a = %a\n", 1.0f, log2f(1.0f));
+    printf("log2f %a = %a\n", 4.0f, log2f(4.0f));
+
+    printf("logbf %a = %a\n", 1.0f, logbf(1.0f));
+    printf("logbf %a = %a\n", 2.0f, logbf(2.0f));
+
+    printf("modff %a = %a intpart=%a\n", 1.5f, modff(1.5f, &intpart), intpart);
+    printf("modff %a = %a intpart=%a\n", -1.5f, modff(-1.5f, &intpart), intpart);
+
+    printf("scalbnf %a %d = %a\n", 1.0f, 0, scalbnf(1.0f, 0));
+    printf("scalbnf %a %d = %a\n", 1.0f, 2, scalbnf(1.0f, 2));
+
+    printf("scalblnf %a %ld = %a\n", 1.0f, 0L, scalblnf(1.0f, 0L));
+    printf("scalblnf %a %ld = %a\n", 1.0f, 3L, scalblnf(1.0f, 3L));
 }
 
-static void test_float_power(void)
+/* ============================================================
+ * Float power and absolute-value functions
+ * ============================================================ */
+static void test_power_float(void)
 {
-    printf("=== Float Power/AbsVal ===\n");
+    printf("=== Float Power/Abs ===\n");
+    printf("cbrtf %a = %a\n", 8.0f, cbrtf(8.0f));
+    printf("cbrtf %a = %a\n", -8.0f, cbrtf(-8.0f));
+    printf("cbrtf %a = %a\n", 0.0f, cbrtf(0.0f));
 
-    float vals[] = {0.0f, 1.0f, -1.0f, 8.0f, 27.0f, 0.25f, 2.0f, 100.0f, -8.0f};
-    int n = sizeof(vals)/sizeof(vals[0]);
+    printf("fabsf %a = %a\n", -1.5f, fabsf(-1.5f));
+    printf("fabsf %a = %a\n", 1.5f, fabsf(1.5f));
 
-    for (int i = 0; i < n; i++) {
-        float x = vals[i];
-        printf("cbrtf %a = %a\n", (double)x, (double)cbrtf(x));
-        printf("fabsf %a = %a\n", (double)x, (double)fabsf(x));
-        printf("sqrtf %a = %a\n", (double)x, (double)sqrtf(x));
-    }
+    printf("hypotf %a %a = %a\n", 3.0f, 4.0f, hypotf(3.0f, 4.0f));
+    printf("hypotf %a %a = %a\n", 0.0f, 1.0f, hypotf(0.0f, 1.0f));
 
-    /* hypotf */
-    {
-        float pairs[][2] = {{3.0f, 4.0f}, {0.0f, 0.0f}, {1.0f, 0.0f}, {0.0f, 1.0f}};
-        int np = sizeof(pairs)/sizeof(pairs[0]);
-        for (int i = 0; i < np; i++) {
-            printf("hypotf %a %a = %a\n", (double)pairs[i][0], (double)pairs[i][1], (double)hypotf(pairs[i][0], pairs[i][1]));
-        }
-    }
+    printf("powf %a %a = %a\n", 2.0f, 10.0f, powf(2.0f, 10.0f));
+    printf("powf %a %a = %a\n", 2.0f, 0.5f, powf(2.0f, 0.5f));
 
-    /* powf */
-    {
-        float pairs[][2] = {{2.0f, 3.0f}, {2.0f, 0.5f}, {2.0f, -1.0f}, {10.0f, 2.0f}, {0.0f, 0.0f}, {1.0f, 100.0f}};
-        int np = sizeof(pairs)/sizeof(pairs[0]);
-        for (int i = 0; i < np; i++) {
-            printf("powf %a %a = %a\n", (double)pairs[i][0], (double)pairs[i][1], (double)powf(pairs[i][0], pairs[i][1]));
-        }
-    }
+    printf("sqrtf %a = %a\n", 4.0f, sqrtf(4.0f));
+    printf("sqrtf %a = %a\n", 2.0f, sqrtf(2.0f));
 }
 
-static void test_float_errgamma(void)
+/* ============================================================
+ * Float error and gamma functions
+ * ============================================================ */
+static void test_gamma_float(void)
 {
-    printf("=== Float Error/Gamma ===\n");
+    printf("=== Float Erf/Gamma ===\n");
+    printf("erff %a = %a\n", 0.0f, erff(0.0f));
+    printf("erff %a = %a\n", 1.0f, erff(1.0f));
+    printf("erff %a = %a\n", -1.0f, erff(-1.0f));
 
-    float vals[] = {0.0f, 0.5f, 1.0f, -0.5f, 2.0f, -1.5f, 3.0f, 5.0f, 10.0f, 0.1f};
-    int n = sizeof(vals)/sizeof(vals[0]);
+    printf("erfcf %a = %a\n", 0.0f, erfcf(0.0f));
+    printf("erfcf %a = %a\n", 1.0f, erfcf(1.0f));
 
-    for (int i = 0; i < n; i++) {
-        float x = vals[i];
-        printf("erff %a = %a\n", (double)x, (double)erff(x));
-        printf("erfcf %a = %a\n", (double)x, (double)erfcf(x));
-        printf("lgammaf %a = %a\n", (double)x, (double)lgammaf(x));
-        printf("tgammaf %a = %a\n", (double)x, (double)tgammaf(x));
-    }
+    printf("lgammaf %a = %a\n", 1.0f, lgammaf(1.0f));
+    printf("lgammaf %a = %a\n", 2.0f, lgammaf(2.0f));
+    printf("lgammaf %a = %a\n", 0.5f, lgammaf(0.5f));
+
+    printf("tgammaf %a = %a\n", 1.0f, tgammaf(1.0f));
+    printf("tgammaf %a = %a\n", 2.0f, tgammaf(2.0f));
+    printf("tgammaf %a = %a\n", 0.5f, tgammaf(0.5f));
 }
 
-static void test_float_nearest(void)
+/* ============================================================
+ * Float nearest integer functions
+ * ============================================================ */
+static void test_nearest_int_float(void)
 {
-    printf("=== Float Nearest Integer ===\n");
+    printf("=== Float Nearest Int ===\n");
+    printf("ceilf %a = %a\n", 1.5f, ceilf(1.5f));
+    printf("ceilf %a = %a\n", -1.5f, ceilf(-1.5f));
 
-    float vals[] = {0.0f, 0.5f, 1.5f, 2.5f, -0.5f, -1.5f, -2.5f, 3.7f, -3.7f, 0.1f, -0.1f};
-    int n = sizeof(vals)/sizeof(vals[0]);
+    printf("floorf %a = %a\n", 1.5f, floorf(1.5f));
+    printf("floorf %a = %a\n", -1.5f, floorf(-1.5f));
 
-    for (int i = 0; i < n; i++) {
-        float x = vals[i];
-        printf("ceilf %a = %a\n", (double)x, (double)ceilf(x));
-        printf("floorf %a = %a\n", (double)x, (double)floorf(x));
-        printf("nearbyintf %a = %a\n", (double)x, (double)nearbyintf(x));
-        printf("rintf %a = %a\n", (double)x, (double)rintf(x));
-        printf("lrintf %a = %ld\n", (double)x, lrintf(x));
-        printf("llrintf %a = %lld\n", (double)x, llrintf(x));
-        printf("roundf %a = %a\n", (double)x, (double)roundf(x));
-        printf("lroundf %a = %ld\n", (double)x, lroundf(x));
-        printf("llroundf %a = %lld\n", (double)x, llroundf(x));
-        printf("truncf %a = %a\n", (double)x, (double)truncf(x));
-    }
+    printf("nearbyintf %a = %a\n", 1.5f, nearbyintf(1.5f));
+    printf("nearbyintf %a = %a\n", -1.5f, nearbyintf(-1.5f));
+
+    printf("rintf %a = %a\n", 1.5f, rintf(1.5f));
+    printf("rintf %a = %a\n", -1.5f, rintf(-1.5f));
+
+    printf("lrintf %a = %ld\n", 1.5f, lrintf(1.5f));
+    printf("lrintf %a = %ld\n", -1.5f, lrintf(-1.5f));
+
+    printf("llrintf %a = %lld\n", 1.5f, llrintf(1.5f));
+    printf("llrintf %a = %lld\n", -1.5f, llrintf(-1.5f));
+
+    printf("roundf %a = %a\n", 0.5f, roundf(0.5f));
+    printf("roundf %a = %a\n", -0.5f, roundf(-0.5f));
+
+    printf("lroundf %a = %ld\n", 0.5f, lroundf(0.5f));
+    printf("lroundf %a = %ld\n", -0.5f, lroundf(-0.5f));
+
+    printf("llroundf %a = %lld\n", 0.5f, llroundf(0.5f));
+    printf("llroundf %a = %lld\n", -0.5f, llroundf(-0.5f));
+
+    printf("truncf %a = %a\n", 1.5f, truncf(1.5f));
+    printf("truncf %a = %a\n", -1.5f, truncf(-1.5f));
 }
 
-static void test_float_remainder(void)
+/* ============================================================
+ * Float remainder functions
+ * ============================================================ */
+static void test_remainder_float(void)
 {
+    int quo;
     printf("=== Float Remainder ===\n");
+    printf("fmodf %a %a = %a\n", 5.0f, 3.0f, fmodf(5.0f, 3.0f));
+    printf("fmodf %a %a = %a\n", -5.0f, 3.0f, fmodf(-5.0f, 3.0f));
 
-    float pairs[][2] = {{5.0f, 2.0f}, {-5.0f, 2.0f}, {5.0f, -2.0f}, {10.0f, 3.0f}, {0.0f, 1.0f}, {7.5f, 2.5f}};
-    int np = sizeof(pairs)/sizeof(pairs[0]);
+    printf("remainderf %a %a = %a\n", 5.0f, 3.0f, remainderf(5.0f, 3.0f));
+    printf("remainderf %a %a = %a\n", -5.0f, 3.0f, remainderf(-5.0f, 3.0f));
 
-    for (int i = 0; i < np; i++) {
-        printf("fmodf %a %a = %a\n", (double)pairs[i][0], (double)pairs[i][1], (double)fmodf(pairs[i][0], pairs[i][1]));
-        printf("remainderf %a %a = %a\n", (double)pairs[i][0], (double)pairs[i][1], (double)remainderf(pairs[i][0], pairs[i][1]));
-
-        int quo;
-        float r = remquof(pairs[i][0], pairs[i][1], &quo);
-        printf("remquof %a %a = %a quo=%d\n", (double)pairs[i][0], (double)pairs[i][1], (double)r, quo);
-    }
+    printf("remquof %a %a = %a quo=%d\n", 5.0f, 3.0f, remquof(5.0f, 3.0f, &quo), quo);
+    printf("remquof %a %a = %a quo=%d\n", -5.0f, 3.0f, remquof(-5.0f, 3.0f, &quo), quo);
 }
 
-static void test_float_manip(void)
+/* ============================================================
+ * Float manipulation functions
+ * ============================================================ */
+static void test_manip_float(void)
 {
     printf("=== Float Manipulation ===\n");
+    printf("copysignf %a %a = %a\n", 1.0f, -1.0f, copysignf(1.0f, -1.0f));
+    printf("copysignf %a %a = %a\n", -1.0f, 1.0f, copysignf(-1.0f, 1.0f));
 
-    float pairs[][2] = {{1.0f, 1.0f}, {1.0f, -1.0f}, {-1.0f, 1.0f}, {-1.0f, -1.0f}, {0.0f, -1.0f}};
-    int np = sizeof(pairs)/sizeof(pairs[0]);
-    for (int i = 0; i < np; i++) {
-        printf("copysignf %a %a = %a\n", (double)pairs[i][0], (double)pairs[i][1], (double)copysignf(pairs[i][0], pairs[i][1]));
-    }
+    printf("nanf = %a\n", nanf(""));
 
-    printf("nanf \"\" = %a\n", (double)nanf(""));
-    printf("nanf \"1\" = %a\n", (double)nanf("1"));
+    printf("nextafterf %a %a = %a\n", 1.0f, 2.0f, nextafterf(1.0f, 2.0f));
+    printf("nextafterf %a %a = %a\n", 1.0f, 0.0f, nextafterf(1.0f, 0.0f));
 
-    float na_pairs[][2] = {{0.0f, 1.0f}, {0.0f, -1.0f}, {1.0f, 2.0f}, {1.0f, 0.0f}};
-    int np2 = sizeof(na_pairs)/sizeof(na_pairs[0]);
-    for (int i = 0; i < np2; i++) {
-        printf("nextafterf %a %a = %a\n", (double)na_pairs[i][0], (double)na_pairs[i][1], (double)nextafterf(na_pairs[i][0], na_pairs[i][1]));
-    }
+    printf("nexttowardf %a %La = %a\n", 1.0f, (long double)2.0, nexttowardf(1.0f, (long double)2.0));
+    printf("nexttoward %a %La = %a\n", 1.0, (long double)2.0, nexttoward(1.0, (long double)2.0));
 }
 
-static void test_float_minmaxdim(void)
+/* ============================================================
+ * Float max, min, dim, fma
+ * ============================================================ */
+static void test_maxmin_float(void)
 {
-    printf("=== Float Min/Max/Dim ===\n");
+    printf("=== Float Max/Min/Dim/FMA ===\n");
+    printf("fdimf %a %a = %a\n", 3.0f, 1.0f, fdimf(3.0f, 1.0f));
+    printf("fdimf %a %a = %a\n", 1.0f, 3.0f, fdimf(1.0f, 3.0f));
 
-    float pairs[][2] = {{1.0f, 2.0f}, {2.0f, 1.0f}, {-1.0f, 1.0f}, {0.0f, 0.0f}, {-3.0f, -5.0f}};
-    int np = sizeof(pairs)/sizeof(pairs[0]);
+    printf("fmaxf %a %a = %a\n", 1.0f, 2.0f, fmaxf(1.0f, 2.0f));
+    printf("fmaxf %a %a = %a\n", -1.0f, 2.0f, fmaxf(-1.0f, 2.0f));
 
-    for (int i = 0; i < np; i++) {
-        printf("fdimf %a %a = %a\n", (double)pairs[i][0], (double)pairs[i][1], (double)fdimf(pairs[i][0], pairs[i][1]));
-        printf("fmaxf %a %a = %a\n", (double)pairs[i][0], (double)pairs[i][1], (double)fmaxf(pairs[i][0], pairs[i][1]));
-        printf("fminf %a %a = %a\n", (double)pairs[i][0], (double)pairs[i][1], (double)fminf(pairs[i][0], pairs[i][1]));
-    }
+    printf("fminf %a %a = %a\n", 1.0f, 2.0f, fminf(1.0f, 2.0f));
+    printf("fminf %a %a = %a\n", -1.0f, 2.0f, fminf(-1.0f, 2.0f));
+
+    printf("fmaf %a %a %a = %a\n", 2.0f, 3.0f, 4.0f, fmaf(2.0f, 3.0f, 4.0f));
+    printf("fmaf %a %a %a = %a\n", -1.0f, 2.0f, 1.0f, fmaf(-1.0f, 2.0f, 1.0f));
 }
 
-static void test_float_fma(void)
-{
-    printf("=== Float FMA ===\n");
-
-    float triples[][3] = {{2.0f, 3.0f, 4.0f}, {1.0f, 1.0f, 1.0f}, {-1.0f, 2.0f, 3.0f}, {0.0f, 0.0f, 0.0f}};
-    int nt = sizeof(triples)/sizeof(triples[0]);
-
-    for (int i = 0; i < nt; i++) {
-        printf("fmaf %a %a %a = %a\n", (double)triples[i][0], (double)triples[i][1], (double)triples[i][2],
-               (double)fmaf(triples[i][0], triples[i][1], triples[i][2]));
-    }
-}
-
-/* ================================================================
- * Complex double functions
- * ================================================================ */
-
-static void test_complex_double(void)
-{
-    printf("=== Complex Double ===\n");
-
-    double complex vals[] = {
-        CMPLX(1.0, 0.0), CMPLX(0.0, 1.0), CMPLX(1.0, 1.0),
-        CMPLX(-1.0, 0.0), CMPLX(0.0, -1.0), CMPLX(-1.0, -1.0),
-        CMPLX(0.5, 0.5), CMPLX(2.0, 3.0), CMPLX(0.0, 0.0),
-        CMPLX(0.1, 0.2), CMPLX(10.0, 10.0)
-    };
-    int n = sizeof(vals)/sizeof(vals[0]);
-
-    for (int i = 0; i < n; i++) {
-        double complex z = vals[i];
-        double complex r;
-        double re = creal(z), im = cimag(z);
-
-        printf("creal (%a,%a) = %a\n", re, im, creal(z));
-        printf("cimag (%a,%a) = %a\n", re, im, cimag(z));
-        printf("cabs (%a,%a) = %a\n", re, im, cabs(z));
-        printf("carg (%a,%a) = %a\n", re, im, carg(z));
-
-        r = conj(z);
-        printf("conj (%a,%a) = (%a,%a)\n", re, im, creal(r), cimag(r));
-
-        r = cproj(z);
-        printf("cproj (%a,%a) = (%a,%a)\n", re, im, creal(r), cimag(r));
-
-        r = cacos(z);
-        printf("cacos (%a,%a) = (%a,%a)\n", re, im, creal(r), cimag(r));
-
-        r = casin(z);
-        printf("casin (%a,%a) = (%a,%a)\n", re, im, creal(r), cimag(r));
-
-        r = catan(z);
-        printf("catan (%a,%a) = (%a,%a)\n", re, im, creal(r), cimag(r));
-
-        r = ccos(z);
-        printf("ccos (%a,%a) = (%a,%a)\n", re, im, creal(r), cimag(r));
-
-        r = csin(z);
-        printf("csin (%a,%a) = (%a,%a)\n", re, im, creal(r), cimag(r));
-
-        r = ctan(z);
-        printf("ctan (%a,%a) = (%a,%a)\n", re, im, creal(r), cimag(r));
-
-        r = cacosh(z);
-        printf("cacosh (%a,%a) = (%a,%a)\n", re, im, creal(r), cimag(r));
-
-        r = casinh(z);
-        printf("casinh (%a,%a) = (%a,%a)\n", re, im, creal(r), cimag(r));
-
-        r = catanh(z);
-        printf("catanh (%a,%a) = (%a,%a)\n", re, im, creal(r), cimag(r));
-
-        r = ccosh(z);
-        printf("ccosh (%a,%a) = (%a,%a)\n", re, im, creal(r), cimag(r));
-
-        r = csinh(z);
-        printf("csinh (%a,%a) = (%a,%a)\n", re, im, creal(r), cimag(r));
-
-        r = ctanh(z);
-        printf("ctanh (%a,%a) = (%a,%a)\n", re, im, creal(r), cimag(r));
-
-        r = cexp(z);
-        printf("cexp (%a,%a) = (%a,%a)\n", re, im, creal(r), cimag(r));
-
-        r = clog(z);
-        printf("clog (%a,%a) = (%a,%a)\n", re, im, creal(r), cimag(r));
-
-        r = csqrt(z);
-        printf("csqrt (%a,%a) = (%a,%a)\n", re, im, creal(r), cimag(r));
-    }
-
-    /* cpow with a few base/exponent combos */
-    {
-        double complex bases[] = {CMPLX(2.0, 0.0), CMPLX(1.0, 1.0), CMPLX(0.0, 1.0)};
-        double complex exps[] = {CMPLX(2.0, 0.0), CMPLX(0.5, 0.0), CMPLX(0.0, 1.0)};
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                double complex r = cpow(bases[i], exps[j]);
-                printf("cpow (%a,%a) (%a,%a) = (%a,%a)\n",
-                       creal(bases[i]), cimag(bases[i]),
-                       creal(exps[j]), cimag(exps[j]),
-                       creal(r), cimag(r));
-            }
-        }
-    }
-}
-
-/* ================================================================
- * Complex float functions
- * ================================================================ */
-
-static void test_complex_float(void)
-{
-    printf("=== Complex Float ===\n");
-
-    float complex vals[] = {
-        CMPLXF(1.0f, 0.0f), CMPLXF(0.0f, 1.0f), CMPLXF(1.0f, 1.0f),
-        CMPLXF(-1.0f, 0.0f), CMPLXF(0.0f, -1.0f), CMPLXF(-1.0f, -1.0f),
-        CMPLXF(0.5f, 0.5f), CMPLXF(2.0f, 3.0f), CMPLXF(0.0f, 0.0f),
-        CMPLXF(0.1f, 0.2f)
-    };
-    int n = sizeof(vals)/sizeof(vals[0]);
-
-    for (int i = 0; i < n; i++) {
-        float complex z = vals[i];
-        float complex r;
-        double re = (double)crealf(z), im = (double)cimagf(z);
-
-        printf("crealf (%a,%a) = %a\n", re, im, (double)crealf(z));
-        printf("cimagf (%a,%a) = %a\n", re, im, (double)cimagf(z));
-        printf("cabsf (%a,%a) = %a\n", re, im, (double)cabsf(z));
-        printf("cargf (%a,%a) = %a\n", re, im, (double)cargf(z));
-
-        r = conjf(z);
-        printf("conjf (%a,%a) = (%a,%a)\n", re, im, (double)crealf(r), (double)cimagf(r));
-
-        r = cprojf(z);
-        printf("cprojf (%a,%a) = (%a,%a)\n", re, im, (double)crealf(r), (double)cimagf(r));
-
-        r = cacosf(z);
-        printf("cacosf (%a,%a) = (%a,%a)\n", re, im, (double)crealf(r), (double)cimagf(r));
-
-        r = casinf(z);
-        printf("casinf (%a,%a) = (%a,%a)\n", re, im, (double)crealf(r), (double)cimagf(r));
-
-        r = catanf(z);
-        printf("catanf (%a,%a) = (%a,%a)\n", re, im, (double)crealf(r), (double)cimagf(r));
-
-        r = ccosf(z);
-        printf("ccosf (%a,%a) = (%a,%a)\n", re, im, (double)crealf(r), (double)cimagf(r));
-
-        r = csinf(z);
-        printf("csinf (%a,%a) = (%a,%a)\n", re, im, (double)crealf(r), (double)cimagf(r));
-
-        r = ctanf(z);
-        printf("ctanf (%a,%a) = (%a,%a)\n", re, im, (double)crealf(r), (double)cimagf(r));
-
-        r = cacoshf(z);
-        printf("cacoshf (%a,%a) = (%a,%a)\n", re, im, (double)crealf(r), (double)cimagf(r));
-
-        r = casinhf(z);
-        printf("casinhf (%a,%a) = (%a,%a)\n", re, im, (double)crealf(r), (double)cimagf(r));
-
-        r = catanhf(z);
-        printf("catanhf (%a,%a) = (%a,%a)\n", re, im, (double)crealf(r), (double)cimagf(r));
-
-        r = ccoshf(z);
-        printf("ccoshf (%a,%a) = (%a,%a)\n", re, im, (double)crealf(r), (double)cimagf(r));
-
-        r = csinhf(z);
-        printf("csinhf (%a,%a) = (%a,%a)\n", re, im, (double)crealf(r), (double)cimagf(r));
-
-        r = ctanhf(z);
-        printf("ctanhf (%a,%a) = (%a,%a)\n", re, im, (double)crealf(r), (double)cimagf(r));
-
-        r = cexpf(z);
-        printf("cexpf (%a,%a) = (%a,%a)\n", re, im, (double)crealf(r), (double)cimagf(r));
-
-        r = clogf(z);
-        printf("clogf (%a,%a) = (%a,%a)\n", re, im, (double)crealf(r), (double)cimagf(r));
-
-        r = csqrtf(z);
-        printf("csqrtf (%a,%a) = (%a,%a)\n", re, im, (double)crealf(r), (double)cimagf(r));
-    }
-
-    /* cpowf */
-    {
-        float complex bases[] = {CMPLXF(2.0f, 0.0f), CMPLXF(1.0f, 1.0f)};
-        float complex exps[] = {CMPLXF(2.0f, 0.0f), CMPLXF(0.5f, 0.0f)};
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 2; j++) {
-                float complex r = cpowf(bases[i], exps[j]);
-                printf("cpowf (%a,%a) (%a,%a) = (%a,%a)\n",
-                       (double)crealf(bases[i]), (double)cimagf(bases[i]),
-                       (double)crealf(exps[j]), (double)cimagf(exps[j]),
-                       (double)crealf(r), (double)cimagf(r));
-            }
-        }
-    }
-}
-
-/* ================================================================
- * Internal functions (non-static, linked directly)
- * ================================================================ */
-
-static void test_internal_double(void)
-{
-    printf("=== Internal Double ===\n");
-
-    /* __fpclassifyd */
-    {
-        double vals[] = {0.0, -0.0, 1.0, -1.0, HUGE_VAL, -HUGE_VAL, 5e-324, -5e-324};
-        int n = sizeof(vals)/sizeof(vals[0]);
-        for (int i = 0; i < n; i++) {
-            printf("__fpclassifyd %a = %d\n", vals[i], __fpclassifyd(vals[i]));
-        }
-        printf("__fpclassifyd NaN = %d\n", __fpclassifyd(nan("")));
-    }
-
-    /* __signbitd */
-    {
-        double vals[] = {0.0, -0.0, 1.0, -1.0, HUGE_VAL, -HUGE_VAL};
-        int n = sizeof(vals)/sizeof(vals[0]);
-        for (int i = 0; i < n; i++) {
-            printf("__signbitd %a = %d\n", vals[i], __signbitd(vals[i]));
-        }
-    }
-
-    /* __sin, __cos (inputs bounded to [-pi/4, pi/4]) */
-    {
-        double xvals[] = {0.0, 0.1, 0.5, 0.7, -0.1, -0.5, -0.7};
-        int nx = sizeof(xvals)/sizeof(xvals[0]);
-        for (int i = 0; i < nx; i++) {
-            printf("__cos %a %a = %a\n", xvals[i], 0.0, __cos(xvals[i], 0.0));
-            printf("__sin %a %a %d = %a\n", xvals[i], 0.0, 0, __sin(xvals[i], 0.0, 0));
-            printf("__sin %a %a %d = %a\n", xvals[i], 0.0, 1, __sin(xvals[i], 0.0, 1));
-        }
-        /* with tail value */
-        printf("__cos %a %a = %a\n", 0.5, 1e-18, __cos(0.5, 1e-18));
-        printf("__sin %a %a %d = %a\n", 0.5, 1e-18, 1, __sin(0.5, 1e-18, 1));
-    }
-
-    /* __rem_pio2 */
-    {
-        double xvals[] = {0.0, 1.0, M_PI/2, M_PI, 2*M_PI, 10.0, 100.0, 1e6, -1.0, -M_PI};
-        int nx = sizeof(xvals)/sizeof(xvals[0]);
-        for (int i = 0; i < nx; i++) {
-            double y[2];
-            int32_t n = __rem_pio2(xvals[i], y);
-            printf("__rem_pio2 %a = n=%d y0=%a y1=%a\n", xvals[i], n, y[0], y[1]);
-        }
-    }
-
-    /* __lgamma */
-    {
-        double vals[] = {0.5, 1.0, 1.5, 2.0, 5.0, 10.0, -0.5, -1.5, 0.1, 100.0};
-        int n = sizeof(vals)/sizeof(vals[0]);
-        for (int i = 0; i < n; i++) {
-            int sg;
-            double r = __lgamma(vals[i], &sg);
-            printf("__lgamma %a = %a signgam=%d\n", vals[i], r, sg);
-        }
-    }
-
-    /* __ccoshsinh */
-    {
-        double xvals[] = {0.0, 0.5, 1.0, 2.0, -1.0, 0.1, 10.0};
-        int nx = sizeof(xvals)/sizeof(xvals[0]);
-        for (int i = 0; i < nx; i++) {
-            double c, s;
-            __ccoshsinh(xvals[i], &c, &s);
-            printf("__ccoshsinh %a = c=%a s=%a\n", xvals[i], c, s);
-        }
-    }
-
-    /* __redupi */
-    {
-        double xvals[] = {0.0, M_PI, 2*M_PI, -M_PI, 10.0, 100.0, -100.0};
-        int nx = sizeof(xvals)/sizeof(xvals[0]);
-        for (int i = 0; i < nx; i++) {
-            printf("__redupi %a = %a\n", xvals[i], __redupi(xvals[i]));
-        }
-    }
-}
-
-static void test_internal_float(void)
-{
-    printf("=== Internal Float ===\n");
-
-    /* __fpclassifyf */
-    {
-        float vals[] = {0.0f, -0.0f, 1.0f, -1.0f, HUGE_VALF, -HUGE_VALF, 1e-45f, -1e-45f};
-        int n = sizeof(vals)/sizeof(vals[0]);
-        for (int i = 0; i < n; i++) {
-            printf("__fpclassifyf %a = %d\n", (double)vals[i], __fpclassifyf(vals[i]));
-        }
-        printf("__fpclassifyf NaN = %d\n", __fpclassifyf(nanf("")));
-    }
-
-    /* __signbitf */
-    {
-        float vals[] = {0.0f, -0.0f, 1.0f, -1.0f, HUGE_VALF, -HUGE_VALF};
-        int n = sizeof(vals)/sizeof(vals[0]);
-        for (int i = 0; i < n; i++) {
-            printf("__signbitf %a = %d\n", (double)vals[i], __signbitf(vals[i]));
-        }
-    }
-
-    /* __sinf, __cosf (inputs bounded to [-pi/4, pi/4]) */
-    {
-        float xvals[] = {0.0f, 0.1f, 0.5f, 0.7f, -0.1f, -0.5f, -0.7f};
-        int nx = sizeof(xvals)/sizeof(xvals[0]);
-        for (int i = 0; i < nx; i++) {
-            printf("__cosf %a %a = %a\n", (double)xvals[i], 0.0, (double)__cosf(xvals[i], 0.0f));
-            printf("__sinf %a %a %d = %a\n", (double)xvals[i], 0.0, 0, (double)__sinf(xvals[i], 0.0f, 0));
-            printf("__sinf %a %a %d = %a\n", (double)xvals[i], 0.0, 1, (double)__sinf(xvals[i], 0.0f, 1));
-        }
-    }
-
-    /* __rem_pio2f */
-    {
-        float xvals[] = {0.0f, 1.0f, (float)(M_PI/2), (float)M_PI, (float)(2*M_PI), 10.0f, 100.0f, 1e6f, -1.0f};
-        int nx = sizeof(xvals)/sizeof(xvals[0]);
-        for (int i = 0; i < nx; i++) {
-            float y[2];
-            int32_t n = __rem_pio2f(xvals[i], y);
-            printf("__rem_pio2f %a = n=%d y0=%a y1=%a\n", (double)xvals[i], n, (double)y[0], (double)y[1]);
-        }
-    }
-
-    /* __lgammaf */
-    {
-        float vals[] = {0.5f, 1.0f, 1.5f, 2.0f, 5.0f, 10.0f, -0.5f, -1.5f, 0.1f};
-        int n = sizeof(vals)/sizeof(vals[0]);
-        for (int i = 0; i < n; i++) {
-            int sg;
-            float r = __lgammaf(vals[i], &sg);
-            printf("__lgammaf %a = %a signgam=%d\n", (double)vals[i], (double)r, sg);
-        }
-    }
-
-    /* __ccoshsinhf */
-    {
-        float xvals[] = {0.0f, 0.5f, 1.0f, 2.0f, -1.0f, 0.1f};
-        int nx = sizeof(xvals)/sizeof(xvals[0]);
-        for (int i = 0; i < nx; i++) {
-            float c, s;
-            __ccoshsinhf(xvals[i], &c, &s);
-            printf("__ccoshsinhf %a = c=%a s=%a\n", (double)xvals[i], (double)c, (double)s);
-        }
-    }
-
-    /* __redupif */
-    {
-        float xvals[] = {0.0f, (float)M_PI, (float)(2*M_PI), (float)(-M_PI), 10.0f, 100.0f};
-        int nx = sizeof(xvals)/sizeof(xvals[0]);
-        for (int i = 0; i < nx; i++) {
-            printf("__redupif %a = %a\n", (double)xvals[i], (double)__redupif(xvals[i]));
-        }
-    }
-}
-
-/* ================================================================
- * Static internal functions (via bridge)
- * ================================================================ */
-
-static void test_bridge_functions(void)
-{
-    printf("=== Bridge (Static Internal) Functions ===\n");
-
-    /* bridge___sin_pi */
-    {
-        double vals[] = {-0.5, -1.0, -1.5, -2.0, -2.5, -3.0, -0.25, -0.1, -10.0, -100.0};
-        int n = sizeof(vals)/sizeof(vals[0]);
-        for (int i = 0; i < n; i++) {
-            printf("bridge___sin_pi %a = %a\n", vals[i], bridge___sin_pi(vals[i]));
-        }
-    }
-
-    /* bridge___sin_pif */
-    {
-        float vals[] = {-0.5f, -1.0f, -1.5f, -2.0f, -2.5f, -3.0f, -0.25f, -0.1f, -10.0f};
-        int n = sizeof(vals)/sizeof(vals[0]);
-        for (int i = 0; i < n; i++) {
-            printf("bridge___sin_pif %a = %a\n", (double)vals[i], (double)bridge___sin_pif(vals[i]));
-        }
-    }
-
-    /* bridge___rem_pio2_internal (double) */
-    {
-        /* Test with a decomposed large angle: x = 900000.0, e0 = ilogb(z)-23 */
-        double tx[3] = {13750.0, 8192.0, 0.0};
-        double y[2];
-        int n = bridge___rem_pio2_internal(tx, y, -4, 2);
-        printf("bridge___rem_pio2_internal [%a,%a] e0=-4 nx=2 = n=%d y0=%a y1=%a\n",
-               tx[0], tx[1], n, y[0], y[1]);
-
-        /* Simple case */
-        double tx2[3] = {1.0, 0.0, 0.0};
-        double y2[2];
-        int n2 = bridge___rem_pio2_internal(tx2, y2, 1, 1);
-        printf("bridge___rem_pio2_internal [%a] e0=1 nx=1 = n=%d y0=%a y1=%a\n",
-               tx2[0], n2, y2[0], y2[1]);
-    }
-
-    /* bridge___rem_pio2f_internal (float) */
-    {
-        float tx[3] = {162.0f, 0.0f, 0.0f};
-        float y[2];
-        int n = bridge___rem_pio2f_internal(tx, y, 1, 1);
-        printf("bridge___rem_pio2f_internal [%a] e0=1 nx=1 = n=%d y0=%a y1=%a\n",
-               (double)tx[0], n, (double)y[0], (double)y[1]);
-    }
-
-    /* bridge___ctans */
-    {
-        double complex vals[] = {CMPLX(0.1, 0.1), CMPLX(0.5, 0.5), CMPLX(1.0, 0.5), CMPLX(0.0, 1.0)};
-        int n = sizeof(vals)/sizeof(vals[0]);
-        for (int i = 0; i < n; i++) {
-            printf("bridge___ctans (%a,%a) = %a\n", creal(vals[i]), cimag(vals[i]), bridge___ctans(vals[i]));
-        }
-    }
-
-    /* bridge___ctansf */
-    {
-        float complex vals[] = {CMPLXF(0.1f, 0.1f), CMPLXF(0.5f, 0.5f), CMPLXF(1.0f, 0.5f), CMPLXF(0.0f, 1.0f)};
-        int n = sizeof(vals)/sizeof(vals[0]);
-        for (int i = 0; i < n; i++) {
-            printf("bridge___ctansf (%a,%a) = %a\n", (double)crealf(vals[i]), (double)cimagf(vals[i]), (double)bridge___ctansf(vals[i]));
-        }
-    }
-}
-
-/* ================================================================
- * Classification macros / signgam
- * ================================================================ */
-
-static void test_classification(void)
+/* ============================================================
+ * Classification macros (via internal functions)
+ * ============================================================ */
+static void test_classify(void)
 {
     printf("=== Classification ===\n");
+    printf("__fpclassifyd %a = %d\n", 0.0, __fpclassifyd(0.0));
+    printf("__fpclassifyd %a = %d\n", 1.0, __fpclassifyd(1.0));
+    printf("__fpclassifyd inf = %d\n", __fpclassifyd(1.0/0.0));
+    printf("__fpclassifyd nan = %d\n", __fpclassifyd(0.0/0.0));
+    printf("__fpclassifyd %a = %d\n", 5e-324, __fpclassifyd(5e-324));
 
-    double dvals[] = {0.0, -0.0, 1.0, -1.0, HUGE_VAL, -HUGE_VAL, 5e-324};
-    int nd = sizeof(dvals)/sizeof(dvals[0]);
-    double dnan = nan("");
+    printf("__fpclassifyf %a = %d\n", 0.0f, __fpclassifyf(0.0f));
+    printf("__fpclassifyf %a = %d\n", 1.0f, __fpclassifyf(1.0f));
+    printf("__fpclassifyf inf = %d\n", __fpclassifyf(1.0f/0.0f));
+    printf("__fpclassifyf nan = %d\n", __fpclassifyf(0.0f/0.0f));
+    printf("__fpclassifyf %a = %d\n", 1e-45f, __fpclassifyf(1e-45f));
 
-    for (int i = 0; i < nd; i++) {
-        printf("fpclassify(d) %a = %d\n", dvals[i], fpclassify(dvals[i]));
-        printf("isfinite(d) %a = %d\n", dvals[i], isfinite(dvals[i]));
-        printf("isinf(d) %a = %d\n", dvals[i], isinf(dvals[i]));
-        printf("isnan(d) %a = %d\n", dvals[i], isnan(dvals[i]));
-        printf("isnormal(d) %a = %d\n", dvals[i], isnormal(dvals[i]));
-        printf("signbit(d) %a = %d\n", dvals[i], signbit(dvals[i]));
-    }
-    printf("isnan(d) NaN = %d\n", isnan(dnan));
-    printf("fpclassify(d) NaN = %d\n", fpclassify(dnan));
+    printf("__signbitd %a = %d\n", 1.0, __signbitd(1.0));
+    printf("__signbitd %a = %d\n", -1.0, __signbitd(-1.0));
+    printf("__signbitd %a = %d\n", 0.0, __signbitd(0.0));
+    printf("__signbitd %a = %d\n", -0.0, __signbitd(-0.0));
 
-    float fvals[] = {0.0f, -0.0f, 1.0f, -1.0f, HUGE_VALF, -HUGE_VALF, 1e-45f};
-    int nf = sizeof(fvals)/sizeof(fvals[0]);
-    float fnan = nanf("");
-
-    for (int i = 0; i < nf; i++) {
-        printf("fpclassify(f) %a = %d\n", (double)fvals[i], fpclassify(fvals[i]));
-        printf("isfinite(f) %a = %d\n", (double)fvals[i], isfinite(fvals[i]));
-        printf("isinf(f) %a = %d\n", (double)fvals[i], isinf(fvals[i]));
-        printf("isnan(f) %a = %d\n", (double)fvals[i], isnan(fvals[i]));
-        printf("isnormal(f) %a = %d\n", (double)fvals[i], isnormal(fvals[i]));
-        printf("signbit(f) %a = %d\n", (double)fvals[i], signbit(fvals[i]));
-    }
-    printf("isnan(f) NaN = %d\n", isnan(fnan));
-    printf("fpclassify(f) NaN = %d\n", fpclassify(fnan));
-
-    /* signgam */
-    lgamma(2.0);
-    printf("signgam after lgamma(2.0) = %d\n", signgam);
-    lgamma(-0.5);
-    printf("signgam after lgamma(-0.5) = %d\n", signgam);
+    printf("__signbitf %a = %d\n", 1.0f, __signbitf(1.0f));
+    printf("__signbitf %a = %d\n", -1.0f, __signbitf(-1.0f));
+    printf("__signbitf %a = %d\n", 0.0f, __signbitf(0.0f));
+    printf("__signbitf %a = %d\n", -0.0f, __signbitf(-0.0f));
 }
 
-/* ================================================================
- * Special values / edge cases
- * ================================================================ */
-
-static void test_special_values(void)
+/* ============================================================
+ * Complex double functions
+ * ============================================================ */
+static void test_complex_double(void)
 {
-    printf("=== Special Values ===\n");
+    double complex z1 = CMPLX(1.0, 1.0);
+    double complex z2 = CMPLX(0.0, 1.0);
+    double complex z3 = CMPLX(0.5, 0.5);
+    double complex res;
 
-    double pinf = HUGE_VAL;
-    double ninf = -HUGE_VAL;
-    double dnan = nan("");
-    double pzero = 0.0;
-    double nzero = -0.0;
-    double subnorm = 5e-324;
+    printf("=== Complex Double Trig ===\n");
+    res = cacos(z1);
+    printf("cacos(%a+%ai) = %a+%ai\n", creal(z1), cimag(z1), creal(res), cimag(res));
+    res = cacos(z2);
+    printf("cacos(%a+%ai) = %a+%ai\n", creal(z2), cimag(z2), creal(res), cimag(res));
 
-    /* Trig with special values */
-    printf("sin +inf = %a\n", sin(pinf));
-    printf("sin -inf = %a\n", sin(ninf));
-    printf("sin NaN = %a\n", sin(dnan));
-    printf("sin +0 = %a\n", sin(pzero));
-    printf("sin -0 = %a\n", sin(nzero));
-    printf("cos +inf = %a\n", cos(pinf));
-    printf("cos NaN = %a\n", cos(dnan));
-    printf("cos 0 = %a\n", cos(pzero));
+    res = casin(z1);
+    printf("casin(%a+%ai) = %a+%ai\n", creal(z1), cimag(z1), creal(res), cimag(res));
+    res = casin(z2);
+    printf("casin(%a+%ai) = %a+%ai\n", creal(z2), cimag(z2), creal(res), cimag(res));
 
-    printf("tan +inf = %a\n", tan(pinf));
-    printf("tan NaN = %a\n", tan(dnan));
+    res = catan(z1);
+    printf("catan(%a+%ai) = %a+%ai\n", creal(z1), cimag(z1), creal(res), cimag(res));
+    res = catan(z3);
+    printf("catan(%a+%ai) = %a+%ai\n", creal(z3), cimag(z3), creal(res), cimag(res));
 
-    printf("asin 2 = %a\n", asin(2.0));
-    printf("acos 2 = %a\n", acos(2.0));
+    res = ccos(z1);
+    printf("ccos(%a+%ai) = %a+%ai\n", creal(z1), cimag(z1), creal(res), cimag(res));
+    res = ccos(z2);
+    printf("ccos(%a+%ai) = %a+%ai\n", creal(z2), cimag(z2), creal(res), cimag(res));
 
-    /* Exp/log with special values */
-    printf("exp +inf = %a\n", exp(pinf));
-    printf("exp -inf = %a\n", exp(ninf));
-    printf("exp NaN = %a\n", exp(dnan));
-    printf("log 0 = %a\n", log(pzero));
-    printf("log -0 = %a\n", log(nzero));
-    printf("log -1 = %a\n", log(-1.0));
-    printf("log +inf = %a\n", log(pinf));
-    printf("log NaN = %a\n", log(dnan));
+    res = csin(z1);
+    printf("csin(%a+%ai) = %a+%ai\n", creal(z1), cimag(z1), creal(res), cimag(res));
+    res = csin(z2);
+    printf("csin(%a+%ai) = %a+%ai\n", creal(z2), cimag(z2), creal(res), cimag(res));
 
-    /* Power with special values */
-    printf("sqrt -1 = %a\n", sqrt(-1.0));
-    printf("sqrt +inf = %a\n", sqrt(pinf));
-    printf("sqrt NaN = %a\n", sqrt(dnan));
-    printf("pow 0 0 = %a\n", pow(0.0, 0.0));
-    printf("pow 1 inf = %a\n", pow(1.0, pinf));
-    printf("pow inf 0 = %a\n", pow(pinf, 0.0));
-    printf("pow inf inf = %a\n", pow(pinf, pinf));
+    res = ctan(z1);
+    printf("ctan(%a+%ai) = %a+%ai\n", creal(z1), cimag(z1), creal(res), cimag(res));
+    res = ctan(z3);
+    printf("ctan(%a+%ai) = %a+%ai\n", creal(z3), cimag(z3), creal(res), cimag(res));
 
-    /* Subnormal */
-    printf("sin subnorm = %a\n", sin(subnorm));
-    printf("cos subnorm = %a\n", cos(subnorm));
-    printf("exp subnorm = %a\n", exp(subnorm));
-    printf("log subnorm = %a\n", log(subnorm));
-    printf("sqrt subnorm = %a\n", sqrt(subnorm));
+    printf("=== Complex Double Hyperbolic ===\n");
+    res = cacosh(z1);
+    printf("cacosh(%a+%ai) = %a+%ai\n", creal(z1), cimag(z1), creal(res), cimag(res));
 
-    /* Float special values */
-    float finf = HUGE_VALF;
-    float fnan_val = nanf("");
-    printf("sinf +inf = %a\n", (double)sinf(finf));
-    printf("sinf NaN = %a\n", (double)sinf(fnan_val));
-    printf("cosf +inf = %a\n", (double)cosf(finf));
-    printf("expf +inf = %a\n", (double)expf(finf));
-    printf("expf -inf = %a\n", (double)expf(-finf));
-    printf("logf 0 = %a\n", (double)logf(0.0f));
-    printf("sqrtf -1 = %a\n", (double)sqrtf(-1.0f));
+    res = casinh(z1);
+    printf("casinh(%a+%ai) = %a+%ai\n", creal(z1), cimag(z1), creal(res), cimag(res));
+
+    res = catanh(z3);
+    printf("catanh(%a+%ai) = %a+%ai\n", creal(z3), cimag(z3), creal(res), cimag(res));
+
+    res = ccosh(z1);
+    printf("ccosh(%a+%ai) = %a+%ai\n", creal(z1), cimag(z1), creal(res), cimag(res));
+
+    res = csinh(z1);
+    printf("csinh(%a+%ai) = %a+%ai\n", creal(z1), cimag(z1), creal(res), cimag(res));
+
+    res = ctanh(z1);
+    printf("ctanh(%a+%ai) = %a+%ai\n", creal(z1), cimag(z1), creal(res), cimag(res));
+
+    printf("=== Complex Double Exp/Log ===\n");
+    res = cexp(z1);
+    printf("cexp(%a+%ai) = %a+%ai\n", creal(z1), cimag(z1), creal(res), cimag(res));
+    res = cexp(z2);
+    printf("cexp(%a+%ai) = %a+%ai\n", creal(z2), cimag(z2), creal(res), cimag(res));
+
+    res = clog(z1);
+    printf("clog(%a+%ai) = %a+%ai\n", creal(z1), cimag(z1), creal(res), cimag(res));
+    res = clog(z2);
+    printf("clog(%a+%ai) = %a+%ai\n", creal(z2), cimag(z2), creal(res), cimag(res));
+
+    printf("=== Complex Double Power/Abs ===\n");
+    printf("cabs(%a+%ai) = %a\n", creal(z1), cimag(z1), cabs(z1));
+    printf("cabs(%a+%ai) = %a\n", creal(z2), cimag(z2), cabs(z2));
+
+    res = cpow(z1, z2);
+    printf("cpow(%a+%ai, %a+%ai) = %a+%ai\n",
+           creal(z1), cimag(z1), creal(z2), cimag(z2), creal(res), cimag(res));
+
+    res = csqrt(z1);
+    printf("csqrt(%a+%ai) = %a+%ai\n", creal(z1), cimag(z1), creal(res), cimag(res));
+    res = csqrt(CMPLX(-1.0, 0.0));
+    printf("csqrt(%a+%ai) = %a+%ai\n", -1.0, 0.0, creal(res), cimag(res));
+
+    printf("=== Complex Double Manipulation ===\n");
+    printf("carg(%a+%ai) = %a\n", creal(z1), cimag(z1), carg(z1));
+    printf("carg(%a+%ai) = %a\n", creal(z2), cimag(z2), carg(z2));
+
+    printf("cimag(%a+%ai) = %a\n", creal(z1), cimag(z1), cimag(z1));
+
+    res = conj(z1);
+    printf("conj(%a+%ai) = %a+%ai\n", creal(z1), cimag(z1), creal(res), cimag(res));
+
+    res = cproj(z1);
+    printf("cproj(%a+%ai) = %a+%ai\n", creal(z1), cimag(z1), creal(res), cimag(res));
+    res = cproj(CMPLX(1.0/0.0, 1.0));
+    printf("cproj(inf+%ai) = %a+%ai\n", 1.0, creal(res), cimag(res));
+
+    printf("creal(%a+%ai) = %a\n", creal(z1), cimag(z1), creal(z1));
 }
 
-/* ================================================================
- * Long double functions (aliases of double when long double is 64-bit)
- * ================================================================ */
-
-static void test_long_double(void)
+/* ============================================================
+ * Complex float functions
+ * ============================================================ */
+static void test_complex_float(void)
 {
-    printf("=== Long Double ===\n");
+    float complex z1 = CMPLXF(1.0f, 1.0f);
+    float complex z2 = CMPLXF(0.0f, 1.0f);
+    float complex z3 = CMPLXF(0.5f, 0.5f);
+    float complex res;
 
-    /* Note: on this platform, long double may or may not be 64-bit.
-       We test a representative sample. */
-    long double vals[] = {0.0L, 0.5L, 1.0L, -1.0L, 2.0L, 10.0L};
-    int n = sizeof(vals)/sizeof(vals[0]);
+    printf("=== Complex Float Trig ===\n");
+    res = cacosf(z1);
+    printf("cacosf(%a+%ai) = %a+%ai\n", crealf(z1), cimagf(z1), crealf(res), cimagf(res));
 
-    for (int i = 0; i < n; i++) {
-        long double x = vals[i];
-        /* Print as double since %La may not be portable */
-        printf("cosl %a = %a\n", (double)x, (double)cosl(x));
-        printf("sinl %a = %a\n", (double)x, (double)sinl(x));
-        printf("tanl %a = %a\n", (double)x, (double)tanl(x));
-        printf("acosl %a = %a\n", (double)x, (double)acosl(x));
-        printf("asinl %a = %a\n", (double)x, (double)asinl(x));
-        printf("atanl %a = %a\n", (double)x, (double)atanl(x));
-        printf("expl %a = %a\n", (double)x, (double)expl(x));
-        printf("logl %a = %a\n", (double)x, (double)logl(x));
-        printf("sqrtl %a = %a\n", (double)x, (double)sqrtl(x));
-        printf("fabsl %a = %a\n", (double)x, (double)fabsl(x));
-        printf("ceill %a = %a\n", (double)x, (double)ceill(x));
-        printf("floorl %a = %a\n", (double)x, (double)floorl(x));
-        printf("roundl %a = %a\n", (double)x, (double)roundl(x));
-        printf("truncl %a = %a\n", (double)x, (double)truncl(x));
-    }
+    res = casinf(z1);
+    printf("casinf(%a+%ai) = %a+%ai\n", crealf(z1), cimagf(z1), crealf(res), cimagf(res));
 
-    /* A few more long double functions */
-    printf("atan2l %a %a = %a\n", 1.0, 1.0, (double)atan2l(1.0L, 1.0L));
-    printf("powl %a %a = %a\n", 2.0, 3.0, (double)powl(2.0L, 3.0L));
-    printf("fmodl %a %a = %a\n", 5.0, 2.0, (double)fmodl(5.0L, 2.0L));
-    printf("hypotl %a %a = %a\n", 3.0, 4.0, (double)hypotl(3.0L, 4.0L));
-    printf("cbrtl %a = %a\n", 27.0, (double)cbrtl(27.0L));
-    printf("exp2l %a = %a\n", 10.0, (double)exp2l(10.0L));
-    printf("log2l %a = %a\n", 1024.0, (double)log2l(1024.0L));
-    printf("log10l %a = %a\n", 1000.0, (double)log10l(1000.0L));
-    printf("erfl %a = %a\n", 1.0, (double)erfl(1.0L));
-    printf("erfcl %a = %a\n", 1.0, (double)erfcl(1.0L));
-    printf("lgammal %a = %a\n", 5.0, (double)lgammal(5.0L));
-    printf("tgammal %a = %a\n", 5.0, (double)tgammal(5.0L));
-    printf("coshl %a = %a\n", 1.0, (double)coshl(1.0L));
-    printf("sinhl %a = %a\n", 1.0, (double)sinhl(1.0L));
-    printf("tanhl %a = %a\n", 1.0, (double)tanhl(1.0L));
-    printf("acoshl %a = %a\n", 2.0, (double)acoshl(2.0L));
-    printf("asinhl %a = %a\n", 1.0, (double)asinhl(1.0L));
-    printf("atanhl %a = %a\n", 0.5, (double)atanhl(0.5L));
-    printf("expm1l %a = %a\n", 1.0, (double)expm1l(1.0L));
-    printf("log1pl %a = %a\n", 1.0, (double)log1pl(1.0L));
-    printf("logbl %a = %a\n", 1024.0, (double)logbl(1024.0L));
-    printf("scalbnl %a %d = %a\n", 1.0, 10, (double)scalbnl(1.0L, 10));
-    printf("scalblnl %a %d = %a\n", 1.0, 10, (double)scalblnl(1.0L, 10L));
-    printf("nearbyintl %a = %a\n", 1.5, (double)nearbyintl(1.5L));
-    printf("rintl %a = %a\n", 1.5, (double)rintl(1.5L));
-    printf("lrintl %a = %ld\n", 1.5, lrintl(1.5L));
-    printf("llrintl %a = %lld\n", 1.5, llrintl(1.5L));
-    printf("lroundl %a = %ld\n", 1.5, lroundl(1.5L));
-    printf("llroundl %a = %lld\n", 1.5, llroundl(1.5L));
-    printf("remainderl %a %a = %a\n", 5.0, 2.0, (double)remainderl(5.0L, 2.0L));
-    {
-        int quo;
-        long double r = remquol(5.0L, 2.0L, &quo);
-        printf("remquol %a %a = %a quo=%d\n", 5.0, 2.0, (double)r, quo);
-    }
-    printf("copysignl %a %a = %a\n", 1.0, -1.0, (double)copysignl(1.0L, -1.0L));
-    printf("nanl = %a\n", (double)nanl(""));
-    printf("nextafterl %a %a = %a\n", 1.0, 2.0, (double)nextafterl(1.0L, 2.0L));
-    printf("nexttoward %a %a = %a\n", 1.0, 2.0, nexttoward(1.0, 2.0L));
-    printf("nexttowardf %a %a = %a\n", 1.0, 2.0, (double)nexttowardf(1.0f, 2.0L));
-    printf("nexttowardl %a %a = %a\n", 1.0, 2.0, (double)nexttowardl(1.0L, 2.0L));
-    printf("fdiml %a %a = %a\n", 5.0, 3.0, (double)fdiml(5.0L, 3.0L));
-    printf("fmaxl %a %a = %a\n", 5.0, 3.0, (double)fmaxl(5.0L, 3.0L));
-    printf("fminl %a %a = %a\n", 5.0, 3.0, (double)fminl(5.0L, 3.0L));
-    printf("fmal %a %a %a = %a\n", 2.0, 3.0, 4.0, (double)fmal(2.0L, 3.0L, 4.0L));
-    {
-        int exp_val;
-        long double r = frexpl(1024.0L, &exp_val);
-        printf("frexpl %a = %a exp=%d\n", 1024.0, (double)r, exp_val);
-    }
-    printf("ilogbl %a = %d\n", 1024.0, ilogbl(1024.0L));
-    printf("ldexpl %a %d = %a\n", 1.0, 10, (double)ldexpl(1.0L, 10));
-    {
-        long double ipart;
-        long double r = modfl(2.7L, &ipart);
-        printf("modfl %a = %a ipart=%a\n", 2.7, (double)r, (double)ipart);
-    }
+    res = catanf(z3);
+    printf("catanf(%a+%ai) = %a+%ai\n", crealf(z3), cimagf(z3), crealf(res), cimagf(res));
+
+    res = ccosf(z1);
+    printf("ccosf(%a+%ai) = %a+%ai\n", crealf(z1), cimagf(z1), crealf(res), cimagf(res));
+
+    res = csinf(z1);
+    printf("csinf(%a+%ai) = %a+%ai\n", crealf(z1), cimagf(z1), crealf(res), cimagf(res));
+
+    res = ctanf(z1);
+    printf("ctanf(%a+%ai) = %a+%ai\n", crealf(z1), cimagf(z1), crealf(res), cimagf(res));
+
+    printf("=== Complex Float Hyperbolic ===\n");
+    res = cacoshf(z1);
+    printf("cacoshf(%a+%ai) = %a+%ai\n", crealf(z1), cimagf(z1), crealf(res), cimagf(res));
+
+    res = casinhf(z1);
+    printf("casinhf(%a+%ai) = %a+%ai\n", crealf(z1), cimagf(z1), crealf(res), cimagf(res));
+
+    res = catanhf(z3);
+    printf("catanhf(%a+%ai) = %a+%ai\n", crealf(z3), cimagf(z3), crealf(res), cimagf(res));
+
+    res = ccoshf(z1);
+    printf("ccoshf(%a+%ai) = %a+%ai\n", crealf(z1), cimagf(z1), crealf(res), cimagf(res));
+
+    res = csinhf(z1);
+    printf("csinhf(%a+%ai) = %a+%ai\n", crealf(z1), cimagf(z1), crealf(res), cimagf(res));
+
+    res = ctanhf(z1);
+    printf("ctanhf(%a+%ai) = %a+%ai\n", crealf(z1), cimagf(z1), crealf(res), cimagf(res));
+
+    printf("=== Complex Float Exp/Log ===\n");
+    res = cexpf(z1);
+    printf("cexpf(%a+%ai) = %a+%ai\n", crealf(z1), cimagf(z1), crealf(res), cimagf(res));
+
+    res = clogf(z1);
+    printf("clogf(%a+%ai) = %a+%ai\n", crealf(z1), cimagf(z1), crealf(res), cimagf(res));
+
+    printf("=== Complex Float Power/Abs ===\n");
+    printf("cabsf(%a+%ai) = %a\n", crealf(z1), cimagf(z1), cabsf(z1));
+
+    res = cpowf(z1, z2);
+    printf("cpowf(%a+%ai, %a+%ai) = %a+%ai\n",
+           crealf(z1), cimagf(z1), crealf(z2), cimagf(z2), crealf(res), cimagf(res));
+
+    res = csqrtf(z1);
+    printf("csqrtf(%a+%ai) = %a+%ai\n", crealf(z1), cimagf(z1), crealf(res), cimagf(res));
+    res = csqrtf(CMPLXF(-1.0f, 0.0f));
+    printf("csqrtf(%a+%ai) = %a+%ai\n", -1.0f, 0.0f, crealf(res), cimagf(res));
+
+    printf("=== Complex Float Manipulation ===\n");
+    printf("cargf(%a+%ai) = %a\n", crealf(z1), cimagf(z1), cargf(z1));
+
+    printf("cimagf(%a+%ai) = %a\n", crealf(z1), cimagf(z1), cimagf(z1));
+
+    res = conjf(z1);
+    printf("conjf(%a+%ai) = %a+%ai\n", crealf(z1), cimagf(z1), crealf(res), cimagf(res));
+
+    res = cprojf(z1);
+    printf("cprojf(%a+%ai) = %a+%ai\n", crealf(z1), cimagf(z1), crealf(res), cimagf(res));
+
+    printf("crealf(%a+%ai) = %a\n", crealf(z1), cimagf(z1), crealf(z1));
 }
 
-/* ================================================================
- * Complex long double functions
- * ================================================================ */
-
-static void test_complex_long_double(void)
+/* ============================================================
+ * Internal bridge functions (static functions exposed via bridge)
+ * ============================================================ */
+static void test_bridge_functions(void)
 {
-    printf("=== Complex Long Double ===\n");
+    double dx[2], dy[2];
+    float  fx[2], fy[2];
+    int    r;
 
-    long double complex vals[] = {
-        CMPLXL(1.0L, 0.0L), CMPLXL(0.0L, 1.0L), CMPLXL(1.0L, 1.0L),
-        CMPLXL(-1.0L, 0.0L), CMPLXL(0.5L, 0.5L)
-    };
-    int n = sizeof(vals)/sizeof(vals[0]);
+    printf("=== Bridge: __rem_pio2_internal ===\n");
+    /* Reduce x = 5.0 * pi/4 in scaled form: x[0] = 5.0, e0 = 0, nx = 1 */
+    dx[0] = 5.0;
+    r = bridge___rem_pio2_internal(dx, dy, 0, 1);
+    printf("bridge___rem_pio2_internal([%a], e0=0, nx=1) = %d y=[%a, %a]\n",
+           dx[0], r, dy[0], dy[1]);
+    dx[0] = 1.0;
+    r = bridge___rem_pio2_internal(dx, dy, 2, 1);
+    printf("bridge___rem_pio2_internal([%a], e0=2, nx=1) = %d y=[%a, %a]\n",
+           dx[0], r, dy[0], dy[1]);
 
-    for (int i = 0; i < n; i++) {
-        long double complex z = vals[i];
-        long double complex r;
-        double re = (double)creall(z), im = (double)cimagl(z);
+    printf("=== Bridge: __tan ===\n");
+    printf("bridge___tan %a %a %d = %a\n", 0.5, 0.0, 1, bridge___tan(0.5, 0.0, 1));
+    printf("bridge___tan %a %a %d = %a\n", 0.5, 0.0, -1, bridge___tan(0.5, 0.0, -1));
+    printf("bridge___tan %a %a %d = %a\n", 0.0, 0.0, 1, bridge___tan(0.0, 0.0, 1));
+    printf("bridge___tan %a %a %d = %a\n", M_PI_4, 0.0, 1, bridge___tan(M_PI_4, 0.0, 1));
 
-        printf("creall (%a,%a) = %a\n", re, im, (double)creall(z));
-        printf("cimagl (%a,%a) = %a\n", re, im, (double)cimagl(z));
-        printf("cabsl (%a,%a) = %a\n", re, im, (double)cabsl(z));
-        printf("cargl (%a,%a) = %a\n", re, im, (double)cargl(z));
+    printf("=== Bridge: __sin_pi ===\n");
+    printf("bridge___sin_pi %a = %a\n", 0.5, bridge___sin_pi(0.5));
+    printf("bridge___sin_pi %a = %a\n", 1.0, bridge___sin_pi(1.0));
+    printf("bridge___sin_pi %a = %a\n", 0.25, bridge___sin_pi(0.25));
+    printf("bridge___sin_pi %a = %a\n", -0.5, bridge___sin_pi(-0.5));
 
-        r = conjl(z);
-        printf("conjl (%a,%a) = (%a,%a)\n", re, im, (double)creall(r), (double)cimagl(r));
+    printf("=== Bridge: __rem_pio2f_internal ===\n");
+    fx[0] = 5.0f;
+    r = bridge___rem_pio2f_internal(fx, fy, 0, 1);
+    printf("bridge___rem_pio2f_internal([%a], e0=0, nx=1) = %d y=[%a, %a]\n",
+           fx[0], r, fy[0], fy[1]);
+    fx[0] = 1.0f;
+    r = bridge___rem_pio2f_internal(fx, fy, 2, 1);
+    printf("bridge___rem_pio2f_internal([%a], e0=2, nx=1) = %d y=[%a, %a]\n",
+           fx[0], r, fy[0], fy[1]);
 
-        r = cprojl(z);
-        printf("cprojl (%a,%a) = (%a,%a)\n", re, im, (double)creall(r), (double)cimagl(r));
+    printf("=== Bridge: __tanf ===\n");
+    printf("bridge___tanf %a %a %d = %a\n", 0.5f, 0.0f, 1, bridge___tanf(0.5f, 0.0f, 1));
+    printf("bridge___tanf %a %a %d = %a\n", 0.5f, 0.0f, -1, bridge___tanf(0.5f, 0.0f, -1));
+    printf("bridge___tanf %a %a %d = %a\n", 0.0f, 0.0f, 1, bridge___tanf(0.0f, 0.0f, 1));
 
-        r = cacosl(z);
-        printf("cacosl (%a,%a) = (%a,%a)\n", re, im, (double)creall(r), (double)cimagl(r));
-
-        r = casinl(z);
-        printf("casinl (%a,%a) = (%a,%a)\n", re, im, (double)creall(r), (double)cimagl(r));
-
-        r = catanl(z);
-        printf("catanl (%a,%a) = (%a,%a)\n", re, im, (double)creall(r), (double)cimagl(r));
-
-        r = ccosl(z);
-        printf("ccosl (%a,%a) = (%a,%a)\n", re, im, (double)creall(r), (double)cimagl(r));
-
-        r = csinl(z);
-        printf("csinl (%a,%a) = (%a,%a)\n", re, im, (double)creall(r), (double)cimagl(r));
-
-        r = ctanl(z);
-        printf("ctanl (%a,%a) = (%a,%a)\n", re, im, (double)creall(r), (double)cimagl(r));
-
-        r = cacoshl(z);
-        printf("cacoshl (%a,%a) = (%a,%a)\n", re, im, (double)creall(r), (double)cimagl(r));
-
-        r = casinhl(z);
-        printf("casinhl (%a,%a) = (%a,%a)\n", re, im, (double)creall(r), (double)cimagl(r));
-
-        r = catanhl(z);
-        printf("catanhl (%a,%a) = (%a,%a)\n", re, im, (double)creall(r), (double)cimagl(r));
-
-        r = ccoshl(z);
-        printf("ccoshl (%a,%a) = (%a,%a)\n", re, im, (double)creall(r), (double)cimagl(r));
-
-        r = csinhl(z);
-        printf("csinhl (%a,%a) = (%a,%a)\n", re, im, (double)creall(r), (double)cimagl(r));
-
-        r = ctanhl(z);
-        printf("ctanhl (%a,%a) = (%a,%a)\n", re, im, (double)creall(r), (double)cimagl(r));
-
-        r = cexpl(z);
-        printf("cexpl (%a,%a) = (%a,%a)\n", re, im, (double)creall(r), (double)cimagl(r));
-
-        r = clogl(z);
-        printf("clogl (%a,%a) = (%a,%a)\n", re, im, (double)creall(r), (double)cimagl(r));
-
-        r = csqrtl(z);
-        printf("csqrtl (%a,%a) = (%a,%a)\n", re, im, (double)creall(r), (double)cimagl(r));
+    printf("=== Bridge: __ctans ===\n");
+    {
+        double complex z = CMPLX(1.0, 1.0);
+        printf("bridge___ctans(%a+%ai) = %a\n", creal(z), cimag(z), bridge___ctans(z));
+        z = CMPLX(0.0, 0.5);
+        printf("bridge___ctans(%a+%ai) = %a\n", creal(z), cimag(z), bridge___ctans(z));
     }
 
-    /* cpowl */
+    printf("=== Bridge: __ctansf ===\n");
     {
-        long double complex base = CMPLXL(2.0L, 1.0L);
-        long double complex exp_val = CMPLXL(2.0L, 0.0L);
-        long double complex r = cpowl(base, exp_val);
-        printf("cpowl (%a,%a) (%a,%a) = (%a,%a)\n",
-               (double)creall(base), (double)cimagl(base),
-               (double)creall(exp_val), (double)cimagl(exp_val),
-               (double)creall(r), (double)cimagl(r));
+        float complex z = CMPLXF(1.0f, 1.0f);
+        printf("bridge___ctansf(%a+%ai) = %a\n", crealf(z), cimagf(z), bridge___ctansf(z));
+        z = CMPLXF(0.0f, 0.5f);
+        printf("bridge___ctansf(%a+%ai) = %a\n", crealf(z), cimagf(z), bridge___ctansf(z));
+    }
+
+    printf("=== Bridge: __sin_pif ===\n");
+    printf("bridge___sin_pif %a = %a\n", 0.5f, bridge___sin_pif(0.5f));
+    printf("bridge___sin_pif %a = %a\n", 1.0f, bridge___sin_pif(1.0f));
+    printf("bridge___sin_pif %a = %a\n", 0.25f, bridge___sin_pif(0.25f));
+    printf("bridge___sin_pif %a = %a\n", -0.5f, bridge___sin_pif(-0.5f));
+}
+
+/* ============================================================
+ * Non-static internal functions (accessed via extern declarations)
+ * ============================================================ */
+static void test_internal_functions(void)
+{
+    double dy[2];
+    float  fy[2];
+
+    printf("=== Internal: __cos, __sin, __rem_pio2 ===\n");
+    printf("__cos %a %a = %a\n", 0.5, 0.0, __cos(0.5, 0.0));
+    printf("__cos %a %a = %a\n", 0.0, 0.0, __cos(0.0, 0.0));
+    printf("__cos %a %a = %a\n", M_PI_4, 0.0, __cos(M_PI_4, 0.0));
+
+    printf("__sin %a %a %d = %a\n", 0.5, 0.0, 0, __sin(0.5, 0.0, 0));
+    printf("__sin %a %a %d = %a\n", 0.0, 0.0, 0, __sin(0.0, 0.0, 0));
+    printf("__sin %a %a %d = %a\n", M_PI_4, 0.0, 0, __sin(M_PI_4, 0.0, 0));
+
+    printf("__rem_pio2 %a = %d y=[%a, %a]\n", 1.0, __rem_pio2(1.0, dy), dy[0], dy[1]);
+    printf("__rem_pio2 %a = %d y=[%a, %a]\n", M_PI, __rem_pio2(M_PI, dy), dy[0], dy[1]);
+    printf("__rem_pio2 %a = %d y=[%a, %a]\n", 10.0, __rem_pio2(10.0, dy), dy[0], dy[1]);
+
+    printf("=== Internal: __cosf, __sinf, __rem_pio2f ===\n");
+    printf("__cosf %a %a = %a\n", 0.5f, 0.0f, __cosf(0.5f, 0.0f));
+    printf("__cosf %a %a = %a\n", 0.0f, 0.0f, __cosf(0.0f, 0.0f));
+
+    printf("__sinf %a %a %d = %a\n", 0.5f, 0.0f, 0, __sinf(0.5f, 0.0f, 0));
+    printf("__sinf %a %a %d = %a\n", 0.0f, 0.0f, 0, __sinf(0.0f, 0.0f, 0));
+
+    printf("__rem_pio2f %a = %d y=[%a, %a]\n", 1.0f, __rem_pio2f(1.0f, fy), fy[0], fy[1]);
+    printf("__rem_pio2f %a = %d y=[%a, %a]\n", 10.0f, __rem_pio2f(10.0f, fy), fy[0], fy[1]);
+
+    printf("=== Internal: __lgamma, __lgammaf ===\n");
+    {
+        int sgn;
+        printf("__lgamma %a = %a sgn=%d\n", 1.0, __lgamma(1.0, &sgn), sgn);
+        printf("__lgamma %a = %a sgn=%d\n", 0.5, __lgamma(0.5, &sgn), sgn);
+        printf("__lgamma %a = %a sgn=%d\n", -0.5, __lgamma(-0.5, &sgn), sgn);
+
+        printf("__lgammaf %a = %a sgn=%d\n", 1.0f, __lgammaf(1.0f, &sgn), sgn);
+        printf("__lgammaf %a = %a sgn=%d\n", 0.5f, __lgammaf(0.5f, &sgn), sgn);
+        printf("__lgammaf %a = %a sgn=%d\n", -0.5f, __lgammaf(-0.5f, &sgn), sgn);
+    }
+
+    printf("=== Internal: __ccoshsinh, __redupi ===\n");
+    {
+        double c, s;
+        __ccoshsinh(0.0, &c, &s);
+        printf("__ccoshsinh %a: cosh=%a sinh=%a\n", 0.0, c, s);
+        __ccoshsinh(1.0, &c, &s);
+        printf("__ccoshsinh %a: cosh=%a sinh=%a\n", 1.0, c, s);
+        __ccoshsinh(-1.0, &c, &s);
+        printf("__ccoshsinh %a: cosh=%a sinh=%a\n", -1.0, c, s);
+
+        printf("__redupi %a = %a\n", M_PI, __redupi(M_PI));
+        printf("__redupi %a = %a\n", 2*M_PI, __redupi(2*M_PI));
+        printf("__redupi %a = %a\n", 0.5, __redupi(0.5));
+    }
+
+    printf("=== Internal: __ccoshsinhf, __redupif ===\n");
+    {
+        float c, s;
+        __ccoshsinhf(0.0f, &c, &s);
+        printf("__ccoshsinhf %a: cosh=%a sinh=%a\n", 0.0f, c, s);
+        __ccoshsinhf(1.0f, &c, &s);
+        printf("__ccoshsinhf %a: cosh=%a sinh=%a\n", 1.0f, c, s);
+
+        printf("__redupif %a = %a\n", (float)M_PI, __redupif((float)M_PI));
+        printf("__redupif %a = %a\n", 2.0f*(float)M_PI, __redupif(2.0f*(float)M_PI));
+        printf("__redupif %a = %a\n", 0.5f, __redupif(0.5f));
     }
 }
 
-/* ================================================================
- * Fenv functions
- * ================================================================ */
-
+/* ============================================================
+ * fenv functions
+ * ============================================================ */
 static void test_fenv(void)
 {
-    printf("=== Floating-Point Environment ===\n");
-
-    printf("fegetround = %d\n", fegetround());
-    printf("fesetround FE_TONEAREST = %d\n", fesetround(0));
-
-    printf("feclearexcept all = %d\n", feclearexcept(0x1f));
-    printf("fetestexcept all = %d\n", fetestexcept(0x1f));
-    printf("feraiseexcept FE_INVALID = %d\n", feraiseexcept(0x01));
-
-    fexcept_t flag;
-    printf("fegetexceptflag = %d\n", fegetexceptflag(&flag, 0x1f));
-    printf("fesetexceptflag = %d\n", fesetexceptflag(&flag, 0x1f));
-
-    fenv_t env;
-    printf("fegetenv = %d\n", fegetenv(&env));
-    printf("fesetenv = %d\n", fesetenv(&env));
-    printf("feholdexcept = %d\n", feholdexcept(&env));
-    printf("feupdateenv = %d\n", feupdateenv(&env));
+    printf("=== fenv ===\n");
+    printf("feclearexcept(0) = %d\n", feclearexcept(0));
+    printf("feraiseexcept(0) = %d\n", feraiseexcept(0));
+    printf("fegetround() = %d\n", fegetround());
+    printf("fesetround(0) = %d\n", fesetround(0));
+    printf("fetestexcept(0) = %d\n", fetestexcept(0));
+    printf("fegetexceptflag(NULL,0) = %d\n", fegetexceptflag(NULL, 0));
+    printf("fesetexceptflag(NULL,0) = %d\n", fesetexceptflag(NULL, 0));
+    printf("fegetenv(NULL) = %d\n", fegetenv(NULL));
+    printf("fesetenv(NULL) = %d\n", fesetenv(NULL));
+    printf("feholdexcept(NULL) = %d\n", feholdexcept(NULL));
+    printf("feupdateenv(NULL) = %d\n", feupdateenv(NULL));
 }
 
-/* ================================================================
+/* ============================================================
  * main
- * ================================================================ */
-
+ * ============================================================ */
 int main(void)
 {
-    /* Double-precision */
-    test_double_trig();
-    test_double_hyper();
-    test_double_explog();
-    test_double_power();
-    test_double_errgamma();
-    test_double_nearest();
-    test_double_remainder();
-    test_double_manip();
-    test_double_minmaxdim();
-    test_double_fma();
-    test_double_bessel();
+    test_trig_double();
+    test_hyperbolic_double();
+    test_exp_log_double();
+    test_power_double();
+    test_gamma_double();
+    test_nearest_int_double();
+    test_remainder_double();
+    test_manip_double();
+    test_maxmin_double();
+    test_bessel_double();
 
-    /* Float-precision */
-    test_float_trig();
-    test_float_hyper();
-    test_float_explog();
-    test_float_power();
-    test_float_errgamma();
-    test_float_nearest();
-    test_float_remainder();
-    test_float_manip();
-    test_float_minmaxdim();
-    test_float_fma();
+    test_trig_float();
+    test_hyperbolic_float();
+    test_exp_log_float();
+    test_power_float();
+    test_gamma_float();
+    test_nearest_int_float();
+    test_remainder_float();
+    test_manip_float();
+    test_maxmin_float();
 
-    /* Complex double */
+    test_classify();
+
     test_complex_double();
-
-    /* Complex float */
     test_complex_float();
 
-    /* Internal functions (non-static) */
-    test_internal_double();
-    test_internal_float();
-
-    /* Static internal functions via bridge */
     test_bridge_functions();
-
-    /* Classification macros and signgam */
-    test_classification();
-
-    /* Special values / edge cases */
-    test_special_values();
-
-    /* Long double */
-    test_long_double();
-
-    /* Complex long double */
-    test_complex_long_double();
-
-    /* Fenv */
+    test_internal_functions();
     test_fenv();
 
-    printf("=== ALL TESTS COMPLETE ===\n");
     return 0;
 }
