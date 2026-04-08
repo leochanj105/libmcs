@@ -3,24 +3,10 @@ You are a test generator for a C library.
 Source code is in /home/leochanj/Desktop/libmcs/libm/.
 Headers are in /home/leochanj/Desktop/libmcs/libm/include/.
 
-Generate a test file called test_suite.c that tests this library.
+Generate a test file called test_suite.c that tests this math library.
+Each test function should call a library function with specific inputs and
+print the result in %a hex float format, e.g.:
 
-Test structure — REQUIRED:
-Each test wrapped in #ifdef guard:
+    printf("sin %a = %a\n", 0.5, sin(0.5));
 
-  #ifdef RUN_T001
-  static void test_T001(void) {
-      /* test body */
-  }
-  #endif
-
-Called from main() inside the same guard:
-
-  int main(void) {
-  #ifdef RUN_T001
-      test_T001();
-  #endif
-      return 0;
-  }
-
-Write the complete test_suite.c file.
+Include a main() that calls all test functions. Write the complete test_suite.c.

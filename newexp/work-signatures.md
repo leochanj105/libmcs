@@ -1,0 +1,208 @@
+## mathd/
+- `long double acosl(long double x)` — acosd.c
+- `long double acoshl(long double x)` — acoshd.c
+- `long double asinl(long double x)` — asind.c
+- `long double asinhl(long double x)` — asinhd.c
+- `long double atan2l(long double y, long double x)` — atan2d.c
+- `long double atanl(long double x)` — atand.c
+- `long double atanhl(long double x)` — atanhd.c
+- `long double cbrtl(long double x)` — cbrtd.c
+- `long double ceill(long double x)` — ceild.c
+- `long double copysignl(long double x, long double y)` — copysignd.c
+- `long double cosl(long double x)` — cosd.c
+- `long double coshl(long double x)` — coshd.c
+- `long double erfcl(long double x)` — erfcd.c
+- `long double erfl(long double x)` — erfd.c
+- `long double exp2l(long double x)` — exp2d.c
+- `long double expl(long double x)` — expd.c
+- `long double expm1l(long double x)` — expm1d.c
+- `long double fabsl(long double x)` — fabsd.c
+- `long double fdiml(long double x, long double y)` — fdimd.c
+- `long double floorl(long double x)` — floord.c
+- `long double fmal(long double x, long double y, long double z)` — fmad.c
+- `long double fmaxl(long double x, long double y)` — fmaxd.c
+- `long double fminl(long double x, long double y)` — fmind.c
+- `long double fmodl(long double x, long double y)` — fmodd.c
+- `long double frexpl(long double x, int *eptr)` — frexpd.c
+- `long double hypotl(long double x, long double y)` — hypotd.c
+- `int ilogb(double x)` — ilogbd.c
+- `int ilogbl(long double x)` — ilogbd.c
+- `long double ldexpl(long double x, int exp)` — ldexpd.c
+- `long double lgammal(long double x)` — lgammad.c
+- `long long int llrint(double x)` — llrintd.c
+- `long long int llrintl(long double x)` — llrintd.c
+- `long long int llround(double x)` — llroundd.c
+- `long long int llroundl(long double x)` — llroundd.c
+- `long double log10l(long double x)` — log10d.c
+- `long double log1pl(long double x)` — log1pd.c
+- `long double log2l(long double x)` — log2d.c
+- `long double logbl(long double x)` — logbd.c
+- `long double logl(long double x)` — logd.c
+- `long int lrint(double x)` — lrintd.c
+- `long int lrintl(long double x)` — lrintd.c
+- `long int lround(double x)` — lroundd.c
+- `long int lroundl(long double x)` — lroundd.c
+- `long double modfl(long double x, long double *iptr)` — modfd.c
+- `long double nanl(const char *payload)` — nand.c
+- `long double nearbyintl(long double x)` — nearbyintd.c
+- `long double nextafterl(long double x, long double y)` — nextafterd.c
+- `long double nexttowardl(long double x, long double y)` — nexttowardd.c
+- `long double powl(long double x, long double y)` — powd.c
+- `long double remainderl(long double x, long double y)` — remainderd.c
+- `long double remquol(long double x, long double y, int *quo)` — remquod.c
+- `long double rintl(long double x)` — rintd.c
+- `long double roundl(long double x)` — roundd.c
+- `long double scalblnl(long double x, long int n)` — scalblnd.c
+- `long double scalbnl(long double x, int n)` — scalbnd.c
+- `long double sinl(long double x)` — sind.c
+- `long double sinhl(long double x)` — sinhd.c
+- `long double sqrtl(long double x)` — sqrtd.c
+- [static] `static inline double __tan(double x, double y, int iy)` — tand.c
+- `long double tanl(long double x)` — tand.c
+- `long double tanhl(long double x)` — tanhd.c
+- `long double tgammal(long double x)` — tgammad.c
+- `long double truncl(long double x)` — truncd.c
+- [static] `int __fpclassifyd(double x)` — internal/fpclassifyd.c
+- [static] `static double __sin_pi(double x)` — internal/gammad.c
+- [static] `int __signbitd(double x)` — internal/signbitd.c
+- [static] `static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)` — internal/trigd.c
+- [static] `int32_t __rem_pio2(double x, double *y)` — internal/trigd.c
+
+## mathf/
+- `float acosf(float x)` — acosf.c
+- `float acoshf(float x)` — acoshf.c
+- `float asinf(float x)` — asinf.c
+- `float asinhf(float x)` — asinhf.c
+- `float atan2f(float y, float x)` — atan2f.c
+- `float atanf(float x)` — atanf.c
+- `float atanhf(float x)` — atanhf.c
+- `float cbrtf(float x)` — cbrtf.c
+- `float ceilf(float x)` — ceilf.c
+- `float copysignf(float x, float y)` — copysignf.c
+- `float cosf(float x)` — cosf.c
+- `float coshf(float x)` — coshf.c
+- `float erfcf(float x)` — erfcf.c
+- `float erff(float x)` — erff.c
+- `float exp2f(float x)` — exp2f.c
+- `float expm1f(float x)` — expm1f.c
+- `float fabsf(float x)` — fabsf.c
+- `float fdimf(float x, float y)` — fdimf.c
+- `float floorf(float x)` — floorf.c
+- `float fmaf(float x, float y, float z)` — fmaf.c
+- `float fmaxf(float x, float y)` — fmaxf.c
+- `float fminf(float x, float y)` — fminf.c
+- `float fmodf(float x, float y)` — fmodf.c
+- `float frexpf(float x, int *eptr)` — frexpf.c
+- `float hypotf(float x, float y)` — hypotf.c
+- `int ilogbf(float x)` — ilogbf.c
+- `int ilogb(double x)` — ilogbf.c
+- `float ldexpf(float x, int exp)` — ldexpf.c
+- `float lgammaf(float x)` — lgammaf.c
+- `long long int llrintf(float x)` — llrintf.c
+- `long long int llrint(double x)` — llrintf.c
+- `long long int llroundf(float x)` — llroundf.c
+- `long long int llround(double x)` — llroundf.c
+- `float log10f(float x)` — log10f.c
+- `float log1pf(float x)` — log1pf.c
+- `float log2f(float x)` — log2f.c
+- `float logbf(float x)` — logbf.c
+- `float logf(float x)` — logf.c
+- `long int lrintf(float x)` — lrintf.c
+- `long int lrint(double x)` — lrintf.c
+- `long int lroundf(float x)` — lroundf.c
+- `long int lround(double x)` — lroundf.c
+- `float modff(float x, float *iptr)` — modff.c
+- `float nanf(const char *payload)` — nanf.c
+- `float nearbyintf(float x)` — nearbyintf.c
+- `float nextafterf(float x, float y)` — nextafterf.c
+- `float nexttowardf(float x, long double y)` — nexttowardf.c
+- `float powf(float x, float y)` — powf.c
+- `float remainderf(float x, float y)` — remainderf.c
+- `float remquof(float x, float y, int *quo)` — remquof.c
+- `float rintf(float x)` — rintf.c
+- `float roundf(float x)` — roundf.c
+- `float scalblnf(float x, long int n)` — scalblnf.c
+- `float scalbnf(float x, int n)` — scalbnf.c
+- `float sinf(float x)` — sinf.c
+- `float sinhf(float x)` — sinhf.c
+- `float sqrtf(float x)` — sqrtf.c
+- [static] `static inline float __tanf(float x, float y, int iy)` — tanf.c
+- `float tanf(float x)` — tanf.c
+- `float tanhf(float x)` — tanhf.c
+- `float tgammaf(float x)` — tgammaf.c
+- `float truncf(float x)` — truncf.c
+- [static] `int __fpclassifyf(float x)` — internal/fpclassifyf.c
+- [static] `static float __sin_pif(float x)` — internal/gammaf.c
+- [static] `float __lgammaf(float x, int *signgamp)` — internal/gammaf.c
+- [static] `int __signbitf(float x)` — internal/signbitf.c
+- [static] `static inline int __rem_pio2f_internal(float *x, float *y, int e0, int nx)` — internal/trigf.c
+- [static] `int32_t __rem_pio2f(float x, float *y)` — internal/trigf.c
+- [static] `float __cosf(float x, float y)` — internal/trigf.c
+- [static] `float __sinf(float x, float y, int iy)` — internal/trigf.c
+
+## common/
+- `int feclearexcept(int excepts)` — fenv.c
+- `int feraiseexcept(int excepts)` — fenv.c
+- `int fegetexceptflag(fexcept_t *flagp, int excepts)` — fenv.c
+- `int fesetexceptflag(const fexcept_t *flagp, int excepts)` — fenv.c
+- `int fegetround(void)` — fenv.c
+- `int fesetround(int rdir)` — fenv.c
+- `int fegetenv(fenv_t *envp)` — fenv.c
+- `int fesetenv(const fenv_t *envp)` — fenv.c
+- `int feholdexcept(fenv_t *envp)` — fenv.c
+- `int feupdateenv(const fenv_t *envp)` — fenv.c
+- `int fetestexcept(int excepts)` — fenv.c
+
+## complexd/
+- `long double cabsl(long double complex z)` — cabsd.c
+- `long double complex cacosl(long double complex z)` — cacosd.c
+- `long double complex cacoshl(long double complex z)` — cacoshd.c
+- `long double cargl(long double complex z)` — cargd.c
+- `long double complex casinl(long double complex z)` — casind.c
+- `long double complex casinhl(long double complex z)` — casinhd.c
+- `long double complex catanl(long double complex z)` — catand.c
+- `long double complex catanhl(long double complex z)` — catanhd.c
+- `long double complex ccosl(long double complex z)` — ccosd.c
+- `long double complex ccoshl(long double complex z)` — ccoshd.c
+- `long double complex cexpl(long double complex z)` — cexpd.c
+- `long double cimagl(long double complex z)` — cimagd.c
+- `long double complex clogl(long double complex z)` — clogd.c
+- `long double complex conjl(long double complex z)` — conjd.c
+- `long double complex cpowl(long double complex x, long double complex y)` — cpowd.c
+- `long double complex cprojl(long double complex z)` — cprojd.c
+- `long double creall(long double complex z)` — creald.c
+- `long double complex csinl(long double complex z)` — csind.c
+- `long double complex csinhl(long double complex z)` — csinhd.c
+- `long double complex csqrtl(long double complex z)` — csqrtd.c
+- [static] `static inline double __ctans(double complex z)` — ctand.c
+- `long double complex ctanl(long double complex z)` — ctand.c
+- `long double complex ctanhl(long double complex z)` — ctanhd.c
+- [static] `void __ccoshsinh(double x, double *c, double *s)` — internal/ctrigd.c
+
+## complexf/
+- `float cabsf(float complex z)` — cabsf.c
+- `float complex cacosf(float complex z)` — cacosf.c
+- `float complex cacoshf(float complex z)` — cacoshf.c
+- `float cargf(float complex z)` — cargf.c
+- `float complex casinf(float complex z)` — casinf.c
+- `float complex casinhf(float complex z)` — casinhf.c
+- `float complex catanf(float complex z)` — catanf.c
+- `float complex catanhf(float complex z)` — catanhf.c
+- `float complex ccosf(float complex z)` — ccosf.c
+- `float complex ccoshf(float complex z)` — ccoshf.c
+- `float complex cexpf(float complex z)` — cexpf.c
+- `float cimagf(float complex z)` — cimagf.c
+- `float complex clogf(float complex z)` — clogf.c
+- `float complex conjf(float complex z)` — conjf.c
+- `float complex cpowf(float complex x, float complex y)` — cpowf.c
+- `float complex cprojf(float complex z)` — cprojf.c
+- `float crealf(float complex z)` — crealf.c
+- `float complex csinf(float complex z)` — csinf.c
+- `float complex csinhf(float complex z)` — csinhf.c
+- `float complex csqrtf(float complex z)` — csqrtf.c
+- [static] `static inline float __ctansf(float complex z)` — ctanf.c
+- `float complex ctanf(float complex z)` — ctanf.c
+- `float complex ctanhf(float complex z)` — ctanhf.c
+- [static] `void __ccoshsinhf(float x, float *c, float *s)` — internal/ctrigf.c
+- [static] `float __redupif(float x)` — internal/ctrigf.c
+
