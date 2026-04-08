@@ -1,0 +1,200 @@
+============================================================
+Differential Test Report (C vs Rust)
+Generated: 2026-04-08 02:43
+============================================================
+
+## OUTPUT COMPARISON
+
+C test output:    785 lines
+Rust test output: 0 lines
+
+WARNING: Rust produced fewer output lines (0 vs 785).
+Likely cause: crash or missing functions. Lines after crash are missing.
+
+C output: 779 test lines
+Rust output: 0 test lines
+
+MISSING (779 tests, 168 functions):
+Functions not in Rust output (not implemented or crashed):
+  __ctans: 3 tests
+  __ctansf: 3 tests
+  __sin_pi: 5 tests
+  __sin_pif: 5 tests
+  __tan: 4 tests
+  __tanf: 4 tests
+  acos: 6 tests
+  acosf: 5 tests
+  acosh: 5 tests
+  acoshf: 4 tests
+  asin: 6 tests
+  asinf: 5 tests
+  asinh: 7 tests
+  asinhf: 5 tests
+  atan: 9 tests
+  atan2: 8 tests
+  atan2f: 5 tests
+  atanf: 7 tests
+  atanh: 7 tests
+  atanhf: 5 tests
+  cabs: 4 tests
+  cabsf: 3 tests
+  cacos: 3 tests
+  cacosf: 2 tests
+  cacosh: 2 tests
+  cacoshf: 2 tests
+  carg: 4 tests
+  cargf: 3 tests
+  casin: 3 tests
+  casinf: 2 tests
+  casinh: 2 tests
+  casinhf: 2 tests
+  catan: 3 tests
+  catanf: 2 tests
+  catanh: 2 tests
+  catanhf: 2 tests
+  cbrt: 7 tests
+  cbrtf: 6 tests
+  ccos: 3 tests
+  ccosf: 2 tests
+  ccosh: 2 tests
+  ccoshf: 2 tests
+  ceil: 9 tests
+  ceilf: 6 tests
+  cexp: 4 tests
+  cexpf: 4 tests
+  cimag: 2 tests
+  cimagf: 1 tests
+  clog: 3 tests
+  clogf: 3 tests
+  conj: 2 tests
+  conjf: 1 tests
+  copysign: 6 tests
+  copysignf: 4 tests
+  cos: 8 tests
+  cosf: 5 tests
+  cosh: 6 tests
+  coshf: 4 tests
+  cpow: 2 tests
+  cpowf: 2 tests
+  cproj: 2 tests
+  cprojf: 2 tests
+  creal: 2 tests
+  crealf: 1 tests
+  csin: 3 tests
+  csinf: 2 tests
+  csinh: 2 tests
+  csinhf: 2 tests
+  csqrt: 4 tests
+  csqrtf: 3 tests
+  ctan: 3 tests
+  ctanf: 2 tests
+  ctanh: 3 tests
+  ctanhf: 3 tests
+  erf: 7 tests
+  erfc: 6 tests
+  erfcf: 6 tests
+  erff: 7 tests
+  exp: 8 tests
+  exp2: 7 tests
+  exp2f: 6 tests
+  expf: 5 tests
+  expm1: 8 tests
+  expm1f: 6 tests
+  fabs: 6 tests
+  fabsf: 5 tests
+  fdim: 5 tests
+  fdimf: 4 tests
+  floor: 9 tests
+  floorf: 6 tests
+  fma: 6 tests
+  fmaf: 4 tests
+  fmax: 5 tests
+  fmaxf: 4 tests
+  fmin: 5 tests
+  fminf: 4 tests
+  fmod: 6 tests
+  fmodf: 5 tests
+  frexp: 6 tests
+  frexpf: 5 tests
+  hypot: 6 tests
+  hypotf: 4 tests
+  ilogb: 5 tests
+  ilogbf: 4 tests
+  j0: 5 tests
+  j1: 5 tests
+  jn: 5 tests
+  ldexp: 6 tests
+  ldexpf: 4 tests
+  lgamma: 5 tests
+  lgammaf: 5 tests
+  llrint: 5 tests
+  llrintf: 4 tests
+  llround: 5 tests
+  llroundf: 4 tests
+  log: 7 tests
+  log10: 6 tests
+  log10f: 4 tests
+  log1p: 7 tests
+  log1pf: 6 tests
+  log2: 6 tests
+  log2f: 5 tests
+  logb: 6 tests
+  logbf: 5 tests
+  logf: 6 tests
+  lrint: 6 tests
+  lrintf: 4 tests
+  lround: 5 tests
+  lroundf: 4 tests
+  modf: 5 tests
+  modff: 5 tests
+  nearbyint: 7 tests
+  nearbyintf: 6 tests
+  nextafter: 5 tests
+  nextafterf: 4 tests
+  pow: 9 tests
+  powf: 6 tests
+  rem_pio2_internal: 1 tests
+  rem_pio2f_internal: 1 tests
+  remainder: 5 tests
+  remainderf: 3 tests
+  remquo: 4 tests
+  remquof: 3 tests
+  rint: 7 tests
+  rintf: 5 tests
+  round: 7 tests
+  roundf: 6 tests
+  scalbln: 4 tests
+  scalblnf: 3 tests
+  scalbn: 5 tests
+  scalbnf: 4 tests
+  sin: 8 tests
+  sinf: 6 tests
+  sinh: 6 tests
+  sinhf: 5 tests
+  sqrt: 6 tests
+  sqrtf: 6 tests
+  tan: 7 tests
+  tanf: 5 tests
+  tanh: 7 tests
+  tanhf: 6 tests
+  tgamma: 5 tests
+  tgammaf: 5 tests
+  trunc: 7 tests
+  truncf: 6 tests
+  y0: 4 tests
+  y1: 4 tests
+  yn: 4 tests
+
+SUMMARY
+Tests passed:     0
+Tests failed:     779
+Missing functions: __ctans, __ctansf, __sin_pi, __sin_pif, __tan, __tanf, acos, acosf, acosh, acoshf, asin, asinf, asinh, asinhf, atan, atan2, atan2f, atanf, atanh, atanhf, cabs, cabsf, cacos, cacosf, cacosh, cacoshf, carg, cargf, casin, casinf, casinh, casinhf, catan, catanf, catanh, catanhf, cbrt, cbrtf, ccos, ccosf, ccosh, ccoshf, ceil, ceilf, cexp, cexpf, cimag, cimagf, clog, clogf, conj, conjf, copysign, copysignf, cos, cosf, cosh, coshf, cpow, cpowf, cproj, cprojf, creal, crealf, csin, csinf, csinh, csinhf, csqrt, csqrtf, ctan, ctanf, ctanh, ctanhf, erf, erfc, erfcf, erff, exp, exp2, exp2f, expf, expm1, expm1f, fabs, fabsf, fdim, fdimf, floor, floorf, fma, fmaf, fmax, fmaxf, fmin, fminf, fmod, fmodf, frexp, frexpf, hypot, hypotf, ilogb, ilogbf, j0, j1, jn, ldexp, ldexpf, lgamma, lgammaf, llrint, llrintf, llround, llroundf, log, log10, log10f, log1p, log1pf, log2, log2f, logb, logbf, logf, lrint, lrintf, lround, lroundf, modf, modff, nearbyint, nearbyintf, nextafter, nextafterf, pow, powf, rem_pio2_internal, rem_pio2f_internal, remainder, remainderf, remquo, remquof, rint, rintf, round, roundf, scalbln, scalblnf, scalbn, scalbnf, sin, sinf, sinh, sinhf, sqrt, sqrtf, tan, tanf, tanh, tanhf, tgamma, tgammaf, trunc, truncf, y0, y1, yn
+
+## NOT IMPLEMENTED IN RUST (14 functions)
+
+These C functions have no Rust implementation. The Rust test binary
+falls back to the C version for these, so they won't show as divergences.
+They need to be implemented in Rust:
+
+  __ccoshsinh -> /home/leochanj/Desktop/libmcs/libm/complexd/internal/ctrigd.c
+  __ccoshsinhf -> /home/leochanj/Desktop/libmcs/libm/complexf/internal/ctrigf.c

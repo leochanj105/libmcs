@@ -31,6 +31,12 @@ export ANALYSIS_CMD="${ANALYSIS_CMD:-claude}"
 # The AI reads source files from disk instead.
 _ensure_claude_setup() {
     local claude_dir="${HARNESS_DIR}/.claude"
+
+    # Skip if already set up (avoids race condition with parallel scripts)
+    if [ -f "${claude_dir}/CLAUDE.md" ] && [ -f "${claude_dir}/settings.json" ]; then
+        return
+    fi
+
     mkdir -p "$claude_dir"
 
     # Lightweight CLAUDE.md — instructions only, no embedded source
@@ -133,6 +139,13 @@ if [ ! -f "$SIGS_FILE" ]; then
     echo "  $(wc -l < "$SIGS_FILE") lines -> ${SIGS_FILE}"
 fi
 
+export FUNC_MAP="${EXP_DIR}/work-func-map.txt"
+if [ ! -f "$FUNC_MAP" ]; then
+    echo "Building function -> file map..."
+    python3 "${EXP_DIR}/scripts/build_func_map.py" > "$FUNC_MAP"
+    echo "  $(wc -l < "$FUNC_MAP") entries -> ${FUNC_MAP}"
+fi
+
 # ── Set up a scenario's workdir with expanded prompts ──
 setup_scenario_workdir() {
     local scenario="$1"
@@ -144,7 +157,11 @@ setup_scenario_workdir() {
     mkdir -p "${work_dir}/prompts" "${work_dir}/testgen" "${work_dir}/diffgen" "${work_dir}/difffix"
 
     # Expand all prompts with scenario-specific RUST_DIR
-    for prompt in testgen strategy difftest analyze fixer transpile; do
+    # Copy ALL .md files from prompts/ (includes s1-s5 testgen variants)
+    for prompt_file in "${EXP_DIR}/prompts/"*.md; do
+        [ -f "$prompt_file" ] || continue
+        local prompt
+        prompt=$(basename "$prompt_file" .md)
         local src="${EXP_DIR}/prompts/${prompt}.md"
         [ -f "$src" ] || continue
         expand_prompt "$src" "${work_dir}/prompts/${prompt}.md" "$rust_dir"
@@ -153,6 +170,13 @@ setup_scenario_workdir() {
     # Copy lightweight .claude/ from harness for prompt caching + permissions
     if [ ! -d "${work_dir}/.claude" ]; then
         cp -r "${HARNESS_DIR}/.claude" "${work_dir}/.claude"
+    fi
+
+    # Copy canonical test bridge to testgen dir
+    local testgen="${work_dir}/testgen"
+    if [ -f "${EXP_DIR}/test_bridge.c" ]; then
+        cp "${EXP_DIR}/test_bridge.c" "${testgen}/test_bridge.c"
+        cp "${EXP_DIR}/test_bridge.h" "${testgen}/test_bridge.h"
     fi
 }
 

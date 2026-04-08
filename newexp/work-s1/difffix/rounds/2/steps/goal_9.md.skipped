@@ -1,0 +1,25 @@
+# Goal 9: Fix log1pf
+
+## Function
+`log1pf`
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathf/log1pf.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s1/src/mathf.rs` (line 2099, `pub fn log1pf`)
+
+## Problem: MISMATCH
+Input: `log1pf(-0x1p+0)` = `log1pf(-1.0)`
+- C output:    `log1pf(-1.0) = -inf`
+- Rust output: `log1pf(-1.0) = -0x1p+1` (-2.0)
+
+`log1p(-1) = log(0) = -infinity`. The Rust implementation returns -2.0 instead of -inf. This is a special-case handling bug: the function must detect when `x == -1.0` and return `-INFINITY`.
+
+## What Needs to Change
+The Rust `log1pf` is missing the special case for `x == -1.0`. Per IEEE 754:
+- `log1p(-1)` must return `-inf` and may raise divide-by-zero
+- The C code likely has an explicit check: `if (x == -1.0f) return -INFINITY;`
+
+Add or fix this special-case check in the Rust implementation.
+
+## Success Criteria
+`log1pf(-0x1p+0)` must return exactly `-inf` (bitwise match with C).

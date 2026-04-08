@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # extract_functions.sh — extract all C function names from the library.
-# Output: one function per line, [static] prefix for internal functions.
+# Output: one function name per line. [static] prefix for internal functions.
 # Run once; output is reused across all scenarios/rounds.
 #
 # Usage: extract_functions.sh <output_file>
@@ -21,7 +21,7 @@ echo "Extracting function list from C source..."
 
 {
     echo "# C functions in libmcs"
-    echo "# [static] prefix = internal linkage, not callable from test_suite.c"
+    echo "# [static] prefix = internal linkage"
     echo ""
     for d in $C_SRC_DIRS; do
         [ -d "$d" ] || continue
@@ -47,4 +47,7 @@ echo "Extracting function list from C source..."
     done
 } | sort -u > "$OUTPUT"
 
-echo "  $(grep -c -v '^#' "$OUTPUT" | head -1) functions -> ${OUTPUT}"
+_total=$(grep -c -v '^#\|^$' "$OUTPUT" || echo 0)
+_static=$(grep -c '^\[static\]' "$OUTPUT" || echo 0)
+_public=$(( _total - _static ))
+echo "  ${_total} functions (${_public} public, ${_static} static) -> ${OUTPUT}"

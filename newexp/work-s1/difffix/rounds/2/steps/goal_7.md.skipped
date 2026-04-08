@@ -1,0 +1,24 @@
+# Goal 7: Fix cprojf
+
+## Function
+`cprojf`
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/complexf/cprojf.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s1/src/complexf.rs` (line 124, `pub fn cprojf`)
+
+## Problem: MISMATCH
+Input: `cprojf(inf + 1i)`
+- C output:    `cprojf(inf+0x1p+0i) = inf+0x0p+0i`
+- Rust output: `cprojf(inf+0x1p+0i) = inf+0x1p+0i`
+
+Same as cproj (goal 6) but for single precision. The imaginary part should be zeroed (with sign preserved) when the input has an infinite component.
+
+## Related Failures
+Same root cause as `cproj` (goal 6).
+
+## What Needs to Change
+The Rust `cprojf` must check if either real or imaginary part is infinite, and if so, return `(+inf, copysignf(0, imag))`. Apply the same fix pattern as cproj.
+
+## Success Criteria
+`cprojf(inf+0x1p+0i)` must return exactly `inf+0x0p+0i` (bitwise match with C).

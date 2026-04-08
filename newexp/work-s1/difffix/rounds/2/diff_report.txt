@@ -1,0 +1,36 @@
+============================================================
+Differential Test Report (C vs Rust)
+Generated: 2026-04-08 12:23
+============================================================
+
+## OUTPUT COMPARISON
+
+C test output:    785 lines
+Rust test output: 785 lines
+
+C output: 779 test lines
+Rust output: 779 test lines
+
+MISMATCH (3 tests, 3 functions):
+C and Rust produce different results:
+  cproj: 1 mismatches
+    C:    cproj inf+0x1p+0i = inf+0x0p+0i
+    Rust: cproj inf+0x1p+0i = inf+0x1p+0i
+  cprojf: 1 mismatches
+    C:    cprojf inf+0x1p+0i = inf+0x0p+0i
+    Rust: cprojf inf+0x1p+0i = inf+0x1p+0i
+  log1pf: 1 mismatches
+    C:    log1pf -0x1p+0 = -inf
+    Rust: log1pf -0x1p+0 = -0x1p+1
+
+SUMMARY
+Tests passed:     776
+Tests failed:     3
+Mismatched functions: cproj, cprojf, log1pf
+
+## NOT IMPLEMENTED IN RUST (12 functions)
+
+These C functions have no Rust implementation. The Rust test binary
+falls back to the C version for these, so they won't show as divergences.
+They need to be implemented in Rust:
+
