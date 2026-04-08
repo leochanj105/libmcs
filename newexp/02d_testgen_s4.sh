@@ -12,7 +12,7 @@ set -euo pipefail
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/common.sh"
 _common_parse_args "$@"
 
-export CODE_GEN_CMD="claude"
+export CODE_GEN_CMD="${EXP_DIR}/claude-sonnet"
 export PATH="${EXP_DIR}:${PATH}"
 
 SCENARIO="s4_function"
