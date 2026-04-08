@@ -28,8 +28,11 @@ fi
 echo "core-math repo: $COREMATH"
 
 # 3. Generate test files
-echo "Generating GLIBC tests..."
+echo "Generating GLIBC tests (auto-libm-test-in)..."
 python3 scripts/gen_glibc_tests.py
+
+echo "Generating GLIBC tests (libm-test-*.inc)..."
+python3 scripts/gen_glibc_inc_tests.py
 
 echo "Generating core-math worst-case tests (per-function files)..."
 python3 scripts/gen_wc_tests.py

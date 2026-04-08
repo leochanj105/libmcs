@@ -77,6 +77,7 @@ run_one() {
 }
 
 GLIBC_SRC="${SCRIPT_DIR}/tests/test_glibc_bitwise.c"
+GLIBC_INC_SRC="${SCRIPT_DIR}/tests/test_glibc_inc_bitwise.c"
 WC_DIR="${SCRIPT_DIR}/tests/wc"
 WC_MANIFEST="${SCRIPT_DIR}/tests/wc_manifest.txt"
 
@@ -91,6 +92,7 @@ WC_MANIFEST="${SCRIPT_DIR}/tests/wc_manifest.txt"
     echo ""
 
     [ -f "$GLIBC_SRC" ] && run_one "glibc" "$GLIBC_SRC"
+    [ -f "$GLIBC_INC_SRC" ] && run_one "glibc_inc" "$GLIBC_INC_SRC"
 
     # Core-math WC: per-function files
     if [ -f "$WC_MANIFEST" ]; then
