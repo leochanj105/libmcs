@@ -85,17 +85,31 @@ def to_float_literal(v):
     return v + '.0f'
 
 
+# Maximum printf calls per C function to avoid GCC memory explosion
+CHUNK_SIZE = 50000
+
+
 def write_file(filepath, func_name, test_lines):
-    """Write one per-function test C file."""
+    """Write one per-function test C file, splitting into sub-functions."""
     with open(filepath, 'w') as f:
         f.write(f"""\
 /* AUTO-GENERATED — {func_name} worst cases from core-math. Do not edit. */
 #include <math.h>
 #include <stdio.h>
 
-int main(void) {{
 """)
-        f.writelines(test_lines)
+        # Split into sub-functions to keep each one small enough for GCC
+        n_chunks = (len(test_lines) + CHUNK_SIZE - 1) // CHUNK_SIZE
+        for i in range(n_chunks):
+            start = i * CHUNK_SIZE
+            end = min(start + CHUNK_SIZE, len(test_lines))
+            f.write(f"static void chunk_{i}(void) {{\n")
+            f.writelines(test_lines[start:end])
+            f.write("}\n\n")
+
+        f.write("int main(void) {\n")
+        for i in range(n_chunks):
+            f.write(f"    chunk_{i}();\n")
         f.write("    return 0;\n}\n")
 
 

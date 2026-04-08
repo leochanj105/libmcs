@@ -34,8 +34,8 @@ python3 scripts/gen_glibc_tests.py
 echo "Generating GLIBC tests (libm-test-*.inc)..."
 python3 scripts/gen_glibc_inc_tests.py
 
-echo "Generating core-math worst-case tests (per-function files)..."
-python3 scripts/gen_wc_tests.py
+echo "Generating core-math worst-case data files..."
+python3 scripts/gen_wc_data.py
 
 echo ""
 echo "Done. Run tests with:"

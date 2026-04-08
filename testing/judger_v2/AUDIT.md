@@ -2,9 +2,9 @@
 
 ## Overview
 
-Two test sources compiled into bitwise-print C test files. Each test prints
-`funcname input(s) = result` in `%a` hex-float format. Compile against C lib
-and Rust lib separately, diff outputs for bitwise comparison.
+Three test sources, all producing output in `funcname input(s) = result` format
+using `%a` hex-float. Compile against C lib and Rust lib separately, diff
+outputs for bitwise comparison.
 
 ## Source 1: GLIBC libm-test
 
@@ -74,41 +74,44 @@ and Rust lib separately, diff outputs for bitwise comparison.
   - Comments with `#`, inline comments after values
   - Special entries: `+snan`, `+nan`, `+inf`, `+0` — skipped (not hex floats)
   - Some functions are symmetric (tanh, sinh, etc.) — we also test -x
-- **Cap:** None (all worst cases used).
-- **Functions included:** 27 binary64 functions + 3 binary32 (atan2f, powf, hypotf)
-  that map to libmcs functions. Functions not in libmcs (acospi, sincos, rsqrt, etc.) skipped.
-- **Binary32 coverage:** Only 6 binary32 functions have .wc files (atan2f, atan2pif,
-  compoundf, hypotf, lgammaf, powf). Of those, 3 map to libmcs (atan2f, hypotf, powf).
-  lgammaf.wc exists but is empty. Most binary32 functions rely on exhaustive 2^32 testing
-  in core-math's check infrastructure rather than worst-case files.
-- **Generator:** `gen_wc_tests.py`
-- **Output:** Per-function files in `tests/wc/` + `tests/wc_manifest.txt`
+- **Functions included:** 27 binary64 (unary) + 3 binary64 (binary: atan2, hypot, pow)
+  + 3 binary32 (atan2f, powf, hypotf). Functions not in libmcs are skipped.
+- **Architecture:** Data-driven (data files + small C driver), not baked-in C code.
+  - `gen_wc_data.py` → cleans .wc files into `tests/wc_data/*.dat` + manifest
+  - `tests/wc_driver.c` → reads hex-float inputs from stdin, calls function, prints result
+  - `run_wc.sh` → compiles driver once, pipes data through it
+- **Run modes:**
+  - `--quick` (default): deterministic stride sampling, ~10K inputs per function (~300K total)
+  - `--full`: all 15.9M inputs
+- **Output:** `results/wc/<func>.out` (one file per function)
 
 ### Porting notes
-- Each .wc line becomes a printf calling the function with that input
-- Inline `# comments` are stripped before use
-- For symmetric functions, both +x and -x are tested
-- Binary functions (pow, atan2, hypot): entries are `x,y` pairs
-- Float literals: bare integers get `.0f` suffix (e.g., `1` → `1.0f`)
-- Special values mapped: `+inf`→`INFINITY`, `nan`→`NAN`, `+snan`→`__builtin_nans("")`, `+0`→`0.0`, etc.
+- Data is stored as clean hex-float text files, not compiled into C source
+- Comments and special values (nan/inf/snan) are stripped at data-generation time
+- For symmetric functions (sin, tan, sinh, etc.), both +x and -x are included in the .dat
+- Binary functions use `x,y` comma-separated pairs
+- The C driver uses sscanf(%la) to parse hex floats at runtime
 
 ## Running
 
 ```bash
-# Compile against C lib:
-gcc -I$INCDIR tests/test_glibc_bitwise.c $C_LIB -fno-builtin -lm -o test_glibc_c
-gcc -I$INCDIR tests/test_glibc_inc_bitwise.c $C_LIB -fno-builtin -lm -o test_glibc_inc_c
-gcc -I$INCDIR tests/wc/wc_sin.c $C_LIB -fno-builtin -lm -o test_wc_sin_c  # per-function
+# Full baseline (all three sources, quick WC mode):
+bash run_c_baseline.sh
 
-# Compile against Rust lib:
-gcc -I$INCDIR tests/test_glibc_bitwise.c $RUST_LIB -fno-builtin -lm -lpthread -ldl -o test_glibc_r
-gcc -I$INCDIR tests/test_glibc_inc_bitwise.c $RUST_LIB -fno-builtin -lm -lpthread -ldl -o test_glibc_inc_r
-gcc -I$INCDIR tests/wc/wc_sin.c $RUST_LIB -fno-builtin -lm -lpthread -ldl -o test_wc_sin_r
+# Full baseline with all WC inputs:
+bash run_c_baseline.sh --full
 
-# Diff:
-diff <(./test_glibc_c) <(./test_glibc_r)
-diff <(./test_glibc_inc_c) <(./test_glibc_inc_r)
-diff <(./test_wc_sin_c) <(./test_wc_sin_r)
+# WC tests only:
+bash run_wc.sh --quick          # ~300K tests, seconds
+bash run_wc.sh --full           # ~16M tests, minutes
+
+# Manual: glibc tests only
+gcc -O0 -I$INCDIR tests/test_glibc_bitwise.c $C_LIB -fno-builtin -lm -o test_glibc
+gcc -O0 -I$INCDIR tests/test_glibc_inc_bitwise.c $C_LIB -fno-builtin -lm -o test_glibc_inc
+
+# Manual: single WC function
+gcc -O0 -I$INCDIR tests/wc_driver.c $C_LIB -fno-builtin -lm -o wc_driver
+cat tests/wc_data/sin.dat | ./wc_driver sin
 ```
 
 ## Test coverage summary
@@ -117,7 +120,7 @@ diff <(./test_wc_sin_c) <(./test_wc_sin_r)
 |--------|-----------|-----------|------------|
 | glibc auto-libm-test-in | gen_glibc_tests.py | 50 (transcendental + complex) | ~3,900 |
 | glibc libm-test-*.inc | gen_glibc_inc_tests.py | 28 (rounding, manipulation, etc.) | ~1,900 |
-| core-math .wc files | gen_wc_tests.py | 27 binary64 + 3 binary32 | ~16.3M |
+| core-math .wc files | gen_wc_data.py + wc_driver.c | 27 binary64 + 3 binary32 | ~300K quick / ~15.9M full |
 
 ### Functions NOT tested (implemented in libmcs but no external test data)
 
@@ -132,10 +135,11 @@ diff <(./test_wc_sin_c) <(./test_wc_sin_r)
 - rsqrt, rootn, pown, powr, compoundn
 
 ## Verification checklist
-- [ ] gen_glibc_tests.py: every input line in auto-libm-test-in for supported functions produces a printf
-- [ ] gen_glibc_inc_tests.py: every TEST_xxx line in .inc files for supported functions produces a printf
-- [ ] gen_wc_tests.py: every non-comment, non-special line in .wc files produces a printf
-- [ ] All three test files compile cleanly against C libmcs with `gcc -Wall`
-- [ ] All three test files compile cleanly against Rust lib
-- [ ] Output line count matches expected test count
+- [x] gen_glibc_tests.py: every input line in auto-libm-test-in for supported functions produces a printf
+- [x] gen_glibc_inc_tests.py: every TEST_xxx line in .inc files for supported functions produces a printf
+- [x] gen_wc_data.py: every non-comment, non-special line in .wc files produces a .dat entry
+- [x] test_glibc_bitwise.c compiles and runs (7,598 tests)
+- [x] test_glibc_inc_bitwise.c compiles and runs (1,917 tests)
+- [x] wc_driver.c compiles and runs all 30 functions (quick: 303K, full: 15.9M tests)
+- [ ] All test files compile cleanly against Rust lib
 - [ ] No test accidentally calls system libm (verify with -fno-builtin + whole-archive linking)

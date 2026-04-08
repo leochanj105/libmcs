@@ -34,13 +34,13 @@ run_one() {
     local name="$1" src="$2"
     echo "--- ${name} ---"
 
-    if ! $CC -I"$INCDIR" "$src" "$C_LIB" -fno-builtin -lm \
+    if ! $CC -O0 -I"$INCDIR" "$src" "$C_LIB" -fno-builtin -lm \
          -o "$BDIR/${name}_c" 2>"$BDIR/${name}_c_err"; then
         echo "  C compile FAILED"
         head -5 "$BDIR/${name}_c_err"
         return
     fi
-    if ! $CC -I"$INCDIR" "$src" "$RUST_LIB" -fno-builtin -lm -lpthread -ldl \
+    if ! $CC -O0 -I"$INCDIR" "$src" "$RUST_LIB" -fno-builtin -lm -lpthread -ldl \
          -o "$BDIR/${name}_r" 2>"$BDIR/${name}_r_err"; then
         echo "  Rust compile FAILED"
         head -5 "$BDIR/${name}_r_err"
@@ -104,9 +104,9 @@ WC_MANIFEST="${SCRIPT_DIR}/tests/wc_manifest.txt"
             [ -f "$src" ] || continue
             func=$(echo "$fname" | sed 's/^wc_//;s/\.c$//')
 
-            $CC -I"$INCDIR" "$src" "$C_LIB" -fno-builtin -lm \
+            $CC -O0 -I"$INCDIR" "$src" "$C_LIB" -fno-builtin -lm \
                 -o "$BDIR/wc_${func}_c" 2>/dev/null || { echo "  $func: C compile FAILED"; continue; }
-            $CC -I"$INCDIR" "$src" "$RUST_LIB" -fno-builtin -lm -lpthread -ldl \
+            $CC -O0 -I"$INCDIR" "$src" "$RUST_LIB" -fno-builtin -lm -lpthread -ldl \
                 -o "$BDIR/wc_${func}_r" 2>/dev/null || { echo "  $func: Rust compile FAILED"; continue; }
 
             timeout 120 "$BDIR/wc_${func}_c" > "$BDIR/wc_${func}_c.out" 2>/dev/null

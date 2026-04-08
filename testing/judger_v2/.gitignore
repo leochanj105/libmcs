@@ -4,5 +4,6 @@ tests/wc/
 tests/wc_manifest.txt
 tests/*_diff.txt
 tests
+results
 # Cloned repos — re-clone with setup.sh
 glibc_repo/
