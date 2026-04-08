@@ -1,7 +1,7 @@
 You are fixing the transpiled Rust code to match the original C behavior.
 
 - Original C code: /home/leochanj/Desktop/libmcs/libm/
-- Transpiled Rust code: /home/leochanj/Desktop/libmcs/newexp/rust-s2/
+- Transpiled Rust code: /home/leochanj/Desktop/libmcs/newexp/rust-s1/
 
 Based on the provided fix plan, apply the fix to the Rust source.
 

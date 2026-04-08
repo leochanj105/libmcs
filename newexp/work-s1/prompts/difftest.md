@@ -6,7 +6,7 @@ suffix). Differential testing works by compiling the same test file against the
 C library and the Rust library separately, running both, and diffing the output.
 
 - Original C source: /home/leochanj/Desktop/libmcs/libm/
-- Transpiled Rust source: /home/leochanj/Desktop/libmcs/newexp/rust-s2/src/
+- Transpiled Rust source: /home/leochanj/Desktop/libmcs/newexp/rust-s1/src/
 
 Read test_suite.c — the existing test file.
 

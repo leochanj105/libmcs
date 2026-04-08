@@ -10,13 +10,15 @@ export LIBMCS="/home/leochanj/Desktop/libmcs/libm"
 export C_SRC_DIRS="${LIBMCS}/mathd ${LIBMCS}/mathf ${LIBMCS}/common ${LIBMCS}/complexd ${LIBMCS}/complexf"
 export C_INCLUDE_DIRS="${LIBMCS}/include"
 
-SCENARIOS=(s1_naive s2_explicit s3_function s4_branch)
+SCENARIOS=(s1_naive s2_explicit s3_edgecase s4_function s5_branch)
 
-# ── API key check ──
-if [ -z "${ANTHROPIC_API_KEY:-}" ]; then
-    echo "ERROR: ANTHROPIC_API_KEY is not set." >&2
-    echo "  export ANTHROPIC_API_KEY=\"sk-ant-...\"" >&2
-    exit 1
+# ── API key ──
+# If ANTHROPIC_API_KEY is set, claude CLI uses it (API billing).
+# If not set, claude CLI falls back to your logged-in account (Pro/Team plan).
+if [ -n "${ANTHROPIC_API_KEY:-}" ]; then
+    echo "  Using API key: ${ANTHROPIC_API_KEY:0:12}..."
+else
+    echo "  Using logged-in Claude account (no API key set)"
 fi
 
 export CODE_GEN_CMD="${CODE_GEN_CMD:-claude}"
@@ -51,24 +53,30 @@ All outputs must be bitwise exact. Use %a hex float format. Zero tolerance.
 Each directory has an internal/ subdirectory with helper functions.
 CLAUDEEOF
 
-    # Settings.json — allow access to libmcs and experiment directories
+    # Settings.json — allow access to libmcs source and experiment directories.
+    # Block ALL of testing/ (judger + other held-out tests) via both tool deny
+    # rules AND Bash deny. Bash deny prevents cat/grep bypass of Read deny.
     cat > "${claude_dir}/settings.json" <<SETTINGSEOF
 {
   "permissions": {
     "allow": [
-      "Read(./**)", "Write(./**)", "Edit(./**)", "Glob(./**)", "Grep(./**)", "Bash",
+      "Read(./**)", "Write(./**)", "Edit(./**)", "Glob(./**)", "Grep(./**)",
+      "Bash",
       "Read(//tmp/**)", "Write(//tmp/**)", "Edit(//tmp/**)",
-      "Read(//home/leochanj/Desktop/libmcs/**)",
-      "Glob(//home/leochanj/Desktop/libmcs/**)",
-      "Grep(//home/leochanj/Desktop/libmcs/**)",
+      "Read(//home/leochanj/Desktop/libmcs/libm/**)",
+      "Glob(//home/leochanj/Desktop/libmcs/libm/**)",
+      "Grep(//home/leochanj/Desktop/libmcs/libm/**)",
+      "Read(//home/leochanj/Desktop/libmcs/newexp/**)",
       "Write(//home/leochanj/Desktop/libmcs/newexp/**)",
-      "Edit(//home/leochanj/Desktop/libmcs/newexp/**)"
+      "Edit(//home/leochanj/Desktop/libmcs/newexp/**)",
+      "Glob(//home/leochanj/Desktop/libmcs/newexp/**)",
+      "Grep(//home/leochanj/Desktop/libmcs/newexp/**)"
     ],
     "deny": [
       "WebFetch", "WebSearch",
-      "Read(//home/leochanj/Desktop/libmcs/testing/judger_v2/**)",
-      "Glob(//home/leochanj/Desktop/libmcs/testing/judger_v2/**)",
-      "Grep(//home/leochanj/Desktop/libmcs/testing/judger_v2/**)"
+      "Read(//home/leochanj/Desktop/libmcs/testing/**)",
+      "Glob(//home/leochanj/Desktop/libmcs/testing/**)",
+      "Grep(//home/leochanj/Desktop/libmcs/testing/**)"
     ]
   }
 }
@@ -116,6 +124,14 @@ expand_prompt() {
 
 # Run the deferred setup now
 _ensure_claude_setup
+
+# ── Pre-extract function signatures (shared across testgen scripts) ──
+export SIGS_FILE="${EXP_DIR}/work-signatures.md"
+if [ ! -f "$SIGS_FILE" ]; then
+    echo "Extracting function signatures..."
+    python3 "${EXP_DIR}/scripts/extract_signatures.py" > "$SIGS_FILE"
+    echo "  $(wc -l < "$SIGS_FILE") lines -> ${SIGS_FILE}"
+fi
 
 # ── Set up a scenario's workdir with expanded prompts ──
 setup_scenario_workdir() {

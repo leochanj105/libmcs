@@ -1,7 +1,7 @@
 You are transpiling a C library to Rust.
 
 - Original C source: /home/leochanj/Desktop/libmcs/libm/
-- Output Rust project: /home/leochanj/Desktop/libmcs/newexp/rust-s2/
+- Output Rust project: /home/leochanj/Desktop/libmcs/newexp/rust-s1/
 
 Read ALL .c and .h files in the C source tree.
 
