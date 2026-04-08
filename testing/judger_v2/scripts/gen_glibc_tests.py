@@ -43,6 +43,22 @@ COMPLEX_BINARY = ["cpow"]
 ALL_FUNCS = set(UNARY_D + BINARY_D + LGAMMA + INT_FIRST_D + FMA +
                 COMPLEX_UNARY + COMPLEX_TO_REAL + COMPLEX_BINARY)
 
+# Float versions of functions that exist in libmcs (no Bessel for float)
+UNARY_F = [
+    "acos", "acosh", "asin", "asinh", "atan", "atanh", "cbrt", "cos", "cosh",
+    "erf", "erfc", "exp", "exp2", "expm1", "log", "log10", "log1p", "log2",
+    "sin", "sinh", "sqrt", "tan", "tanh", "tgamma",
+]
+BINARY_F = ["atan2", "hypot", "pow"]
+LGAMMA_F = ["lgamma"]
+FMA_F = ["fma"]
+COMPLEX_UNARY_F = [
+    "cacos", "cacosh", "casin", "casinh", "catan", "catanh",
+    "ccos", "ccosh", "cexp", "clog", "csin", "csinh", "csqrt", "ctan", "ctanh",
+]
+COMPLEX_TO_REAL_F = ["cabs", "carg"]
+COMPLEX_BINARY_F = ["cpow"]
+
 
 def parse_value(s):
     """Convert a glibc symbolic value to a C expression."""
@@ -168,6 +184,12 @@ int main(void) {
             x = parsed[0]
             out.append(f'    printf("{func} %a = %a\\n", (double)({x}), (double){func}({x}));\n')
             total += 1
+            by_func[func] = by_func.get(func, 0) + 1
+            if func in UNARY_F:
+                ff = func + "f"
+                out.append(f'    printf("{ff} %a = %a\\n", (double)(float)({x}), (double){ff}((float)({x})));\n')
+                total += 1
+                by_func[ff] = by_func.get(ff, 0) + 1
 
         elif func in BINARY_D:
             if len(parsed) < 2:
@@ -176,6 +198,12 @@ int main(void) {
             x, y = parsed[0], parsed[1]
             out.append(f'    printf("{func} %a %a = %a\\n", (double)({x}), (double)({y}), (double){func}({x}, {y}));\n')
             total += 1
+            by_func[func] = by_func.get(func, 0) + 1
+            if func in BINARY_F:
+                ff = func + "f"
+                out.append(f'    printf("{ff} %a %a = %a\\n", (double)(float)({x}), (double)(float)({y}), (double){ff}((float)({x}), (float)({y})));\n')
+                total += 1
+                by_func[ff] = by_func.get(ff, 0) + 1
 
         elif func in LGAMMA:
             if len(parsed) < 1:
@@ -184,6 +212,10 @@ int main(void) {
             x = parsed[0]
             out.append(f'    printf("lgamma %a = %a\\n", (double)({x}), (double)lgamma({x}));\n')
             total += 1
+            by_func["lgamma"] = by_func.get("lgamma", 0) + 1
+            out.append(f'    printf("lgammaf %a = %a\\n", (double)(float)({x}), (double)lgammaf((float)({x})));\n')
+            total += 1
+            by_func["lgammaf"] = by_func.get("lgammaf", 0) + 1
 
         elif func in INT_FIRST_D:
             if len(parsed) < 2:
@@ -194,6 +226,8 @@ int main(void) {
             n_int = n.replace('.0', '')
             out.append(f'    printf("{func} %s %a = %a\\n", "{n_int}", (double)({x}), (double){func}({n_int}, {x}));\n')
             total += 1
+            by_func[func] = by_func.get(func, 0) + 1
+            # No float Bessel in libmcs
 
         elif func in FMA:
             if len(parsed) < 3:
@@ -202,6 +236,10 @@ int main(void) {
             x, y, z = parsed[0], parsed[1], parsed[2]
             out.append(f'    printf("fma %a %a %a = %a\\n", (double)({x}), (double)({y}), (double)({z}), (double)fma({x}, {y}, {z}));\n')
             total += 1
+            by_func["fma"] = by_func.get("fma", 0) + 1
+            out.append(f'    printf("fmaf %a %a %a = %a\\n", (double)(float)({x}), (double)(float)({y}), (double)(float)({z}), (double)fmaf((float)({x}), (float)({y}), (float)({z})));\n')
+            total += 1
+            by_func["fmaf"] = by_func.get("fmaf", 0) + 1
 
         elif func in COMPLEX_UNARY:
             if len(parsed) < 2:
@@ -213,6 +251,15 @@ int main(void) {
                        f'printf("{func} %a %a = %a %a\\n", '
                        f'(double)({re_part}), (double)({im_part}), creal(r), cimag(r)); }}\n')
             total += 1
+            by_func[func] = by_func.get(func, 0) + 1
+            if func in COMPLEX_UNARY_F:
+                ff = func + "f"
+                out.append(f'    {{ float complex zf = CMPLXF((float)({re_part}), (float)({im_part})); '
+                           f'float complex rf = {ff}(zf); '
+                           f'printf("{ff} %a %a = %a %a\\n", '
+                           f'(double)(float)({re_part}), (double)(float)({im_part}), (double)crealf(rf), (double)cimagf(rf)); }}\n')
+                total += 1
+                by_func[ff] = by_func.get(ff, 0) + 1
 
         elif func in COMPLEX_TO_REAL:
             if len(parsed) < 2:
@@ -223,6 +270,14 @@ int main(void) {
                        f'printf("{func} %a %a = %a\\n", '
                        f'(double)({re_part}), (double)({im_part}), (double){func}(z)); }}\n')
             total += 1
+            by_func[func] = by_func.get(func, 0) + 1
+            if func in COMPLEX_TO_REAL_F:
+                ff = func + "f"
+                out.append(f'    {{ float complex zf = CMPLXF((float)({re_part}), (float)({im_part})); '
+                           f'printf("{ff} %a %a = %a\\n", '
+                           f'(double)(float)({re_part}), (double)(float)({im_part}), (double){ff}(zf)); }}\n')
+                total += 1
+                by_func[ff] = by_func.get(ff, 0) + 1
 
         elif func in COMPLEX_BINARY:
             if len(parsed) < 4:
@@ -234,12 +289,19 @@ int main(void) {
                        f'double complex r = {func}(a, b); '
                        f'printf("{func} = %a %a\\n", creal(r), cimag(r)); }}\n')
             total += 1
+            by_func[func] = by_func.get(func, 0) + 1
+            if func in COMPLEX_BINARY_F:
+                ff = func + "f"
+                out.append(f'    {{ float complex af = CMPLXF((float)({r1}), (float)({i1})); '
+                           f'float complex bf = CMPLXF((float)({r2}), (float)({i2})); '
+                           f'float complex rf = {ff}(af, bf); '
+                           f'printf("{ff} = %a %a\\n", (double)crealf(rf), (double)cimagf(rf)); }}\n')
+                total += 1
+                by_func[ff] = by_func.get(ff, 0) + 1
 
         else:
             skipped += 1
             continue
-
-        by_func[func] = by_func.get(func, 0) + 1
 
     out.append(f'    printf("\\nTotal: {total} glibc tests\\n");\n')
     out.append("    return 0;\n")

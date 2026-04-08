@@ -289,13 +289,18 @@ int main(void) {
         total += 1
         by_func[func] = by_func.get(func, 0) + 1
 
+    # Helper: emit double + float version
+    def emit_both(func, d_line, f_line):
+        emit(func, d_line)
+        emit(func + "f", f_line)
+
     # --- Unary double→double ---
     for func in UNARY_D:
         inc = os.path.join(GLIBC_MATH, f"libm-test-{func}.inc")
+        ff = func + "f"
         for macro, args in parse_inc_file(func, inc):
             if macro != "TEST_f_f":
                 continue
-            # args: func_name, input, expected, flags
             if len(args) < 3:
                 skipped += 1
                 continue
@@ -303,11 +308,14 @@ int main(void) {
             if x is None:
                 skipped += 1
                 continue
-            emit(func, f'    printf("{func} %a = %a\\n", (double)({x}), (double){func}({x}));\n')
+            emit_both(func,
+                f'    printf("{func} %a = %a\\n", (double)({x}), (double){func}({x}));\n',
+                f'    printf("{ff} %a = %a\\n", (double)(float)({x}), (double){ff}((float)({x})));\n')
 
     # --- Binary double,double→double ---
     for func in BINARY_D:
         inc = os.path.join(GLIBC_MATH, f"libm-test-{func}.inc")
+        ff = func + "f"
         for macro, args in parse_inc_file(func, inc):
             if macro != "TEST_ff_f":
                 continue
@@ -319,11 +327,14 @@ int main(void) {
             if x is None or y is None:
                 skipped += 1
                 continue
-            emit(func, f'    printf("{func} %a %a = %a\\n", (double)({x}), (double)({y}), (double){func}({x}, {y}));\n')
+            emit_both(func,
+                f'    printf("{func} %a %a = %a\\n", (double)({x}), (double)({y}), (double){func}({x}, {y}));\n',
+                f'    printf("{ff} %a %a = %a\\n", (double)(float)({x}), (double)(float)({y}), (double){ff}((float)({x}), (float)({y})));\n')
 
     # --- double,int→double (scalbn) ---
     for func in FLOAT_INT_D:
         inc = os.path.join(GLIBC_MATH, f"libm-test-{func}.inc")
+        ff = func + "f"
         for macro, args in parse_inc_file(func, inc):
             if macro != "TEST_fi_f":
                 continue
@@ -335,11 +346,14 @@ int main(void) {
             if x is None or n is None:
                 skipped += 1
                 continue
-            emit(func, f'    printf("{func} %a %s = %a\\n", (double)({x}), "{n}", (double){func}({x}, {n}));\n')
+            emit_both(func,
+                f'    printf("{func} %a %s = %a\\n", (double)({x}), "{n}", (double){func}({x}, {n}));\n',
+                f'    printf("{ff} %a %s = %a\\n", (double)(float)({x}), "{n}", (double){ff}((float)({x}), {n}));\n')
 
     # --- double,long→double (scalbln) ---
     for func in FLOAT_LONG_D:
         inc = os.path.join(GLIBC_MATH, f"libm-test-{func}.inc")
+        ff = func + "f"
         for macro, args in parse_inc_file(func, inc):
             if macro != "TEST_fl_f":
                 continue
@@ -351,11 +365,14 @@ int main(void) {
             if x is None or n is None:
                 skipped += 1
                 continue
-            emit(func, f'    printf("{func} %a %s = %a\\n", (double)({x}), "{n}", (double){func}({x}, (long){n}));\n')
+            emit_both(func,
+                f'    printf("{func} %a %s = %a\\n", (double)({x}), "{n}", (double){func}({x}, (long){n}));\n',
+                f'    printf("{ff} %a %s = %a\\n", (double)(float)({x}), "{n}", (double){ff}((float)({x}), (long){n}));\n')
 
     # --- nexttoward (TEST_fj_f: double,long_double→double) ---
     for func in FLOAT_J_D:
         inc = os.path.join(GLIBC_MATH, f"libm-test-{func}.inc")
+        ff = func + "f"
         for macro, args in parse_inc_file(func, inc):
             if macro != "TEST_fj_f":
                 continue
@@ -367,12 +384,14 @@ int main(void) {
             if x is None or y is None:
                 skipped += 1
                 continue
-            # Second arg is long double in glibc, cast to long double
-            emit(func, f'    printf("{func} %a %a = %a\\n", (double)({x}), (double)({y}), (double){func}({x}, (long double)({y})));\n')
+            emit_both(func,
+                f'    printf("{func} %a %a = %a\\n", (double)({x}), (double)({y}), (double){func}({x}, (long double)({y})));\n',
+                f'    printf("{ff} %a %a = %a\\n", (double)(float)({x}), (double)({y}), (double){ff}((float)({x}), (long double)({y})));\n')
 
     # --- double→int (ilogb) ---
     for func in FLOAT_TO_INT:
         inc = os.path.join(GLIBC_MATH, f"libm-test-{func}.inc")
+        ff = func + "f"
         for macro, args in parse_inc_file(func, inc):
             if macro != "TEST_f_i":
                 continue
@@ -383,11 +402,14 @@ int main(void) {
             if x is None:
                 skipped += 1
                 continue
-            emit(func, f'    printf("{func} %a = %d\\n", (double)({x}), {func}({x}));\n')
+            emit_both(func,
+                f'    printf("{func} %a = %d\\n", (double)({x}), {func}({x}));\n',
+                f'    printf("{ff} %a = %d\\n", (double)(float)({x}), {ff}((float)({x})));\n')
 
     # --- double→long (lrint, lround) ---
     for func in FLOAT_TO_LONG:
         inc = os.path.join(GLIBC_MATH, f"libm-test-{func}.inc")
+        ff = func + "f"
         for macro, args in parse_inc_file(func, inc):
             if macro != "TEST_f_l":
                 continue
@@ -398,11 +420,14 @@ int main(void) {
             if x is None:
                 skipped += 1
                 continue
-            emit(func, f'    printf("{func} %a = %ld\\n", (double)({x}), {func}({x}));\n')
+            emit_both(func,
+                f'    printf("{func} %a = %ld\\n", (double)({x}), {func}({x}));\n',
+                f'    printf("{ff} %a = %ld\\n", (double)(float)({x}), {ff}((float)({x})));\n')
 
     # --- double→long long (llrint, llround) ---
     for func in FLOAT_TO_LLONG:
         inc = os.path.join(GLIBC_MATH, f"libm-test-{func}.inc")
+        ff = func + "f"
         for macro, args in parse_inc_file(func, inc):
             if macro != "TEST_f_L":
                 continue
@@ -413,11 +438,14 @@ int main(void) {
             if x is None:
                 skipped += 1
                 continue
-            emit(func, f'    printf("{func} %a = %lld\\n", (double)({x}), {func}({x}));\n')
+            emit_both(func,
+                f'    printf("{func} %a = %lld\\n", (double)({x}), {func}({x}));\n',
+                f'    printf("{ff} %a = %lld\\n", (double)(float)({x}), {ff}((float)({x})));\n')
 
-    # --- frexp: double,int*→double (TEST_fI_f1: func, in, out, out_int, flags) ---
+    # --- frexp: double,int*→double ---
     for func in UNARY_WITH_IPTR:
         inc = os.path.join(GLIBC_MATH, f"libm-test-{func}.inc")
+        ff = func + "f"
         for macro, args in parse_inc_file(func, inc):
             if macro != "TEST_fI_f1":
                 continue
@@ -430,10 +458,13 @@ int main(void) {
                 continue
             emit(func, f'    {{ int _exp; double _r = {func}({x}, &_exp); '
                         f'printf("{func} %a = %a %d\\n", (double)({x}), _r, _exp); }}\n')
+            emit(ff, f'    {{ int _exp; float _r = {ff}((float)({x}), &_exp); '
+                     f'printf("{ff} %a = %a %d\\n", (double)(float)({x}), (double)_r, _exp); }}\n')
 
-    # --- modf: double,double*→double (TEST_fF_f1: func, in, out_frac, out_ipart, flags) ---
+    # --- modf: double,double*→double ---
     for func in UNARY_WITH_FPTR:
         inc = os.path.join(GLIBC_MATH, f"libm-test-{func}.inc")
+        ff = func + "f"
         for macro, args in parse_inc_file(func, inc):
             if macro != "TEST_fF_f1":
                 continue
@@ -446,10 +477,13 @@ int main(void) {
                 continue
             emit(func, f'    {{ double _ipart; double _r = {func}({x}, &_ipart); '
                         f'printf("{func} %a = %a %a\\n", (double)({x}), _r, _ipart); }}\n')
+            emit(ff, f'    {{ float _ipart; float _r = {ff}((float)({x}), &_ipart); '
+                     f'printf("{ff} %a = %a %a\\n", (double)(float)({x}), (double)_r, (double)_ipart); }}\n')
 
-    # --- remquo: double,double,int*→double (TEST_ffI_f1: func, in1, in2, out, out_int, flags) ---
+    # --- remquo: double,double,int*→double ---
     for func in BINARY_WITH_IPTR:
         inc = os.path.join(GLIBC_MATH, f"libm-test-{func}.inc")
+        ff = func + "f"
         for macro, args in parse_inc_file(func, inc):
             if macro != "TEST_ffI_f1":
                 continue
@@ -463,10 +497,13 @@ int main(void) {
                 continue
             emit(func, f'    {{ int _quo; double _r = {func}({x}, {y}, &_quo); '
                         f'printf("{func} %a %a = %a %d\\n", (double)({x}), (double)({y}), _r, _quo); }}\n')
+            emit(ff, f'    {{ int _quo; float _r = {ff}((float)({x}), (float)({y}), &_quo); '
+                     f'printf("{ff} %a %a = %a %d\\n", (double)(float)({x}), (double)(float)({y}), (double)_r, _quo); }}\n')
 
-    # --- Complex→Complex (TEST_c_c: func, re_in, im_in, re_out, im_out, flags) ---
+    # --- Complex→Complex ---
     for func in COMPLEX_CC:
         inc = os.path.join(GLIBC_MATH, f"libm-test-{func}.inc")
+        ff = func + "f"
         for macro, args in parse_inc_file(func, inc):
             if macro != "TEST_c_c":
                 continue
@@ -482,6 +519,10 @@ int main(void) {
                         f'double complex r = {func}(z); '
                         f'printf("{func} %a %a = %a %a\\n", '
                         f'(double)({re_in}), (double)({im_in}), creal(r), cimag(r)); }}\n')
+            emit(ff, f'    {{ float complex zf = CMPLXF((float)({re_in}), (float)({im_in})); '
+                     f'float complex rf = {ff}(zf); '
+                     f'printf("{ff} %a %a = %a %a\\n", '
+                     f'(double)(float)({re_in}), (double)(float)({im_in}), (double)crealf(rf), (double)cimagf(rf)); }}\n')
 
     out.append(f'    printf("\\nTotal: {total} glibc-inc tests\\n");\n')
     out.append("    return 0;\n")
