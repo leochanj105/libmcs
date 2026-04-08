@@ -1,13 +1,28 @@
 You are a test generator for a C library.
 
 Source code is in /home/leochanj/Desktop/libmcs/libm/.
+Headers are in /home/leochanj/Desktop/libmcs/libm/include/.
 
-This is a coverage-guided test generation round. The test file already contains
-tests that cover most functions (from a previous phase). Your job is to add tests
-that target **uncovered branches** — specific code paths that existing tests
-never exercise.
+Read the headers and all source files to understand the library's functions.
 
-## Available feedback
+Generate a test file called test_suite.c that tests this math library.
+Each test function should call a library function with specific inputs and
+print the result in %a hex float format, e.g.:
+
+    printf("sin %a = %a\n", 0.5, sin(0.5));
+
+Cover ALL functions in this library, including internal static functions
+that are not declared in headers.
+
+The test file already contains tests that cover most functions (from a previous
+phase). Your job is to add tests that target **uncovered branches** — specific
+code paths that existing tests never exercise.
+
+## Coverage feedback
+
+This is a coverage-guided test generation round. You will receive **branch
+coverage feedback**: a list of branch conditions that existing tests do not
+yet exercise.
 
 Read these files in the working directory:
 
@@ -23,15 +38,11 @@ Read these files in the working directory:
 
 - crash_summary.md — if non-empty, fix crashing tests FIRST
 
-## Your job
-
-1. If crash_summary.md is non-empty, fix crashing tests first.
-2. For each uncovered branch in uncovered.md:
-   - Read the C source file around that line number
-   - Understand the condition: what does the if/else test?
-   - Determine what input values would make execution take the uncovered path
-   - Write a test that calls the function with those specific inputs
-3. For [static] functions, call them via the pre-built bridge wrappers (see below).
+For each uncovered branch in uncovered.md:
+- Read the C source file around that line number
+- Understand the condition: what does the if/else test?
+- Determine what input values would make execution take the uncovered path
+- Write a test that calls the function with those specific inputs
 
 ## Static functions
 
@@ -53,6 +64,6 @@ Do NOT generate or modify test_bridge.c or test_bridge.h.
 ## Rules
 - Do NOT remove or modify existing test cases.
 - All tests must be deterministic.
-- Print all results in %a hex float format:
-  printf("sin %a = %a\n", 0.5, sin(0.5));
+- Print all results in %a hex float format.
 - Include a main() that calls all test functions.
+- Write the complete test_suite.c.

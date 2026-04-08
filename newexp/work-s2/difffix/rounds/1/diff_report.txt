@@ -1,0 +1,63 @@
+============================================================
+Differential Test Report (C vs Rust)
+Generated: 2026-04-08 12:56
+============================================================
+
+## OUTPUT COMPARISON
+
+C test output:    502 lines
+Rust test output: 508 lines
+
+C output: 458 test lines
+Rust output: 464 test lines
+
+MISMATCH (10 tests, 7 functions):
+C and Rust produce different results:
+  __fpclassifyf: 4 mismatches
+    C:    __fpclassifyf 0x0p+0 = 2
+    Rust: __fpclassifyf 0x0p+0 = 0
+    C:    __fpclassifyf inf = 1
+    Rust: __fpclassifyf inf = 3
+    C:    __fpclassifyf nan = 0
+    Rust: __fpclassifyf nan = 1
+    ... (1 more)
+  cproj(inf+0x1p+0i): 1 mismatches
+    C:    cproj(inf+0x1p+0i) = inf+0x0p+0i
+    Rust: cproj(inf+0x1p+0i) = inf+0x1p+0i
+  exp2: 1 mismatches
+    C:    exp2 0x1.4p+3 = 0x1p+10
+    Rust: exp2 0x1.4p+3 = 0x1.b2d809254afbcp+11
+  lgamma: 1 mismatches
+    C:    lgamma -0x1p-1 signgam=-1
+    Rust: lgamma -0x1p-1 signgam=0
+  nexttoward: 1 mismatches
+    C:    nexttoward 0x1p+0 0x8p-2 = 0x1.0000000000001p+0
+    Rust: nexttoward 0x1p+0 0x8p-2 = 0x1.fffffffffffffp-1
+  nexttowardf: 1 mismatches
+    C:    nexttowardf 0x1p+0 0x8p-2 = 0x1.000002p+0
+    Rust: nexttowardf 0x1p+0 0x8p-2 = 0x1.fffffep-1
+  pow: 1 mismatches
+    C:    pow 0x1p+1 0x1.4p+3 = 0x1p+10
+    Rust: pow 0x1p+1 0x1.4p+3 = 0x1.b2d809254afbcp+11
+
+EXTRA (6 tests in Rust but not C — unexpected):
+  fegetexceptflag(NULL,0) = -1
+  fesetexceptflag(NULL,0) = -1
+  fegetenv(NULL) = -1
+  fesetenv(NULL) = -1
+  feholdexcept(NULL) = -1
+
+SUMMARY
+Tests passed:     448
+Tests failed:     10
+Mismatched functions: __fpclassifyf, cproj(inf+0x1p+0i), exp2, lgamma, nexttoward, nexttowardf, pow
+
+## NOT IMPLEMENTED IN RUST (8 functions)
+
+These C functions have no Rust implementation. The Rust test binary
+falls back to the C version for these, so they won't show as divergences.
+They need to be implemented in Rust:
+
+  __ccoshsinh -> /home/leochanj/Desktop/libmcs/libm/complexd/internal/ctrigd.c
+  __ccoshsinhf -> /home/leochanj/Desktop/libmcs/libm/complexf/internal/ctrigf.c
+  __fpclassifyd -> /home/leochanj/Desktop/libmcs/libm/mathd/internal/fpclassifyd.c

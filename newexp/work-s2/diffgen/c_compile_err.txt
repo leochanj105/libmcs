@@ -1,0 +1,31 @@
+/home/leochanj/Desktop/libmcs/newexp/work-s2/diffgen/difftest_suite.c:248:44: warning: format specifies type 'int' but the argument has type 'double' [-Wformat]
+  248 |     printf("lgamma %a signgam=%d\n", -0.5, lgamma(-0.5), __signgam);
+      |                               ~~           ^~~~~~~~~~~~
+      |                               %f
+/home/leochanj/Desktop/libmcs/newexp/work-s2/diffgen/difftest_suite.c:248:58: warning: data argument not used by format string [-Wformat-extra-args]
+  248 |     printf("lgamma %a signgam=%d\n", -0.5, lgamma(-0.5), __signgam);
+      |            ~~~~~~~~~~~~~~~~~~~~~~~~                      ^
+2 warnings generated.
+/usr/bin/ld: libc_impl.a(bridge.o): in function `__rem_pio2':
+test_bridge.c:(.text+0x0): multiple definition of `__rem_pio2'; libc_impl.a(trigd.o):trigd.c:(.text+0x0): first defined here
+/usr/bin/ld: libc_impl.a(bridge.o): in function `__cos':
+test_bridge.c:(.text+0x1110): multiple definition of `__cos'; libc_impl.a(trigd.o):trigd.c:(.text+0x1110): first defined here
+/usr/bin/ld: libc_impl.a(bridge.o): in function `__sin':
+test_bridge.c:(.text+0x1230): multiple definition of `__sin'; libc_impl.a(trigd.o):trigd.c:(.text+0x1230): first defined here
+/usr/bin/ld: libc_impl.a(bridge.o): in function `tan':
+test_bridge.c:(.text+0x13d0): multiple definition of `tan'; libc_impl.a(tand.o):tand.c:(.text+0x0): first defined here
+/usr/bin/ld: libc_impl.a(bridge.o): in function `__lgamma':
+test_bridge.c:(.text+0x1900): multiple definition of `__lgamma'; libc_impl.a(gammad.o):gammad.c:(.text+0x0): first defined here
+/usr/bin/ld: libc_impl.a(bridge.o): in function `__rem_pio2f':
+test_bridge.c:(.text+0x26e0): multiple definition of `__rem_pio2f'; libc_impl.a(trigf.o):trigf.c:(.text+0x0): first defined here
+/usr/bin/ld: libc_impl.a(bridge.o): in function `__cosf':
+test_bridge.c:(.text+0x3690): multiple definition of `__cosf'; libc_impl.a(trigf.o):trigf.c:(.text+0xfb0): first defined here
+/usr/bin/ld: libc_impl.a(bridge.o): in function `__sinf':
+test_bridge.c:(.text+0x3760): multiple definition of `__sinf'; libc_impl.a(trigf.o):trigf.c:(.text+0x1080): first defined here
+/usr/bin/ld: libc_impl.a(bridge.o): in function `tanf':
+test_bridge.c:(.text+0x38c0): multiple definition of `tanf'; libc_impl.a(tanf.o):tanf.c:(.text+0x0): first defined here
+/usr/bin/ld: libc_impl.a(bridge.o): in function `ctan':
+test_bridge.c:(.text+0x3de0): multiple definition of `ctan'; libc_impl.a(ctand.o):ctand.c:(.text+0x0): first defined here
+/usr/bin/ld: libc_impl.a(bridge.o): in function `ctanf':
+test_bridge.c:(.text+0x4170): multiple definition of `ctanf'; libc_impl.a(ctanf.o):ctanf.c:(.text+0x0): first defined here
+clang-21: error: linker command failed with exit code 1 (use -v to see invocation)

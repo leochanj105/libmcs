@@ -1,0 +1,17 @@
+# Goal 7: Fix pow computation
+
+## Function
+`pow` (delegates to `powd`)
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/powd.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s2/src/mathd.rs` (line ~3504)
+
+## Problem
+**Wrong output.** `pow(2.0, 10.0)` should return `1024.0` (`0x1p+10`) but Rust returns `0x1.b2d809254afbcp+11` (~3494.85). This is the exact same wrong result as `exp2(10.0)` (goal 3), strongly suggesting `pow` delegates to `exp2` internally or they share a broken helper.
+
+## What Needs to Change
+First fix exp2 (goal 3) — this may fix pow automatically. If not, compare the Rust `powd` against C `powd.c` for transpilation errors in the exponentiation path. The bug likely lives in a shared internal function.
+
+## Success Criteria
+- `pow(0x1p+1, 0x1.4p+3)` returns `0x1p+10` (bitwise match with C)

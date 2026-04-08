@@ -1,0 +1,18 @@
+# Goal 8: Implement __ccoshsinh
+
+## Function
+`__ccoshsinh`
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/complexd/internal/ctrigd.c`
+- Rust source: not implemented
+
+## Problem
+**Not implemented.** The internal helper `__ccoshsinh` does not exist in the Rust codebase. The test binary falls back to the C version, masking the gap. This function is used internally by complex trigonometric/hyperbolic functions.
+
+## What Needs to Change
+Transpile `__ccoshsinh` from `ctrigd.c` into Rust and add it to the complexd module. Wire up the C FFI export in `lib.rs`.
+
+## Success Criteria
+- `__ccoshsinh` exists as a Rust implementation
+- Calling the Rust version produces bitwise-identical output to the C version for all test inputs

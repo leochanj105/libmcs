@@ -1,0 +1,5 @@
+round	prev_fails	fails	passed	total	goals	in_tokens	out_tokens	cache_read	cache_create	cost_usd	git_tag
+0	-	405	53	458	-	-	-	-	-	-	baseline
+1	405	10	448	458	5	66	33190	2029830	145795	2.1950	post-round-1
+2	10	1	457	458	5	121	76196	4794469	204147	3.5498	post-round-2
+3	1	0	458	458	4	58	18073	1302338	91106	1.3493	post-round-3
