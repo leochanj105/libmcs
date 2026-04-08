@@ -192,9 +192,13 @@ copy_rust_for_scenario() {
         return
     fi
 
-    [ -d "${EXP_DIR}/rust-baseline" ] || { echo "ERROR: rust-baseline not found. Run 01_transpile.sh first." >&2; exit 1; }
-    echo "  Copying rust-baseline -> rust-${short}..."
-    cp -r "${EXP_DIR}/rust-baseline" "$rust_dest"
+    local rust_src="${EXP_DIR}/rust-baseline-test"
+    if [ ! -d "$rust_src" ]; then
+        rust_src="${EXP_DIR}/rust-baseline"
+        echo "  WARNING: rust-baseline-test not found, using rust-baseline (no test bridge)"
+    fi
+    echo "  Copying $(basename "$rust_src") -> rust-${short}..."
+    cp -r "$rust_src" "$rust_dest"
 }
 
 # ── Export scenario env vars (used by harness scripts) ──
