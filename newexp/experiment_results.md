@@ -60,13 +60,16 @@ Two branch coverage metrics:
 - **REPORT**: from `llvm-cov report` "Branches" column filtered to libm/ files.
   Total: 3226. Uses LLVM's internal counting (different from export entries).
 
-| Scenario | Test Prints | Func Cov | OUR Branch Cov | OUR (cov/total) | REPORT Branch Cov | REPORT (cov/total) |
-|----------|-------------|----------|---------------|-----------------|-------------------|-------------------|
-| S1 | 779 | 170/186 (91%) | 54.8% | 1790/3268 | 59.2% | 1911/3226 |
-| S2 | 508 | 186/186 (100%) | 43.4% | 1418/3268 | 47.0% | 1516/3226 |
-| S3 | 998 | 174/186 (93%) | 66.1% | 2161/3268 | 71.4% | 2302/3226 |
+| Scenario | Test Cases | Func Cov | OUR Branch Cov | OUR (cov/total) | REPORT Branch Cov | REPORT (cov/total) |
+|----------|-----------|----------|---------------|-----------------|-------------------|-------------------|
+| S1 | 785 | 170/186 (91%) | 54.8% | 1790/3268 | 59.2% | 1911/3226 |
+| S2 | 496 | 186/186 (100%) | 43.4% | 1418/3268 | 47.0% | 1516/3226 |
+| S3 | 1190 | 174/186 (93%) | 66.1% | 2161/3268 | 71.4% | 2302/3226 |
 | S4 | 371 | 186/186 (100%) | 41.6% | 1359/3268 | 45.3% | 1461/3226 |
 | S5 | 2039 | 186/186 (100%) | 84.0% | 2744/3268 | 90.5% | 2921/3226 |
+
+Test case = one library function call with one input. S2 count excludes 1 fenv
+crash (fault).
 
 All measured with clang-21, llvm-cov-21, `-O0 -fno-builtin`, all .o linked directly.
 
@@ -89,15 +92,17 @@ and timeouts in one test don't affect others.
 
 Results stored in: `work-s3/difffix/`, `rust-s3/`
 
+S3 has 1190 test cases (each = one library function call with one input).
+
 #### Per-Round Progression
 
 | Round | Prev Fails | Fails | Passed | Pass Rate | Goals | Active Time | Cost |
 |-------|-----------|-------|--------|-----------|-------|------------|------|
-| Baseline | — | 52 | 1137 | 95.6% | — | — | — |
-| R1 | 52 | 37 | 1152 | 96.9% | 5 | 42.4m | $7.03 |
-| R2 | 37 | 7 | 1182 | 99.4% | 5 | 11.1m | $2.11 |
-| R3 | 7 | 2 | 1187 | 99.8% | 5 | 10.7m | $1.79 |
-| R4 | 2 | 0 | 1189 | 100.0% | 1 | 1.6m | $0.44 |
+| Baseline | — | 52 | 1138 | 95.6% | — | — | — |
+| R1 | 52 | 37 | 1153 | 96.9% | 5 | 42.4m | $7.03 |
+| R2 | 37 | 7 | 1183 | 99.4% | 5 | 11.1m | $2.11 |
+| R3 | 7 | 2 | 1188 | 99.8% | 5 | 10.7m | $1.79 |
+| R4 | 2 | 0 | 1190 | 100.0% | 1 | 1.6m | $0.44 |
 | **Total** | | | | | **16** | **65.8m** | **$11.38** |
 
 #### Per-Round Token Usage
@@ -120,28 +125,30 @@ Old results stored in: `work-s3/difffix-noreact/`, `rust-s3-noreact/`
 - Without test isolation, ctans timeout killed subsequent tests, giving
   the fixer less accurate feedback
 
-### S4 Results (default mode)
+### S4 Results (with test isolation)
 
 Fixer mode: separate analyze + fix. No regressions occurred.
 
 Results stored in: `work-s4/difffix/`, `rust-s4/`
 
+S4 test suite: 371 printf calls, produces 371 output lines.
+
 #### Per-Round Progression
 
-| Round | Prev Fails | Fails | Passed | Pass Rate | Goals | Cost |
-|-------|-----------|-------|--------|-----------|-------|------|
-| Baseline | — | 5 | 436 | 98.9% | — | — |
-| R1 | 5 | 1 | 440 | 99.8% | 4 | $0.88 |
-| R2 | 1 | 0 | 441 | 100.0% | 1 | $0.36 |
-| **Total** | | | | | **5** | **$1.24** |
+| Round | Prev Fails | Fails | Passed | Pass Rate | Goals | Active Time | Cost |
+|-------|-----------|-------|--------|-----------|-------|------------|------|
+| Baseline | — | 7 | 364 | 98.1% | — | — | — |
+| R1 | 7 | 2 | 369 | 99.5% | 5 | 5.5m | $1.48 |
+| R2 | 2 | 0 | 371 | 100.0% | 2 | 1.9m | $0.57 |
+| **Total** | | | | | **7** | **7.4m** | **$2.04** |
 
 #### Per-Round Token Usage
 
 | Round | Input | Output | Cache Read | Cache Create | Cost |
 |-------|-------|--------|-----------|-------------|------|
-| R1 | 32 | 12,479 | 639,813 | 82,737 | $0.88 |
-| R2 | 14 | 3,122 | 239,300 | 33,028 | $0.36 |
-| **Total** | **46** | **15,601** | **879,113** | **115,765** | **$1.24** |
+| R1 | 19,460 | 15,615 | 895,920 | 100,947 | $1.48 |
+| R2 | 81 | 5,063 | 348,596 | 53,046 | $0.57 |
+| **Total** | **19,541** | **20,678** | **1,244,516** | **153,993** | **$2.04** |
 
 #### Remaining Failures: 0
 
@@ -151,13 +158,19 @@ Not yet run with the corrected infrastructure (no C fallback, Rust bridge, O0).
 
 ## Difffix Cross-Scenario Summary
 
-| Scenario | Tests | Baseline Fails | Final Fails | Rounds | Cost |
-|----------|-------|---------------|-------------|--------|------|
-| S3 | 1189 | 52 | 0 | 4 | $11.38 |
-| S4 | 441 | 5 | 0 | 2 | $1.24 |
-| S1 | 779 | — | — | — | — |
-| S2 | 508 | — | — | — | — |
+Test cases = individual function calls (one call, one input, one output comparison).
+
+| Scenario | Test Cases | Baseline Fails | Final Fails | Rounds | Cost |
+|----------|-----------|---------------|-------------|--------|------|
+| S3 | 1190 | 52 | 0 | 4 | $11.38 |
+| S4 | 371 | 7 | 0 | 2 | $2.04 |
+| S1 | 785 | — | — | — | — |
+| S2 | 496 | — | — | — | — |
 | S5 | 2039 | — | — | — | — |
+
+Note: S2 has 496 test cases + 1 fault (fenv crash). Test case = one library
+function call with one input. Counts verified by running C binary with fork
+wrapper.
 
 ## Configuration
 
