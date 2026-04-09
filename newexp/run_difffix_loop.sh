@@ -47,26 +47,31 @@ echo "MAX_GOALS:    ${MAX_GOALS}"
 echo "STALL_LIMIT:  ${STALL_LIMIT}"
 echo ""
 
-# ── Git setup for Rust snapshots ──
-_git_init_rust() {
-    if [ ! -d "${RUST_DIR}/.git" ]; then
-        echo "  Initializing git in ${RUST_DIR}..."
-        (cd "${RUST_DIR}" && git init -q && git add -A && git commit -q -m "baseline: pre-difffix")
+# ── Snapshot system for Rust code ──
+# Uses file-based diffs stored in the round directory. No git init inside RUST_DIR
+# (avoids submodule hell when committing from the outer repo).
+
+_snapshot_src() {
+    # Save a copy of src/ to a round directory for replay/fallback
+    local dest="$1"
+    cp -r "${RUST_DIR}/src" "${dest}/src_snapshot"
+}
+
+_record_diff() {
+    # Record the diff between pre and post snapshots
+    local round_dir="$1"
+    local pre="${round_dir}/src_pre"
+    local post="${RUST_DIR}/src"
+    if [ -d "$pre" ]; then
+        diff -ru "$pre" "$post" > "${round_dir}/code_changes.diff" 2>/dev/null || true
+        rm -rf "$pre"
     fi
 }
 
-_git_snapshot() {
-    local tag="$1"
-    local msg="$2"
-    (cd "${RUST_DIR}" && git add -A && git diff --cached --quiet || \
-        (cd "${RUST_DIR}" && git add -A && git commit -q -m "${msg}"))
-    (cd "${RUST_DIR}" && git tag -f "$tag" 2>/dev/null || true)
-}
-
-_git_rollback() {
-    local tag="$1"
-    echo "  Rolling back Rust to ${tag}..."
-    (cd "${RUST_DIR}" && git checkout -q "$tag" -- . && git add -A && git commit -q -m "rollback to ${tag}" --allow-empty)
+_save_pre_snapshot() {
+    # Save src/ before fixes for diff recording
+    local round_dir="$1"
+    cp -r "${RUST_DIR}/src" "${round_dir}/src_pre"
 }
 
 # ── Token cost extraction from stream-json output ──
@@ -94,7 +99,7 @@ print(f'{total_in}\t{total_out}\t{cache_read}\t{cache_create}\t{cost:.4f}')
 # ── Stats file ──
 STATS_FILE="${OUTDIR}/round_stats.tsv"
 if [ ! -f "$STATS_FILE" ]; then
-    printf "round\tprev_fails\tfails\tpassed\ttotal\tgoals\tin_tokens\tout_tokens\tcache_read\tcache_create\tcost_usd\tgit_tag\n" > "$STATS_FILE"
+    printf "round\tprev_fails\tfails\tpassed\ttotal\tgoals\tin_tokens\tout_tokens\tcache_read\tcache_create\tcost_usd\n" > "$STATS_FILE"
 fi
 
 # ── Helpers ──
@@ -131,8 +136,8 @@ generate_compact_context() {
     fi
 }
 
-# ── Initialize git in Rust dir ──
-_git_init_rust
+# ── Baseline snapshot ──
+BASELINE_SNAPSHOT="${OUTDIR}/rounds/0/src_snapshot"
 
 # ── Baseline (round 0) ──
 ROUND0="${OUTDIR}/rounds/0"
@@ -229,7 +234,7 @@ Review what was tried before. Learn from successes and failures.
                 [ -f "$_hr_report" ] || continue
                 _hr_prev_fails=$(parse_fail_count "$_hr_prev_report")
                 _hr_fails=$(parse_fail_count "$_hr_report")
-                _hr_diff=$(cd "${RUST_DIR}" && git diff "pre-round-${_hr}" "post-round-${_hr}" -- src/ 2>/dev/null | head -150 || true)
+                _hr_diff=$(cat "${_hr_dir}/code_changes.diff" 2>/dev/null | head -150 || true)
                 _hr_failures=$(sed -n '/MISMATCH\|MISSING/,/SUMMARY\|FUNCTION LOC/p' "$_hr_report" 2>/dev/null | head -30 || true)
                 if [ "$_hr_fails" -lt "$_hr_prev_fails" ]; then
                     _hr_verdict="IMPROVED (${_hr_prev_fails} -> ${_hr_fails})"
@@ -272,7 +277,7 @@ ${_hr_failures}
                 _pp_fails=$(parse_fail_count "$_prevprev_report")
                 _p_fails=$(parse_fail_count "$_prev_report")
                 if [ "$_p_fails" -gt "$_pp_fails" ]; then
-                    _prev_diff=$(cd "${RUST_DIR}" && git diff "pre-round-${_prev}" "post-round-${_prev}" -- src/ 2>/dev/null | head -200 || true)
+                    _prev_diff=$(cat "${_prev_dir}/code_changes.diff" 2>/dev/null | head -200 || true)
                     _prev_failures=$(sed -n '/MISMATCH/,/SUMMARY\|FUNCTION LOC/p' "$_prev_report" 2>/dev/null | head -40 || true)
                     _prevprev_failures=$(sed -n '/MISMATCH/,/SUMMARY\|FUNCTION LOC/p' "$_prevprev_report" 2>/dev/null | head -40 || true)
                     HISTORY_FEEDBACK="
@@ -330,13 +335,12 @@ $(cat "${EXPANDED_PROMPTS_DIR}/analyze.md")
         touch "${ROUND_DIR}/.step2_done"
     fi
 
-    # ── Step 3: Git snapshot + Fix each goal ──
+    # ── Step 3: Snapshot + Fix each goal ──
     if [ ! -f "${ROUND_DIR}/.step3_done" ]; then
         echo "--- Step 3: Snapshot & Fixing ---"
 
-        # Git snapshot before fixes
-        _git_snapshot "pre-round-${round}" "pre-round-${round}: before fixes"
-        echo "  Git tag: pre-round-${round}"
+        # Save src/ before fixes for diff recording
+        _save_pre_snapshot "$ROUND_DIR"
 
         for goal_file in "${STEPS_DIR}"/goal_*.md; do
             [ -f "$goal_file" ] || continue
@@ -359,9 +363,10 @@ $(cat "$goal_file")
             (cd "${RUST_DIR}" && run_codegen "$FIX_PROMPT" "${STEPS_DIR}/${goal_name}_fix_output" "$VERBOSE")
         done
 
-        # Git snapshot after fixes
-        _git_snapshot "post-round-${round}" "round-${round}: fixes applied"
-        echo "  Git tag: post-round-${round}"
+        # Record diff and save post-fix snapshot
+        _record_diff "$ROUND_DIR"
+        _snapshot_src "$ROUND_DIR"
+        echo "  Diff saved: ${ROUND_DIR}/code_changes.diff"
 
         touch "${ROUND_DIR}/.step3_done"
     fi
@@ -397,10 +402,10 @@ $(cat "$goal_file")
 
     # Record stats
     if ! grep -q "^${round}	" "$STATS_FILE" 2>/dev/null; then
-        printf "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\tpost-round-%s\n" \
+        printf "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" \
             "$round" "$prev_fails" "$fail_total" "$pass_total" "$total_tests" \
             "$round_goals" "$round_in" "$round_out" "$round_cache_read" "$round_cache_create" \
-            "$round_cost" "$round" >> "$STATS_FILE"
+            "$round_cost" >> "$STATS_FILE"
     fi
 
     [ "$fail_total" -eq 0 ] && { echo "ALL TESTS PASS!"; break; }
@@ -435,5 +440,5 @@ echo ""
 echo "Per-round stats: ${STATS_FILE}"
 column -t -s $'\t' "$STATS_FILE" 2>/dev/null || cat "$STATS_FILE"
 echo ""
-echo "Git tags in ${RUST_DIR}:"
-(cd "${RUST_DIR}" && git tag -l 'pre-round-*' -l 'post-round-*' -l 'baseline' | sort -V)
+echo "Per-round diffs saved in: ${OUTDIR}/rounds/*/code_changes.diff"
+echo "Per-round snapshots in:   ${OUTDIR}/rounds/*/src_snapshot/"
