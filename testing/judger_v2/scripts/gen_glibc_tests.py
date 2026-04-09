@@ -135,17 +135,25 @@ def generate():
 #include <complex.h>
 #include <float.h>
 #include <stdio.h>
+#include "fault_guard.h"
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif
 
 int main(void) {
+    fault_guard_install();
 """
     out = [header]
     total = 0
     skipped = 0
     by_func = {}
+
+    def guard(label, code):
+        """Wrap a test in GUARDED() for fault isolation."""
+        # Escape quotes in label for C string
+        label_esc = label.replace('\\', '\\\\').replace('"', '\\"')
+        return f'    GUARDED("{label_esc}", {code});\n'
 
     for line in lines:
         line = line.strip()
@@ -182,12 +190,13 @@ int main(void) {
                 skipped += 1
                 continue
             x = parsed[0]
-            out.append(f'    printf("{func} %a = %a\\n", (double)({x}), (double){func}({x}));\n')
+            lbl = f"{func} {x}"
+            out.append(guard(lbl, f'printf("{func} %a = %a\\n", (double)({x}), (double){func}({x}));'))
             total += 1
             by_func[func] = by_func.get(func, 0) + 1
             if func in UNARY_F:
                 ff = func + "f"
-                out.append(f'    printf("{ff} %a = %a\\n", (double)(float)({x}), (double){ff}((float)({x})));\n')
+                out.append(guard(f"{ff} {x}", f'printf("{ff} %a = %a\\n", (double)(float)({x}), (double){ff}((float)({x})));'))
                 total += 1
                 by_func[ff] = by_func.get(ff, 0) + 1
 
@@ -196,12 +205,13 @@ int main(void) {
                 skipped += 1
                 continue
             x, y = parsed[0], parsed[1]
-            out.append(f'    printf("{func} %a %a = %a\\n", (double)({x}), (double)({y}), (double){func}({x}, {y}));\n')
+            lbl = f"{func} {x} {y}"
+            out.append(guard(lbl, f'printf("{func} %a %a = %a\\n", (double)({x}), (double)({y}), (double){func}({x}, {y}));'))
             total += 1
             by_func[func] = by_func.get(func, 0) + 1
             if func in BINARY_F:
                 ff = func + "f"
-                out.append(f'    printf("{ff} %a %a = %a\\n", (double)(float)({x}), (double)(float)({y}), (double){ff}((float)({x}), (float)({y})));\n')
+                out.append(guard(f"{ff} {x} {y}", f'printf("{ff} %a %a = %a\\n", (double)(float)({x}), (double)(float)({y}), (double){ff}((float)({x}), (float)({y})));'))
                 total += 1
                 by_func[ff] = by_func.get(ff, 0) + 1
 
@@ -210,10 +220,10 @@ int main(void) {
                 skipped += 1
                 continue
             x = parsed[0]
-            out.append(f'    printf("lgamma %a = %a\\n", (double)({x}), (double)lgamma({x}));\n')
+            out.append(guard(f"lgamma {x}", f'printf("lgamma %a = %a\\n", (double)({x}), (double)lgamma({x}));'))
             total += 1
             by_func["lgamma"] = by_func.get("lgamma", 0) + 1
-            out.append(f'    printf("lgammaf %a = %a\\n", (double)(float)({x}), (double)lgammaf((float)({x})));\n')
+            out.append(guard(f"lgammaf {x}", f'printf("lgammaf %a = %a\\n", (double)(float)({x}), (double)lgammaf((float)({x})));'))
             total += 1
             by_func["lgammaf"] = by_func.get("lgammaf", 0) + 1
 
@@ -222,22 +232,20 @@ int main(void) {
                 skipped += 1
                 continue
             n, x = parsed[0], parsed[1]
-            # n should be integer
             n_int = n.replace('.0', '')
-            out.append(f'    printf("{func} %s %a = %a\\n", "{n_int}", (double)({x}), (double){func}({n_int}, {x}));\n')
+            out.append(guard(f"{func} {n_int} {x}", f'printf("{func} %s %a = %a\\n", "{n_int}", (double)({x}), (double){func}({n_int}, {x}));'))
             total += 1
             by_func[func] = by_func.get(func, 0) + 1
-            # No float Bessel in libmcs
 
         elif func in FMA:
             if len(parsed) < 3:
                 skipped += 1
                 continue
             x, y, z = parsed[0], parsed[1], parsed[2]
-            out.append(f'    printf("fma %a %a %a = %a\\n", (double)({x}), (double)({y}), (double)({z}), (double)fma({x}, {y}, {z}));\n')
+            out.append(guard(f"fma {x} {y} {z}", f'printf("fma %a %a %a = %a\\n", (double)({x}), (double)({y}), (double)({z}), (double)fma({x}, {y}, {z}));'))
             total += 1
             by_func["fma"] = by_func.get("fma", 0) + 1
-            out.append(f'    printf("fmaf %a %a %a = %a\\n", (double)(float)({x}), (double)(float)({y}), (double)(float)({z}), (double)fmaf((float)({x}), (float)({y}), (float)({z})));\n')
+            out.append(guard(f"fmaf {x} {y} {z}", f'printf("fmaf %a %a %a = %a\\n", (double)(float)({x}), (double)(float)({y}), (double)(float)({z}), (double)fmaf((float)({x}), (float)({y}), (float)({z})));'))
             total += 1
             by_func["fmaf"] = by_func.get("fmaf", 0) + 1
 
@@ -246,18 +254,21 @@ int main(void) {
                 skipped += 1
                 continue
             re_part, im_part = parsed[0], parsed[1]
-            out.append(f'    {{ double complex z = CMPLX({re_part}, {im_part}); '
-                       f'double complex r = {func}(z); '
-                       f'printf("{func} %a %a = %a %a\\n", '
-                       f'(double)({re_part}), (double)({im_part}), creal(r), cimag(r)); }}\n')
+            lbl = f"{func} {re_part} {im_part}"
+            out.append(guard(lbl,
+                f'{{ double complex z = CMPLX({re_part}, {im_part}); '
+                f'double complex r = {func}(z); '
+                f'printf("{func} %a %a = %a %a\\n", '
+                f'(double)({re_part}), (double)({im_part}), creal(r), cimag(r)); }}'))
             total += 1
             by_func[func] = by_func.get(func, 0) + 1
             if func in COMPLEX_UNARY_F:
                 ff = func + "f"
-                out.append(f'    {{ float complex zf = CMPLXF((float)({re_part}), (float)({im_part})); '
-                           f'float complex rf = {ff}(zf); '
-                           f'printf("{ff} %a %a = %a %a\\n", '
-                           f'(double)(float)({re_part}), (double)(float)({im_part}), (double)crealf(rf), (double)cimagf(rf)); }}\n')
+                out.append(guard(f"{ff} {re_part} {im_part}",
+                    f'{{ float complex zf = CMPLXF((float)({re_part}), (float)({im_part})); '
+                    f'float complex rf = {ff}(zf); '
+                    f'printf("{ff} %a %a = %a %a\\n", '
+                    f'(double)(float)({re_part}), (double)(float)({im_part}), (double)crealf(rf), (double)cimagf(rf)); }}'))
                 total += 1
                 by_func[ff] = by_func.get(ff, 0) + 1
 
@@ -266,16 +277,19 @@ int main(void) {
                 skipped += 1
                 continue
             re_part, im_part = parsed[0], parsed[1]
-            out.append(f'    {{ double complex z = CMPLX({re_part}, {im_part}); '
-                       f'printf("{func} %a %a = %a\\n", '
-                       f'(double)({re_part}), (double)({im_part}), (double){func}(z)); }}\n')
+            lbl = f"{func} {re_part} {im_part}"
+            out.append(guard(lbl,
+                f'{{ double complex z = CMPLX({re_part}, {im_part}); '
+                f'printf("{func} %a %a = %a\\n", '
+                f'(double)({re_part}), (double)({im_part}), (double){func}(z)); }}'))
             total += 1
             by_func[func] = by_func.get(func, 0) + 1
             if func in COMPLEX_TO_REAL_F:
                 ff = func + "f"
-                out.append(f'    {{ float complex zf = CMPLXF((float)({re_part}), (float)({im_part})); '
-                           f'printf("{ff} %a %a = %a\\n", '
-                           f'(double)(float)({re_part}), (double)(float)({im_part}), (double){ff}(zf)); }}\n')
+                out.append(guard(f"{ff} {re_part} {im_part}",
+                    f'{{ float complex zf = CMPLXF((float)({re_part}), (float)({im_part})); '
+                    f'printf("{ff} %a %a = %a\\n", '
+                    f'(double)(float)({re_part}), (double)(float)({im_part}), (double){ff}(zf)); }}'))
                 total += 1
                 by_func[ff] = by_func.get(ff, 0) + 1
 
@@ -284,18 +298,21 @@ int main(void) {
                 skipped += 1
                 continue
             r1, i1, r2, i2 = parsed[0], parsed[1], parsed[2], parsed[3]
-            out.append(f'    {{ double complex a = CMPLX({r1}, {i1}); '
-                       f'double complex b = CMPLX({r2}, {i2}); '
-                       f'double complex r = {func}(a, b); '
-                       f'printf("{func} = %a %a\\n", creal(r), cimag(r)); }}\n')
+            lbl = f"{func} {r1} {i1} {r2} {i2}"
+            out.append(guard(lbl,
+                f'{{ double complex a = CMPLX({r1}, {i1}); '
+                f'double complex b = CMPLX({r2}, {i2}); '
+                f'double complex r = {func}(a, b); '
+                f'printf("{func} = %a %a\\n", creal(r), cimag(r)); }}'))
             total += 1
             by_func[func] = by_func.get(func, 0) + 1
             if func in COMPLEX_BINARY_F:
                 ff = func + "f"
-                out.append(f'    {{ float complex af = CMPLXF((float)({r1}), (float)({i1})); '
-                           f'float complex bf = CMPLXF((float)({r2}), (float)({i2})); '
-                           f'float complex rf = {ff}(af, bf); '
-                           f'printf("{ff} = %a %a\\n", (double)crealf(rf), (double)cimagf(rf)); }}\n')
+                out.append(guard(f"{ff} {r1} {i1} {r2} {i2}",
+                    f'{{ float complex af = CMPLXF((float)({r1}), (float)({i1})); '
+                    f'float complex bf = CMPLXF((float)({r2}), (float)({i2})); '
+                    f'float complex rf = {ff}(af, bf); '
+                    f'printf("{ff} = %a %a\\n", (double)crealf(rf), (double)cimagf(rf)); }}'))
                 total += 1
                 by_func[ff] = by_func.get(ff, 0) + 1
 

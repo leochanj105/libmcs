@@ -268,6 +268,7 @@ def generate():
 #include <float.h>
 #include <stdio.h>
 #include <limits.h>
+#include "fault_guard.h"
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -277,22 +278,27 @@ def generate():
 #endif
 
 int main(void) {
+    fault_guard_install();
 """
     out = [header]
     total = 0
     skipped = 0
     by_func = {}
 
-    def emit(func, line):
+    def guard(label, code):
+        label_esc = label.replace('\\', '\\\\').replace('"', '\\"')
+        return f'    GUARDED("{label_esc}", {code});\n'
+
+    def emit(func, label, code):
         nonlocal total
-        out.append(line)
+        out.append(guard(label, code))
         total += 1
         by_func[func] = by_func.get(func, 0) + 1
 
     # Helper: emit double + float version
-    def emit_both(func, d_line, f_line):
-        emit(func, d_line)
-        emit(func + "f", f_line)
+    def emit_both(func, label, d_code, f_code):
+        emit(func, label, d_code)
+        emit(func + "f", label.replace(func, func + "f", 1), f_code)
 
     # --- Unary double→double ---
     for func in UNARY_D:
@@ -308,9 +314,9 @@ int main(void) {
             if x is None:
                 skipped += 1
                 continue
-            emit_both(func,
-                f'    printf("{func} %a = %a\\n", (double)({x}), (double){func}({x}));\n',
-                f'    printf("{ff} %a = %a\\n", (double)(float)({x}), (double){ff}((float)({x})));\n')
+            emit_both(func, f"{func} {x}",
+                f'printf("{func} %a = %a\\n", (double)({x}), (double){func}({x}));',
+                f'printf("{ff} %a = %a\\n", (double)(float)({x}), (double){ff}((float)({x})));')
 
     # --- Binary double,double→double ---
     for func in BINARY_D:
@@ -327,9 +333,9 @@ int main(void) {
             if x is None or y is None:
                 skipped += 1
                 continue
-            emit_both(func,
-                f'    printf("{func} %a %a = %a\\n", (double)({x}), (double)({y}), (double){func}({x}, {y}));\n',
-                f'    printf("{ff} %a %a = %a\\n", (double)(float)({x}), (double)(float)({y}), (double){ff}((float)({x}), (float)({y})));\n')
+            emit_both(func, f"{func} {x} {y}",
+                f'printf("{func} %a %a = %a\\n", (double)({x}), (double)({y}), (double){func}({x}, {y}));',
+                f'printf("{ff} %a %a = %a\\n", (double)(float)({x}), (double)(float)({y}), (double){ff}((float)({x}), (float)({y})));')
 
     # --- double,int→double (scalbn) ---
     for func in FLOAT_INT_D:
@@ -346,9 +352,9 @@ int main(void) {
             if x is None or n is None:
                 skipped += 1
                 continue
-            emit_both(func,
-                f'    printf("{func} %a %s = %a\\n", (double)({x}), "{n}", (double){func}({x}, {n}));\n',
-                f'    printf("{ff} %a %s = %a\\n", (double)(float)({x}), "{n}", (double){ff}((float)({x}), {n}));\n')
+            emit_both(func, f"{func} {x} {n}",
+                f'printf("{func} %a %s = %a\\n", (double)({x}), "{n}", (double){func}({x}, {n}));',
+                f'printf("{ff} %a %s = %a\\n", (double)(float)({x}), "{n}", (double){ff}((float)({x}), {n}));')
 
     # --- double,long→double (scalbln) ---
     for func in FLOAT_LONG_D:
@@ -365,9 +371,9 @@ int main(void) {
             if x is None or n is None:
                 skipped += 1
                 continue
-            emit_both(func,
-                f'    printf("{func} %a %s = %a\\n", (double)({x}), "{n}", (double){func}({x}, (long){n}));\n',
-                f'    printf("{ff} %a %s = %a\\n", (double)(float)({x}), "{n}", (double){ff}((float)({x}), (long){n}));\n')
+            emit_both(func, f"{func} {x} {n}",
+                f'printf("{func} %a %s = %a\\n", (double)({x}), "{n}", (double){func}({x}, (long){n}));',
+                f'printf("{ff} %a %s = %a\\n", (double)(float)({x}), "{n}", (double){ff}((float)({x}), (long){n}));')
 
     # --- nexttoward (TEST_fj_f: double,long_double→double) ---
     for func in FLOAT_J_D:
@@ -384,9 +390,9 @@ int main(void) {
             if x is None or y is None:
                 skipped += 1
                 continue
-            emit_both(func,
-                f'    printf("{func} %a %a = %a\\n", (double)({x}), (double)({y}), (double){func}({x}, (long double)({y})));\n',
-                f'    printf("{ff} %a %a = %a\\n", (double)(float)({x}), (double)({y}), (double){ff}((float)({x}), (long double)({y})));\n')
+            emit_both(func, f"{func} {x} {y}",
+                f'printf("{func} %a %a = %a\\n", (double)({x}), (double)({y}), (double){func}({x}, (long double)({y})));',
+                f'printf("{ff} %a %a = %a\\n", (double)(float)({x}), (double)({y}), (double){ff}((float)({x}), (long double)({y})));')
 
     # --- double→int (ilogb) ---
     for func in FLOAT_TO_INT:
@@ -402,9 +408,9 @@ int main(void) {
             if x is None:
                 skipped += 1
                 continue
-            emit_both(func,
-                f'    printf("{func} %a = %d\\n", (double)({x}), {func}({x}));\n',
-                f'    printf("{ff} %a = %d\\n", (double)(float)({x}), {ff}((float)({x})));\n')
+            emit_both(func, f"{func} {x}",
+                f'printf("{func} %a = %d\\n", (double)({x}), {func}({x}));',
+                f'printf("{ff} %a = %d\\n", (double)(float)({x}), {ff}((float)({x})));')
 
     # --- double→long (lrint, lround) ---
     for func in FLOAT_TO_LONG:
@@ -420,9 +426,9 @@ int main(void) {
             if x is None:
                 skipped += 1
                 continue
-            emit_both(func,
-                f'    printf("{func} %a = %ld\\n", (double)({x}), {func}({x}));\n',
-                f'    printf("{ff} %a = %ld\\n", (double)(float)({x}), {ff}((float)({x})));\n')
+            emit_both(func, f"{func} {x}",
+                f'printf("{func} %a = %ld\\n", (double)({x}), {func}({x}));',
+                f'printf("{ff} %a = %ld\\n", (double)(float)({x}), {ff}((float)({x})));')
 
     # --- double→long long (llrint, llround) ---
     for func in FLOAT_TO_LLONG:
@@ -438,9 +444,9 @@ int main(void) {
             if x is None:
                 skipped += 1
                 continue
-            emit_both(func,
-                f'    printf("{func} %a = %lld\\n", (double)({x}), {func}({x}));\n',
-                f'    printf("{ff} %a = %lld\\n", (double)(float)({x}), {ff}((float)({x})));\n')
+            emit_both(func, f"{func} {x}",
+                f'printf("{func} %a = %lld\\n", (double)({x}), {func}({x}));',
+                f'printf("{ff} %a = %lld\\n", (double)(float)({x}), {ff}((float)({x})));')
 
     # --- frexp: double,int*→double ---
     for func in UNARY_WITH_IPTR:
@@ -456,10 +462,12 @@ int main(void) {
             if x is None:
                 skipped += 1
                 continue
-            emit(func, f'    {{ int _exp; double _r = {func}({x}, &_exp); '
-                        f'printf("{func} %a = %a %d\\n", (double)({x}), _r, _exp); }}\n')
-            emit(ff, f'    {{ int _exp; float _r = {ff}((float)({x}), &_exp); '
-                     f'printf("{ff} %a = %a %d\\n", (double)(float)({x}), (double)_r, _exp); }}\n')
+            emit(func, f"{func} {x}",
+                f'{{ int _exp; double _r = {func}({x}, &_exp); '
+                f'printf("{func} %a = %a %d\\n", (double)({x}), _r, _exp); }}')
+            emit(ff, f"{ff} {x}",
+                f'{{ int _exp; float _r = {ff}((float)({x}), &_exp); '
+                f'printf("{ff} %a = %a %d\\n", (double)(float)({x}), (double)_r, _exp); }}')
 
     # --- modf: double,double*→double ---
     for func in UNARY_WITH_FPTR:
@@ -475,10 +483,12 @@ int main(void) {
             if x is None:
                 skipped += 1
                 continue
-            emit(func, f'    {{ double _ipart; double _r = {func}({x}, &_ipart); '
-                        f'printf("{func} %a = %a %a\\n", (double)({x}), _r, _ipart); }}\n')
-            emit(ff, f'    {{ float _ipart; float _r = {ff}((float)({x}), &_ipart); '
-                     f'printf("{ff} %a = %a %a\\n", (double)(float)({x}), (double)_r, (double)_ipart); }}\n')
+            emit(func, f"{func} {x}",
+                f'{{ double _ipart; double _r = {func}({x}, &_ipart); '
+                f'printf("{func} %a = %a %a\\n", (double)({x}), _r, _ipart); }}')
+            emit(ff, f"{ff} {x}",
+                f'{{ float _ipart; float _r = {ff}((float)({x}), &_ipart); '
+                f'printf("{ff} %a = %a %a\\n", (double)(float)({x}), (double)_r, (double)_ipart); }}')
 
     # --- remquo: double,double,int*→double ---
     for func in BINARY_WITH_IPTR:
@@ -495,10 +505,12 @@ int main(void) {
             if x is None or y is None:
                 skipped += 1
                 continue
-            emit(func, f'    {{ int _quo; double _r = {func}({x}, {y}, &_quo); '
-                        f'printf("{func} %a %a = %a %d\\n", (double)({x}), (double)({y}), _r, _quo); }}\n')
-            emit(ff, f'    {{ int _quo; float _r = {ff}((float)({x}), (float)({y}), &_quo); '
-                     f'printf("{ff} %a %a = %a %d\\n", (double)(float)({x}), (double)(float)({y}), (double)_r, _quo); }}\n')
+            emit(func, f"{func} {x} {y}",
+                f'{{ int _quo; double _r = {func}({x}, {y}, &_quo); '
+                f'printf("{func} %a %a = %a %d\\n", (double)({x}), (double)({y}), _r, _quo); }}')
+            emit(ff, f"{ff} {x} {y}",
+                f'{{ int _quo; float _r = {ff}((float)({x}), (float)({y}), &_quo); '
+                f'printf("{ff} %a %a = %a %d\\n", (double)(float)({x}), (double)(float)({y}), (double)_r, _quo); }}')
 
     # --- Complex→Complex ---
     for func in COMPLEX_CC:
@@ -515,14 +527,16 @@ int main(void) {
             if re_in is None or im_in is None:
                 skipped += 1
                 continue
-            emit(func, f'    {{ double complex z = CMPLX({re_in}, {im_in}); '
-                        f'double complex r = {func}(z); '
-                        f'printf("{func} %a %a = %a %a\\n", '
-                        f'(double)({re_in}), (double)({im_in}), creal(r), cimag(r)); }}\n')
-            emit(ff, f'    {{ float complex zf = CMPLXF((float)({re_in}), (float)({im_in})); '
-                     f'float complex rf = {ff}(zf); '
-                     f'printf("{ff} %a %a = %a %a\\n", '
-                     f'(double)(float)({re_in}), (double)(float)({im_in}), (double)crealf(rf), (double)cimagf(rf)); }}\n')
+            emit(func, f"{func} {re_in} {im_in}",
+                f'{{ double complex z = CMPLX({re_in}, {im_in}); '
+                f'double complex r = {func}(z); '
+                f'printf("{func} %a %a = %a %a\\n", '
+                f'(double)({re_in}), (double)({im_in}), creal(r), cimag(r)); }}')
+            emit(ff, f"{ff} {re_in} {im_in}",
+                f'{{ float complex zf = CMPLXF((float)({re_in}), (float)({im_in})); '
+                f'float complex rf = {ff}(zf); '
+                f'printf("{ff} %a %a = %a %a\\n", '
+                f'(double)(float)({re_in}), (double)(float)({im_in}), (double)crealf(rf), (double)cimagf(rf)); }}')
 
     out.append(f'    printf("\\nTotal: {total} glibc-inc tests\\n");\n')
     out.append("    return 0;\n")

@@ -1,6 +1,10 @@
 /* wc_driver.c — Read hex-float inputs from stdin, call a math function,
  * print results in %a format for bitwise diffing.
  *
+ * Fault isolation: signal handlers + setjmp/longjmp catch crashes (SIGSEGV,
+ * SIGFPE, SIGBUS, SIGABRT) and alarm() catches hangs. On fault, the failing
+ * input is logged to stderr and execution continues with the next line.
+ *
  * Usage:  ./wc_driver <func_name> < inputs.dat
  *
  * Input format:
@@ -13,6 +17,62 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <signal.h>
+#include <setjmp.h>
+#include <unistd.h>
+
+/* ---- fault isolation ---- */
+
+static sigjmp_buf jump_buf;
+static volatile sig_atomic_t in_test = 0;
+static const char *current_func = "";
+static const char *current_input = "";
+
+/* Per-test timeout in seconds (0 = disabled).
+ * Disabled by default for performance; enable via -DTEST_TIMEOUT=5 at compile. */
+#ifndef TEST_TIMEOUT
+#define TEST_TIMEOUT 0
+#endif
+
+static void fault_handler(int sig) {
+    if (in_test) {
+        /* Log to stderr so it doesn't pollute the diffable stdout */
+        const char *signame = "UNKNOWN";
+        switch (sig) {
+        case SIGSEGV: signame = "SIGSEGV"; break;
+        case SIGFPE:  signame = "SIGFPE";  break;
+        case SIGBUS:  signame = "SIGBUS";  break;
+        case SIGABRT: signame = "SIGABRT"; break;
+        case SIGALRM: signame = "SIGALRM(timeout)"; break;
+        }
+        /* Use write() — async-signal-safe, unlike fprintf */
+        write(STDERR_FILENO, "FAULT: ", 7);
+        write(STDERR_FILENO, signame, strlen(signame));
+        write(STDERR_FILENO, " in ", 4);
+        write(STDERR_FILENO, current_func, strlen(current_func));
+        write(STDERR_FILENO, " input=", 7);
+        write(STDERR_FILENO, current_input, strlen(current_input));
+        write(STDERR_FILENO, "\n", 1);
+
+        siglongjmp(jump_buf, sig);
+    }
+    /* If not in a test, re-raise for default behavior */
+    signal(sig, SIG_DFL);
+    raise(sig);
+}
+
+static void install_handlers(void) {
+    struct sigaction sa;
+    sa.sa_handler = fault_handler;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = 0;  /* No SA_RESTART — we want longjmp, not restart */
+
+    sigaction(SIGSEGV, &sa, NULL);
+    sigaction(SIGFPE,  &sa, NULL);
+    sigaction(SIGBUS,  &sa, NULL);
+    sigaction(SIGABRT, &sa, NULL);
+    sigaction(SIGALRM, &sa, NULL);
+}
 
 /* ---- function table ---- */
 
@@ -75,47 +135,73 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    install_handlers();
+    current_func = name;
+
     char line[512];
+    int faults = 0;
+
     while (fgets(line, sizeof(line), stdin)) {
         /* strip newline */
         char *nl = strchr(line, '\n');
         if (nl) *nl = '\0';
         if (line[0] == '\0') continue;
 
+        current_input = line;
+
+        /* Set recovery point — if a signal fires, we land here */
+        if (sigsetjmp(jump_buf, 1) != 0) {
+            /* Returned from fault handler */
+            faults++;
+            /* Re-install handlers (some systems reset to SIG_DFL after catch) */
+            install_handlers();
+            /* Print a fault marker so the diff line count stays consistent */
+            printf("%s %s = FAULT\n", name, line);
+            continue;
+        }
+
+        in_test = 1;
+        if (TEST_TIMEOUT > 0)
+            alarm(TEST_TIMEOUT);
+
         switch (e->sig) {
         case UNARY_D: {
             double x;
-            if (sscanf(line, "%la", &x) != 1) continue;
+            if (sscanf(line, "%la", &x) != 1) { in_test = 0; continue; }
             double r = e->fn.ud(x);
             printf("%s %a = %a\n", name, x, r);
             break;
         }
         case BINARY_D: {
             double x, y;
-            if (sscanf(line, "%la,%la", &x, &y) != 2) continue;
+            if (sscanf(line, "%la,%la", &x, &y) != 2) { in_test = 0; continue; }
             double r = e->fn.bd(x, y);
             printf("%s %a %a = %a\n", name, x, y, r);
             break;
         }
         case UNARY_F: {
             float x;
-            if (sscanf(line, "%a", &x) != 1) continue;
+            if (sscanf(line, "%a", &x) != 1) { in_test = 0; continue; }
             float r = e->fn.uf(x);
             printf("%s %a = %a\n", name, (double)x, (double)r);
             break;
         }
         case BINARY_F: {
-            float x, y;
-            /* Read as double first, then cast, to handle hex floats reliably */
             double dx, dy;
-            if (sscanf(line, "%la,%la", &dx, &dy) != 2) continue;
-            x = (float)dx; y = (float)dy;
+            if (sscanf(line, "%la,%la", &dx, &dy) != 2) { in_test = 0; continue; }
+            float x = (float)dx, y = (float)dy;
             float r = e->fn.bf(x, y);
             printf("%s %a %a = %a\n", name, (double)x, (double)y, (double)r);
             break;
         }
         }
+
+        alarm(0);  /* cancel timeout */
+        in_test = 0;
     }
+
+    if (faults > 0)
+        fprintf(stderr, "%s: %d faults out of total inputs\n", name, faults);
 
     return 0;
 }
