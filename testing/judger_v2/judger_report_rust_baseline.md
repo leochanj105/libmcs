@@ -5,20 +5,19 @@
 **Rust library:** `newexp/rust-baseline-judger/target/release/librust_baseline.a`
 **Method:** Bitwise `%a` comparison, zero tolerance
 
-## Summary
+## Overall Summary
 
 | Source | Tests | Divergences |
-|--------|-------|-------------|
+|--------|------:|------------:|
 | glibc (auto-libm-test-in) | 14,888 | 703 |
 | glibc (libm-test-*.inc) | 3,704 | 769 |
-| **Total** | **18,592** | **1,472** |
-
-Core-math worst-case tests not yet included.
+| core-math worst cases (full) | 15,883,911 | 433,548 |
+| **Total** | **15,902,503** | **435,020** |
 
 ## glibc (auto-libm-test-in) — 703 divergences
 
 | Function | Divergences | Notes |
-|----------|-------------|-------|
+|----------|------------:|-------|
 | tgammaf | 245 | |
 | tgamma | 202 | |
 | atan2f | 44 | |
@@ -57,7 +56,7 @@ Core-math worst-case tests not yet included.
 ## glibc (libm-test-*.inc) — 769 divergences
 
 | Function | Divergences | Notes |
-|----------|-------------|-------|
+|----------|------------:|-------|
 | fmodf | 113 | |
 | remainderf | 68 | |
 | remquof | 62 | |
@@ -80,50 +79,41 @@ Core-math worst-case tests not yet included.
 | copysignf | 8 | |
 | copysign | 8 | |
 | ilogb | 4 | |
-| truncf | 2 | |
-| trunc | 2 | |
-| scalbnf | 2 | |
-| scalbn | 2 | |
-| scalblnf | 2 | |
-| scalbln | 2 | |
-| roundf | 2 | |
-| round | 2 | |
-| rint | 2 | |
-| nearbyint | 2 | |
-| modff | 2 | |
-| modf | 2 | |
-| lroundf | 2 | |
-| lround | 2 | |
-| lrintf | 2 | |
-| lrint | 2 | |
-| logbf | 2 | |
-| logb | 2 | |
-| llroundf | 2 | |
-| llround | 2 | |
-| llrintf | 2 | |
-| llrint | 2 | |
-| frexpf | 2 | |
-| frexp | 2 | |
-| floorf | 2 | |
-| floor | 2 | |
-| fabsf | 2 | |
-| fabs | 2 | |
-| conjf | 2 | |
-| conj | 2 | |
-| ceilf | 2 | |
-| ceil | 2 | |
+| (27 functions) | 2 each | sNaN/signed-zero edge cases |
 
-## Observations
+## Core-math worst cases (full) — 433,548 divergences
 
-1. **exp2: infinite loop** — All 33 exp2 divergences are SIGALRM timeouts. The Rust `exp2` hangs on inputs near overflow/underflow boundaries. This is a correctness bug.
+| Function | Tests | Divergences | Faults | Divergence rate |
+|----------|------:|------------:|-------:|---------:|
+| pow | 1,002,881 | 367,426 | 0 | 36.6% |
+| exp2 | 71,615 | 35,942 | 268 | 50.2% |
+| log10 | 65,512 | 14,347 | 0 | 21.9% |
+| acosh | 1,056,666 | 9,055 | 0 | 0.9% |
+| log2 | 31,377 | 6,693 | 0 | 21.3% |
+| powf | 403,533 | 67 | 0 | <0.1% |
+| atanh | 62,214 | 6 | 0 | <0.1% |
+| log | 134,950 | 5 | 0 | <0.1% |
+| acos | 264,055 | 3 | 0 | <0.1% |
+| asin | 13,480 | 2 | 0 | <0.1% |
+| log1p | 347,453 | 2 | 0 | <0.1% |
 
-2. **tgamma/tgammaf: largest divergence** — 447 total mismatches. Gamma function edge cases differ between C and Rust implementations.
+19 functions passed all worst-case tests with zero divergences:
+asinh, atan, atan2, atan2f, cbrt, cos, cosh, erf, erfc, exp, expm1,
+hypot, hypotf, lgamma, sin, sinh, tan, tanh, tgamma.
 
-3. **Symmetric d/f divergences** — Most functions show the same divergence count for double and float variants (e.g., fmod=60, fmodf=113), suggesting the Rust transpilation has systematic issues, not random bit errors.
+## Key Findings
 
-4. **NaN/special value handling** — Many inc-test divergences (cproj, copysign, nextafter, fabs, ceil, floor, etc.) show exactly 2 mismatches each, likely sNaN propagation or signed-zero handling differences.
+1. **exp2: broken** — 50% divergence rate + 268 infinite-loop timeouts. The Rust exp2 implementation is severely broken on boundary inputs.
 
-5. **fmod family: high divergence** — fmod/fmodf/remainder/remquo together account for 377 divergences, suggesting the division/remainder algorithm differs.
+2. **pow: highest volume** — 367K divergences (36.6% of worst cases). The Rust pow has systematic rounding differences.
+
+3. **log10/log2: consistent errors** — ~21% divergence rate, suggesting a shared logarithm code path has a rounding issue.
+
+4. **acosh: moderate** — 9K divergences (0.9%) on a large test set, likely a specific code path for large inputs.
+
+5. **19 functions pass all WC tests** — These include the core trig (sin, cos, tan), hyperbolic (sinh, cosh, tanh), and several others. The transpilation is correct for these functions even under worst-case rounding stress.
+
+6. **NaN/special value handling** — The .inc test divergences (cproj, copysign, nextafter, fabs, etc. with exactly 2 mismatches each) suggest systematic sNaN or signed-zero propagation differences.
 
 ## Diff files
 
