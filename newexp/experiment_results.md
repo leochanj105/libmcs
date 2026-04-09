@@ -20,15 +20,32 @@ Model: claude-sonnet-4-6
 | S4 | Function coverage feedback | 1 | 57,712 | 2,430,391 | 103,993 | 2.6M | $1.99 | 22.4m |
 | S5 | Branch coverage feedback (on S4) | 5 | 435,255 | 15,945,081 | 807,094 | 17.2M | $26.84 | 2.8h |
 
-### Test Counts
+### Test Counts and Coverage
 
-| Scenario | Test Prints | Lines |
-|----------|-------------|-------|
-| S1 | 779 | 2,181 |
-| S2 | 508 | 1,049 |
-| S3 | 998 | 2,150 |
-| S4 | 524 | 2,026 |
-| S5 | 3,875 | 8,718 |
+178 functions are actually compiled in the C library (excludes 79 long double
+functions that exist in the function list but are not compiled as separate symbols).
+
+| Scenario | Test Prints | Functions Covered | Func Cov % | Branch Cov % | Branches (hit/total) |
+|----------|-------------|-------------------|-----------|-------------|---------------------|
+| S1 | 779 | 162/178 | 91.0% | 58.1% | 1838/3162 |
+| S2 | 508 | 178/178 | 100.0% | — (crashed) | — |
+| S3 | 998 | 166/178 | 93.3% | 70.6% | 2238/3168 |
+| S4 | 524 | 178/178 | 100.0% | 45.9% | 1424/3101 |
+| S5 | 3,875 | 178/178 | 100.0% | 92.3% | 2919/3164 |
+
+All branch coverage measured with llvm-cov-21 (`-fprofile-instr-generate -fcoverage-mapping`).
+
+Notes:
+- S2 crashed during coverage run (likely test-triggered segfault). Function
+  coverage is 100% by static analysis (all functions called in test suite).
+- S4 has 100% function coverage but only 45.9% branch coverage — it calls every
+  function but with few inputs, missing many code paths.
+- S5 builds on S4's tests with 5 rounds of branch coverage feedback, reaching
+  92.3% branch coverage — the highest of all scenarios.
+- S1 and S3 miss 16 and 12 functions respectively (internal helpers not called
+  by single-shot prompts). S2's explicit boundary prompt covers all functions.
+- Higher branch coverage (S5 > S3 > S1 > S4) correlates with more diverse inputs
+  per function, not just more functions covered.
 
 ## Phase 3: Diff-Fix
 
