@@ -10,7 +10,7 @@ export LIBMCS="/home/leochanj/Desktop/libmcs/libm"
 export C_SRC_DIRS="${LIBMCS}/mathd ${LIBMCS}/mathf ${LIBMCS}/common ${LIBMCS}/complexd ${LIBMCS}/complexf"
 export C_INCLUDE_DIRS="${LIBMCS}/include"
 
-SCENARIOS=(s1_naive s2_explicit s3_edgecase s4_function s5_branch)
+SCENARIOS=(s1_naive s2_explicit s3_edgecase s4_function s5_branch s6_branch_extended)
 
 # ── API key ──
 # If ANTHROPIC_API_KEY is set, claude CLI uses it (API billing).

@@ -1,0 +1,27 @@
+# Goal 7: Fix __ctans / __ctansf — timeout (infinite loop)
+
+## Functions
+- __ctans, __ctansf
+
+## Source Files
+- C: /home/leochanj/Desktop/libmcs/libm/complexd/ctand.c, /home/leochanj/Desktop/libmcs/libm/complexf/ctanf.c
+- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s1/src/complexd.rs, /home/leochanj/Desktop/libmcs/newexp/rust-s1/src/complexf.rs
+
+## Problem
+bridge_ctans and bridge_ctansf both TIMEOUT, meaning the Rust implementation enters an infinite loop or extremely long computation. This causes 4 test cases (2 per function) to be missing from the output.
+
+Likely causes:
+- A loop termination condition was incorrectly transpiled
+- A convergence check uses the wrong comparison or threshold
+- An iterative algorithm doesn't converge due to a sign or constant error
+
+## What Needs to Change
+1. Compare the Rust __ctans implementation against C source (ctand.c)
+2. Compare the Rust __ctansf implementation against C source (ctanf.c)
+3. Identify the loop or iterative section and fix the termination condition
+4. Ensure the function returns in bounded time for all inputs
+
+## Success Criteria
+- bridge_ctans completes without timeout and produces correct output for all test inputs
+- bridge_ctansf completes without timeout and produces correct output for all test inputs
+- All 4 previously missing test cases now appear in the output with bitwise-exact matches

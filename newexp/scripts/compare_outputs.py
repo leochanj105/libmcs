@@ -29,7 +29,10 @@ def parse_output(filepath):
             if line.startswith("FAULT "):
                 fault_lines.append(line)
                 continue
-            if '=' not in line:
+            if line.startswith("==="):
+                continue
+            # Skip lines that aren't test output (no = or : separator)
+            if '=' not in line and ': ' not in line:
                 continue
             test_lines.append(line)
     return test_lines, fault_lines

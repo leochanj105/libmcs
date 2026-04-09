@@ -21,6 +21,7 @@ Model: claude-sonnet-4-6
 | S4 (new, corrected) | Function coverage feedback | 1 (R2 stopped early) | 40,942 | 439,934 | 44,243 | 525K | $0.91 | 6.8m |
 | S5 (old, with long double) | Branch coverage feedback (on S4) | 5 | 435,255 | 15,945,081 | 807,094 | 17.2M | $26.84 | 2.8h |
 | S5 (new) | Branch coverage feedback (on S4) | 5 | 315,504 | 15,915,718 | 911,806 | $14.19 | 65m |
+| S6 | Extended branch (on S5) | 5 | 304,813 | 22,027,637 | 1,260,609 | $17.24 | 89m |
 
 #### S4 (new) Per-Round Testgen Detail
 
@@ -47,6 +48,23 @@ coverage in a single round.
 Note: R1 coverage shows 40.0% because the uncovered snapshot is measured BEFORE
 test generation. R1's improvement shows in R2's measurement (40.0% → 68.7%).
 
+#### S6 Per-Round Testgen Detail
+
+| Round | Prints | Cov Conditions | OUR Cov % | Active Time | Output Tokens | Cache Read | Cache Create | Cost |
+|-------|--------|---------------|-----------|------------|--------------|-----------|-------------|------|
+| S5 base | 2039 | 2607/3268 | 79.8% | — | — | — | — | — |
+| R1 | 2097 | 2646/3268 | 81.0% | 10.2m | 31,000 | 2,674,529 | 194,844 | $2.19 |
+| R2 | 2238 | 2662/3268 | 81.5% | 19.8m | 67,468 | 4,263,268 | 306,356 | $3.63 |
+| R3 | 2448 | 2694/3268 | 82.4% | 14.3m | 42,476 | 3,640,406 | 235,125 | $2.88 |
+| R4 | 2746 | 2765/3268 | 84.6% | 28.8m | 100,222 | 5,624,625 | 238,800 | $4.60 |
+| R5 | 2775 | 2797/3268 | 85.6% | 15.7m | 63,647 | 5,824,809 | 285,484 | $3.94 |
+| **Total** | | | | **88.8m** | **304,813** | | | **$17.24** |
+
+Note: Coverage % above is measured during the testgen loop (before each round's
+generation). Final measured coverage with `branch_coverage.py`: **89.0% OUR**
+(2909/3268). The difference is because the final round's tests improve coverage
+beyond what was measured at the start of that round.
+
 ### Test Counts and Coverage
 
 186 functions are actually compiled in the C library (178 public + 8 static).
@@ -67,9 +85,10 @@ Two branch coverage metrics:
 | S3 | 1190 | 174/186 (93%) | 66.1% | 2161/3268 | 71.4% | 2302/3226 |
 | S4 | 371 | 186/186 (100%) | 41.6% | 1359/3268 | 45.3% | 1461/3226 |
 | S5 | 2039 | 186/186 (100%) | 84.0% | 2744/3268 | 90.5% | 2921/3226 |
+| S6 | 2775 | 186/186 (100%) | 89.0% | 2909/3268 | 96.0% | 3098/3226 |
 
 Test case = one library function call with one input. S2 count excludes 1 fenv
-crash (fault).
+crash (fault). S6 builds on S5 with 5 additional branch coverage rounds.
 
 All measured with clang-21, llvm-cov-21, `-O0 -fno-builtin`, all .o linked directly.
 
@@ -210,9 +229,32 @@ miscounted as test cases. Fixed in compare_outputs.py.
 
 #### Remaining Failures: 0
 
-### S1 Difffix
+### S1 Results (with test isolation)
 
-Not yet run with the corrected infrastructure.
+Fixer mode: separate analyze + fix. No regressions occurred.
+
+Results stored in: `work-s1/difffix/`, `rust-s1/`
+
+S1 has 785 test cases.
+
+#### Per-Round Progression
+
+| Round | Prev Fails | Fails | Passed | Pass Rate | Goals | Active Time | Cost |
+|-------|-----------|-------|--------|-----------|-------|------------|------|
+| Baseline | — | 15 | 770 | 98.1% | — | — | — |
+| R1 | 15 | 5 | 780 | 99.4% | 5 | 7.3m | $1.92 |
+| R2 | 5 | 0 | 785 | 100.0% | 3 | 3.0m | $0.72 |
+| **Total** | | | | | **8** | **10.3m** | **$2.65** |
+
+#### Per-Round Token Usage
+
+| Round | Input | Output | Cache Read | Cache Create | Cost |
+|-------|-------|--------|-----------|-------------|------|
+| R1 | 55 | 59,765 | 1,175,006 | 124,280 | $1.92 |
+| R2 | 27 | 9,540 | 513,536 | 54,881 | $0.72 |
+| **Total** | **82** | **69,305** | **1,688,542** | **179,161** | **$2.65** |
+
+#### Remaining Failures: 0
 
 ## Difffix Cross-Scenario Summary
 
@@ -222,9 +264,10 @@ Test cases = individual function calls (one call, one input, one output comparis
 |----------|-----------|---------------|-------------|--------|------|
 | S3 | 1190 | 52 | 0 | 4 | $11.38 |
 | S4 | 371 | 7 | 0 | 2 | $2.04 |
-| S1 | 785 | — | — | — | — |
+| S1 | 785 | 15 | 0 | 2 | $2.65 |
 | S2 | 458 | 16 | 0 | 2 | $4.82 |
 | S5 | 2039 | 44 | 0 | 3 | $6.12 |
+| S6 | 2775 | — | — | — | — |
 
 Test case = one library function call with one input. Section headers and FAULT
 lines are excluded. S2 has 1 fenv FAULT (crash).

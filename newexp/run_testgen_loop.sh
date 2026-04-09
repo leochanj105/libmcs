@@ -282,6 +282,45 @@ If you create test_bridge.c, write it to ${WORKDIR}/test_bridge.c
             echo "  WARNING: test_suite.c not produced in round ${round}"
         fi
 
+        # Compile check: if AI broke the test suite, fix or revert
+        _INC=""
+        for _id in $C_INCLUDE_DIRS; do _INC="$_INC -I$_id"; done
+        _compile_ok=0
+        if $CC $_INC -I"${WORKDIR}" -Wno-implicit-function-declaration \
+            -fprofile-instr-generate -fcoverage-mapping \
+            -fsyntax-only "${WORKDIR}/test_suite.c" 2>"${ROUND_DIR}/compile_err.txt"; then
+            _compile_ok=1
+        else
+            echo "  WARNING: test_suite.c has compile errors. Attempting auto-fix..."
+            # Common fix: missing includes
+            _errs=$(cat "${ROUND_DIR}/compile_err.txt")
+            if echo "$_errs" | grep -q "memcpy\|memset\|memmove\|strlen"; then
+                sed -i '1s/^/#include <string.h>\n/' "${WORKDIR}/test_suite.c"
+            fi
+            if echo "$_errs" | grep -q "stdlib\|malloc\|free\|exit"; then
+                sed -i '1s/^/#include <stdlib.h>\n/' "${WORKDIR}/test_suite.c"
+            fi
+            # Common fix: forward declaration (function used before defined)
+            # Try reordering: move static void test_xxx definitions before main
+            # This is hard to do generically, so just try recompiling after includes fix
+            if $CC $_INC -I"${WORKDIR}" -Wno-implicit-function-declaration \
+                -fprofile-instr-generate -fcoverage-mapping \
+                -fsyntax-only "${WORKDIR}/test_suite.c" 2>/dev/null; then
+                echo "  Auto-fix succeeded."
+                _compile_ok=1
+            fi
+        fi
+
+        if [ "$_compile_ok" -eq 0 ]; then
+            echo "  Auto-fix failed. Reverting to previous round's test suite."
+            head -3 "${ROUND_DIR}/compile_err.txt"
+            # Revert to previous round
+            _prev_snap="${WORKDIR}/rounds/$((round-1))/test_suite_snapshot.c"
+            if [ -f "$_prev_snap" ]; then
+                cp "$_prev_snap" "${WORKDIR}/test_suite.c"
+            fi
+        fi
+
         cp "${WORKDIR}/test_suite.c" "${ROUND_DIR}/test_suite_snapshot.c" 2>/dev/null || true
         touch "$step2"
     fi

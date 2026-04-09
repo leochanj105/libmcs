@@ -1,0 +1,22 @@
+# Goal 6: Fix log1pf — edge case at -1.0
+
+## Functions
+- log1pf
+
+## Source Files
+- C: /home/leochanj/Desktop/libmcs/libm/mathf/log1pf.c
+- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s1/src/mathf.rs
+
+## Problem
+log1pf(-1.0) returns `-0x1p+1` (-2.0) instead of `-inf`.
+
+log1p(x) = log(1 + x). When x = -1.0, 1 + x = 0.0, and log(0) = -infinity.
+The Rust implementation is not handling this edge case — it should detect x == -1.0 and return -INFINITY (with divide-by-zero flag). Instead it appears to be evaluating the polynomial approximation at x = -1.
+
+## What Needs to Change
+1. Compare the Rust log1pf against C source (log1pf.c)
+2. Add/fix the special case: if x == -1.0f, return -INFINITY
+3. Ensure the check happens before the main computation
+
+## Success Criteria
+- `log1pf(-0x1p+0)` returns `-inf` (bitwise match)
