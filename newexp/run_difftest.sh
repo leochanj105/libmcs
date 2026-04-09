@@ -29,6 +29,8 @@ trap 'rm -rf "$BDIR"' EXIT
 
 INC_FLAGS=""
 for d in $INCDIR; do INC_FLAGS="$INC_FLAGS -I$d"; done
+# Also include diffgen dir for test_bridge.h
+INC_FLAGS="$INC_FLAGS -I${DIFFGEN_WORKDIR}"
 
 # ── Use pre-built function→file map ──
 FUNC_MAP="${EXP_DIR}/work-func-map.txt"
@@ -82,7 +84,7 @@ if $CC $INC_FLAGS -Wno-implicit-function-declaration \
     "$DIFFTEST" $BRIDGE_OBJ "${BDIR}/libc_impl.a" \
     -lm -o "${BDIR}/test_c" 2>"${BDIR}/c_compile_err.txt"; then
     echo "Running C test..."
-    stdbuf -oL timeout 30 "${BDIR}/test_c" > "${BDIR}/c_out.txt" 2>"${BDIR}/c_stderr.txt" || true
+    stdbuf -oL timeout 600 "${BDIR}/test_c" > "${BDIR}/c_out.txt" 2>"${BDIR}/c_stderr.txt" || true
 else
     C_COMPILE_ERR=$(cat "${BDIR}/c_compile_err.txt")
 fi
@@ -106,7 +108,7 @@ else
         echo "Running Rust test..."
         export RUST_BACKTRACE=1
         R_EXIT=0
-        stdbuf -oL timeout 30 "${BDIR}/test_r" > "${BDIR}/r_out.txt" 2>"${BDIR}/r_stderr.txt" || R_EXIT=$?
+        stdbuf -oL timeout 600 "${BDIR}/test_r" > "${BDIR}/r_out.txt" 2>"${BDIR}/r_stderr.txt" || R_EXIT=$?
 
         # Detect timeout, crash, or panic
         if [ "$R_EXIT" -eq 124 ]; then

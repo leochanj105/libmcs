@@ -35,13 +35,16 @@ prepare_difftest() {
 
     mkdir -p "$diffgen_dir"
 
-    # Copy test_suite.c as the difftest (it already prints %a output)
-    cp "${testgen_dir}/test_suite.c" "${diffgen_dir}/difftest_suite.c"
+    # Copy test_suite.c and wrap for independent test execution
+    cp "${testgen_dir}/test_suite.c" "${diffgen_dir}/difftest_suite_raw.c"
+    python3 "${EXP_DIR}/scripts/wrap_tests_independent.py" \
+        "${diffgen_dir}/difftest_suite_raw.c" \
+        "${diffgen_dir}/difftest_suite.c" 2
     # Copy bridge
     [ -f "${testgen_dir}/test_bridge.c" ] && cp "${testgen_dir}/test_bridge.c" "${diffgen_dir}/test_bridge.c"
     [ -f "${testgen_dir}/test_bridge.h" ] && cp "${testgen_dir}/test_bridge.h" "${diffgen_dir}/test_bridge.h"
 
-    echo "  difftest_suite.c = test_suite.c ($(grep -c 'printf(' "${diffgen_dir}/difftest_suite.c") prints)"
+    echo "  difftest_suite.c = test_suite.c wrapped ($(grep -c 'printf(' "${diffgen_dir}/difftest_suite.c") prints)"
 
     # Compile check against C lib
     local INC_FLAGS=""

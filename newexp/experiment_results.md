@@ -17,35 +17,36 @@ Model: claude-sonnet-4-6
 | S1 | Naive one-shot | 1 | 43,721 | 177,042 | 52,319 | 273K | $0.91 | 6.8m |
 | S2 | Explicit boundary | 1 | 45,422 | 842,404 | 69,745 | 958K | $1.20 | 8.7m |
 | S3 | Edge case | 1 | 62,827 | 339,510 | 76,706 | 479K | $1.33 | 10.2m |
-| S4 | Function coverage feedback | 1 | 57,712 | 2,430,391 | 103,993 | 2.6M | $1.99 | 22.4m |
-| S5 | Branch coverage feedback (on S4) | 5 | 435,255 | 15,945,081 | 807,094 | 17.2M | $26.84 | 2.8h |
+| S4 (old, with long double) | Function coverage feedback | 2 | 57,712 | 2,430,391 | 103,993 | 2.6M | $1.99 | 22.4m |
+| S4 (new, corrected) | Function coverage feedback | 2 | 40,942 | 439,934 | 44,243 | 525K | $0.91 | 7.0m |
+| S5 (old, with long double) | Branch coverage feedback (on S4) | 5 | 435,255 | 15,945,081 | 807,094 | 17.2M | $26.84 | 2.8h |
+| S5 (new) | Branch coverage feedback (on S4) | — | — | — | — | — | — | running |
 
 ### Test Counts and Coverage
 
-178 functions are actually compiled in the C library (excludes 79 long double
-functions that exist in the function list but are not compiled as separate symbols).
+186 functions are actually compiled in the C library (178 public + 8 static).
+Long double wrapper functions (`acosl`, `sinl`, etc.) are behind a disabled
+`#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS` and excluded from the function list.
 
 | Scenario | Test Prints | Functions Covered | Func Cov % | Branch Cov % | Branches (hit/total) |
 |----------|-------------|-------------------|-----------|-------------|---------------------|
-| S1 | 779 | 162/178 | 91.0% | 58.1% | 1838/3162 |
-| S2 | 508 | 178/178 | 100.0% | — (crashed) | — |
-| S3 | 998 | 166/178 | 93.3% | 70.6% | 2238/3168 |
-| S4 | 524 | 178/178 | 100.0% | 45.9% | 1424/3101 |
-| S5 | 3,875 | 178/178 | 100.0% | 92.3% | 2919/3164 |
+| S1 | 779 | 162/186 | 87.1% | 58.1% | 1838/3162 |
+| S2 | 508 | 178/186 | 95.7% | — (crashed) | — |
+| S3 | 998 | 166/186 | 89.2% | 70.6% | 2238/3168 |
+| S4 (new) | 371 | 186/186 | 100.0% | 45.1% | 1398/3097 |
+| S5 (new) | — | — | — | — | running |
 
 All branch coverage measured with llvm-cov-21 (`-fprofile-instr-generate -fcoverage-mapping`).
 
 Notes:
 - S2 crashed during coverage run (likely test-triggered segfault). Function
-  coverage is 100% by static analysis (all functions called in test suite).
-- S4 has 100% function coverage but only 45.9% branch coverage — it calls every
+  coverage is 100% of public functions by static analysis.
+- S4 has 100% function coverage but only 45.1% branch coverage — it calls every
   function but with few inputs, missing many code paths.
-- S5 builds on S4's tests with 5 rounds of branch coverage feedback, reaching
-  92.3% branch coverage — the highest of all scenarios.
-- S1 and S3 miss 16 and 12 functions respectively (internal helpers not called
-  by single-shot prompts). S2's explicit boundary prompt covers all functions.
-- Higher branch coverage (S5 > S3 > S1 > S4) correlates with more diverse inputs
-  per function, not just more functions covered.
+- S1-S3 miss 20-24 functions (mostly internal helpers not called by single-shot
+  prompts). S4-S5 cover all functions via coverage feedback loop.
+- Previous S4/S5 results included phantom long double functions in the function
+  list, wasting testgen effort. Corrected function list has 186 entries (was 267).
 
 ## Phase 3: Diff-Fix
 
