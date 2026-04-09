@@ -18,9 +18,34 @@ Model: claude-sonnet-4-6
 | S2 | Explicit boundary | 1 | 45,422 | 842,404 | 69,745 | 958K | $1.20 | 8.7m |
 | S3 | Edge case | 1 | 62,827 | 339,510 | 76,706 | 479K | $1.33 | 10.2m |
 | S4 (old, with long double) | Function coverage feedback | 2 | 57,712 | 2,430,391 | 103,993 | 2.6M | $1.99 | 22.4m |
-| S4 (new, corrected) | Function coverage feedback | 2 | 40,942 | 439,934 | 44,243 | 525K | $0.91 | 7.0m |
+| S4 (new, corrected) | Function coverage feedback | 1 (R2 stopped early) | 40,942 | 439,934 | 44,243 | 525K | $0.91 | 6.8m |
 | S5 (old, with long double) | Branch coverage feedback (on S4) | 5 | 435,255 | 15,945,081 | 807,094 | 17.2M | $26.84 | 2.8h |
-| S5 (new) | Branch coverage feedback (on S4) | 5 | — | — | — | $14.20 | ~80m |
+| S5 (new) | Branch coverage feedback (on S4) | 5 | 315,504 | 15,915,718 | 911,806 | $14.19 | 65m |
+
+#### S4 (new) Per-Round Testgen Detail
+
+| Round | Prints | Func Covered | Active Time | Output Tokens | Cache Read | Cache Create | Cost |
+|-------|--------|-------------|------------|--------------|-----------|-------------|------|
+| R1 | 371 | 186/186 (100%) | 6.8m | 40,942 | 439,934 | 44,243 | $0.91 |
+| R2 | — | 186/186 (100%) | — | — | — | — | — |
+
+R2 measured 0 uncovered functions and stopped early. S4 achieved 100% function
+coverage in a single round.
+
+#### S5 (new) Per-Round Testgen Detail
+
+| Round | Prints | Cov Conditions | OUR Cov % | Active Time | Output Tokens | Cache Read | Cache Create | Cost |
+|-------|--------|---------------|-----------|------------|--------------|-----------|-------------|------|
+| S4 base | 371 | 1306/3268 | 40.0% | — | — | — | — | — |
+| R1 | 1191 | 1306/3268 | 40.0% | 4.0m | 103,772 | 1,902,419 | 122,682 | $2.69 |
+| R2 | 1272 | 2246/3268 | 68.7% | 11.2m | 36,684 | 3,395,848 | 146,361 | $2.25 |
+| R3 | 1479 | 2286/3268 | 70.0% | 11.4m | 40,890 | 2,983,183 | 171,993 | $2.30 |
+| R4 | 1837 | 2457/3268 | 75.2% | 17.4m | 63,444 | 2,620,303 | 179,805 | $2.64 |
+| R5 | 2039 | 2607/3268 | 79.8% | 20.8m | 70,714 | 5,013,965 | 290,965 | $4.31 |
+| **Total** | | | | **64.8m** | **315,504** | | | **$14.19** |
+
+Note: R1 coverage shows 40.0% because the uncovered snapshot is measured BEFORE
+test generation. R1's improvement shows in R2's measurement (40.0% → 68.7%).
 
 ### Test Counts and Coverage
 
