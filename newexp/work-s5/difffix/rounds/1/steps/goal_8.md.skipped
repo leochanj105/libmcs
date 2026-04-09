@@ -1,0 +1,22 @@
+# Goal 8: Fix rintf wrong rounding
+
+## Function
+rintf (round to nearest integer, float)
+
+## Source Files
+- C source: /home/leochanj/Desktop/libmcs/libm/mathf/rintf.c
+- Rust source: /home/leochanj/Desktop/libmcs/newexp/rust-s5/src/mathf.rs
+
+## What's Wrong
+rintf(1.75) rounds the wrong direction:
+- C:    rintf(0x1.cp+0) = 0x1p+1 (2.0)
+- Rust: rintf(0x1.cp+0) = 0x1p+0 (1.0)
+
+1.75 should round to 2.0 (round to nearest even). Rust returns 1.0, which is truncation, not rounding. The rounding logic is incorrect.
+
+## What Needs to Change
+Compare the rintf implementation with C. The issue is likely in how the rounding bias is applied — the code may be truncating instead of rounding to nearest even.
+
+## Success Criteria
+- rintf(1.75) = 2.0 (0x1p+1)
+- All rintf test cases match C output bitwise

@@ -1,0 +1,35 @@
+# Goal 6: Fix fmod, remainder, and remquo subnormal handling
+
+## Functions
+- fmod (floating-point modulo, double)
+- remainder (IEEE remainder, double)
+- remquo (IEEE remainder with quotient, double)
+
+## Source Files
+- C source (fmod): /home/leochanj/Desktop/libmcs/libm/mathd/fmodd.c
+- C source (remainder): /home/leochanj/Desktop/libmcs/libm/mathd/remainderd.c
+- C source (remquo): /home/leochanj/Desktop/libmcs/libm/mathd/remquod.c
+- Rust source: /home/leochanj/Desktop/libmcs/newexp/rust-s5/src/mathd.rs
+
+## What's Wrong
+
+**fmod (1 mismatch):**
+- fmod(1e-320, 5e-324): C returns 0x0p+0, Rust returns 0x0.00000000007dap-1022
+- Subnormal division/remainder logic is broken
+
+**remainder (1 mismatch):**
+- remainder(1e-300, 1e-316): C returns -0x0.00000007fd98bp-1022, Rust returns 0x0.00000000006dep-1022
+- Both magnitude and sign differ
+
+**remquo (1 mismatch):**
+- remquo(1e-300, 1e-316): C returns (-0x0.00000007fd98bp-1022, q=3), Rust returns (0x0.00000000035ap-1022, q=0)
+- Wrong remainder, wrong quotient
+
+## What Needs to Change
+These three functions share similar subnormal-range arithmetic. The issue is likely in how the exponent-stripping / bit manipulation works for subnormal inputs. Compare the Rust bit manipulation logic with C for the subnormal code paths.
+
+## Success Criteria
+- fmod(1e-320, 5e-324) = 0x0p+0
+- remainder(1e-300, 1e-316) = -0x0.00000007fd98bp-1022
+- remquo(1e-300, 1e-316) = -0x0.00000007fd98bp-1022 with q=3
+- All fmod, remainder, and remquo test cases match C output bitwise

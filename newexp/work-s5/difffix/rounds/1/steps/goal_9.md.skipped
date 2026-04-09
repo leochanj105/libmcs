@@ -1,0 +1,34 @@
+# Goal 9: Fix sinf and tanf trigonometric reduction
+
+## Functions
+- sinf (sine, float)
+- tanf (tangent, float)
+
+## Source Files
+- C source (sinf): /home/leochanj/Desktop/libmcs/libm/mathf/sinf.c
+- C source (tanf): /home/leochanj/Desktop/libmcs/libm/mathf/tanf.c
+- C source (__rem_pio2f): /home/leochanj/Desktop/libmcs/libm/mathf/internal/trigf.c
+- Rust source: /home/leochanj/Desktop/libmcs/newexp/rust-s5/src/mathf.rs
+
+## What's Wrong
+Both sinf and tanf produce slightly wrong results for input near pi:
+
+**sinf (1 mismatch):**
+- sinf(pi) = sinf(0x1.91eb86p+1): C returns 0x1.a17a16p-10, Rust returns 0x1.9bcff8p-10
+
+**tanf (2 mismatches):**
+- tanf(pi): C returns -0x1.a17a3ap-10, Rust returns -0x1.9bd018p-10
+- tanf(-pi): C returns 0x1.a17a3ap-10, Rust returns 0x1.9bd018p-10
+
+The results are close but not bitwise exact. This pattern (small error at multiples of pi) strongly suggests the argument reduction (__rem_pio2f) is slightly off, leading to a small but consistent error in the reduced argument.
+
+## What Needs to Change
+1. Compare the __rem_pio2f implementation in Rust with the C version in trigf.c
+2. Check the pi/2 constants used — a slightly wrong constant will cause this exact pattern
+3. Also check __sinf and __cosf kernel functions used internally
+
+## Success Criteria
+- sinf(0x1.91eb86p+1) = 0x1.a17a16p-10
+- tanf(0x1.91eb86p+1) = -0x1.a17a3ap-10
+- tanf(-0x1.91eb86p+1) = 0x1.a17a3ap-10
+- All sinf and tanf test cases match C output bitwise

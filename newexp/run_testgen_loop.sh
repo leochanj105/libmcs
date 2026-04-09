@@ -28,6 +28,7 @@ WORKDIR="${TESTGEN_WORKDIR:?TESTGEN_WORKDIR not set}"
 mkdir -p "$WORKDIR/rounds"
 
 # Ensure version-matched LLVM tools
+export CC="${CC:-clang-21}"
 export LLVM_PROFDATA="${LLVM_PROFDATA:-llvm-profdata-21}"
 export LLVM_COV="${LLVM_COV:-llvm-cov-21}"
 
@@ -83,16 +84,18 @@ if has_mode "branch"; then
         # Build library with coverage, export, extract branches
         _BBDIR=$(mktemp -d)
         _EXCL="cmplx.c|isfinite.c|isgreater.c|isgreaterequal.c|isinf.c|isless.c|islessequal.c|islessgreater.c|isnan.c|isnormal.c|isunordered.c|fenv.c"
+        _INC=""
+        for _id in $C_INCLUDE_DIRS; do _INC="$_INC -I$_id"; done
         for _d in $C_SRC_DIRS; do
             [ -d "$_d" ] || continue
             find "$_d" -name '*.c' -type f | grep -vE "$_EXCL" | while read -r _cf; do
-                $CC -I${C_INCLUDE_DIRS} -fprofile-instr-generate -fcoverage-mapping -O0 -fno-builtin \
+                $CC $_INC -fprofile-instr-generate -fcoverage-mapping -O0 -fno-builtin \
                     -c "$_cf" -o "${_BBDIR}/c_$(basename "$_cf" .c).o" 2>/dev/null || true
             done
         done
         _OBJ=$(find "$_BBDIR" -name 'c_*.o' -type f | sort)
         echo 'int main(void){return 0;}' > "${_BBDIR}/m.c"
-        $CC -fprofile-instr-generate -fcoverage-mapping -O0 "${_BBDIR}/m.c" $_OBJ \
+        $CC $_INC -fprofile-instr-generate -fcoverage-mapping -O0 "${_BBDIR}/m.c" $_OBJ \
             -lm -Wl,--allow-multiple-definition -o "${_BBDIR}/b" 2>/dev/null
         ${LLVM_COV} export "${_BBDIR}/b" -empty-profile > "${_BBDIR}/static.json" 2>/dev/null
         python3 "${SCRIPTS}/branch_coverage.py" extract "${_BBDIR}/static.json" "$BRANCHES_JSON"

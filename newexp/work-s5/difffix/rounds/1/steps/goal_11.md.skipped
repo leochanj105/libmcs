@@ -1,0 +1,32 @@
+# Goal 11: Verify missing functions after ctanf fix
+
+## Functions
+~1036 function/input combinations across ~90 distinct functions
+
+## What's Wrong
+1253 tests produced no Rust output. The Rust test binary hung at ctanf (Goal 1), so all tests after ctanf in execution order never ran. This includes:
+
+**Internal helpers (may need test bridge fixes):**
+- __ccoshsinh, __ccoshsinhf (complex trig helpers)
+- __lgamma, __lgammaf (gamma internals)
+- __redupif (angle reduction)
+- __rem_pio2, __rem_pio2f (pi/2 reduction)
+- __tan, __tanf (tangent kernel)
+
+**Standard math functions (should work once ctanf is fixed):**
+- atan2(f), ceil(f), cos(f), erf(f), erfc(f), expm1(f), floor(f), fmax(f), fmin(f), fmod(f), frexp(f), hypot(f), ilogb(f), j0, j1, jn, lgamma(f), log(f), log10(f), log1p(f), log2f, logf, llrintf, llroundf, lrintf, lroundf, modf(f), nextafter(f), pow(f), remainder(f), remquo(f), rint(f), round(f), scalbn(f), sin(f), sqrt(f), tan(f), tgamma(f), trunc(f), y0, y1, yn, ccos(f), csin(f), ctan
+
+## Source Files
+- Rust test bridge: /home/leochanj/Desktop/libmcs/newexp/rust-s5/src/test_bridge.rs
+- Various Rust source files in src/mathd.rs, src/mathf.rs, src/complexf.rs, src/complexd.rs
+
+## What Needs to Change
+1. Fix ctanf (Goal 1) first
+2. Re-run the differential test
+3. If internal helpers are still missing, check test_bridge.rs to ensure they are properly exposed
+4. File new goals for any functions that remain failing after ctanf fix
+
+## Success Criteria
+- After fixing ctanf, re-run produces Rust output for all 3794 expected test lines
+- Internal helper functions (__rem_pio2, __tan, __lgamma, __ccoshsinh, __redupif) produce output
+- No remaining MISSING entries in the diff report (only MISMATCH if any)

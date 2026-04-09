@@ -1,1592 +1,1967 @@
 # Uncovered branch conditions
-# Total: 2522 | Covered: 933 | Uncovered: 1589
+# Total conditions: 3268 (1634 branches × 2)
+# Covered: 1306 | Uncovered: 1962
+# Coverage: 40.0%
 
-acosd.c, Branch (106:13): False
-acosd.c, Branch (115:17): True
-acosd.c, Branch (90:13): False
-acosf.c, Branch (36:13): False
-acosf.c, Branch (41:16): True
-acosf.c, Branch (52:13): False
-acosf.c, Branch (61:16): True
-acoshd.c, Branch (73:9): True
-acoshd.c, Branch (79:16): True
-acoshd.c, Branch (80:13): True
-acoshd.c, Branch (80:13): False
-acoshf.c, Branch (22:9): True
-acoshf.c, Branch (28:16): True
-acoshf.c, Branch (29:13): True
-acoshf.c, Branch (29:13): False
-acoshf.c, Branch (36:16): True
-asind.c, Branch (104:13): False
-asind.c, Branch (105:17): False
-asind.c, Branch (128:9): True
-asind.c, Branch (92:13): False
-asinf.c, Branch (36:9): True
-asinf.c, Branch (38:16): True
-asinf.c, Branch (45:13): False
-asinf.c, Branch (69:9): True
-asinhd.c, Branch (74:9): True
-asinhd.c, Branch (79:13): False
-asinhd.c, Branch (86:9): True
-asinhd.c, Branch (88:16): True
-asinhf.c, Branch (23:9): True
-asinhf.c, Branch (35:9): True
-asinhf.c, Branch (37:16): True
-asinhf.c, Branch (45:9): False
-atan2d.c, Branch (102:9): True
-atan2d.c, Branch (103:9): True
-atan2d.c, Branch (107:29): False
-atan2d.c, Branch (116:9): True
-atan2d.c, Branch (124:9): True
-atan2d.c, Branch (135:9): True
-atan2d.c, Branch (136:13): True
-atan2d.c, Branch (136:13): False
-atan2d.c, Branch (138:13): True
-atan2d.c, Branch (138:13): False
-atan2d.c, Branch (139:13): True
-atan2d.c, Branch (139:13): False
-atan2d.c, Branch (142:13): True
-atan2d.c, Branch (142:13): False
-atan2d.c, Branch (145:13): True
-atan2d.c, Branch (145:13): False
-atan2d.c, Branch (148:13): True
-atan2d.c, Branch (148:13): False
-atan2d.c, Branch (153:13): True
-atan2d.c, Branch (153:13): False
-atan2d.c, Branch (154:13): True
-atan2d.c, Branch (154:13): False
-atan2d.c, Branch (157:13): True
-atan2d.c, Branch (157:13): False
-atan2d.c, Branch (160:13): True
-atan2d.c, Branch (160:13): False
-atan2d.c, Branch (163:13): True
-atan2d.c, Branch (163:13): False
-atan2d.c, Branch (170:9): True
-atan2d.c, Branch (171:16): True
-atan2d.c, Branch (171:16): False
-atan2d.c, Branch (177:9): True
-atan2d.c, Branch (180:26): True
-atan2d.c, Branch (190:5): True
-atan2d.c, Branch (193:5): True
-atan2f.c, Branch (105:9): True
-atan2f.c, Branch (108:16): True
-atan2f.c, Branch (108:26): True
-atan2f.c, Branch (108:26): False
-atan2f.c, Branch (115:5): False
-atan2f.c, Branch (118:5): True
-atan2f.c, Branch (121:5): True
-atan2f.c, Branch (124:5): True
-atan2f.c, Branch (44:9): True
-atan2f.c, Branch (49:9): True
-atan2f.c, Branch (52:9): True
-atan2f.c, Branch (59:16): True
-atan2f.c, Branch (66:13): True
-atan2f.c, Branch (66:13): False
-atan2f.c, Branch (67:13): True
-atan2f.c, Branch (67:13): False
-atan2f.c, Branch (70:13): True
-atan2f.c, Branch (70:13): False
-atan2f.c, Branch (73:13): True
-atan2f.c, Branch (73:13): False
-atan2f.c, Branch (76:13): True
-atan2f.c, Branch (76:13): False
-atan2f.c, Branch (81:13): True
-atan2f.c, Branch (81:13): False
-atan2f.c, Branch (82:13): True
-atan2f.c, Branch (82:13): False
-atan2f.c, Branch (85:13): True
-atan2f.c, Branch (85:13): False
-atan2f.c, Branch (88:13): True
-atan2f.c, Branch (88:13): False
-atan2f.c, Branch (91:13): True
-atan2f.c, Branch (91:13): False
-atan2f.c, Branch (99:16): True
-atan2f.c, Branch (99:16): False
-atand.c, Branch (100:9): True
-atand.c, Branch (104:13): True
-atand.c, Branch (104:13): False
-atand.c, Branch (105:14): True
-atand.c, Branch (105:14): False
-atand.c, Branch (105:34): True
-atand.c, Branch (105:34): False
-atand.c, Branch (109:13): True
-atand.c, Branch (109:13): False
-atand.c, Branch (117:13): False
-atand.c, Branch (118:17): False
-atand.c, Branch (129:13): False
-atand.c, Branch (138:17): True
-atand.c, Branch (138:17): False
-atand.c, Branch (155:9): True
-atanf.c, Branch (101:9): True
-atanf.c, Branch (105:16): True
-atanf.c, Branch (50:9): True
-atanf.c, Branch (55:13): True
-atanf.c, Branch (55:13): False
-atanf.c, Branch (63:13): False
-atanf.c, Branch (75:13): False
-atanf.c, Branch (84:17): True
-atanf.c, Branch (84:17): False
-atanhd.c, Branch (77:9): True
-atanhd.c, Branch (85:9): True
-atanhd.c, Branch (90:13): False
-atanhd.c, Branch (99:9): True
-atanhf.c, Branch (21:9): True
-atanhf.c, Branch (29:9): True
-atanhf.c, Branch (43:9): True
-atanhf.c, Branch (50:9): False
-, Branch (327:6): True
-, Branch (327:6): False
-, Branch (364:12): True
-, Branch (364:12): False
-, Branch (368:12): True
-, Branch (368:12): False
-, Branch (372:12): True
-, Branch (372:12): False
-, Branch (376:12): True
-, Branch (376:12): False
-, Branch (383:12): True
-, Branch (383:12): False
-, Branch (387:12): True
-, Branch (387:12): False
-, Branch (391:12): True
-, Branch (391:12): False
-, Branch (395:12): True
-, Branch (395:12): False
-, Branch (401:21): True
-, Branch (401:21): False
-, Branch (411:47): True
-, Branch (411:47): False
-catand.c, Branch (59:23): True
-catanf.c, Branch (19:24): True
-cbrtd.c, Branch (82:9): True
-cbrtd.c, Branch (88:9): True
-cbrtd.c, Branch (95:9): True
-cbrtf.c, Branch (37:9): True
-ceild.c, Branch (100:13): True
-ceild.c, Branch (100:13): False
-ceild.c, Branch (108:13): True
-ceild.c, Branch (108:13): False
-ceild.c, Branch (113:13): True
-ceild.c, Branch (113:13): False
-ceild.c, Branch (114:17): True
-ceild.c, Branch (114:17): False
-ceild.c, Branch (119:21): True
-ceild.c, Branch (119:21): False
-ceild.c, Branch (68:9): True
-ceild.c, Branch (68:9): False
-ceild.c, Branch (69:13): True
-ceild.c, Branch (69:13): False
-ceild.c, Branch (70:17): True
-ceild.c, Branch (70:17): False
-ceild.c, Branch (76:17): True
-ceild.c, Branch (76:17): False
-ceild.c, Branch (86:17): True
-ceild.c, Branch (86:17): False
-ceild.c, Branch (92:17): True
-ceild.c, Branch (92:17): False
-ceild.c, Branch (99:16): True
-ceild.c, Branch (99:16): False
-ceilf.c, Branch (20:9): True
-ceilf.c, Branch (20:9): False
-ceilf.c, Branch (21:13): True
-ceilf.c, Branch (21:13): False
-ceilf.c, Branch (28:17): True
-ceilf.c, Branch (28:17): False
-ceilf.c, Branch (36:17): True
-ceilf.c, Branch (36:17): False
-ceilf.c, Branch (42:17): True
-ceilf.c, Branch (42:17): False
-ceilf.c, Branch (49:13): True
-ceilf.c, Branch (49:13): False
-cosd.c, Branch (73:12): False
-cosd.c, Branch (74:17): False
-cosd.c, Branch (85:14): True
-cosd.c, Branch (98:9): True
-cosf.c, Branch (24:12): False
-cosf.c, Branch (25:17): False
-cosf.c, Branch (35:14): True
-cosf.c, Branch (48:9): True
-cosf.c, Branch (51:9): False
-cosf.c, Branch (54:9): True
-cosf.c, Branch (57:9): True
-coshd.c, Branch (103:9): True
-coshd.c, Branch (103:9): False
-coshd.c, Branch (104:10): True
-coshd.c, Branch (104:10): False
-coshd.c, Branch (104:30): True
-coshd.c, Branch (104:30): False
-coshd.c, Branch (73:9): True
-coshd.c, Branch (90:9): False
-coshd.c, Branch (96:9): True
-coshd.c, Branch (96:9): False
-coshf.c, Branch (23:9): True
-coshf.c, Branch (40:9): False
-coshf.c, Branch (46:9): True
-coshf.c, Branch (46:9): False
-coshf.c, Branch (51:9): True
-coshf.c, Branch (51:9): False
-cpowd.c, Branch (59:9): True
-cpowd.c, Branch (67:9): True
-cpowf.c, Branch (20:9): True
-cpowf.c, Branch (28:9): True
-csqrtd.c, Branch (109:9): True
-csqrtd.c, Branch (109:9): False
-csqrtd.c, Branch (62:17): True
-csqrtd.c, Branch (72:9): False
-csqrtd.c, Branch (76:13): False
-csqrtd.c, Branch (86:28): True
-csqrtd.c, Branch (86:28): False
-csqrtd.c, Branch (86:9): True
-csqrtd.c, Branch (86:9): False
-csqrtd.c, Branch (99:9): True
-csqrtd.c, Branch (99:9): False
-csqrtf.c, Branch (19:13): True
-csqrtf.c, Branch (30:9): False
-csqrtf.c, Branch (34:13): False
-csqrtf.c, Branch (44:30): True
-csqrtf.c, Branch (44:30): False
-csqrtf.c, Branch (44:9): True
-csqrtf.c, Branch (44:9): False
-csqrtf.c, Branch (57:9): True
-csqrtf.c, Branch (57:9): False
-csqrtf.c, Branch (67:9): True
-csqrtf.c, Branch (67:9): False
-ctand.c, Branch (102:9): True
-ctand.c, Branch (82:14): True
-ctand.c, Branch (82:14): False
-ctand.c, Branch (98:9): True
-ctanf.c, Branch (46:14): True
-ctanf.c, Branch (46:14): False
-ctanf.c, Branch (62:9): True
-ctanf.c, Branch (66:9): True
-ctrigd.c, Branch (21:13): False
-ctrigf.c, Branch (124:34): True
-ctrigf.c, Branch (124:34): False
-ctrigf.c, Branch (125:39): True
-ctrigf.c, Branch (125:39): False
-ctrigf.c, Branch (19:13): False
-ctrigf.c, Branch (322:29): False
-ctrigf.c, Branch (322:52): False
-ctrigf.c, Branch (324:29): True
-ctrigf.c, Branch (325:29): True
-ctrigf.c, Branch (325:29): False
-ctrigf.c, Branch (44:9): False
-ctrigf.c, Branch (78:32): False
-ctrigf.c, Branch (79:29): True
-ctrigf.c, Branch (79:29): False
-ctrigf.c, Branch (80:34): True
-ctrigf.c, Branch (80:34): False
-erfcd.c, Branch (171:9): True
-erfcd.c, Branch (174:20): True
-erfcd.c, Branch (174:20): False
-erfcd.c, Branch (182:13): False
-erfcd.c, Branch (188:13): True
-erfcd.c, Branch (188:13): False
-erfcd.c, Branch (197:9): False
-erfcd.c, Branch (211:9): True
-erfcd.c, Branch (211:9): False
-erfcd.c, Branch (215:13): True
-erfcd.c, Branch (215:13): False
-erfcd.c, Branch (219:17): True
-erfcd.c, Branch (219:17): False
-erfcd.c, Branch (219:27): True
-erfcd.c, Branch (219:27): False
-erfcd.c, Branch (231:13): True
-erfcd.c, Branch (231:13): False
-erfcd.c, Branch (237:13): True
-erfcd.c, Branch (237:13): False
-erfcf.c, Branch (25:9): True
-erfcf.c, Branch (28:20): True
-erfcf.c, Branch (28:20): False
-erfcf.c, Branch (36:13): False
-erfcf.c, Branch (42:13): True
-erfcf.c, Branch (42:13): False
-erfcf.c, Branch (51:9): False
-erfcf.c, Branch (56:13): False
-erfcf.c, Branch (65:9): True
-erfcf.c, Branch (65:9): False
-erfcf.c, Branch (69:13): True
-erfcf.c, Branch (69:13): False
-erfcf.c, Branch (73:17): True
-erfcf.c, Branch (73:17): False
-erfcf.c, Branch (73:27): True
-erfcf.c, Branch (73:27): False
-erfcf.c, Branch (85:13): True
-erfcf.c, Branch (85:13): False
-erfcf.c, Branch (91:13): True
-erfcf.c, Branch (91:13): False
-erfd.c, Branch (170:9): True
-erfd.c, Branch (173:20): True
-erfd.c, Branch (173:20): False
-erfd.c, Branch (181:13): False
-erfd.c, Branch (182:17): False
-erfd.c, Branch (192:9): False
-erfd.c, Branch (204:9): True
-erfd.c, Branch (204:9): False
-erfd.c, Branch (205:13): True
-erfd.c, Branch (205:13): False
-erfd.c, Branch (215:9): True
-erfd.c, Branch (215:9): False
-erfd.c, Branch (227:9): True
-erfd.c, Branch (227:9): False
-erff.c, Branch (30:9): True
-erff.c, Branch (33:20): True
-erff.c, Branch (33:20): False
-erff.c, Branch (41:13): False
-erff.c, Branch (42:17): False
-erff.c, Branch (54:9): False
-erff.c, Branch (66:9): True
-erff.c, Branch (66:9): False
-erff.c, Branch (67:13): True
-erff.c, Branch (67:13): False
-erff.c, Branch (77:9): True
-erff.c, Branch (77:9): False
-erff.c, Branch (89:9): True
-erff.c, Branch (89:9): False
-expd.c, Branch (101:9): True
-expd.c, Branch (102:13): True
-expd.c, Branch (102:13): False
-expd.c, Branch (106:17): True
-expd.c, Branch (106:17): False
-expd.c, Branch (109:24): True
-expd.c, Branch (109:24): False
-expd.c, Branch (113:13): True
-expd.c, Branch (113:13): False
-expd.c, Branch (117:13): True
-expd.c, Branch (117:13): False
-expd.c, Branch (136:16): False
-expd.c, Branch (137:13): False
-expd.c, Branch (150:9): True
-expd.c, Branch (156:9): False
-expf.c, Branch (49:16): True
-expf.c, Branch (49:16): False
-expf.c, Branch (52:9): True
-expf.c, Branch (56:19): True
-expf.c, Branch (74:16): False
-expf.c, Branch (75:13): False
-expf.c, Branch (88:9): True
-expf.c, Branch (94:9): False
-expm1d.c, Branch (189:9): True
-expm1d.c, Branch (190:13): True
-expm1d.c, Branch (190:13): False
-expm1d.c, Branch (191:17): True
-expm1d.c, Branch (191:17): False
-expm1d.c, Branch (195:21): True
-expm1d.c, Branch (195:21): False
-expm1d.c, Branch (198:28): True
-expm1d.c, Branch (198:28): False
-expm1d.c, Branch (202:17): True
-expm1d.c, Branch (202:17): False
-expm1d.c, Branch (207:13): True
-expm1d.c, Branch (207:13): False
-expm1d.c, Branch (215:17): False
-expm1d.c, Branch (225:32): False
-expm1d.c, Branch (234:13): False
-expm1d.c, Branch (256:13): True
-expm1d.c, Branch (261:17): True
-expm1d.c, Branch (268:13): True
-expm1d.c, Branch (268:24): True
-expm1d.c, Branch (278:13): False
-expm1f.c, Branch (100:13): True
-expm1f.c, Branch (105:17): True
-expm1f.c, Branch (112:13): True
-expm1f.c, Branch (112:24): True
-expm1f.c, Branch (122:13): False
-expm1f.c, Branch (38:9): True
-expm1f.c, Branch (44:20): True
-expm1f.c, Branch (44:20): False
-expm1f.c, Branch (47:13): True
-expm1f.c, Branch (47:13): False
-expm1f.c, Branch (47:25): True
-expm1f.c, Branch (47:25): False
-expm1f.c, Branch (51:13): True
-expm1f.c, Branch (51:13): False
-expm1f.c, Branch (59:17): False
-expm1f.c, Branch (69:32): False
-expm1f.c, Branch (78:13): False
-floord.c, Branch (107:13): True
-floord.c, Branch (107:13): False
-floord.c, Branch (113:13): True
-floord.c, Branch (113:13): False
-floord.c, Branch (114:17): True
-floord.c, Branch (114:17): False
-floord.c, Branch (119:21): True
-floord.c, Branch (119:21): False
-floord.c, Branch (68:9): False
-floord.c, Branch (70:17): True
-floord.c, Branch (85:17): False
-floord.c, Branch (91:17): True
-floord.c, Branch (91:17): False
-floord.c, Branch (98:16): True
-floord.c, Branch (98:16): False
-floord.c, Branch (99:13): True
-floord.c, Branch (99:13): False
-floorf.c, Branch (29:9): False
-floorf.c, Branch (45:17): False
-floorf.c, Branch (51:17): True
-floorf.c, Branch (51:17): False
-floorf.c, Branch (58:13): True
-floorf.c, Branch (58:13): False
-fmaxd.c, Branch (75:13): True
-fmaxd.c, Branch (75:13): False
-fmaxd.c, Branch (75:38): True
-fmaxd.c, Branch (75:38): False
-fmaxd.c, Branch (85:13): True
-fmaxd.c, Branch (85:13): False
-fmaxd.c, Branch (99:12): True
-fmaxd.c, Branch (99:12): False
-fmaxf.c, Branch (10:13): True
-fmaxf.c, Branch (10:13): False
-fmaxf.c, Branch (10:39): True
-fmaxf.c, Branch (10:39): False
-fmaxf.c, Branch (20:13): True
-fmaxf.c, Branch (20:13): False
-fmaxf.c, Branch (34:12): True
-fmaxf.c, Branch (34:12): False
-fmind.c, Branch (75:13): True
-fmind.c, Branch (75:13): False
-fmind.c, Branch (75:38): True
-fmind.c, Branch (75:38): False
-fmind.c, Branch (85:13): True
-fmind.c, Branch (85:13): False
-fmind.c, Branch (99:12): True
-fmind.c, Branch (99:12): False
-fminf.c, Branch (10:13): True
-fminf.c, Branch (10:13): False
-fminf.c, Branch (10:39): True
-fminf.c, Branch (10:39): False
-fminf.c, Branch (20:13): True
-fminf.c, Branch (20:13): False
-fminf.c, Branch (34:12): True
-fminf.c, Branch (34:12): False
-fmodd.c, Branch (117:29): True
-fmodd.c, Branch (117:9): True
-fmodd.c, Branch (118:13): True
-fmodd.c, Branch (118:13): False
-fmodd.c, Branch (118:33): True
-fmodd.c, Branch (118:33): False
-fmodd.c, Branch (125:16): True
-fmodd.c, Branch (132:26): True
-fmodd.c, Branch (136:13): False
-fmodd.c, Branch (142:9): True
-fmodd.c, Branch (143:13): True
-fmodd.c, Branch (143:13): False
-fmodd.c, Branch (144:38): True
-fmodd.c, Branch (144:38): False
-fmodd.c, Branch (148:46): True
-fmodd.c, Branch (148:46): False
-fmodd.c, Branch (157:9): True
-fmodd.c, Branch (158:13): True
-fmodd.c, Branch (158:13): False
-fmodd.c, Branch (159:38): True
-fmodd.c, Branch (159:38): False
-fmodd.c, Branch (163:46): True
-fmodd.c, Branch (163:46): False
-fmodd.c, Branch (172:9): False
-fmodd.c, Branch (177:13): True
-fmodd.c, Branch (177:13): False
-fmodd.c, Branch (186:9): False
-fmodd.c, Branch (191:13): True
-fmodd.c, Branch (191:13): False
-fmodd.c, Branch (207:13): True
-fmodd.c, Branch (211:13): False
-fmodd.c, Branch (215:17): True
-fmodd.c, Branch (215:17): False
-fmodd.c, Branch (227:9): True
-fmodd.c, Branch (231:9): False
-fmodd.c, Branch (237:9): True
-fmodd.c, Branch (241:12): True
-fmodd.c, Branch (247:9): False
-fmodd.c, Branch (253:13): True
-fmodd.c, Branch (253:13): False
-fmodd.c, Branch (256:20): True
-fmodd.c, Branch (256:20): False
-fmodf.c, Branch (108:9): False
-fmodf.c, Branch (113:9): True
-fmodf.c, Branch (117:12): True
-fmodf.c, Branch (122:9): False
-fmodf.c, Branch (32:37): True
-fmodf.c, Branch (32:9): True
-fmodf.c, Branch (50:9): True
-fmodf.c, Branch (58:40): True
-fmodf.c, Branch (58:40): False
-fmodf.c, Branch (67:40): True
-fmodf.c, Branch (67:40): False
-fmodf.c, Branch (75:9): False
-fmodf.c, Branch (82:9): False
-fmodf.c, Branch (95:13): False
-fmodf.c, Branch (98:17): True
-fmodf.c, Branch (98:17): False
-fpclassifyd.c, Branch (66:31): False
-fpclassifyd.c, Branch (68:16): False
-fpclassifyd.c, Branch (70:16): True
-fpclassifyd.c, Branch (72:16): False
-fpclassifyd.c, Branch (72:38): False
-fpclassifyf.c, Branch (16:16): False
-fpclassifyf.c, Branch (18:16): True
-fpclassifyf.c, Branch (20:16): False
-frexpd.c, Branch (84:5): True
-frexpd.c, Branch (84:5): False
-frexpd.c, Branch (85:8): True
-frexpd.c, Branch (93:9): True
-frexpd.c, Branch (97:9): True
-frexpf.c, Branch (21:5): True
-frexpf.c, Branch (21:5): False
-frexpf.c, Branch (22:8): True
-frexpf.c, Branch (30:9): True
-gammad.c, Branch (218:9): True
-gammad.c, Branch (218:9): False
-gammad.c, Branch (230:9): True
-gammad.c, Branch (230:9): False
-gammad.c, Branch (244:5): True
-gammad.c, Branch (244:5): False
-gammad.c, Branch (248:5): True
-gammad.c, Branch (248:5): False
-gammad.c, Branch (249:5): True
-gammad.c, Branch (249:5): False
-gammad.c, Branch (253:5): True
-gammad.c, Branch (253:5): False
-gammad.c, Branch (254:5): True
-gammad.c, Branch (254:5): False
-gammad.c, Branch (258:5): True
-gammad.c, Branch (258:5): False
-gammad.c, Branch (259:5): True
-gammad.c, Branch (259:5): False
-gammad.c, Branch (263:5): True
-gammad.c, Branch (263:5): False
-gammad.c, Branch (282:9): True
-gammad.c, Branch (286:9): True
-gammad.c, Branch (287:12): True
-gammad.c, Branch (287:12): False
-gammad.c, Branch (293:9): True
-gammad.c, Branch (294:13): True
-gammad.c, Branch (294:13): False
-gammad.c, Branch (302:9): True
-gammad.c, Branch (303:13): True
-gammad.c, Branch (303:13): False
-gammad.c, Branch (309:13): True
-gammad.c, Branch (309:13): False
-gammad.c, Branch (315:13): True
-gammad.c, Branch (315:13): False
-gammad.c, Branch (327:14): False
-gammad.c, Branch (328:13): False
-gammad.c, Branch (331:17): True
-gammad.c, Branch (334:24): False
-gammad.c, Branch (344:17): True
-gammad.c, Branch (344:17): False
-gammad.c, Branch (347:24): True
-gammad.c, Branch (347:24): False
-gammad.c, Branch (357:9): True
-gammad.c, Branch (358:9): True
-gammad.c, Branch (366:9): False
-gammad.c, Branch (376:9): True
-gammad.c, Branch (382:16): True
-gammad.c, Branch (382:16): False
-gammad.c, Branch (391:9): True
-gammad.c, Branch (391:9): False
-gammad.c, Branch (394:9): True
-gammad.c, Branch (394:9): False
-gammad.c, Branch (397:9): True
-gammad.c, Branch (397:9): False
-gammad.c, Branch (400:9): True
-gammad.c, Branch (400:9): False
-gammad.c, Branch (403:9): True
-gammad.c, Branch (403:9): False
-gammad.c, Branch (406:9): True
-gammad.c, Branch (406:9): False
-gammad.c, Branch (411:16): True
-gammad.c, Branch (411:16): False
-gammad.c, Branch (421:9): True
-gammaf.c, Branch (113:5): True
-gammaf.c, Branch (113:5): False
-gammaf.c, Branch (117:5): True
-gammaf.c, Branch (117:5): False
-gammaf.c, Branch (118:5): True
-gammaf.c, Branch (118:5): False
-gammaf.c, Branch (122:5): True
-gammaf.c, Branch (122:5): False
-gammaf.c, Branch (123:5): True
-gammaf.c, Branch (123:5): False
-gammaf.c, Branch (127:5): True
-gammaf.c, Branch (127:5): False
-gammaf.c, Branch (128:5): True
-gammaf.c, Branch (128:5): False
-gammaf.c, Branch (132:5): True
-gammaf.c, Branch (132:5): False
-gammaf.c, Branch (151:9): True
-gammaf.c, Branch (151:9): False
-gammaf.c, Branch (155:9): True
-gammaf.c, Branch (155:9): False
-gammaf.c, Branch (156:12): True
-gammaf.c, Branch (156:12): False
-gammaf.c, Branch (162:9): True
-gammaf.c, Branch (162:9): False
-gammaf.c, Branch (163:13): True
-gammaf.c, Branch (163:13): False
-gammaf.c, Branch (171:9): True
-gammaf.c, Branch (171:9): False
-gammaf.c, Branch (172:13): True
-gammaf.c, Branch (172:13): False
-gammaf.c, Branch (178:13): True
-gammaf.c, Branch (178:13): False
-gammaf.c, Branch (184:13): True
-gammaf.c, Branch (184:13): False
-gammaf.c, Branch (192:29): True
-gammaf.c, Branch (192:29): False
-gammaf.c, Branch (192:9): True
-gammaf.c, Branch (192:9): False
-gammaf.c, Branch (196:14): True
-gammaf.c, Branch (196:14): False
-gammaf.c, Branch (197:13): True
-gammaf.c, Branch (197:13): False
-gammaf.c, Branch (200:17): True
-gammaf.c, Branch (200:17): False
-gammaf.c, Branch (203:24): True
-gammaf.c, Branch (203:24): False
-gammaf.c, Branch (213:17): True
-gammaf.c, Branch (213:17): False
-gammaf.c, Branch (216:24): True
-gammaf.c, Branch (216:24): False
-gammaf.c, Branch (226:9): True
-gammaf.c, Branch (226:9): False
-gammaf.c, Branch (227:9): True
-gammaf.c, Branch (227:9): False
-gammaf.c, Branch (235:9): True
-gammaf.c, Branch (235:9): False
-gammaf.c, Branch (245:9): True
-gammaf.c, Branch (245:9): False
-gammaf.c, Branch (251:16): True
-gammaf.c, Branch (251:16): False
-gammaf.c, Branch (260:9): True
-gammaf.c, Branch (260:9): False
-gammaf.c, Branch (263:9): True
-gammaf.c, Branch (263:9): False
-gammaf.c, Branch (266:9): True
-gammaf.c, Branch (266:9): False
-gammaf.c, Branch (269:9): True
-gammaf.c, Branch (269:9): False
-gammaf.c, Branch (272:9): True
-gammaf.c, Branch (272:9): False
-gammaf.c, Branch (275:9): True
-gammaf.c, Branch (275:9): False
-gammaf.c, Branch (281:16): True
-gammaf.c, Branch (281:16): False
-gammaf.c, Branch (293:9): True
-gammaf.c, Branch (293:9): False
-gammaf.c, Branch (87:9): True
-gammaf.c, Branch (87:9): False
-gammaf.c, Branch (99:9): True
-gammaf.c, Branch (99:9): False
-hypotd.c, Branch (107:9): True
-hypotd.c, Branch (108:13): True
-hypotd.c, Branch (108:13): False
-hypotd.c, Branch (113:17): True
-hypotd.c, Branch (113:17): False
-hypotd.c, Branch (119:17): True
-hypotd.c, Branch (119:17): False
-hypotd.c, Branch (135:13): False
-hypotd.c, Branch (139:17): False
-hypotd.c, Branch (160:9): True
-hypotd.c, Branch (176:9): True
-hypotf.c, Branch (42:9): True
-hypotf.c, Branch (43:13): True
-hypotf.c, Branch (43:13): False
-hypotf.c, Branch (85:9): True
-hypotf.c, Branch (98:9): True
-ilogbd.c, Branch (101:16): True
-ilogbd.c, Branch (101:45): True
-ilogbd.c, Branch (101:45): False
-ilogbd.c, Branch (104:16): True
-ilogbd.c, Branch (107:16): True
-ilogbd.c, Branch (108:16): False
-ilogbd.c, Branch (110:16): True
-ilogbd.c, Branch (110:16): False
-ilogbd.c, Branch (207:9): True
-ilogbd.c, Branch (209:16): True
-ilogbd.c, Branch (212:16): True
-ilogbd.c, Branch (215:16): True
-ilogbd.c, Branch (311:9): True
-ilogbd.c, Branch (313:16): True
-ilogbd.c, Branch (316:16): True
-ilogbd.c, Branch (319:16): True
-ilogbd.c, Branch (420:9): True
-ilogbd.c, Branch (422:16): True
-ilogbd.c, Branch (425:16): True
-ilogbd.c, Branch (428:16): True
-ilogbd.c, Branch (91:9): True
-ilogbd.c, Branch (92:13): True
-ilogbd.c, Branch (92:13): False
-ilogbd.c, Branch (96:17): True
-ilogbd.c, Branch (96:17): False
-ilogbd.c, Branch (97:34): True
-ilogbd.c, Branch (97:34): False
-ilogbd.c, Branch (99:9): True
-ilogbf.c, Branch (23:35): True
-ilogbf.c, Branch (23:35): False
-j0d.c, Branch (100:13): False
-j0d.c, Branch (103:17): False
-j0d.c, Branch (114:13): True
-j0d.c, Branch (126:13): True
-j0d.c, Branch (129:13): False
-j0d.c, Branch (140:9): True
-j0d.c, Branch (88:9): True
-j1d.c, Branch (101:13): False
-j1d.c, Branch (104:17): True
-j1d.c, Branch (115:13): True
-j1d.c, Branch (123:13): True
-j1d.c, Branch (131:13): True
-j1d.c, Branch (89:9): True
-jnd.c, Branch (101:9): True
-jnd.c, Branch (105:9): True
-jnd.c, Branch (122:27): True
-jnd.c, Branch (122:9): True
-jnd.c, Branch (124:16): True
-jnd.c, Branch (126:13): True
-jnd.c, Branch (126:13): False
-jnd.c, Branch (141:13): True
-jnd.c, Branch (141:13): False
-jnd.c, Branch (142:13): True
-jnd.c, Branch (142:13): False
-jnd.c, Branch (146:13): True
-jnd.c, Branch (146:13): False
-jnd.c, Branch (150:13): True
-jnd.c, Branch (150:13): False
-jnd.c, Branch (154:13): True
-jnd.c, Branch (154:13): False
-jnd.c, Branch (164:25): True
-jnd.c, Branch (164:25): False
-jnd.c, Branch (171:13): True
-jnd.c, Branch (175:17): True
-jnd.c, Branch (175:17): False
-jnd.c, Branch (181:38): True
-jnd.c, Branch (181:38): False
-jnd.c, Branch (256:17): False
-jnd.c, Branch (265:55): True
-jnd.c, Branch (265:55): False
-jnd.c, Branch (273:25): True
-jnd.c, Branch (273:25): False
-jnd.c, Branch (285:9): True
-ldexpd.c, Branch (83:31): True
-ldexpd.c, Branch (83:9): True
-ldexpf.c, Branch (13:31): True
-ldexpf.c, Branch (13:9): True
-llrintd.c, Branch (101:17): True
-llrintd.c, Branch (112:16): True
-llrintd.c, Branch (112:16): False
-llrintd.c, Branch (114:13): True
-llrintd.c, Branch (114:13): False
-llrintd.c, Branch (136:13): True
-llrintd.c, Branch (136:13): False
-llrintd.c, Branch (88:9): False
-llrintd.c, Branch (90:13): True
-llrintf.c, Branch (44:9): False
-llrintf.c, Branch (45:13): True
-llrintf.c, Branch (47:20): True
-llrintf.c, Branch (56:17): True
-llrintf.c, Branch (67:13): True
-llrintf.c, Branch (67:13): False
-llroundd.c, Branch (107:17): True
-llroundd.c, Branch (107:17): False
-llroundd.c, Branch (118:13): True
-llroundd.c, Branch (118:13): False
-llroundd.c, Branch (79:9): False
-llroundd.c, Branch (81:13): True
-llroundd.c, Branch (82:17): True
-llroundd.c, Branch (82:17): False
-llroundd.c, Branch (94:16): True
-llroundd.c, Branch (94:16): False
-llroundd.c, Branch (96:13): True
-llroundd.c, Branch (96:13): False
-llroundf.c, Branch (21:9): False
-llroundf.c, Branch (22:13): True
-llroundf.c, Branch (23:20): True
-llroundf.c, Branch (23:20): False
-llroundf.c, Branch (24:20): True
-llroundf.c, Branch (32:13): True
-llroundf.c, Branch (32:13): False
-log10d.c, Branch (100:9): True
-log10d.c, Branch (104:29): False
-log10d.c, Branch (82:9): True
-log10d.c, Branch (83:13): True
-log10d.c, Branch (83:13): False
-log10d.c, Branch (87:13): True
-log10d.c, Branch (87:13): False
-log10f.c, Branch (39:9): True
-log1pd.c, Branch (150:9): True
-log1pd.c, Branch (155:13): True
-log1pd.c, Branch (158:24): True
-log1pd.c, Branch (158:24): False
-log1pd.c, Branch (165:13): False
-log1pd.c, Branch (173:13): True
-log1pd.c, Branch (173:13): False
-log1pd.c, Branch (173:23): True
-log1pd.c, Branch (173:23): False
-log1pd.c, Branch (180:9): False
-log1pd.c, Branch (181:13): False
-log1pd.c, Branch (185:18): False
-log1pd.c, Branch (210:13): False
-log1pd.c, Branch (220:9): True
-log1pf.c, Branch (104:9): True
-log1pf.c, Branch (33:9): True
-log1pf.c, Branch (38:13): True
-log1pf.c, Branch (41:24): True
-log1pf.c, Branch (41:24): False
-log1pf.c, Branch (48:13): False
-log1pf.c, Branch (49:17): False
-log1pf.c, Branch (56:13): True
-log1pf.c, Branch (56:13): False
-log1pf.c, Branch (56:23): True
-log1pf.c, Branch (56:23): False
-log1pf.c, Branch (63:9): False
-log1pf.c, Branch (64:13): False
-log1pf.c, Branch (69:18): False
-log1pf.c, Branch (94:13): False
-log2d.c, Branch (102:29): False
-log2d.c, Branch (80:9): True
-log2d.c, Branch (81:13): True
-log2d.c, Branch (81:13): False
-log2d.c, Branch (85:13): True
-log2d.c, Branch (85:13): False
-log2d.c, Branch (98:9): True
-log2f.c, Branch (37:9): True
-logbd.c, Branch (71:9): True
-logbd.c, Branch (72:13): True
-logbd.c, Branch (72:13): False
-logbd.c, Branch (75:17): True
-logbd.c, Branch (75:17): False
-logbd.c, Branch (76:34): True
-logbd.c, Branch (76:34): False
-logbd.c, Branch (80:45): True
-logbd.c, Branch (80:45): False
-logbd.c, Branch (87:16): False
-logbf.c, Branch (32:35): True
-logbf.c, Branch (32:35): False
-logbf.c, Branch (37:16): True
-logd.c, Branch (104:9): True
-logd.c, Branch (127:13): False
-logd.c, Branch (146:9): True
-logd.c, Branch (149:13): True
-logd.c, Branch (149:13): False
-logd.c, Branch (155:13): True
-logd.c, Branch (86:9): True
-logd.c, Branch (87:13): True
-logd.c, Branch (87:13): False
-logd.c, Branch (91:13): True
-logd.c, Branch (91:13): False
-logf.c, Branch (104:13): True
-logf.c, Branch (43:9): True
-logf.c, Branch (65:13): False
-logf.c, Branch (76:13): True
-logf.c, Branch (76:13): False
-logf.c, Branch (95:9): True
-logf.c, Branch (98:13): True
-logf.c, Branch (98:13): False
-lrintd.c, Branch (100:17): True
-lrintd.c, Branch (111:16): True
-lrintd.c, Branch (111:16): False
-lrintd.c, Branch (114:13): True
-lrintd.c, Branch (114:13): False
-lrintd.c, Branch (140:13): True
-lrintd.c, Branch (140:13): False
-lrintd.c, Branch (87:9): False
-lrintd.c, Branch (89:13): True
-lrintf.c, Branch (43:9): False
-lrintf.c, Branch (44:13): True
-lrintf.c, Branch (46:20): True
-lrintf.c, Branch (55:17): True
-lrintf.c, Branch (66:13): True
-lrintf.c, Branch (66:13): False
-lroundd.c, Branch (109:17): True
-lroundd.c, Branch (109:17): False
-lroundd.c, Branch (122:13): True
-lroundd.c, Branch (122:13): False
-lroundd.c, Branch (78:9): False
-lroundd.c, Branch (80:13): True
-lroundd.c, Branch (81:17): True
-lroundd.c, Branch (81:17): False
-lroundd.c, Branch (93:16): True
-lroundd.c, Branch (93:16): False
-lroundd.c, Branch (96:13): True
-lroundd.c, Branch (96:13): False
-lroundf.c, Branch (20:9): False
-lroundf.c, Branch (21:13): True
-lroundf.c, Branch (22:20): True
-lroundf.c, Branch (22:20): False
-lroundf.c, Branch (23:20): True
-lroundf.c, Branch (31:13): True
-lroundf.c, Branch (31:13): False
-modfd.c, Branch (109:13): True
-modfd.c, Branch (109:13): False
-modfd.c, Branch (73:5): True
-modfd.c, Branch (73:5): False
-modfd.c, Branch (74:8): True
-modfd.c, Branch (81:9): False
-modfd.c, Branch (82:13): True
-modfd.c, Branch (97:16): True
-modfd.c, Branch (97:16): False
-modff.c, Branch (19:5): True
-modff.c, Branch (19:5): False
-modff.c, Branch (20:8): True
-modff.c, Branch (27:9): False
-modff.c, Branch (28:13): True
-modff.c, Branch (34:17): True
-nextafterd.c, Branch (105:16): False
-nextafterd.c, Branch (106:13): False
-nextafterd.c, Branch (106:25): True
-nextafterd.c, Branch (106:25): False
-nextafterd.c, Branch (106:39): True
-nextafterd.c, Branch (106:39): False
-nextafterd.c, Branch (107:17): False
-nextafterd.c, Branch (115:17): True
-nextafterd.c, Branch (115:17): False
-nextafterd.c, Branch (120:13): True
-nextafterd.c, Branch (120:13): False
-nextafterd.c, Branch (120:24): True
-nextafterd.c, Branch (120:24): False
-nextafterd.c, Branch (120:36): True
-nextafterd.c, Branch (120:36): False
-nextafterd.c, Branch (120:50): True
-nextafterd.c, Branch (120:50): False
-nextafterd.c, Branch (121:17): True
-nextafterd.c, Branch (121:17): False
-nextafterd.c, Branch (129:17): True
-nextafterd.c, Branch (129:17): False
-nextafterd.c, Branch (137:9): True
-nextafterd.c, Branch (141:9): True
-nextafterd.c, Branch (92:28): False
-nextafterd.c, Branch (95:13): True
-nextafterd.c, Branch (95:40): True
-nextafterd.c, Branch (95:40): False
-nextafterf.c, Branch (24:16): True
-nextafterf.c, Branch (27:13): True
-nextafterf.c, Branch (37:16): False
-nextafterf.c, Branch (38:13): False
-nextafterf.c, Branch (44:13): True
-nextafterf.c, Branch (44:13): False
-nextafterf.c, Branch (44:24): True
-nextafterf.c, Branch (44:24): False
-nextafterf.c, Branch (53:9): True
-nextafterf.c, Branch (57:9): True
-powd.c, Branch (139:13): True
-powd.c, Branch (147:29): True
-powd.c, Branch (147:51): True
-powd.c, Branch (147:51): False
-powd.c, Branch (147:9): True
-powd.c, Branch (148:29): True
-powd.c, Branch (148:51): True
-powd.c, Branch (148:51): False
-powd.c, Branch (148:9): True
-powd.c, Branch (149:13): True
-powd.c, Branch (149:13): False
-powd.c, Branch (149:46): True
-powd.c, Branch (149:46): False
-powd.c, Branch (173:9): True
-powd.c, Branch (174:13): True
-powd.c, Branch (174:13): False
-powd.c, Branch (176:20): True
-powd.c, Branch (176:20): False
-powd.c, Branch (179:17): True
-powd.c, Branch (179:17): False
-powd.c, Branch (182:21): True
-powd.c, Branch (182:21): False
-powd.c, Branch (185:24): True
-powd.c, Branch (185:24): False
-powd.c, Branch (188:21): True
-powd.c, Branch (188:21): False
-powd.c, Branch (200:9): False
-powd.c, Branch (201:13): True
-powd.c, Branch (202:17): True
-powd.c, Branch (202:17): False
-powd.c, Branch (204:24): True
-powd.c, Branch (204:24): False
-powd.c, Branch (205:24): True
-powd.c, Branch (205:24): False
-powd.c, Branch (207:24): True
-powd.c, Branch (207:24): False
-powd.c, Branch (212:17): True
-powd.c, Branch (224:17): False
-powd.c, Branch (233:9): False
-powd.c, Branch (234:13): True
-powd.c, Branch (234:33): True
-powd.c, Branch (234:44): True
-powd.c, Branch (237:17): True
-powd.c, Branch (237:17): False
-powd.c, Branch (238:21): True
-powd.c, Branch (238:21): False
-powd.c, Branch (240:28): True
-powd.c, Branch (240:28): False
-powd.c, Branch (247:17): True
-powd.c, Branch (247:17): False
-powd.c, Branch (248:21): True
-powd.c, Branch (248:21): False
-powd.c, Branch (250:28): True
-powd.c, Branch (250:28): False
-powd.c, Branch (264:9): True
-powd.c, Branch (269:9): True
-powd.c, Branch (274:9): True
-powd.c, Branch (275:13): True
-powd.c, Branch (275:13): False
-powd.c, Branch (276:17): True
-powd.c, Branch (276:17): False
-powd.c, Branch (277:24): True
-powd.c, Branch (277:24): False
-powd.c, Branch (279:24): True
-powd.c, Branch (279:24): False
-powd.c, Branch (284:13): True
-powd.c, Branch (284:13): False
-powd.c, Branch (285:20): True
-powd.c, Branch (285:20): False
-powd.c, Branch (288:13): True
-powd.c, Branch (288:13): False
-powd.c, Branch (289:20): True
-powd.c, Branch (289:20): False
-powd.c, Branch (306:13): True
-powd.c, Branch (317:13): False
-powd.c, Branch (319:20): True
-powd.c, Branch (319:20): False
-powd.c, Branch (372:9): True
-powd.c, Branch (373:13): True
-powd.c, Branch (373:13): False
-powd.c, Branch (376:17): True
-powd.c, Branch (376:17): False
-powd.c, Branch (380:16): True
-powd.c, Branch (381:13): True
-powd.c, Branch (381:13): False
-powd.c, Branch (384:17): True
-powd.c, Branch (384:17): False
-powd.c, Branch (399:9): False
-powd.c, Branch (406:13): True
-powd.c, Branch (426:9): True
-powf.c, Branch (103:13): True
-powf.c, Branch (103:13): False
-powf.c, Branch (105:20): True
-powf.c, Branch (105:20): False
-powf.c, Branch (106:20): True
-powf.c, Branch (106:20): False
-powf.c, Branch (108:20): True
-powf.c, Branch (108:20): False
-powf.c, Branch (113:13): True
-powf.c, Branch (125:13): False
-powf.c, Branch (133:63): True
-powf.c, Branch (136:13): True
-powf.c, Branch (136:13): False
-powf.c, Branch (146:13): True
-powf.c, Branch (146:13): False
-powf.c, Branch (147:17): True
-powf.c, Branch (147:17): False
-powf.c, Branch (149:24): True
-powf.c, Branch (149:24): False
-powf.c, Branch (160:9): True
-powf.c, Branch (165:9): True
-powf.c, Branch (168:13): True
-powf.c, Branch (168:13): False
-powf.c, Branch (169:20): True
-powf.c, Branch (169:20): False
-powf.c, Branch (172:13): True
-powf.c, Branch (172:13): False
-powf.c, Branch (173:20): True
-powf.c, Branch (173:20): False
-powf.c, Branch (202:13): False
-powf.c, Branch (204:20): True
-powf.c, Branch (204:20): False
-powf.c, Branch (255:9): True
-powf.c, Branch (268:9): False
-powf.c, Branch (269:13): True
-powf.c, Branch (271:20): True
-powf.c, Branch (272:17): True
-powf.c, Branch (272:17): False
-powf.c, Branch (279:13): True
-powf.c, Branch (279:13): False
-powf.c, Branch (281:20): True
-powf.c, Branch (281:20): False
-powf.c, Branch (282:17): True
-powf.c, Branch (282:17): False
-powf.c, Branch (296:9): False
-powf.c, Branch (302:13): True
-powf.c, Branch (323:9): True
-powf.c, Branch (53:13): True
-powf.c, Branch (62:13): True
-powf.c, Branch (62:13): False
-powf.c, Branch (62:33): True
-powf.c, Branch (62:33): False
-powf.c, Branch (86:9): True
-powf.c, Branch (87:13): True
-powf.c, Branch (87:13): False
-powf.c, Branch (89:20): True
-powf.c, Branch (89:20): False
-powf.c, Branch (93:17): True
-powf.c, Branch (93:17): False
-remainderd.c, Branch (118:31): True
-remainderd.c, Branch (118:9): True
-remainderd.c, Branch (121:20): True
-remainderd.c, Branch (121:20): False
-remainderd.c, Branch (126:16): True
-remainderd.c, Branch (132:9): False
-remainderd.c, Branch (136:9): True
-remainderd.c, Branch (143:9): True
-remainderd.c, Branch (144:13): True
-remainderd.c, Branch (144:13): False
-remainderd.c, Branch (147:17): True
-remainderd.c, Branch (147:17): False
-remainderd.c, Branch (154:13): False
-remainderd.c, Branch (157:17): False
-remainderf.c, Branch (36:9): False
-remainderf.c, Branch (40:9): True
-remainderf.c, Branch (47:9): True
-remainderf.c, Branch (48:13): True
-remainderf.c, Branch (48:13): False
-remainderf.c, Branch (51:17): True
-remainderf.c, Branch (51:17): False
-remainderf.c, Branch (58:13): False
-remainderf.c, Branch (61:17): False
-remquod.c, Branch (119:5): True
-remquod.c, Branch (119:5): False
-remquod.c, Branch (120:8): True
-remquod.c, Branch (133:31): True
-remquod.c, Branch (133:9): True
-remquod.c, Branch (136:20): True
-remquod.c, Branch (136:20): False
-remquod.c, Branch (141:16): True
-remquod.c, Branch (147:9): False
-remquod.c, Branch (151:9): True
-remquod.c, Branch (152:16): True
-remquod.c, Branch (152:16): False
-remquod.c, Branch (160:9): True
-remquod.c, Branch (164:9): True
-remquod.c, Branch (169:9): True
-remquod.c, Branch (170:13): True
-remquod.c, Branch (170:13): False
-remquod.c, Branch (174:17): True
-remquod.c, Branch (174:17): False
-remquod.c, Branch (182:13): False
-remquod.c, Branch (186:17): False
-remquof.c, Branch (22:5): True
-remquof.c, Branch (22:5): False
-remquof.c, Branch (23:8): True
-remquof.c, Branch (44:9): False
-remquof.c, Branch (48:9): True
-remquof.c, Branch (49:16): True
-remquof.c, Branch (49:16): False
-remquof.c, Branch (57:9): True
-remquof.c, Branch (61:9): True
-remquof.c, Branch (66:9): True
-remquof.c, Branch (67:13): True
-remquof.c, Branch (67:13): False
-remquof.c, Branch (71:17): True
-remquof.c, Branch (71:17): False
-remquof.c, Branch (79:13): False
-remquof.c, Branch (83:17): False
-remquof.c, Branch (92:12): True
-rintd.c, Branch (101:21): True
-rintd.c, Branch (101:21): False
-rintd.c, Branch (110:16): True
-rintd.c, Branch (110:16): False
-rintd.c, Branch (111:13): True
-rintd.c, Branch (111:13): False
-rintd.c, Branch (119:13): True
-rintd.c, Branch (119:13): False
-rintd.c, Branch (125:13): True
-rintd.c, Branch (125:13): False
-rintd.c, Branch (75:9): False
-rintd.c, Branch (76:13): True
-rintd.c, Branch (77:17): True
-rintd.c, Branch (77:17): False
-rintd.c, Branch (99:17): True
-rintf.c, Branch (29:9): False
-rintf.c, Branch (34:13): True
-rintf.c, Branch (47:17): True
-rintf.c, Branch (53:17): True
-rintf.c, Branch (58:13): True
-rintf.c, Branch (58:13): False
-roundd.c, Branch (103:13): True
-roundd.c, Branch (103:13): False
-roundd.c, Branch (109:13): True
-roundd.c, Branch (109:13): False
-roundd.c, Branch (73:9): False
-roundd.c, Branch (74:13): True
-roundd.c, Branch (77:17): True
-roundd.c, Branch (77:17): False
-roundd.c, Branch (85:47): False
-roundd.c, Branch (93:16): True
-roundd.c, Branch (93:16): False
-roundd.c, Branch (94:13): True
-roundd.c, Branch (94:13): False
-roundf.c, Branch (22:9): False
-roundf.c, Branch (23:13): True
-roundf.c, Branch (26:17): True
-roundf.c, Branch (26:17): False
-roundf.c, Branch (34:17): True
-roundf.c, Branch (44:13): True
-roundf.c, Branch (44:13): False
-scalblnd.c, Branch (102:9): True
-scalblnd.c, Branch (106:9): True
-scalblnd.c, Branch (112:9): True
-scalblnd.c, Branch (116:9): True
-scalblnd.c, Branch (120:9): False
-scalblnd.c, Branch (125:9): True
-scalblnd.c, Branch (125:9): False
-scalblnd.c, Branch (92:9): True
-scalblnd.c, Branch (93:13): True
-scalblnd.c, Branch (93:13): False
-scalblnf.c, Branch (22:9): True
-scalblnf.c, Branch (23:13): True
-scalblnf.c, Branch (23:13): False
-scalblnf.c, Branch (32:9): True
-scalblnf.c, Branch (36:9): True
-scalblnf.c, Branch (42:9): True
-scalblnf.c, Branch (46:9): True
-scalblnf.c, Branch (50:9): False
-scalblnf.c, Branch (55:9): True
-scalblnf.c, Branch (55:9): False
-scalbnd.c, Branch (105:13): True
-scalbnd.c, Branch (105:13): False
-scalbnd.c, Branch (110:9): True
-scalbnd.c, Branch (114:9): True
-scalbnd.c, Branch (120:9): True
-scalbnd.c, Branch (124:9): False
-scalbnd.c, Branch (129:9): True
-scalbnd.c, Branch (129:9): False
-scalbnd.c, Branch (96:9): True
-scalbnd.c, Branch (97:13): True
-scalbnd.c, Branch (97:13): False
-scalbnf.c, Branch (35:9): True
-scalbnf.c, Branch (44:13): True
-scalbnf.c, Branch (44:13): False
-scalbnf.c, Branch (49:9): True
-scalbnf.c, Branch (55:9): True
-scalbnf.c, Branch (59:9): False
-scalbnf.c, Branch (64:9): True
-scalbnf.c, Branch (64:9): False
-sind.c, Branch (100:9): True
-sind.c, Branch (103:9): False
-sind.c, Branch (106:9): True
-sind.c, Branch (109:9): True
-sind.c, Branch (76:17): False
-sind.c, Branch (87:14): True
-sinf.c, Branch (24:12): False
-sinf.c, Branch (35:14): True
-sinf.c, Branch (48:9): True
-sinf.c, Branch (51:9): False
-sinf.c, Branch (54:9): True
-sinf.c, Branch (57:9): True
-sinhd.c, Branch (106:9): True
-sinhd.c, Branch (106:9): False
-sinhd.c, Branch (113:29): True
-sinhd.c, Branch (113:29): False
-sinhd.c, Branch (113:49): True
-sinhd.c, Branch (113:49): False
-sinhd.c, Branch (113:9): True
-sinhd.c, Branch (113:9): False
-sinhd.c, Branch (76:9): True
-sinhd.c, Branch (87:9): False
-sinhd.c, Branch (89:17): False
-sinhf.c, Branch (23:9): True
-sinhf.c, Branch (29:9): True
-sinhf.c, Branch (34:9): False
-sinhf.c, Branch (53:9): True
-sinhf.c, Branch (53:9): False
-sinhf.c, Branch (58:9): True
-sinhf.c, Branch (58:9): False
-sqrtd.c, Branch (101:21): True
-sqrtd.c, Branch (101:21): False
-sqrtd.c, Branch (106:13): True
-sqrtd.c, Branch (106:13): False
-sqrtd.c, Branch (148:41): True
-sqrtd.c, Branch (173:13): True
-sqrtd.c, Branch (70:9): True
-sqrtd.c, Branch (73:20): True
-sqrtd.c, Branch (73:20): False
-sqrtd.c, Branch (82:13): False
-sqrtd.c, Branch (84:20): True
-sqrtd.c, Branch (84:20): False
-sqrtd.c, Branch (94:9): True
-sqrtd.c, Branch (95:16): True
-sqrtd.c, Branch (95:16): False
-sqrtf.c, Branch (22:9): True
-sqrtf.c, Branch (25:20): True
-sqrtf.c, Branch (25:20): False
-sqrtf.c, Branch (37:9): True
-sqrtf.c, Branch (45:21): True
-sqrtf.c, Branch (45:21): False
-tand.c, Branch (123:9): True
-tand.c, Branch (161:17): False
-tand.c, Branch (172:14): True
-tand.c, Branch (98:9): True
-tand.c, Branch (99:13): True
-tand.c, Branch (99:13): False
-tanf.c, Branch (111:14): True
-tanf.c, Branch (111:14): False
-tanf.c, Branch (36:9): True
-tanf.c, Branch (37:13): True
-tanf.c, Branch (37:13): False
-tanf.c, Branch (61:9): True
-tanf.c, Branch (66:9): False
-tanf.c, Branch (99:9): False
-tanhd.c, Branch (74:9): True
-tanhd.c, Branch (77:20): True
-tanhd.c, Branch (77:20): False
-tanhd.c, Branch (85:9): False
-tanhd.c, Branch (87:17): False
-tanhd.c, Branch (94:13): False
-tanhf.c, Branch (23:9): True
-tanhf.c, Branch (26:20): True
-tanhf.c, Branch (26:20): False
-tanhf.c, Branch (34:9): False
-tanhf.c, Branch (43:13): False
-tanhf.c, Branch (56:12): False
-tgammad.c, Branch (72:9): True
-tgammad.c, Branch (74:16): True
-tgammad.c, Branch (76:33): True
-tgammad.c, Branch (84:9): True
-tgammaf.c, Branch (24:9): True
-tgammaf.c, Branch (26:16): True
-tgammaf.c, Branch (28:34): True
-tgammaf.c, Branch (36:9): True
-trigd.c, Branch (234:17): True
-trigd.c, Branch (234:17): False
-trigd.c, Branch (235:16): True
-trigd.c, Branch (235:16): False
-trigd.c, Branch (239:17): True
-trigd.c, Branch (239:17): False
-trigd.c, Branch (240:31): True
-trigd.c, Branch (240:31): False
-trigd.c, Branch (254:40): True
-trigd.c, Branch (254:40): False
-trigd.c, Branch (267:13): True
-trigd.c, Branch (267:13): False
-trigd.c, Branch (272:20): True
-trigd.c, Branch (272:20): False
-trigd.c, Branch (274:20): True
-trigd.c, Branch (274:20): False
-trigd.c, Branch (281:13): True
-trigd.c, Branch (281:13): False
-trigd.c, Branch (285:25): True
-trigd.c, Branch (285:25): False
-trigd.c, Branch (288:21): True
-trigd.c, Branch (288:21): False
-trigd.c, Branch (289:25): True
-trigd.c, Branch (289:25): False
-trigd.c, Branch (298:17): True
-trigd.c, Branch (298:17): False
-trigd.c, Branch (300:17): True
-trigd.c, Branch (300:17): False
-trigd.c, Branch (301:17): True
-trigd.c, Branch (301:17): False
-trigd.c, Branch (305:17): True
-trigd.c, Branch (305:17): False
-trigd.c, Branch (311:17): True
-trigd.c, Branch (311:17): False
-trigd.c, Branch (316:21): True
-trigd.c, Branch (316:21): False
-trigd.c, Branch (327:13): True
-trigd.c, Branch (327:13): False
-trigd.c, Branch (330:30): True
-trigd.c, Branch (330:30): False
-trigd.c, Branch (334:17): True
-trigd.c, Branch (334:17): False
-trigd.c, Branch (335:29): True
-trigd.c, Branch (335:29): False
-trigd.c, Branch (335:46): True
-trigd.c, Branch (335:46): False
-trigd.c, Branch (341:34): True
-trigd.c, Branch (341:34): False
-trigd.c, Branch (342:25): True
-trigd.c, Branch (342:25): False
-trigd.c, Branch (343:25): True
-trigd.c, Branch (343:25): False
-trigd.c, Branch (349:43): True
-trigd.c, Branch (349:43): False
-trigd.c, Branch (363:14): True
-trigd.c, Branch (363:14): False
-trigd.c, Branch (363:27): True
-trigd.c, Branch (363:27): False
-trigd.c, Branch (366:9): True
-trigd.c, Branch (366:9): False
-trigd.c, Branch (369:23): True
-trigd.c, Branch (369:23): False
-trigd.c, Branch (370:17): True
-trigd.c, Branch (370:17): False
-trigd.c, Branch (378:13): True
-trigd.c, Branch (378:13): False
-trigd.c, Branch (392:18): True
-trigd.c, Branch (392:18): False
-trigd.c, Branch (398:18): True
-trigd.c, Branch (398:18): False
-trigd.c, Branch (399:31): True
-trigd.c, Branch (399:31): False
-trigd.c, Branch (399:42): True
-trigd.c, Branch (399:42): False
-trigd.c, Branch (409:18): True
-trigd.c, Branch (409:18): False
-trigd.c, Branch (413:12): True
-trigd.c, Branch (413:12): False
-trigd.c, Branch (416:17): True
-trigd.c, Branch (416:17): False
-trigd.c, Branch (420:12): True
-trigd.c, Branch (420:12): False
-trigd.c, Branch (461:9): True
-trigd.c, Branch (468:13): False
-trigd.c, Branch (484:17): True
-trigd.c, Branch (484:17): False
-trigd.c, Branch (497:9): False
-trigd.c, Branch (520:21): False
-trigd.c, Branch (532:13): True
-trigd.c, Branch (544:9): True
-trigd.c, Branch (544:9): False
-trigd.c, Branch (561:17): True
-trigd.c, Branch (561:17): False
-trigd.c, Branch (568:18): True
-trigd.c, Branch (568:18): False
-trigd.c, Branch (569:13): True
-trigd.c, Branch (569:13): False
-trigd.c, Branch (576:9): True
-trigd.c, Branch (576:9): False
-trigf.c, Branch (125:17): True
-trigf.c, Branch (125:17): False
-trigf.c, Branch (126:16): True
-trigf.c, Branch (126:16): False
-trigf.c, Branch (130:17): True
-trigf.c, Branch (130:17): False
-trigf.c, Branch (131:32): True
-trigf.c, Branch (131:32): False
-trigf.c, Branch (144:40): True
-trigf.c, Branch (144:40): False
-trigf.c, Branch (157:13): True
-trigf.c, Branch (157:13): False
-trigf.c, Branch (162:20): True
-trigf.c, Branch (162:20): False
-trigf.c, Branch (164:20): True
-trigf.c, Branch (164:20): False
-trigf.c, Branch (171:13): True
-trigf.c, Branch (171:13): False
-trigf.c, Branch (175:25): True
-trigf.c, Branch (175:25): False
-trigf.c, Branch (178:21): True
-trigf.c, Branch (178:21): False
-trigf.c, Branch (179:25): True
-trigf.c, Branch (179:25): False
-trigf.c, Branch (188:17): True
-trigf.c, Branch (188:17): False
-trigf.c, Branch (190:17): True
-trigf.c, Branch (190:17): False
-trigf.c, Branch (191:17): True
-trigf.c, Branch (191:17): False
-trigf.c, Branch (195:17): True
-trigf.c, Branch (195:17): False
-trigf.c, Branch (201:17): True
-trigf.c, Branch (201:17): False
-trigf.c, Branch (206:21): True
-trigf.c, Branch (206:21): False
-trigf.c, Branch (217:13): True
-trigf.c, Branch (217:13): False
-trigf.c, Branch (220:30): True
-trigf.c, Branch (220:30): False
-trigf.c, Branch (224:17): True
-trigf.c, Branch (224:17): False
-trigf.c, Branch (225:29): True
-trigf.c, Branch (225:29): False
-trigf.c, Branch (225:46): True
-trigf.c, Branch (225:46): False
-trigf.c, Branch (231:34): True
-trigf.c, Branch (231:34): False
-trigf.c, Branch (232:25): True
-trigf.c, Branch (232:25): False
-trigf.c, Branch (233:25): True
-trigf.c, Branch (233:25): False
-trigf.c, Branch (239:44): True
-trigf.c, Branch (239:44): False
-trigf.c, Branch (253:14): True
-trigf.c, Branch (253:14): False
-trigf.c, Branch (253:27): True
-trigf.c, Branch (253:27): False
-trigf.c, Branch (256:9): True
-trigf.c, Branch (256:9): False
-trigf.c, Branch (259:23): True
-trigf.c, Branch (259:23): False
-trigf.c, Branch (260:17): True
-trigf.c, Branch (260:17): False
-trigf.c, Branch (274:18): True
-trigf.c, Branch (274:18): False
-trigf.c, Branch (280:18): True
-trigf.c, Branch (280:18): False
-trigf.c, Branch (281:32): True
-trigf.c, Branch (281:32): False
-trigf.c, Branch (281:43): True
-trigf.c, Branch (281:43): False
-trigf.c, Branch (291:18): True
-trigf.c, Branch (291:18): False
-trigf.c, Branch (295:12): True
-trigf.c, Branch (295:12): False
-trigf.c, Branch (298:17): True
-trigf.c, Branch (298:17): False
-trigf.c, Branch (302:12): True
-trigf.c, Branch (302:12): False
-trigf.c, Branch (343:9): True
-trigf.c, Branch (351:13): False
-trigf.c, Branch (354:17): False
-trigf.c, Branch (367:17): True
-trigf.c, Branch (367:17): False
-trigf.c, Branch (380:9): False
-trigf.c, Branch (394:17): True
-trigf.c, Branch (403:21): True
-trigf.c, Branch (403:21): False
-trigf.c, Branch (415:13): True
-trigf.c, Branch (427:9): True
-trigf.c, Branch (427:9): False
-trigf.c, Branch (442:17): True
-trigf.c, Branch (442:17): False
-trigf.c, Branch (449:18): True
-trigf.c, Branch (449:18): False
-trigf.c, Branch (450:13): True
-trigf.c, Branch (450:13): False
-trigf.c, Branch (457:9): True
-trigf.c, Branch (457:9): False
-truncd.c, Branch (77:9): True
-truncd.c, Branch (77:9): False
-truncd.c, Branch (79:13): True
-truncd.c, Branch (79:13): False
-truncd.c, Branch (86:16): True
-truncd.c, Branch (86:16): False
-truncd.c, Branch (87:13): True
-truncd.c, Branch (87:13): False
-truncf.c, Branch (25:9): True
-truncf.c, Branch (25:9): False
-truncf.c, Branch (26:13): True
-truncf.c, Branch (26:13): False
-truncf.c, Branch (33:13): True
-truncf.c, Branch (33:13): False
-y0d.c, Branch (102:9): True
-y0d.c, Branch (106:9): True
-y0d.c, Branch (131:13): False
-y0d.c, Branch (134:17): False
-y0d.c, Branch (141:13): True
-y0d.c, Branch (152:9): True
-y0d.c, Branch (92:9): True
-y0d.c, Branch (95:20): True
-y0d.c, Branch (95:20): False
-y1d.c, Branch (104:9): True
-y1d.c, Branch (108:9): True
-y1d.c, Branch (118:13): False
-y1d.c, Branch (121:17): True
-y1d.c, Branch (139:13): True
-y1d.c, Branch (150:9): True
-y1d.c, Branch (94:9): True
-y1d.c, Branch (97:20): True
-y1d.c, Branch (97:20): False
-ynd.c, Branch (103:9): True
-ynd.c, Branch (109:9): True
-ynd.c, Branch (122:9): True
-ynd.c, Branch (126:9): True
-ynd.c, Branch (141:9): True
-ynd.c, Branch (141:9): False
-ynd.c, Branch (142:9): True
-ynd.c, Branch (142:9): False
-ynd.c, Branch (146:9): True
-ynd.c, Branch (146:9): False
-ynd.c, Branch (150:9): True
-ynd.c, Branch (150:9): False
-ynd.c, Branch (154:9): True
-ynd.c, Branch (154:9): False
-ynd.c, Branch (167:30): False
-ynd.c, Branch (175:9): False
-ynd.c, Branch (99:9): True
+libm/common/tools.h:79:29:true
+libm/common/tools.h:247:14:true
+libm/common/tools.h:256:14:true
+libm/common/tools.h:265:14:true
+libm/common/tools.h:275:14:true
+libm/common/tools.h:285:14:true
+libm/common/tools.h:295:14:true
+libm/common/tools.h:312:14:true
+libm/common/tools.h:318:30:true
+libm/common/tools.h:321:14:true
+libm/common/tools.h:325:29:true
+libm/common/tools.h:327:6:false
+libm/common/tools.h:327:6:true
+libm/common/tools.h:328:30:false
+libm/common/tools.h:328:30:true
+libm/common/tools.h:364:12:false
+libm/common/tools.h:364:12:true
+libm/common/tools.h:368:12:false
+libm/common/tools.h:368:12:true
+libm/common/tools.h:372:12:false
+libm/common/tools.h:372:12:true
+libm/common/tools.h:376:12:false
+libm/common/tools.h:383:12:false
+libm/common/tools.h:383:12:true
+libm/common/tools.h:387:12:false
+libm/common/tools.h:387:12:true
+libm/common/tools.h:391:12:false
+libm/common/tools.h:391:12:true
+libm/common/tools.h:395:12:false
+libm/common/tools.h:401:21:false
+libm/common/tools.h:401:21:true
+libm/common/tools.h:411:47:false
+libm/common/tools.h:411:47:true
+libm/complexd/catand.c:59:9:true
+libm/complexd/catand.c:59:23:false
+libm/complexd/catand.c:59:23:true
+libm/complexd/cpowd.c:59:9:true
+libm/complexd/cpowd.c:67:9:true
+libm/complexd/cprojd.c:318:30:true
+libm/complexd/cprojd.c:324:29:true
+libm/complexd/csqrtd.c:56:13:true
+libm/complexd/csqrtd.c:62:17:true
+libm/complexd/csqrtd.c:72:9:true
+libm/complexd/csqrtd.c:76:13:false
+libm/complexd/csqrtd.c:76:13:true
+libm/complexd/csqrtd.c:86:9:true
+libm/complexd/csqrtd.c:86:28:true
+libm/complexd/csqrtd.c:99:9:false
+libm/complexd/csqrtd.c:109:9:true
+libm/complexd/ctand.c:98:9:true
+libm/complexd/ctand.c:102:9:true
+libm/complexd/internal/ctrigd.c:21:13:false
+libm/complexf/catanf.c:19:9:true
+libm/complexf/catanf.c:19:24:false
+libm/complexf/catanf.c:19:24:true
+libm/complexf/cpowf.c:20:9:true
+libm/complexf/cpowf.c:28:9:true
+libm/complexf/cprojf.c:318:30:false
+libm/complexf/cprojf.c:324:29:true
+libm/complexf/csqrtf.c:19:13:true
+libm/complexf/csqrtf.c:21:20:true
+libm/complexf/csqrtf.c:30:9:true
+libm/complexf/csqrtf.c:34:13:false
+libm/complexf/csqrtf.c:34:13:true
+libm/complexf/csqrtf.c:44:9:true
+libm/complexf/csqrtf.c:44:30:true
+libm/complexf/csqrtf.c:57:9:false
+libm/complexf/csqrtf.c:67:9:true
+libm/complexf/ctanf.c:62:9:true
+libm/complexf/ctanf.c:66:9:true
+libm/complexf/internal/ctrigf.c:19:13:false
+libm/include/internal_config.h:78:32:false
+libm/include/internal_config.h:79:29:true
+libm/include/internal_config.h:80:34:true
+libm/include/internal_config.h:125:39:true
+libm/include/math.h:322:29:false
+libm/include/math.h:322:52:false
+libm/include/math.h:324:29:true
+libm/include/math.h:325:29:true
+libm/include/math.h:328:30:false
+libm/include/math.h:328:30:true
+libm/mathd/acosd.c:90:13:false
+libm/mathd/acosd.c:106:13:false
+libm/mathd/acosd.c:115:17:true
+libm/mathd/acosd.c:256:14:true
+libm/mathd/acosd.c:265:14:true
+libm/mathd/acosd.c:295:14:true
+libm/mathd/acosd.c:318:30:false
+libm/mathd/acosd.c:318:30:true
+libm/mathd/acosd.c:325:29:false
+libm/mathd/acosd.c:325:29:true
+libm/mathd/acoshd.c:73:9:true
+libm/mathd/acoshd.c:79:16:true
+libm/mathd/acoshd.c:80:13:false
+libm/mathd/acoshd.c:80:13:true
+libm/mathd/acoshd.c:87:16:true
+libm/mathd/acoshd.c:247:14:true
+libm/mathd/acoshd.c:318:30:false
+libm/mathd/acoshd.c:318:30:true
+libm/mathd/acoshd.c:325:29:false
+libm/mathd/acoshd.c:325:29:true
+libm/mathd/asind.c:92:13:false
+libm/mathd/asind.c:104:13:false
+libm/mathd/asind.c:105:17:false
+libm/mathd/asind.c:128:9:true
+libm/mathd/asind.c:141:9:false
+libm/mathd/asind.c:256:14:true
+libm/mathd/asind.c:265:14:true
+libm/mathd/asind.c:295:14:true
+libm/mathd/asind.c:318:30:false
+libm/mathd/asind.c:318:30:true
+libm/mathd/asind.c:325:29:false
+libm/mathd/asind.c:325:29:true
+libm/mathd/asinhd.c:74:9:true
+libm/mathd/asinhd.c:79:13:false
+libm/mathd/asinhd.c:86:9:true
+libm/mathd/asinhd.c:88:16:true
+libm/mathd/asinhd.c:256:14:true
+libm/mathd/atan2d.c:102:9:true
+libm/mathd/atan2d.c:103:9:true
+libm/mathd/atan2d.c:107:29:false
+libm/mathd/atan2d.c:116:9:true
+libm/mathd/atan2d.c:117:9:false
+libm/mathd/atan2d.c:118:9:true
+libm/mathd/atan2d.c:121:9:true
+libm/mathd/atan2d.c:124:9:true
+libm/mathd/atan2d.c:131:16:true
+libm/mathd/atan2d.c:135:9:true
+libm/mathd/atan2d.c:136:13:false
+libm/mathd/atan2d.c:136:13:true
+libm/mathd/atan2d.c:138:13:false
+libm/mathd/atan2d.c:138:13:true
+libm/mathd/atan2d.c:139:13:false
+libm/mathd/atan2d.c:139:13:true
+libm/mathd/atan2d.c:142:13:false
+libm/mathd/atan2d.c:142:13:true
+libm/mathd/atan2d.c:145:13:false
+libm/mathd/atan2d.c:145:13:true
+libm/mathd/atan2d.c:148:13:false
+libm/mathd/atan2d.c:148:13:true
+libm/mathd/atan2d.c:153:13:false
+libm/mathd/atan2d.c:153:13:true
+libm/mathd/atan2d.c:154:13:false
+libm/mathd/atan2d.c:154:13:true
+libm/mathd/atan2d.c:157:13:false
+libm/mathd/atan2d.c:157:13:true
+libm/mathd/atan2d.c:160:13:false
+libm/mathd/atan2d.c:160:13:true
+libm/mathd/atan2d.c:163:13:false
+libm/mathd/atan2d.c:163:13:true
+libm/mathd/atan2d.c:170:9:true
+libm/mathd/atan2d.c:171:16:false
+libm/mathd/atan2d.c:171:16:true
+libm/mathd/atan2d.c:177:9:true
+libm/mathd/atan2d.c:180:26:true
+libm/mathd/atan2d.c:247:14:true
+libm/mathd/atand.c:100:9:true
+libm/mathd/atand.c:104:13:false
+libm/mathd/atand.c:104:13:true
+libm/mathd/atand.c:105:14:false
+libm/mathd/atand.c:105:14:true
+libm/mathd/atand.c:105:34:false
+libm/mathd/atand.c:105:34:true
+libm/mathd/atand.c:109:13:false
+libm/mathd/atand.c:109:13:true
+libm/mathd/atand.c:118:17:false
+libm/mathd/atand.c:256:14:true
+libm/mathd/atand.c:265:14:false
+libm/mathd/atand.c:265:14:true
+libm/mathd/atanhd.c:77:9:true
+libm/mathd/atanhd.c:85:9:true
+libm/mathd/atanhd.c:90:13:false
+libm/mathd/atanhd.c:99:9:true
+libm/mathd/atanhd.c:247:14:true
+libm/mathd/atanhd.c:285:14:true
+libm/mathd/atanhd.c:318:30:false
+libm/mathd/atanhd.c:318:30:true
+libm/mathd/atanhd.c:325:29:false
+libm/mathd/atanhd.c:325:29:true
+libm/mathd/cbrtd.c:82:9:true
+libm/mathd/cbrtd.c:95:9:true
+libm/mathd/cbrtd.c:256:14:true
+libm/mathd/cbrtd.c:265:14:true
+libm/mathd/cbrtd.c:275:14:true
+libm/mathd/cbrtd.c:285:14:true
+libm/mathd/ceild.c:68:9:false
+libm/mathd/ceild.c:68:9:true
+libm/mathd/ceild.c:69:13:false
+libm/mathd/ceild.c:69:13:true
+libm/mathd/ceild.c:70:17:false
+libm/mathd/ceild.c:70:17:true
+libm/mathd/ceild.c:76:17:false
+libm/mathd/ceild.c:76:17:true
+libm/mathd/ceild.c:86:17:false
+libm/mathd/ceild.c:86:17:true
+libm/mathd/ceild.c:92:17:false
+libm/mathd/ceild.c:92:17:true
+libm/mathd/ceild.c:99:16:false
+libm/mathd/ceild.c:99:16:true
+libm/mathd/ceild.c:100:13:false
+libm/mathd/ceild.c:100:13:true
+libm/mathd/ceild.c:108:13:false
+libm/mathd/ceild.c:108:13:true
+libm/mathd/ceild.c:113:13:false
+libm/mathd/ceild.c:113:13:true
+libm/mathd/ceild.c:114:17:false
+libm/mathd/ceild.c:114:17:true
+libm/mathd/ceild.c:119:21:false
+libm/mathd/ceild.c:119:21:true
+libm/mathd/ceild.c:247:14:false
+libm/mathd/ceild.c:247:14:true
+libm/mathd/ceild.c:275:14:false
+libm/mathd/ceild.c:275:14:true
+libm/mathd/copysignd.c:256:14:false
+libm/mathd/copysignd.c:256:14:true
+libm/mathd/copysignd.c:285:14:false
+libm/mathd/copysignd.c:285:14:true
+libm/mathd/cosd.c:73:12:false
+libm/mathd/cosd.c:74:17:false
+libm/mathd/cosd.c:85:14:true
+libm/mathd/cosd.c:98:9:true
+libm/mathd/cosd.c:256:14:true
+libm/mathd/cosd.c:318:30:false
+libm/mathd/cosd.c:318:30:true
+libm/mathd/cosd.c:325:29:false
+libm/mathd/cosd.c:325:29:true
+libm/mathd/coshd.c:73:9:true
+libm/mathd/coshd.c:82:13:false
+libm/mathd/coshd.c:90:9:false
+libm/mathd/coshd.c:96:9:false
+libm/mathd/coshd.c:96:9:true
+libm/mathd/coshd.c:103:9:false
+libm/mathd/coshd.c:103:9:true
+libm/mathd/coshd.c:104:10:false
+libm/mathd/coshd.c:104:10:true
+libm/mathd/coshd.c:104:30:false
+libm/mathd/coshd.c:104:30:true
+libm/mathd/coshd.c:256:14:true
+libm/mathd/coshd.c:265:14:false
+libm/mathd/coshd.c:265:14:true
+libm/mathd/erfcd.c:171:9:true
+libm/mathd/erfcd.c:174:20:false
+libm/mathd/erfcd.c:174:20:true
+libm/mathd/erfcd.c:182:13:false
+libm/mathd/erfcd.c:188:13:false
+libm/mathd/erfcd.c:188:13:true
+libm/mathd/erfcd.c:197:9:false
+libm/mathd/erfcd.c:211:9:false
+libm/mathd/erfcd.c:211:9:true
+libm/mathd/erfcd.c:215:13:false
+libm/mathd/erfcd.c:215:13:true
+libm/mathd/erfcd.c:219:17:false
+libm/mathd/erfcd.c:219:17:true
+libm/mathd/erfcd.c:219:27:false
+libm/mathd/erfcd.c:219:27:true
+libm/mathd/erfcd.c:231:13:false
+libm/mathd/erfcd.c:231:13:true
+libm/mathd/erfcd.c:237:13:false
+libm/mathd/erfcd.c:237:13:true
+libm/mathd/erfcd.c:256:14:true
+libm/mathd/erfcd.c:295:14:false
+libm/mathd/erfcd.c:295:14:true
+libm/mathd/erfcd.c:318:30:false
+libm/mathd/erfcd.c:318:30:true
+libm/mathd/erfcd.c:325:29:false
+libm/mathd/erfcd.c:325:29:true
+libm/mathd/erfd.c:170:9:true
+libm/mathd/erfd.c:173:20:false
+libm/mathd/erfd.c:173:20:true
+libm/mathd/erfd.c:181:13:false
+libm/mathd/erfd.c:182:17:false
+libm/mathd/erfd.c:192:9:false
+libm/mathd/erfd.c:204:9:false
+libm/mathd/erfd.c:204:9:true
+libm/mathd/erfd.c:205:13:false
+libm/mathd/erfd.c:205:13:true
+libm/mathd/erfd.c:215:9:false
+libm/mathd/erfd.c:215:9:true
+libm/mathd/erfd.c:227:9:false
+libm/mathd/erfd.c:227:9:true
+libm/mathd/erfd.c:256:14:true
+libm/mathd/erfd.c:295:14:false
+libm/mathd/erfd.c:295:14:true
+libm/mathd/erfd.c:318:30:false
+libm/mathd/erfd.c:318:30:true
+libm/mathd/erfd.c:325:29:false
+libm/mathd/erfd.c:325:29:true
+libm/mathd/expd.c:101:9:true
+libm/mathd/expd.c:102:13:false
+libm/mathd/expd.c:102:13:true
+libm/mathd/expd.c:106:17:false
+libm/mathd/expd.c:106:17:true
+libm/mathd/expd.c:109:24:false
+libm/mathd/expd.c:109:24:true
+libm/mathd/expd.c:113:13:false
+libm/mathd/expd.c:113:13:true
+libm/mathd/expd.c:117:13:false
+libm/mathd/expd.c:117:13:true
+libm/mathd/expd.c:136:16:false
+libm/mathd/expd.c:137:13:false
+libm/mathd/expd.c:150:9:true
+libm/mathd/expd.c:156:9:false
+libm/mathd/expd.c:256:14:true
+libm/mathd/expd.c:265:14:false
+libm/mathd/expd.c:265:14:true
+libm/mathd/expd.c:285:14:true
+libm/mathd/expm1d.c:189:9:true
+libm/mathd/expm1d.c:190:13:false
+libm/mathd/expm1d.c:190:13:true
+libm/mathd/expm1d.c:191:17:false
+libm/mathd/expm1d.c:191:17:true
+libm/mathd/expm1d.c:195:21:false
+libm/mathd/expm1d.c:195:21:true
+libm/mathd/expm1d.c:198:28:false
+libm/mathd/expm1d.c:198:28:true
+libm/mathd/expm1d.c:202:17:false
+libm/mathd/expm1d.c:202:17:true
+libm/mathd/expm1d.c:207:13:false
+libm/mathd/expm1d.c:207:13:true
+libm/mathd/expm1d.c:225:32:false
+libm/mathd/expm1d.c:233:16:false
+libm/mathd/expm1d.c:234:13:false
+libm/mathd/expm1d.c:250:9:true
+libm/mathd/expm1d.c:256:14:true
+libm/mathd/expm1d.c:261:17:true
+libm/mathd/expm1d.c:265:14:false
+libm/mathd/expm1d.c:265:14:true
+libm/mathd/expm1d.c:268:13:true
+libm/mathd/expm1d.c:268:24:true
+libm/mathd/expm1d.c:278:13:false
+libm/mathd/expm1d.c:285:14:true
+libm/mathd/fabsd.c:256:14:false
+libm/mathd/fabsd.c:256:14:true
+libm/mathd/fabsd.c:285:14:false
+libm/mathd/fabsd.c:285:14:true
+libm/mathd/fdimd.c:318:30:true
+libm/mathd/fdimd.c:325:29:true
+libm/mathd/floord.c:68:9:false
+libm/mathd/floord.c:70:17:true
+libm/mathd/floord.c:85:17:false
+libm/mathd/floord.c:91:17:false
+libm/mathd/floord.c:91:17:true
+libm/mathd/floord.c:98:16:false
+libm/mathd/floord.c:98:16:true
+libm/mathd/floord.c:99:13:false
+libm/mathd/floord.c:99:13:true
+libm/mathd/floord.c:107:13:false
+libm/mathd/floord.c:107:13:true
+libm/mathd/floord.c:113:13:false
+libm/mathd/floord.c:113:13:true
+libm/mathd/floord.c:114:17:false
+libm/mathd/floord.c:114:17:true
+libm/mathd/floord.c:119:21:false
+libm/mathd/floord.c:119:21:true
+libm/mathd/floord.c:247:14:true
+libm/mathd/floord.c:275:14:true
+libm/mathd/fmaxd.c:75:13:false
+libm/mathd/fmaxd.c:75:13:true
+libm/mathd/fmaxd.c:75:38:false
+libm/mathd/fmaxd.c:75:38:true
+libm/mathd/fmaxd.c:85:13:false
+libm/mathd/fmaxd.c:85:13:true
+libm/mathd/fmaxd.c:99:12:false
+libm/mathd/fmaxd.c:99:12:true
+libm/mathd/fmaxd.c:318:30:false
+libm/mathd/fmaxd.c:318:30:true
+libm/mathd/fmaxd.c:325:29:false
+libm/mathd/fmaxd.c:325:29:true
+libm/mathd/fmind.c:75:13:false
+libm/mathd/fmind.c:75:13:true
+libm/mathd/fmind.c:75:38:false
+libm/mathd/fmind.c:75:38:true
+libm/mathd/fmind.c:85:13:false
+libm/mathd/fmind.c:85:13:true
+libm/mathd/fmind.c:99:12:false
+libm/mathd/fmind.c:99:12:true
+libm/mathd/fmind.c:318:30:false
+libm/mathd/fmind.c:318:30:true
+libm/mathd/fmind.c:325:29:false
+libm/mathd/fmind.c:325:29:true
+libm/mathd/fmodd.c:117:9:true
+libm/mathd/fmodd.c:117:29:true
+libm/mathd/fmodd.c:118:13:false
+libm/mathd/fmodd.c:118:13:true
+libm/mathd/fmodd.c:118:33:false
+libm/mathd/fmodd.c:118:33:true
+libm/mathd/fmodd.c:125:16:true
+libm/mathd/fmodd.c:132:13:false
+libm/mathd/fmodd.c:132:26:false
+libm/mathd/fmodd.c:132:26:true
+libm/mathd/fmodd.c:136:13:false
+libm/mathd/fmodd.c:136:13:true
+libm/mathd/fmodd.c:142:9:true
+libm/mathd/fmodd.c:143:13:false
+libm/mathd/fmodd.c:143:13:true
+libm/mathd/fmodd.c:144:38:false
+libm/mathd/fmodd.c:144:38:true
+libm/mathd/fmodd.c:148:46:false
+libm/mathd/fmodd.c:148:46:true
+libm/mathd/fmodd.c:157:9:true
+libm/mathd/fmodd.c:158:13:false
+libm/mathd/fmodd.c:158:13:true
+libm/mathd/fmodd.c:159:38:false
+libm/mathd/fmodd.c:159:38:true
+libm/mathd/fmodd.c:163:46:false
+libm/mathd/fmodd.c:163:46:true
+libm/mathd/fmodd.c:172:9:false
+libm/mathd/fmodd.c:177:13:false
+libm/mathd/fmodd.c:177:13:true
+libm/mathd/fmodd.c:186:9:false
+libm/mathd/fmodd.c:191:13:false
+libm/mathd/fmodd.c:191:13:true
+libm/mathd/fmodd.c:207:13:true
+libm/mathd/fmodd.c:211:13:false
+libm/mathd/fmodd.c:215:17:false
+libm/mathd/fmodd.c:215:17:true
+libm/mathd/fmodd.c:227:9:true
+libm/mathd/fmodd.c:231:9:false
+libm/mathd/fmodd.c:237:9:true
+libm/mathd/fmodd.c:241:12:true
+libm/mathd/fmodd.c:247:9:false
+libm/mathd/fmodd.c:247:14:true
+libm/mathd/fmodd.c:253:13:false
+libm/mathd/fmodd.c:253:13:true
+libm/mathd/fmodd.c:256:20:false
+libm/mathd/fmodd.c:256:20:true
+libm/mathd/fmodd.c:275:14:true
+libm/mathd/fmodd.c:318:30:false
+libm/mathd/fmodd.c:318:30:true
+libm/mathd/fmodd.c:325:29:false
+libm/mathd/fmodd.c:325:29:true
+libm/mathd/frexpd.c:85:8:true
+libm/mathd/frexpd.c:93:9:true
+libm/mathd/frexpd.c:97:9:true
+libm/mathd/frexpd.c:247:14:true
+libm/mathd/frexpd.c:256:14:false
+libm/mathd/frexpd.c:256:14:true
+libm/mathd/frexpd.c:285:14:true
+libm/mathd/hypotd.c:107:9:true
+libm/mathd/hypotd.c:108:13:false
+libm/mathd/hypotd.c:108:13:true
+libm/mathd/hypotd.c:113:17:false
+libm/mathd/hypotd.c:113:17:true
+libm/mathd/hypotd.c:119:17:false
+libm/mathd/hypotd.c:119:17:true
+libm/mathd/hypotd.c:134:9:true
+libm/mathd/hypotd.c:135:13:false
+libm/mathd/hypotd.c:135:13:true
+libm/mathd/hypotd.c:139:17:false
+libm/mathd/hypotd.c:139:17:true
+libm/mathd/hypotd.c:176:9:true
+libm/mathd/hypotd.c:256:14:true
+libm/mathd/hypotd.c:265:14:false
+libm/mathd/hypotd.c:265:14:true
+libm/mathd/hypotd.c:285:14:true
+libm/mathd/ilogbd.c:91:9:true
+libm/mathd/ilogbd.c:92:13:false
+libm/mathd/ilogbd.c:92:13:true
+libm/mathd/ilogbd.c:96:17:false
+libm/mathd/ilogbd.c:96:17:true
+libm/mathd/ilogbd.c:97:34:false
+libm/mathd/ilogbd.c:97:34:true
+libm/mathd/ilogbd.c:101:45:false
+libm/mathd/ilogbd.c:101:45:true
+libm/mathd/ilogbd.c:108:16:false
+libm/mathd/ilogbd.c:110:16:false
+libm/mathd/ilogbd.c:110:16:true
+libm/mathd/ilogbd.c:247:14:true
+libm/mathd/internal/besseld.h:99:9:true
+libm/mathd/internal/besseld.h:101:16:true
+libm/mathd/internal/besseld.h:104:16:true
+libm/mathd/internal/besseld.h:107:16:true
+libm/mathd/internal/besseld.h:207:9:true
+libm/mathd/internal/besseld.h:209:16:true
+libm/mathd/internal/besseld.h:212:16:true
+libm/mathd/internal/besseld.h:215:16:true
+libm/mathd/internal/besseld.h:256:14:true
+libm/mathd/internal/besseld.h:311:9:true
+libm/mathd/internal/besseld.h:313:16:true
+libm/mathd/internal/besseld.h:316:16:true
+libm/mathd/internal/besseld.h:319:16:true
+libm/mathd/internal/besseld.h:420:9:true
+libm/mathd/internal/besseld.h:422:16:true
+libm/mathd/internal/besseld.h:425:16:true
+libm/mathd/internal/besseld.h:428:16:true
+libm/mathd/internal/fpclassifyd.c:66:31:false
+libm/mathd/internal/fpclassifyd.c:68:16:false
+libm/mathd/internal/fpclassifyd.c:70:16:true
+libm/mathd/internal/fpclassifyd.c:72:38:false
+libm/mathd/internal/fpclassifyd.c:247:14:true
+libm/mathd/internal/gammad.c:218:9:true
+libm/mathd/internal/gammad.c:247:14:true
+libm/mathd/internal/gammad.c:248:5:true
+libm/mathd/internal/gammad.c:249:5:true
+libm/mathd/internal/gammad.c:253:5:true
+libm/mathd/internal/gammad.c:254:5:true
+libm/mathd/internal/gammad.c:256:14:true
+libm/mathd/internal/gammad.c:258:5:true
+libm/mathd/internal/gammad.c:263:5:true
+libm/mathd/internal/gammad.c:265:14:true
+libm/mathd/internal/gammad.c:282:9:true
+libm/mathd/internal/gammad.c:286:9:true
+libm/mathd/internal/gammad.c:287:12:false
+libm/mathd/internal/gammad.c:287:12:true
+libm/mathd/internal/gammad.c:293:9:true
+libm/mathd/internal/gammad.c:294:13:false
+libm/mathd/internal/gammad.c:294:13:true
+libm/mathd/internal/gammad.c:302:9:true
+libm/mathd/internal/gammad.c:303:13:false
+libm/mathd/internal/gammad.c:303:13:true
+libm/mathd/internal/gammad.c:309:13:false
+libm/mathd/internal/gammad.c:309:13:true
+libm/mathd/internal/gammad.c:315:13:false
+libm/mathd/internal/gammad.c:315:13:true
+libm/mathd/internal/gammad.c:327:14:false
+libm/mathd/internal/gammad.c:328:13:false
+libm/mathd/internal/gammad.c:331:17:true
+libm/mathd/internal/gammad.c:334:24:false
+libm/mathd/internal/gammad.c:344:17:false
+libm/mathd/internal/gammad.c:344:17:true
+libm/mathd/internal/gammad.c:347:24:false
+libm/mathd/internal/gammad.c:347:24:true
+libm/mathd/internal/gammad.c:357:9:true
+libm/mathd/internal/gammad.c:358:9:true
+libm/mathd/internal/gammad.c:366:9:false
+libm/mathd/internal/gammad.c:376:9:true
+libm/mathd/internal/gammad.c:382:16:false
+libm/mathd/internal/gammad.c:382:16:true
+libm/mathd/internal/gammad.c:391:9:false
+libm/mathd/internal/gammad.c:391:9:true
+libm/mathd/internal/gammad.c:394:9:false
+libm/mathd/internal/gammad.c:394:9:true
+libm/mathd/internal/gammad.c:397:9:false
+libm/mathd/internal/gammad.c:397:9:true
+libm/mathd/internal/gammad.c:400:9:false
+libm/mathd/internal/gammad.c:400:9:true
+libm/mathd/internal/gammad.c:403:9:false
+libm/mathd/internal/gammad.c:403:9:true
+libm/mathd/internal/gammad.c:406:9:false
+libm/mathd/internal/gammad.c:406:9:true
+libm/mathd/internal/gammad.c:411:16:false
+libm/mathd/internal/gammad.c:411:16:true
+libm/mathd/internal/gammad.c:421:9:true
+libm/mathd/internal/signbitd.c:256:14:true
+libm/mathd/internal/trigd.c:235:16:true
+libm/mathd/internal/trigd.c:256:14:true
+libm/mathd/internal/trigd.c:265:14:false
+libm/mathd/internal/trigd.c:265:14:true
+libm/mathd/internal/trigd.c:267:13:true
+libm/mathd/internal/trigd.c:272:20:true
+libm/mathd/internal/trigd.c:274:20:false
+libm/mathd/internal/trigd.c:281:13:false
+libm/mathd/internal/trigd.c:285:14:false
+libm/mathd/internal/trigd.c:285:14:true
+libm/mathd/internal/trigd.c:289:25:false
+libm/mathd/internal/trigd.c:295:14:false
+libm/mathd/internal/trigd.c:295:14:true
+libm/mathd/internal/trigd.c:298:17:true
+libm/mathd/internal/trigd.c:300:17:false
+libm/mathd/internal/trigd.c:300:17:true
+libm/mathd/internal/trigd.c:301:17:false
+libm/mathd/internal/trigd.c:301:17:true
+libm/mathd/internal/trigd.c:305:17:false
+libm/mathd/internal/trigd.c:305:17:true
+libm/mathd/internal/trigd.c:311:17:false
+libm/mathd/internal/trigd.c:316:21:false
+libm/mathd/internal/trigd.c:318:30:false
+libm/mathd/internal/trigd.c:318:30:true
+libm/mathd/internal/trigd.c:325:29:false
+libm/mathd/internal/trigd.c:325:29:true
+libm/mathd/internal/trigd.c:327:13:true
+libm/mathd/internal/trigd.c:330:30:false
+libm/mathd/internal/trigd.c:330:30:true
+libm/mathd/internal/trigd.c:334:17:false
+libm/mathd/internal/trigd.c:334:17:true
+libm/mathd/internal/trigd.c:335:29:false
+libm/mathd/internal/trigd.c:335:29:true
+libm/mathd/internal/trigd.c:335:46:false
+libm/mathd/internal/trigd.c:335:46:true
+libm/mathd/internal/trigd.c:341:34:false
+libm/mathd/internal/trigd.c:341:34:true
+libm/mathd/internal/trigd.c:342:25:false
+libm/mathd/internal/trigd.c:342:25:true
+libm/mathd/internal/trigd.c:343:25:false
+libm/mathd/internal/trigd.c:343:25:true
+libm/mathd/internal/trigd.c:349:43:false
+libm/mathd/internal/trigd.c:349:43:true
+libm/mathd/internal/trigd.c:363:14:true
+libm/mathd/internal/trigd.c:363:27:false
+libm/mathd/internal/trigd.c:363:27:true
+libm/mathd/internal/trigd.c:366:9:true
+libm/mathd/internal/trigd.c:369:23:false
+libm/mathd/internal/trigd.c:369:23:true
+libm/mathd/internal/trigd.c:370:17:false
+libm/mathd/internal/trigd.c:370:17:true
+libm/mathd/internal/trigd.c:378:13:true
+libm/mathd/internal/trigd.c:413:12:true
+libm/mathd/internal/trigd.c:420:12:true
+libm/mathd/internal/trigd.c:461:9:true
+libm/mathd/internal/trigd.c:484:17:false
+libm/mathd/internal/trigd.c:497:9:false
+libm/mathd/internal/trigd.c:520:21:false
+libm/mathd/internal/trigd.c:532:13:true
+libm/mathd/internal/trigd.c:544:9:false
+libm/mathd/internal/trigd.c:544:9:true
+libm/mathd/internal/trigd.c:561:17:false
+libm/mathd/internal/trigd.c:561:17:true
+libm/mathd/internal/trigd.c:568:18:false
+libm/mathd/internal/trigd.c:568:18:true
+libm/mathd/internal/trigd.c:569:13:false
+libm/mathd/internal/trigd.c:569:13:true
+libm/mathd/internal/trigd.c:576:9:false
+libm/mathd/internal/trigd.c:576:9:true
+libm/mathd/j0d.c:88:9:true
+libm/mathd/j0d.c:94:9:true
+libm/mathd/j0d.c:100:13:false
+libm/mathd/j0d.c:100:13:true
+libm/mathd/j0d.c:103:17:false
+libm/mathd/j0d.c:103:17:true
+libm/mathd/j0d.c:114:13:false
+libm/mathd/j0d.c:114:13:true
+libm/mathd/j0d.c:126:13:true
+libm/mathd/j0d.c:129:13:false
+libm/mathd/j0d.c:140:9:true
+libm/mathd/j0d.c:256:14:true
+libm/mathd/j1d.c:89:9:true
+libm/mathd/j1d.c:95:9:true
+libm/mathd/j1d.c:101:13:false
+libm/mathd/j1d.c:101:13:true
+libm/mathd/j1d.c:104:17:false
+libm/mathd/j1d.c:104:17:true
+libm/mathd/j1d.c:115:13:false
+libm/mathd/j1d.c:115:13:true
+libm/mathd/j1d.c:123:13:false
+libm/mathd/j1d.c:123:13:true
+libm/mathd/j1d.c:131:13:true
+libm/mathd/j1d.c:256:14:true
+libm/mathd/jnd.c:101:9:true
+libm/mathd/jnd.c:105:9:true
+libm/mathd/jnd.c:122:9:true
+libm/mathd/jnd.c:122:27:true
+libm/mathd/jnd.c:124:16:true
+libm/mathd/jnd.c:126:13:false
+libm/mathd/jnd.c:126:13:true
+libm/mathd/jnd.c:141:13:false
+libm/mathd/jnd.c:141:13:true
+libm/mathd/jnd.c:142:13:false
+libm/mathd/jnd.c:142:13:true
+libm/mathd/jnd.c:146:13:false
+libm/mathd/jnd.c:146:13:true
+libm/mathd/jnd.c:150:13:false
+libm/mathd/jnd.c:150:13:true
+libm/mathd/jnd.c:154:13:false
+libm/mathd/jnd.c:154:13:true
+libm/mathd/jnd.c:164:25:false
+libm/mathd/jnd.c:164:25:true
+libm/mathd/jnd.c:171:13:true
+libm/mathd/jnd.c:175:17:false
+libm/mathd/jnd.c:175:17:true
+libm/mathd/jnd.c:181:38:false
+libm/mathd/jnd.c:181:38:true
+libm/mathd/jnd.c:247:14:true
+libm/mathd/jnd.c:256:17:false
+libm/mathd/jnd.c:265:55:false
+libm/mathd/jnd.c:265:55:true
+libm/mathd/jnd.c:273:25:false
+libm/mathd/jnd.c:273:25:true
+libm/mathd/jnd.c:285:9:true
+libm/mathd/ldexpd.c:83:9:true
+libm/mathd/ldexpd.c:83:31:true
+libm/mathd/ldexpd.c:318:30:true
+libm/mathd/ldexpd.c:322:29:false
+libm/mathd/ldexpd.c:322:52:false
+libm/mathd/llrintd.c:88:9:false
+libm/mathd/llrintd.c:90:13:true
+libm/mathd/llrintd.c:101:17:true
+libm/mathd/llrintd.c:112:16:false
+libm/mathd/llrintd.c:112:16:true
+libm/mathd/llrintd.c:114:13:false
+libm/mathd/llrintd.c:114:13:true
+libm/mathd/llrintd.c:136:13:false
+libm/mathd/llrintd.c:136:13:true
+libm/mathd/llrintd.c:247:14:true
+libm/mathd/llrintd.c:256:14:true
+libm/mathd/llrintd.c:327:6:false
+libm/mathd/llrintd.c:327:6:true
+libm/mathd/llroundd.c:79:9:false
+libm/mathd/llroundd.c:81:13:true
+libm/mathd/llroundd.c:82:17:false
+libm/mathd/llroundd.c:82:17:true
+libm/mathd/llroundd.c:94:16:false
+libm/mathd/llroundd.c:94:16:true
+libm/mathd/llroundd.c:96:13:false
+libm/mathd/llroundd.c:96:13:true
+libm/mathd/llroundd.c:107:17:false
+libm/mathd/llroundd.c:107:17:true
+libm/mathd/llroundd.c:118:13:false
+libm/mathd/llroundd.c:118:13:true
+libm/mathd/llroundd.c:247:14:true
+libm/mathd/llroundd.c:327:6:false
+libm/mathd/llroundd.c:327:6:true
+libm/mathd/log10d.c:82:9:true
+libm/mathd/log10d.c:83:13:false
+libm/mathd/log10d.c:83:13:true
+libm/mathd/log10d.c:87:13:false
+libm/mathd/log10d.c:87:13:true
+libm/mathd/log10d.c:100:9:true
+libm/mathd/log10d.c:104:29:false
+libm/mathd/log10d.c:247:14:true
+libm/mathd/log10d.c:256:14:false
+libm/mathd/log10d.c:256:14:true
+libm/mathd/log10d.c:285:14:true
+libm/mathd/log10d.c:295:14:true
+libm/mathd/log10d.c:318:30:false
+libm/mathd/log10d.c:318:30:true
+libm/mathd/log10d.c:325:29:false
+libm/mathd/log10d.c:325:29:true
+libm/mathd/log1pd.c:150:9:true
+libm/mathd/log1pd.c:155:13:true
+libm/mathd/log1pd.c:158:24:false
+libm/mathd/log1pd.c:158:24:true
+libm/mathd/log1pd.c:166:17:false
+libm/mathd/log1pd.c:173:13:true
+libm/mathd/log1pd.c:173:23:true
+libm/mathd/log1pd.c:180:9:false
+libm/mathd/log1pd.c:181:13:false
+libm/mathd/log1pd.c:210:13:false
+libm/mathd/log1pd.c:220:9:true
+libm/mathd/log1pd.c:256:14:true
+libm/mathd/log1pd.c:285:14:true
+libm/mathd/log1pd.c:318:30:false
+libm/mathd/log1pd.c:318:30:true
+libm/mathd/log1pd.c:325:29:false
+libm/mathd/log1pd.c:325:29:true
+libm/mathd/log2d.c:80:9:true
+libm/mathd/log2d.c:81:13:false
+libm/mathd/log2d.c:81:13:true
+libm/mathd/log2d.c:85:13:false
+libm/mathd/log2d.c:85:13:true
+libm/mathd/log2d.c:98:9:true
+libm/mathd/log2d.c:102:29:false
+libm/mathd/log2d.c:247:14:true
+libm/mathd/log2d.c:256:14:false
+libm/mathd/log2d.c:256:14:true
+libm/mathd/log2d.c:285:14:true
+libm/mathd/log2d.c:295:14:true
+libm/mathd/log2d.c:318:30:false
+libm/mathd/log2d.c:318:30:true
+libm/mathd/log2d.c:325:29:false
+libm/mathd/log2d.c:325:29:true
+libm/mathd/logbd.c:71:9:true
+libm/mathd/logbd.c:72:13:false
+libm/mathd/logbd.c:72:13:true
+libm/mathd/logbd.c:75:17:false
+libm/mathd/logbd.c:75:17:true
+libm/mathd/logbd.c:76:34:false
+libm/mathd/logbd.c:76:34:true
+libm/mathd/logbd.c:80:45:false
+libm/mathd/logbd.c:80:45:true
+libm/mathd/logbd.c:87:16:false
+libm/mathd/logbd.c:247:14:true
+libm/mathd/logd.c:86:9:true
+libm/mathd/logd.c:87:13:false
+libm/mathd/logd.c:87:13:true
+libm/mathd/logd.c:91:13:false
+libm/mathd/logd.c:91:13:true
+libm/mathd/logd.c:104:9:true
+libm/mathd/logd.c:127:13:false
+libm/mathd/logd.c:149:13:true
+libm/mathd/logd.c:155:13:true
+libm/mathd/logd.c:247:14:true
+libm/mathd/logd.c:256:14:false
+libm/mathd/logd.c:256:14:true
+libm/mathd/logd.c:285:14:true
+libm/mathd/logd.c:318:30:false
+libm/mathd/logd.c:318:30:true
+libm/mathd/logd.c:325:29:false
+libm/mathd/logd.c:325:29:true
+libm/mathd/lrintd.c:87:9:false
+libm/mathd/lrintd.c:89:13:true
+libm/mathd/lrintd.c:100:17:true
+libm/mathd/lrintd.c:111:16:false
+libm/mathd/lrintd.c:111:16:true
+libm/mathd/lrintd.c:114:13:false
+libm/mathd/lrintd.c:114:13:true
+libm/mathd/lrintd.c:140:13:false
+libm/mathd/lrintd.c:140:13:true
+libm/mathd/lrintd.c:247:14:true
+libm/mathd/lrintd.c:256:14:true
+libm/mathd/lrintd.c:327:6:false
+libm/mathd/lrintd.c:327:6:true
+libm/mathd/lroundd.c:78:9:false
+libm/mathd/lroundd.c:80:13:true
+libm/mathd/lroundd.c:81:17:false
+libm/mathd/lroundd.c:81:17:true
+libm/mathd/lroundd.c:93:16:false
+libm/mathd/lroundd.c:93:16:true
+libm/mathd/lroundd.c:96:13:false
+libm/mathd/lroundd.c:96:13:true
+libm/mathd/lroundd.c:109:17:false
+libm/mathd/lroundd.c:109:17:true
+libm/mathd/lroundd.c:122:13:false
+libm/mathd/lroundd.c:122:13:true
+libm/mathd/lroundd.c:247:14:true
+libm/mathd/lroundd.c:327:6:false
+libm/mathd/lroundd.c:327:6:true
+libm/mathd/modfd.c:74:8:true
+libm/mathd/modfd.c:81:9:false
+libm/mathd/modfd.c:82:13:true
+libm/mathd/modfd.c:88:17:true
+libm/mathd/modfd.c:97:16:false
+libm/mathd/modfd.c:97:16:true
+libm/mathd/modfd.c:109:13:false
+libm/mathd/modfd.c:109:13:true
+libm/mathd/modfd.c:247:14:true
+libm/mathd/modfd.c:275:14:true
+libm/mathd/modfd.c:318:30:false
+libm/mathd/modfd.c:318:30:true
+libm/mathd/modfd.c:325:29:false
+libm/mathd/modfd.c:325:29:true
+libm/mathd/nand.c:275:14:true
+libm/mathd/nextafterd.c:92:16:true
+libm/mathd/nextafterd.c:92:28:false
+libm/mathd/nextafterd.c:92:28:true
+libm/mathd/nextafterd.c:94:16:true
+libm/mathd/nextafterd.c:95:13:false
+libm/mathd/nextafterd.c:95:13:true
+libm/mathd/nextafterd.c:95:40:false
+libm/mathd/nextafterd.c:95:40:true
+libm/mathd/nextafterd.c:105:16:false
+libm/mathd/nextafterd.c:106:25:true
+libm/mathd/nextafterd.c:106:39:false
+libm/mathd/nextafterd.c:106:39:true
+libm/mathd/nextafterd.c:107:17:false
+libm/mathd/nextafterd.c:115:17:true
+libm/mathd/nextafterd.c:120:13:false
+libm/mathd/nextafterd.c:120:13:true
+libm/mathd/nextafterd.c:120:24:false
+libm/mathd/nextafterd.c:120:24:true
+libm/mathd/nextafterd.c:120:36:false
+libm/mathd/nextafterd.c:120:36:true
+libm/mathd/nextafterd.c:120:50:false
+libm/mathd/nextafterd.c:120:50:true
+libm/mathd/nextafterd.c:121:17:false
+libm/mathd/nextafterd.c:121:17:true
+libm/mathd/nextafterd.c:129:17:false
+libm/mathd/nextafterd.c:129:17:true
+libm/mathd/nextafterd.c:137:9:true
+libm/mathd/nextafterd.c:141:9:true
+libm/mathd/nextafterd.c:247:14:true
+libm/mathd/nextafterd.c:275:14:true
+libm/mathd/nextafterd.c:318:30:true
+libm/mathd/nextafterd.c:325:29:true
+libm/mathd/powd.c:139:13:true
+libm/mathd/powd.c:147:9:true
+libm/mathd/powd.c:147:29:true
+libm/mathd/powd.c:147:51:false
+libm/mathd/powd.c:147:51:true
+libm/mathd/powd.c:148:9:true
+libm/mathd/powd.c:148:29:true
+libm/mathd/powd.c:148:51:false
+libm/mathd/powd.c:148:51:true
+libm/mathd/powd.c:149:13:false
+libm/mathd/powd.c:149:13:true
+libm/mathd/powd.c:149:46:false
+libm/mathd/powd.c:149:46:true
+libm/mathd/powd.c:173:9:true
+libm/mathd/powd.c:174:13:false
+libm/mathd/powd.c:174:13:true
+libm/mathd/powd.c:176:20:false
+libm/mathd/powd.c:176:20:true
+libm/mathd/powd.c:179:17:false
+libm/mathd/powd.c:179:17:true
+libm/mathd/powd.c:182:21:false
+libm/mathd/powd.c:182:21:true
+libm/mathd/powd.c:185:24:false
+libm/mathd/powd.c:185:24:true
+libm/mathd/powd.c:188:21:false
+libm/mathd/powd.c:188:21:true
+libm/mathd/powd.c:200:9:false
+libm/mathd/powd.c:201:13:true
+libm/mathd/powd.c:202:17:false
+libm/mathd/powd.c:202:17:true
+libm/mathd/powd.c:204:24:false
+libm/mathd/powd.c:204:24:true
+libm/mathd/powd.c:205:24:false
+libm/mathd/powd.c:205:24:true
+libm/mathd/powd.c:207:24:false
+libm/mathd/powd.c:207:24:true
+libm/mathd/powd.c:212:17:true
+libm/mathd/powd.c:224:17:false
+libm/mathd/powd.c:233:9:false
+libm/mathd/powd.c:234:13:true
+libm/mathd/powd.c:234:33:true
+libm/mathd/powd.c:234:44:true
+libm/mathd/powd.c:237:17:false
+libm/mathd/powd.c:237:17:true
+libm/mathd/powd.c:238:21:false
+libm/mathd/powd.c:238:21:true
+libm/mathd/powd.c:240:28:false
+libm/mathd/powd.c:240:28:true
+libm/mathd/powd.c:247:14:true
+libm/mathd/powd.c:247:17:false
+libm/mathd/powd.c:247:17:true
+libm/mathd/powd.c:248:21:false
+libm/mathd/powd.c:248:21:true
+libm/mathd/powd.c:250:28:false
+libm/mathd/powd.c:250:28:true
+libm/mathd/powd.c:256:14:true
+libm/mathd/powd.c:264:9:true
+libm/mathd/powd.c:269:9:true
+libm/mathd/powd.c:274:9:true
+libm/mathd/powd.c:275:13:false
+libm/mathd/powd.c:275:13:true
+libm/mathd/powd.c:276:17:false
+libm/mathd/powd.c:276:17:true
+libm/mathd/powd.c:277:24:false
+libm/mathd/powd.c:277:24:true
+libm/mathd/powd.c:279:24:false
+libm/mathd/powd.c:279:24:true
+libm/mathd/powd.c:284:13:false
+libm/mathd/powd.c:284:13:true
+libm/mathd/powd.c:285:14:true
+libm/mathd/powd.c:285:20:false
+libm/mathd/powd.c:285:20:true
+libm/mathd/powd.c:288:13:false
+libm/mathd/powd.c:288:13:true
+libm/mathd/powd.c:289:20:false
+libm/mathd/powd.c:289:20:true
+libm/mathd/powd.c:295:14:true
+libm/mathd/powd.c:306:13:true
+libm/mathd/powd.c:317:13:false
+libm/mathd/powd.c:319:20:false
+libm/mathd/powd.c:319:20:true
+libm/mathd/powd.c:372:9:true
+libm/mathd/powd.c:373:13:false
+libm/mathd/powd.c:373:13:true
+libm/mathd/powd.c:376:17:false
+libm/mathd/powd.c:376:17:true
+libm/mathd/powd.c:380:16:true
+libm/mathd/powd.c:381:13:false
+libm/mathd/powd.c:381:13:true
+libm/mathd/powd.c:384:17:false
+libm/mathd/powd.c:384:17:true
+libm/mathd/powd.c:399:9:false
+libm/mathd/powd.c:406:13:true
+libm/mathd/powd.c:426:9:true
+libm/mathd/remainderd.c:118:9:true
+libm/mathd/remainderd.c:118:31:true
+libm/mathd/remainderd.c:121:20:false
+libm/mathd/remainderd.c:121:20:true
+libm/mathd/remainderd.c:126:16:true
+libm/mathd/remainderd.c:132:9:false
+libm/mathd/remainderd.c:136:9:true
+libm/mathd/remainderd.c:143:9:true
+libm/mathd/remainderd.c:144:13:false
+libm/mathd/remainderd.c:144:13:true
+libm/mathd/remainderd.c:147:17:false
+libm/mathd/remainderd.c:147:17:true
+libm/mathd/remainderd.c:154:13:false
+libm/mathd/remainderd.c:157:17:false
+libm/mathd/remainderd.c:247:14:true
+libm/mathd/remainderd.c:256:14:true
+libm/mathd/remainderd.c:285:14:true
+libm/mathd/remainderd.c:318:30:false
+libm/mathd/remainderd.c:318:30:true
+libm/mathd/remainderd.c:325:29:false
+libm/mathd/remainderd.c:325:29:true
+libm/mathd/remquod.c:120:8:true
+libm/mathd/remquod.c:133:9:true
+libm/mathd/remquod.c:133:31:true
+libm/mathd/remquod.c:136:20:false
+libm/mathd/remquod.c:136:20:true
+libm/mathd/remquod.c:141:16:true
+libm/mathd/remquod.c:147:9:false
+libm/mathd/remquod.c:151:9:true
+libm/mathd/remquod.c:152:16:false
+libm/mathd/remquod.c:152:16:true
+libm/mathd/remquod.c:160:9:true
+libm/mathd/remquod.c:164:9:true
+libm/mathd/remquod.c:169:9:true
+libm/mathd/remquod.c:170:13:false
+libm/mathd/remquod.c:170:13:true
+libm/mathd/remquod.c:174:17:false
+libm/mathd/remquod.c:174:17:true
+libm/mathd/remquod.c:182:13:false
+libm/mathd/remquod.c:186:17:false
+libm/mathd/remquod.c:247:14:true
+libm/mathd/remquod.c:256:14:true
+libm/mathd/remquod.c:285:14:true
+libm/mathd/remquod.c:318:30:false
+libm/mathd/remquod.c:318:30:true
+libm/mathd/remquod.c:325:29:false
+libm/mathd/remquod.c:325:29:true
+libm/mathd/rintd.c:75:9:false
+libm/mathd/rintd.c:76:13:true
+libm/mathd/rintd.c:77:17:false
+libm/mathd/rintd.c:77:17:true
+libm/mathd/rintd.c:93:17:true
+libm/mathd/rintd.c:99:17:true
+libm/mathd/rintd.c:101:21:false
+libm/mathd/rintd.c:101:21:true
+libm/mathd/rintd.c:110:16:false
+libm/mathd/rintd.c:110:16:true
+libm/mathd/rintd.c:111:13:false
+libm/mathd/rintd.c:111:13:true
+libm/mathd/rintd.c:119:13:false
+libm/mathd/rintd.c:119:13:true
+libm/mathd/rintd.c:125:13:false
+libm/mathd/rintd.c:125:13:true
+libm/mathd/rintd.c:247:14:true
+libm/mathd/rintd.c:256:14:false
+libm/mathd/rintd.c:256:14:true
+libm/mathd/rintd.c:275:14:true
+libm/mathd/rintd.c:285:14:false
+libm/mathd/rintd.c:285:14:true
+libm/mathd/roundd.c:73:9:false
+libm/mathd/roundd.c:74:13:true
+libm/mathd/roundd.c:77:17:false
+libm/mathd/roundd.c:77:17:true
+libm/mathd/roundd.c:85:17:true
+libm/mathd/roundd.c:85:47:false
+libm/mathd/roundd.c:85:47:true
+libm/mathd/roundd.c:93:16:false
+libm/mathd/roundd.c:93:16:true
+libm/mathd/roundd.c:94:13:false
+libm/mathd/roundd.c:94:13:true
+libm/mathd/roundd.c:103:13:false
+libm/mathd/roundd.c:103:13:true
+libm/mathd/roundd.c:109:13:false
+libm/mathd/roundd.c:109:13:true
+libm/mathd/roundd.c:247:14:true
+libm/mathd/roundd.c:275:14:true
+libm/mathd/scalblnd.c:92:9:true
+libm/mathd/scalblnd.c:93:13:false
+libm/mathd/scalblnd.c:93:13:true
+libm/mathd/scalblnd.c:102:9:true
+libm/mathd/scalblnd.c:106:9:true
+libm/mathd/scalblnd.c:112:9:true
+libm/mathd/scalblnd.c:116:9:true
+libm/mathd/scalblnd.c:120:9:false
+libm/mathd/scalblnd.c:125:9:false
+libm/mathd/scalblnd.c:125:9:true
+libm/mathd/scalblnd.c:247:14:true
+libm/mathd/scalblnd.c:256:14:false
+libm/mathd/scalblnd.c:256:14:true
+libm/mathd/scalblnd.c:285:14:true
+libm/mathd/scalbnd.c:96:9:true
+libm/mathd/scalbnd.c:97:13:false
+libm/mathd/scalbnd.c:97:13:true
+libm/mathd/scalbnd.c:105:13:false
+libm/mathd/scalbnd.c:105:13:true
+libm/mathd/scalbnd.c:110:9:true
+libm/mathd/scalbnd.c:114:9:true
+libm/mathd/scalbnd.c:120:9:true
+libm/mathd/scalbnd.c:124:9:false
+libm/mathd/scalbnd.c:129:9:false
+libm/mathd/scalbnd.c:129:9:true
+libm/mathd/scalbnd.c:247:14:true
+libm/mathd/scalbnd.c:256:14:false
+libm/mathd/scalbnd.c:256:14:true
+libm/mathd/scalbnd.c:285:14:true
+libm/mathd/sind.c:75:12:false
+libm/mathd/sind.c:76:17:false
+libm/mathd/sind.c:87:14:true
+libm/mathd/sind.c:100:9:true
+libm/mathd/sind.c:103:9:false
+libm/mathd/sind.c:106:9:true
+libm/mathd/sind.c:109:9:true
+libm/mathd/sind.c:256:14:true
+libm/mathd/sind.c:318:30:false
+libm/mathd/sind.c:318:30:true
+libm/mathd/sind.c:325:29:false
+libm/mathd/sind.c:325:29:true
+libm/mathd/sinhd.c:76:9:true
+libm/mathd/sinhd.c:87:9:false
+libm/mathd/sinhd.c:89:17:false
+libm/mathd/sinhd.c:98:13:true
+libm/mathd/sinhd.c:106:9:false
+libm/mathd/sinhd.c:106:9:true
+libm/mathd/sinhd.c:113:9:false
+libm/mathd/sinhd.c:113:9:true
+libm/mathd/sinhd.c:113:29:false
+libm/mathd/sinhd.c:113:29:true
+libm/mathd/sinhd.c:113:49:false
+libm/mathd/sinhd.c:113:49:true
+libm/mathd/sinhd.c:256:14:true
+libm/mathd/sinhd.c:265:14:false
+libm/mathd/sinhd.c:265:14:true
+libm/mathd/sqrtd.c:70:9:true
+libm/mathd/sqrtd.c:73:20:false
+libm/mathd/sqrtd.c:73:20:true
+libm/mathd/sqrtd.c:82:13:false
+libm/mathd/sqrtd.c:84:20:false
+libm/mathd/sqrtd.c:84:20:true
+libm/mathd/sqrtd.c:94:9:true
+libm/mathd/sqrtd.c:95:16:false
+libm/mathd/sqrtd.c:95:16:true
+libm/mathd/sqrtd.c:101:21:false
+libm/mathd/sqrtd.c:101:21:true
+libm/mathd/sqrtd.c:106:13:false
+libm/mathd/sqrtd.c:106:13:true
+libm/mathd/sqrtd.c:148:41:true
+libm/mathd/sqrtd.c:173:13:true
+libm/mathd/sqrtd.c:247:14:true
+libm/mathd/sqrtd.c:275:14:true
+libm/mathd/sqrtd.c:318:30:false
+libm/mathd/sqrtd.c:318:30:true
+libm/mathd/sqrtd.c:325:29:false
+libm/mathd/sqrtd.c:325:29:true
+libm/mathd/tand.c:99:13:true
+libm/mathd/tand.c:128:9:true
+libm/mathd/tand.c:160:12:false
+libm/mathd/tand.c:161:17:false
+libm/mathd/tand.c:172:14:true
+libm/mathd/tand.c:256:14:true
+libm/mathd/tand.c:295:14:true
+libm/mathd/tand.c:318:30:false
+libm/mathd/tand.c:318:30:true
+libm/mathd/tand.c:325:29:false
+libm/mathd/tand.c:325:29:true
+libm/mathd/tanhd.c:74:9:true
+libm/mathd/tanhd.c:77:20:false
+libm/mathd/tanhd.c:77:20:true
+libm/mathd/tanhd.c:85:9:false
+libm/mathd/tanhd.c:87:17:false
+libm/mathd/tanhd.c:94:13:false
+libm/mathd/tanhd.c:256:14:true
+libm/mathd/tanhd.c:318:30:false
+libm/mathd/tanhd.c:318:30:true
+libm/mathd/tanhd.c:325:29:false
+libm/mathd/tanhd.c:325:29:true
+libm/mathd/tgammad.c:72:9:true
+libm/mathd/tgammad.c:74:16:true
+libm/mathd/tgammad.c:76:33:true
+libm/mathd/tgammad.c:84:9:true
+libm/mathd/tgammad.c:318:30:true
+libm/mathd/truncd.c:77:9:false
+libm/mathd/truncd.c:77:9:true
+libm/mathd/truncd.c:79:13:false
+libm/mathd/truncd.c:79:13:true
+libm/mathd/truncd.c:86:16:false
+libm/mathd/truncd.c:86:16:true
+libm/mathd/truncd.c:87:13:false
+libm/mathd/truncd.c:87:13:true
+libm/mathd/truncd.c:247:14:false
+libm/mathd/truncd.c:247:14:true
+libm/mathd/truncd.c:275:14:false
+libm/mathd/truncd.c:275:14:true
+libm/mathd/y0d.c:92:9:true
+libm/mathd/y0d.c:95:20:false
+libm/mathd/y0d.c:95:20:true
+libm/mathd/y0d.c:102:9:true
+libm/mathd/y0d.c:106:9:true
+libm/mathd/y0d.c:131:13:false
+libm/mathd/y0d.c:134:17:false
+libm/mathd/y0d.c:141:13:true
+libm/mathd/y0d.c:152:9:true
+libm/mathd/y0d.c:247:14:true
+libm/mathd/y0d.c:318:30:false
+libm/mathd/y0d.c:318:30:true
+libm/mathd/y0d.c:325:29:false
+libm/mathd/y0d.c:325:29:true
+libm/mathd/y1d.c:94:9:true
+libm/mathd/y1d.c:97:20:false
+libm/mathd/y1d.c:97:20:true
+libm/mathd/y1d.c:104:9:true
+libm/mathd/y1d.c:108:9:true
+libm/mathd/y1d.c:118:13:false
+libm/mathd/y1d.c:121:17:true
+libm/mathd/y1d.c:139:13:true
+libm/mathd/y1d.c:150:9:true
+libm/mathd/y1d.c:247:14:true
+libm/mathd/y1d.c:318:30:false
+libm/mathd/y1d.c:318:30:true
+libm/mathd/y1d.c:325:29:false
+libm/mathd/y1d.c:325:29:true
+libm/mathd/ynd.c:99:9:true
+libm/mathd/ynd.c:103:9:true
+libm/mathd/ynd.c:109:9:true
+libm/mathd/ynd.c:122:9:true
+libm/mathd/ynd.c:126:9:true
+libm/mathd/ynd.c:141:9:false
+libm/mathd/ynd.c:141:9:true
+libm/mathd/ynd.c:142:9:false
+libm/mathd/ynd.c:142:9:true
+libm/mathd/ynd.c:146:9:false
+libm/mathd/ynd.c:146:9:true
+libm/mathd/ynd.c:150:9:false
+libm/mathd/ynd.c:150:9:true
+libm/mathd/ynd.c:154:9:false
+libm/mathd/ynd.c:154:9:true
+libm/mathd/ynd.c:167:30:false
+libm/mathd/ynd.c:175:9:false
+libm/mathd/ynd.c:247:14:true
+libm/mathd/ynd.c:256:14:true
+libm/mathd/ynd.c:318:30:true
+libm/mathd/ynd.c:325:29:true
+libm/mathf/acosf.c:36:13:false
+libm/mathf/acosf.c:41:16:true
+libm/mathf/acosf.c:52:13:false
+libm/mathf/acosf.c:61:16:true
+libm/mathf/acosf.c:312:14:true
+libm/mathf/acosf.c:318:30:false
+libm/mathf/acosf.c:318:30:true
+libm/mathf/acosf.c:321:14:true
+libm/mathf/acosf.c:325:29:false
+libm/mathf/acosf.c:325:29:true
+libm/mathf/acoshf.c:22:9:true
+libm/mathf/acoshf.c:28:16:true
+libm/mathf/acoshf.c:29:13:false
+libm/mathf/acoshf.c:29:13:true
+libm/mathf/acoshf.c:36:16:true
+libm/mathf/acoshf.c:312:14:true
+libm/mathf/acoshf.c:318:30:false
+libm/mathf/acoshf.c:318:30:true
+libm/mathf/acoshf.c:325:29:false
+libm/mathf/acoshf.c:325:29:true
+libm/mathf/asinf.c:38:16:true
+libm/mathf/asinf.c:45:13:false
+libm/mathf/asinf.c:69:9:true
+libm/mathf/asinf.c:84:9:false
+libm/mathf/asinf.c:124:34:false
+libm/mathf/asinf.c:312:14:true
+libm/mathf/asinf.c:318:30:false
+libm/mathf/asinf.c:318:30:true
+libm/mathf/asinf.c:321:14:true
+libm/mathf/asinf.c:325:29:false
+libm/mathf/asinf.c:325:29:true
+libm/mathf/asinhf.c:23:9:true
+libm/mathf/asinhf.c:35:9:true
+libm/mathf/asinhf.c:37:16:true
+libm/mathf/asinhf.c:45:9:false
+libm/mathf/asinhf.c:124:34:false
+libm/mathf/asinhf.c:312:14:true
+libm/mathf/atan2f.c:44:9:true
+libm/mathf/atan2f.c:45:9:false
+libm/mathf/atan2f.c:46:9:true
+libm/mathf/atan2f.c:49:9:true
+libm/mathf/atan2f.c:52:9:true
+libm/mathf/atan2f.c:59:16:false
+libm/mathf/atan2f.c:59:16:true
+libm/mathf/atan2f.c:66:13:false
+libm/mathf/atan2f.c:66:13:true
+libm/mathf/atan2f.c:67:13:false
+libm/mathf/atan2f.c:67:13:true
+libm/mathf/atan2f.c:70:13:false
+libm/mathf/atan2f.c:70:13:true
+libm/mathf/atan2f.c:73:13:false
+libm/mathf/atan2f.c:73:13:true
+libm/mathf/atan2f.c:76:13:false
+libm/mathf/atan2f.c:76:13:true
+libm/mathf/atan2f.c:79:29:true
+libm/mathf/atan2f.c:80:34:true
+libm/mathf/atan2f.c:81:13:false
+libm/mathf/atan2f.c:81:13:true
+libm/mathf/atan2f.c:82:13:false
+libm/mathf/atan2f.c:82:13:true
+libm/mathf/atan2f.c:85:13:false
+libm/mathf/atan2f.c:85:13:true
+libm/mathf/atan2f.c:88:13:false
+libm/mathf/atan2f.c:88:13:true
+libm/mathf/atan2f.c:91:13:false
+libm/mathf/atan2f.c:91:13:true
+libm/mathf/atan2f.c:99:16:false
+libm/mathf/atan2f.c:99:16:true
+libm/mathf/atan2f.c:105:9:true
+libm/mathf/atan2f.c:108:26:true
+libm/mathf/atan2f.c:124:5:true
+libm/mathf/atan2f.c:312:14:true
+libm/mathf/atanf.c:50:9:true
+libm/mathf/atanf.c:55:13:false
+libm/mathf/atanf.c:55:13:true
+libm/mathf/atanf.c:79:29:false
+libm/mathf/atanf.c:79:29:true
+libm/mathf/atanf.c:105:16:true
+libm/mathf/atanf.c:124:34:false
+libm/mathf/atanf.c:312:14:true
+libm/mathf/atanhf.c:21:9:true
+libm/mathf/atanhf.c:29:9:true
+libm/mathf/atanhf.c:43:9:true
+libm/mathf/atanhf.c:50:9:false
+libm/mathf/atanhf.c:124:34:false
+libm/mathf/atanhf.c:312:14:true
+libm/mathf/atanhf.c:318:30:false
+libm/mathf/atanhf.c:318:30:true
+libm/mathf/atanhf.c:321:14:true
+libm/mathf/atanhf.c:325:29:false
+libm/mathf/atanhf.c:325:29:true
+libm/mathf/cbrtf.c:37:9:true
+libm/mathf/cbrtf.c:124:34:true
+libm/mathf/cbrtf.c:125:39:true
+libm/mathf/cbrtf.c:312:14:true
+libm/mathf/cbrtf.c:321:14:true
+libm/mathf/ceilf.c:20:9:false
+libm/mathf/ceilf.c:20:9:true
+libm/mathf/ceilf.c:21:13:false
+libm/mathf/ceilf.c:21:13:true
+libm/mathf/ceilf.c:28:17:false
+libm/mathf/ceilf.c:28:17:true
+libm/mathf/ceilf.c:36:17:false
+libm/mathf/ceilf.c:36:17:true
+libm/mathf/ceilf.c:42:17:false
+libm/mathf/ceilf.c:42:17:true
+libm/mathf/ceilf.c:49:13:false
+libm/mathf/ceilf.c:49:13:true
+libm/mathf/ceilf.c:124:34:false
+libm/mathf/ceilf.c:124:34:true
+libm/mathf/ceilf.c:312:14:false
+libm/mathf/ceilf.c:312:14:true
+libm/mathf/ceilf.c:321:14:false
+libm/mathf/ceilf.c:321:14:true
+libm/mathf/copysignf.c:312:14:false
+libm/mathf/copysignf.c:312:14:true
+libm/mathf/copysignf.c:321:14:false
+libm/mathf/copysignf.c:321:14:true
+libm/mathf/cosf.c:24:12:false
+libm/mathf/cosf.c:25:17:false
+libm/mathf/cosf.c:35:14:true
+libm/mathf/cosf.c:48:9:true
+libm/mathf/cosf.c:51:9:false
+libm/mathf/cosf.c:54:9:true
+libm/mathf/cosf.c:57:9:true
+libm/mathf/cosf.c:312:14:true
+libm/mathf/cosf.c:318:30:false
+libm/mathf/cosf.c:318:30:true
+libm/mathf/cosf.c:325:29:false
+libm/mathf/cosf.c:325:29:true
+libm/mathf/coshf.c:23:9:true
+libm/mathf/coshf.c:32:13:false
+libm/mathf/coshf.c:40:9:false
+libm/mathf/coshf.c:46:9:false
+libm/mathf/coshf.c:46:9:true
+libm/mathf/coshf.c:51:9:false
+libm/mathf/coshf.c:51:9:true
+libm/mathf/coshf.c:312:14:true
+libm/mathf/erfcf.c:25:9:true
+libm/mathf/erfcf.c:28:20:false
+libm/mathf/erfcf.c:28:20:true
+libm/mathf/erfcf.c:36:13:false
+libm/mathf/erfcf.c:42:13:false
+libm/mathf/erfcf.c:42:13:true
+libm/mathf/erfcf.c:51:9:false
+libm/mathf/erfcf.c:56:13:false
+libm/mathf/erfcf.c:65:9:false
+libm/mathf/erfcf.c:65:9:true
+libm/mathf/erfcf.c:69:13:false
+libm/mathf/erfcf.c:69:13:true
+libm/mathf/erfcf.c:73:17:false
+libm/mathf/erfcf.c:73:17:true
+libm/mathf/erfcf.c:73:27:false
+libm/mathf/erfcf.c:73:27:true
+libm/mathf/erfcf.c:85:13:false
+libm/mathf/erfcf.c:85:13:true
+libm/mathf/erfcf.c:91:13:false
+libm/mathf/erfcf.c:91:13:true
+libm/mathf/erfcf.c:312:14:true
+libm/mathf/erfcf.c:318:30:false
+libm/mathf/erfcf.c:318:30:true
+libm/mathf/erfcf.c:321:14:false
+libm/mathf/erfcf.c:321:14:true
+libm/mathf/erfcf.c:325:29:false
+libm/mathf/erfcf.c:325:29:true
+libm/mathf/erff.c:30:9:true
+libm/mathf/erff.c:33:20:false
+libm/mathf/erff.c:33:20:true
+libm/mathf/erff.c:41:13:false
+libm/mathf/erff.c:42:17:false
+libm/mathf/erff.c:54:9:false
+libm/mathf/erff.c:59:13:false
+libm/mathf/erff.c:66:9:false
+libm/mathf/erff.c:66:9:true
+libm/mathf/erff.c:67:13:false
+libm/mathf/erff.c:67:13:true
+libm/mathf/erff.c:77:9:false
+libm/mathf/erff.c:77:9:true
+libm/mathf/erff.c:89:9:false
+libm/mathf/erff.c:89:9:true
+libm/mathf/erff.c:312:14:true
+libm/mathf/erff.c:318:30:false
+libm/mathf/erff.c:318:30:true
+libm/mathf/erff.c:321:14:false
+libm/mathf/erff.c:321:14:true
+libm/mathf/erff.c:325:29:false
+libm/mathf/erff.c:325:29:true
+libm/mathf/expf.c:49:16:false
+libm/mathf/expf.c:49:16:true
+libm/mathf/expf.c:52:9:true
+libm/mathf/expf.c:56:9:true
+libm/mathf/expf.c:56:19:false
+libm/mathf/expf.c:56:19:true
+libm/mathf/expf.c:74:16:false
+libm/mathf/expf.c:75:13:false
+libm/mathf/expf.c:79:29:true
+libm/mathf/expf.c:80:34:true
+libm/mathf/expf.c:88:9:true
+libm/mathf/expf.c:94:9:false
+libm/mathf/expf.c:312:14:true
+libm/mathf/expf.c:321:14:true
+libm/mathf/expm1f.c:38:9:true
+libm/mathf/expm1f.c:44:20:false
+libm/mathf/expm1f.c:44:20:true
+libm/mathf/expm1f.c:47:13:false
+libm/mathf/expm1f.c:47:13:true
+libm/mathf/expm1f.c:47:25:false
+libm/mathf/expm1f.c:47:25:true
+libm/mathf/expm1f.c:51:13:false
+libm/mathf/expm1f.c:51:13:true
+libm/mathf/expm1f.c:59:17:false
+libm/mathf/expm1f.c:69:32:false
+libm/mathf/expm1f.c:77:16:false
+libm/mathf/expm1f.c:78:13:false
+libm/mathf/expm1f.c:79:29:false
+libm/mathf/expm1f.c:79:29:true
+libm/mathf/expm1f.c:80:34:false
+libm/mathf/expm1f.c:80:34:true
+libm/mathf/expm1f.c:94:9:true
+libm/mathf/expm1f.c:100:13:true
+libm/mathf/expm1f.c:105:17:true
+libm/mathf/expm1f.c:112:13:true
+libm/mathf/expm1f.c:112:24:true
+libm/mathf/expm1f.c:122:13:false
+libm/mathf/expm1f.c:312:14:true
+libm/mathf/expm1f.c:321:14:true
+libm/mathf/fabsf.c:312:14:false
+libm/mathf/fabsf.c:312:14:true
+libm/mathf/fabsf.c:321:14:false
+libm/mathf/fabsf.c:321:14:true
+libm/mathf/fdimf.c:318:30:false
+libm/mathf/fdimf.c:325:29:true
+libm/mathf/floorf.c:29:9:false
+libm/mathf/floorf.c:45:17:false
+libm/mathf/floorf.c:51:17:false
+libm/mathf/floorf.c:51:17:true
+libm/mathf/floorf.c:58:13:false
+libm/mathf/floorf.c:58:13:true
+libm/mathf/floorf.c:124:34:true
+libm/mathf/floorf.c:312:14:true
+libm/mathf/floorf.c:321:14:true
+libm/mathf/fmaxf.c:10:13:false
+libm/mathf/fmaxf.c:10:13:true
+libm/mathf/fmaxf.c:10:39:false
+libm/mathf/fmaxf.c:10:39:true
+libm/mathf/fmaxf.c:20:13:false
+libm/mathf/fmaxf.c:20:13:true
+libm/mathf/fmaxf.c:34:12:false
+libm/mathf/fmaxf.c:34:12:true
+libm/mathf/fmaxf.c:318:30:false
+libm/mathf/fmaxf.c:318:30:true
+libm/mathf/fmaxf.c:325:29:false
+libm/mathf/fmaxf.c:325:29:true
+libm/mathf/fminf.c:10:13:false
+libm/mathf/fminf.c:10:13:true
+libm/mathf/fminf.c:10:39:false
+libm/mathf/fminf.c:10:39:true
+libm/mathf/fminf.c:20:13:false
+libm/mathf/fminf.c:20:13:true
+libm/mathf/fminf.c:34:12:false
+libm/mathf/fminf.c:34:12:true
+libm/mathf/fminf.c:318:30:false
+libm/mathf/fminf.c:318:30:true
+libm/mathf/fminf.c:325:29:false
+libm/mathf/fminf.c:325:29:true
+libm/mathf/fmodf.c:32:9:true
+libm/mathf/fmodf.c:32:37:true
+libm/mathf/fmodf.c:50:9:true
+libm/mathf/fmodf.c:58:40:false
+libm/mathf/fmodf.c:58:40:true
+libm/mathf/fmodf.c:67:40:false
+libm/mathf/fmodf.c:67:40:true
+libm/mathf/fmodf.c:75:9:false
+libm/mathf/fmodf.c:79:29:false
+libm/mathf/fmodf.c:79:29:true
+libm/mathf/fmodf.c:80:34:false
+libm/mathf/fmodf.c:80:34:true
+libm/mathf/fmodf.c:82:9:false
+libm/mathf/fmodf.c:95:13:false
+libm/mathf/fmodf.c:98:17:false
+libm/mathf/fmodf.c:98:17:true
+libm/mathf/fmodf.c:108:9:false
+libm/mathf/fmodf.c:113:9:true
+libm/mathf/fmodf.c:117:12:true
+libm/mathf/fmodf.c:122:9:false
+libm/mathf/fmodf.c:124:34:true
+libm/mathf/fmodf.c:125:39:true
+libm/mathf/fmodf.c:312:14:true
+libm/mathf/fmodf.c:321:14:true
+libm/mathf/frexpf.c:22:8:true
+libm/mathf/frexpf.c:30:9:true
+libm/mathf/frexpf.c:125:39:true
+libm/mathf/frexpf.c:312:14:true
+libm/mathf/frexpf.c:321:14:true
+libm/mathf/hypotf.c:42:9:true
+libm/mathf/hypotf.c:43:13:false
+libm/mathf/hypotf.c:43:13:true
+libm/mathf/hypotf.c:65:9:true
+libm/mathf/hypotf.c:80:34:false
+libm/mathf/hypotf.c:80:34:true
+libm/mathf/hypotf.c:98:9:true
+libm/mathf/hypotf.c:124:34:false
+libm/mathf/hypotf.c:124:34:true
+libm/mathf/hypotf.c:125:39:false
+libm/mathf/hypotf.c:125:39:true
+libm/mathf/hypotf.c:312:14:true
+libm/mathf/hypotf.c:321:14:true
+libm/mathf/ilogbf.c:23:35:false
+libm/mathf/ilogbf.c:23:35:true
+libm/mathf/ilogbf.c:78:32:false
+libm/mathf/ilogbf.c:79:29:false
+libm/mathf/ilogbf.c:79:29:true
+libm/mathf/ilogbf.c:124:34:true
+libm/mathf/ilogbf.c:125:39:true
+libm/mathf/ilogbf.c:312:14:true
+libm/mathf/internal/fpclassifyf.c:16:16:false
+libm/mathf/internal/fpclassifyf.c:18:16:true
+libm/mathf/internal/fpclassifyf.c:312:14:true
+libm/mathf/internal/gammaf.c:87:9:true
+libm/mathf/internal/gammaf.c:117:5:true
+libm/mathf/internal/gammaf.c:118:5:true
+libm/mathf/internal/gammaf.c:122:5:true
+libm/mathf/internal/gammaf.c:123:5:true
+libm/mathf/internal/gammaf.c:127:5:true
+libm/mathf/internal/gammaf.c:132:5:true
+libm/mathf/internal/gammaf.c:151:9:true
+libm/mathf/internal/gammaf.c:155:9:true
+libm/mathf/internal/gammaf.c:156:12:false
+libm/mathf/internal/gammaf.c:156:12:true
+libm/mathf/internal/gammaf.c:162:9:true
+libm/mathf/internal/gammaf.c:163:13:false
+libm/mathf/internal/gammaf.c:163:13:true
+libm/mathf/internal/gammaf.c:171:9:true
+libm/mathf/internal/gammaf.c:172:13:false
+libm/mathf/internal/gammaf.c:172:13:true
+libm/mathf/internal/gammaf.c:178:13:false
+libm/mathf/internal/gammaf.c:178:13:true
+libm/mathf/internal/gammaf.c:184:13:false
+libm/mathf/internal/gammaf.c:184:13:true
+libm/mathf/internal/gammaf.c:196:14:false
+libm/mathf/internal/gammaf.c:197:13:false
+libm/mathf/internal/gammaf.c:200:17:true
+libm/mathf/internal/gammaf.c:203:24:false
+libm/mathf/internal/gammaf.c:213:17:false
+libm/mathf/internal/gammaf.c:213:17:true
+libm/mathf/internal/gammaf.c:216:24:false
+libm/mathf/internal/gammaf.c:216:24:true
+libm/mathf/internal/gammaf.c:226:9:true
+libm/mathf/internal/gammaf.c:227:9:true
+libm/mathf/internal/gammaf.c:235:9:false
+libm/mathf/internal/gammaf.c:245:9:true
+libm/mathf/internal/gammaf.c:251:16:false
+libm/mathf/internal/gammaf.c:251:16:true
+libm/mathf/internal/gammaf.c:260:9:false
+libm/mathf/internal/gammaf.c:260:9:true
+libm/mathf/internal/gammaf.c:263:9:false
+libm/mathf/internal/gammaf.c:263:9:true
+libm/mathf/internal/gammaf.c:266:9:false
+libm/mathf/internal/gammaf.c:266:9:true
+libm/mathf/internal/gammaf.c:269:9:false
+libm/mathf/internal/gammaf.c:269:9:true
+libm/mathf/internal/gammaf.c:272:9:false
+libm/mathf/internal/gammaf.c:272:9:true
+libm/mathf/internal/gammaf.c:275:9:false
+libm/mathf/internal/gammaf.c:275:9:true
+libm/mathf/internal/gammaf.c:281:16:false
+libm/mathf/internal/gammaf.c:281:16:true
+libm/mathf/internal/gammaf.c:293:9:true
+libm/mathf/internal/gammaf.c:312:14:true
+libm/mathf/internal/signbitf.c:312:14:true
+libm/mathf/internal/trigf.c:126:16:true
+libm/mathf/internal/trigf.c:157:13:true
+libm/mathf/internal/trigf.c:162:20:true
+libm/mathf/internal/trigf.c:164:20:false
+libm/mathf/internal/trigf.c:171:13:false
+libm/mathf/internal/trigf.c:179:25:false
+libm/mathf/internal/trigf.c:188:17:true
+libm/mathf/internal/trigf.c:190:17:false
+libm/mathf/internal/trigf.c:190:17:true
+libm/mathf/internal/trigf.c:191:17:false
+libm/mathf/internal/trigf.c:191:17:true
+libm/mathf/internal/trigf.c:195:17:false
+libm/mathf/internal/trigf.c:195:17:true
+libm/mathf/internal/trigf.c:201:17:false
+libm/mathf/internal/trigf.c:206:21:false
+libm/mathf/internal/trigf.c:217:13:true
+libm/mathf/internal/trigf.c:220:30:false
+libm/mathf/internal/trigf.c:220:30:true
+libm/mathf/internal/trigf.c:224:17:false
+libm/mathf/internal/trigf.c:224:17:true
+libm/mathf/internal/trigf.c:225:29:false
+libm/mathf/internal/trigf.c:225:29:true
+libm/mathf/internal/trigf.c:225:46:false
+libm/mathf/internal/trigf.c:225:46:true
+libm/mathf/internal/trigf.c:231:34:false
+libm/mathf/internal/trigf.c:231:34:true
+libm/mathf/internal/trigf.c:232:25:false
+libm/mathf/internal/trigf.c:232:25:true
+libm/mathf/internal/trigf.c:233:25:false
+libm/mathf/internal/trigf.c:233:25:true
+libm/mathf/internal/trigf.c:239:44:false
+libm/mathf/internal/trigf.c:239:44:true
+libm/mathf/internal/trigf.c:253:14:true
+libm/mathf/internal/trigf.c:253:27:false
+libm/mathf/internal/trigf.c:253:27:true
+libm/mathf/internal/trigf.c:256:9:true
+libm/mathf/internal/trigf.c:259:23:false
+libm/mathf/internal/trigf.c:259:23:true
+libm/mathf/internal/trigf.c:260:17:false
+libm/mathf/internal/trigf.c:260:17:true
+libm/mathf/internal/trigf.c:295:12:true
+libm/mathf/internal/trigf.c:302:12:true
+libm/mathf/internal/trigf.c:312:14:true
+libm/mathf/internal/trigf.c:318:30:false
+libm/mathf/internal/trigf.c:318:30:true
+libm/mathf/internal/trigf.c:321:14:false
+libm/mathf/internal/trigf.c:321:14:true
+libm/mathf/internal/trigf.c:325:29:false
+libm/mathf/internal/trigf.c:325:29:true
+libm/mathf/internal/trigf.c:343:9:true
+libm/mathf/internal/trigf.c:351:13:false
+libm/mathf/internal/trigf.c:367:17:false
+libm/mathf/internal/trigf.c:367:17:true
+libm/mathf/internal/trigf.c:380:9:false
+libm/mathf/internal/trigf.c:394:17:true
+libm/mathf/internal/trigf.c:403:21:false
+libm/mathf/internal/trigf.c:403:21:true
+libm/mathf/internal/trigf.c:415:13:true
+libm/mathf/internal/trigf.c:427:9:false
+libm/mathf/internal/trigf.c:427:9:true
+libm/mathf/internal/trigf.c:442:17:false
+libm/mathf/internal/trigf.c:442:17:true
+libm/mathf/internal/trigf.c:449:18:false
+libm/mathf/internal/trigf.c:449:18:true
+libm/mathf/internal/trigf.c:450:13:false
+libm/mathf/internal/trigf.c:450:13:true
+libm/mathf/internal/trigf.c:457:9:false
+libm/mathf/internal/trigf.c:457:9:true
+libm/mathf/ldexpf.c:13:9:true
+libm/mathf/ldexpf.c:13:31:true
+libm/mathf/ldexpf.c:318:30:false
+libm/mathf/ldexpf.c:322:29:false
+libm/mathf/ldexpf.c:322:52:false
+libm/mathf/llrintf.c:44:9:false
+libm/mathf/llrintf.c:45:13:true
+libm/mathf/llrintf.c:47:20:true
+libm/mathf/llrintf.c:56:17:true
+libm/mathf/llrintf.c:67:13:false
+libm/mathf/llrintf.c:67:13:true
+libm/mathf/llrintf.c:312:14:true
+libm/mathf/llroundf.c:21:9:false
+libm/mathf/llroundf.c:22:13:true
+libm/mathf/llroundf.c:23:20:false
+libm/mathf/llroundf.c:23:20:true
+libm/mathf/llroundf.c:24:20:true
+libm/mathf/llroundf.c:32:13:false
+libm/mathf/llroundf.c:32:13:true
+libm/mathf/llroundf.c:312:14:true
+libm/mathf/log10f.c:39:9:true
+libm/mathf/log10f.c:79:29:true
+libm/mathf/log10f.c:80:34:true
+libm/mathf/log10f.c:124:34:true
+libm/mathf/log10f.c:125:39:true
+libm/mathf/log10f.c:312:14:true
+libm/mathf/log10f.c:321:14:true
+libm/mathf/log1pf.c:33:9:true
+libm/mathf/log1pf.c:38:13:true
+libm/mathf/log1pf.c:41:24:false
+libm/mathf/log1pf.c:41:24:true
+libm/mathf/log1pf.c:48:13:false
+libm/mathf/log1pf.c:49:17:false
+libm/mathf/log1pf.c:56:13:false
+libm/mathf/log1pf.c:56:13:true
+libm/mathf/log1pf.c:56:23:false
+libm/mathf/log1pf.c:56:23:true
+libm/mathf/log1pf.c:63:9:false
+libm/mathf/log1pf.c:64:13:false
+libm/mathf/log1pf.c:69:18:false
+libm/mathf/log1pf.c:79:29:false
+libm/mathf/log1pf.c:79:29:true
+libm/mathf/log1pf.c:94:13:false
+libm/mathf/log1pf.c:104:9:true
+libm/mathf/log1pf.c:312:14:true
+libm/mathf/log1pf.c:321:14:true
+libm/mathf/log2f.c:37:9:true
+libm/mathf/log2f.c:79:29:true
+libm/mathf/log2f.c:80:34:true
+libm/mathf/log2f.c:124:34:true
+libm/mathf/log2f.c:125:39:true
+libm/mathf/log2f.c:312:14:true
+libm/mathf/log2f.c:321:14:true
+libm/mathf/logbf.c:32:35:false
+libm/mathf/logbf.c:32:35:true
+libm/mathf/logbf.c:37:16:true
+libm/mathf/logbf.c:124:34:true
+libm/mathf/logbf.c:125:39:true
+libm/mathf/logbf.c:312:14:true
+libm/mathf/logf.c:43:9:true
+libm/mathf/logf.c:65:13:false
+libm/mathf/logf.c:76:13:false
+libm/mathf/logf.c:76:13:true
+libm/mathf/logf.c:79:29:true
+libm/mathf/logf.c:80:34:true
+libm/mathf/logf.c:98:13:true
+libm/mathf/logf.c:104:13:true
+libm/mathf/logf.c:124:34:true
+libm/mathf/logf.c:125:39:true
+libm/mathf/logf.c:312:14:true
+libm/mathf/logf.c:321:14:true
+libm/mathf/lrintf.c:43:9:false
+libm/mathf/lrintf.c:44:13:true
+libm/mathf/lrintf.c:46:20:true
+libm/mathf/lrintf.c:55:17:true
+libm/mathf/lrintf.c:66:13:false
+libm/mathf/lrintf.c:66:13:true
+libm/mathf/lrintf.c:312:14:true
+libm/mathf/lroundf.c:20:9:false
+libm/mathf/lroundf.c:21:13:true
+libm/mathf/lroundf.c:22:20:false
+libm/mathf/lroundf.c:22:20:true
+libm/mathf/lroundf.c:23:20:true
+libm/mathf/lroundf.c:31:13:false
+libm/mathf/lroundf.c:31:13:true
+libm/mathf/lroundf.c:312:14:true
+libm/mathf/modff.c:20:8:true
+libm/mathf/modff.c:27:9:false
+libm/mathf/modff.c:28:13:true
+libm/mathf/modff.c:34:17:true
+libm/mathf/modff.c:312:14:true
+libm/mathf/modff.c:318:30:false
+libm/mathf/modff.c:318:30:true
+libm/mathf/modff.c:321:14:true
+libm/mathf/modff.c:325:29:false
+libm/mathf/modff.c:325:29:true
+libm/mathf/nanf.c:321:14:true
+libm/mathf/nextafterf.c:24:16:true
+libm/mathf/nextafterf.c:26:16:true
+libm/mathf/nextafterf.c:27:13:false
+libm/mathf/nextafterf.c:27:13:true
+libm/mathf/nextafterf.c:37:16:false
+libm/mathf/nextafterf.c:44:13:false
+libm/mathf/nextafterf.c:44:13:true
+libm/mathf/nextafterf.c:44:24:false
+libm/mathf/nextafterf.c:44:24:true
+libm/mathf/nextafterf.c:53:9:true
+libm/mathf/nextafterf.c:57:9:true
+libm/mathf/nextafterf.c:79:29:true
+libm/mathf/nextafterf.c:312:14:true
+libm/mathf/nextafterf.c:321:14:true
+libm/mathf/powf.c:53:13:true
+libm/mathf/powf.c:62:13:false
+libm/mathf/powf.c:62:13:true
+libm/mathf/powf.c:62:33:false
+libm/mathf/powf.c:62:33:true
+libm/mathf/powf.c:79:29:true
+libm/mathf/powf.c:80:34:true
+libm/mathf/powf.c:86:9:true
+libm/mathf/powf.c:87:13:false
+libm/mathf/powf.c:87:13:true
+libm/mathf/powf.c:89:20:false
+libm/mathf/powf.c:89:20:true
+libm/mathf/powf.c:93:17:false
+libm/mathf/powf.c:93:17:true
+libm/mathf/powf.c:103:13:false
+libm/mathf/powf.c:103:13:true
+libm/mathf/powf.c:105:20:false
+libm/mathf/powf.c:105:20:true
+libm/mathf/powf.c:106:20:false
+libm/mathf/powf.c:106:20:true
+libm/mathf/powf.c:108:20:false
+libm/mathf/powf.c:108:20:true
+libm/mathf/powf.c:112:9:true
+libm/mathf/powf.c:113:13:false
+libm/mathf/powf.c:113:13:true
+libm/mathf/powf.c:125:13:false
+libm/mathf/powf.c:125:39:true
+libm/mathf/powf.c:133:63:true
+libm/mathf/powf.c:136:13:false
+libm/mathf/powf.c:136:13:true
+libm/mathf/powf.c:146:13:false
+libm/mathf/powf.c:146:13:true
+libm/mathf/powf.c:147:17:false
+libm/mathf/powf.c:147:17:true
+libm/mathf/powf.c:149:24:false
+libm/mathf/powf.c:149:24:true
+libm/mathf/powf.c:160:9:true
+libm/mathf/powf.c:165:9:true
+libm/mathf/powf.c:168:13:false
+libm/mathf/powf.c:168:13:true
+libm/mathf/powf.c:169:20:false
+libm/mathf/powf.c:169:20:true
+libm/mathf/powf.c:172:13:false
+libm/mathf/powf.c:172:13:true
+libm/mathf/powf.c:173:20:false
+libm/mathf/powf.c:173:20:true
+libm/mathf/powf.c:202:13:false
+libm/mathf/powf.c:204:20:false
+libm/mathf/powf.c:204:20:true
+libm/mathf/powf.c:255:9:true
+libm/mathf/powf.c:268:9:false
+libm/mathf/powf.c:269:13:true
+libm/mathf/powf.c:271:20:true
+libm/mathf/powf.c:272:17:false
+libm/mathf/powf.c:272:17:true
+libm/mathf/powf.c:279:13:false
+libm/mathf/powf.c:279:13:true
+libm/mathf/powf.c:281:20:false
+libm/mathf/powf.c:281:20:true
+libm/mathf/powf.c:282:17:false
+libm/mathf/powf.c:282:17:true
+libm/mathf/powf.c:296:9:false
+libm/mathf/powf.c:302:13:true
+libm/mathf/powf.c:312:14:true
+libm/mathf/powf.c:321:14:true
+libm/mathf/powf.c:323:9:true
+libm/mathf/remainderf.c:36:9:false
+libm/mathf/remainderf.c:40:9:true
+libm/mathf/remainderf.c:47:9:true
+libm/mathf/remainderf.c:48:13:false
+libm/mathf/remainderf.c:48:13:true
+libm/mathf/remainderf.c:51:17:false
+libm/mathf/remainderf.c:51:17:true
+libm/mathf/remainderf.c:58:13:false
+libm/mathf/remainderf.c:61:17:false
+libm/mathf/remainderf.c:79:29:true
+libm/mathf/remainderf.c:80:34:true
+libm/mathf/remainderf.c:124:34:true
+libm/mathf/remainderf.c:312:14:true
+libm/mathf/remainderf.c:321:14:true
+libm/mathf/remquof.c:23:8:true
+libm/mathf/remquof.c:44:9:false
+libm/mathf/remquof.c:48:9:true
+libm/mathf/remquof.c:49:16:false
+libm/mathf/remquof.c:49:16:true
+libm/mathf/remquof.c:57:9:true
+libm/mathf/remquof.c:61:9:true
+libm/mathf/remquof.c:66:9:true
+libm/mathf/remquof.c:67:13:false
+libm/mathf/remquof.c:67:13:true
+libm/mathf/remquof.c:71:17:false
+libm/mathf/remquof.c:71:17:true
+libm/mathf/remquof.c:79:13:false
+libm/mathf/remquof.c:79:29:true
+libm/mathf/remquof.c:80:34:true
+libm/mathf/remquof.c:83:17:false
+libm/mathf/remquof.c:92:12:true
+libm/mathf/remquof.c:124:34:true
+libm/mathf/remquof.c:312:14:true
+libm/mathf/remquof.c:321:14:true
+libm/mathf/rintf.c:29:9:false
+libm/mathf/rintf.c:34:13:true
+libm/mathf/rintf.c:47:17:true
+libm/mathf/rintf.c:53:17:true
+libm/mathf/rintf.c:58:13:false
+libm/mathf/rintf.c:58:13:true
+libm/mathf/rintf.c:124:34:true
+libm/mathf/rintf.c:312:14:true
+libm/mathf/rintf.c:321:14:true
+libm/mathf/roundf.c:22:9:false
+libm/mathf/roundf.c:23:13:true
+libm/mathf/roundf.c:26:17:false
+libm/mathf/roundf.c:26:17:true
+libm/mathf/roundf.c:34:17:true
+libm/mathf/roundf.c:44:13:false
+libm/mathf/roundf.c:44:13:true
+libm/mathf/roundf.c:312:14:true
+libm/mathf/roundf.c:321:14:true
+libm/mathf/scalblnf.c:22:9:true
+libm/mathf/scalblnf.c:23:13:false
+libm/mathf/scalblnf.c:23:13:true
+libm/mathf/scalblnf.c:32:9:true
+libm/mathf/scalblnf.c:36:9:true
+libm/mathf/scalblnf.c:42:9:true
+libm/mathf/scalblnf.c:46:9:true
+libm/mathf/scalblnf.c:50:9:false
+libm/mathf/scalblnf.c:55:9:false
+libm/mathf/scalblnf.c:55:9:true
+libm/mathf/scalblnf.c:312:14:true
+libm/mathf/scalblnf.c:321:14:true
+libm/mathf/scalbnf.c:35:9:true
+libm/mathf/scalbnf.c:44:13:false
+libm/mathf/scalbnf.c:44:13:true
+libm/mathf/scalbnf.c:49:9:true
+libm/mathf/scalbnf.c:55:9:true
+libm/mathf/scalbnf.c:59:9:false
+libm/mathf/scalbnf.c:64:9:false
+libm/mathf/scalbnf.c:64:9:true
+libm/mathf/scalbnf.c:124:34:true
+libm/mathf/scalbnf.c:125:39:true
+libm/mathf/scalbnf.c:312:14:true
+libm/mathf/scalbnf.c:321:14:true
+libm/mathf/sinf.c:24:12:false
+libm/mathf/sinf.c:35:14:true
+libm/mathf/sinf.c:48:9:true
+libm/mathf/sinf.c:51:9:false
+libm/mathf/sinf.c:54:9:true
+libm/mathf/sinf.c:57:9:true
+libm/mathf/sinf.c:124:34:false
+libm/mathf/sinf.c:312:14:true
+libm/mathf/sinf.c:318:30:false
+libm/mathf/sinf.c:318:30:true
+libm/mathf/sinf.c:325:29:false
+libm/mathf/sinf.c:325:29:true
+libm/mathf/sinhf.c:23:9:true
+libm/mathf/sinhf.c:29:9:true
+libm/mathf/sinhf.c:34:9:false
+libm/mathf/sinhf.c:45:13:true
+libm/mathf/sinhf.c:53:9:false
+libm/mathf/sinhf.c:53:9:true
+libm/mathf/sinhf.c:58:9:false
+libm/mathf/sinhf.c:58:9:true
+libm/mathf/sinhf.c:124:34:false
+libm/mathf/sinhf.c:312:14:true
+libm/mathf/sqrtf.c:22:9:true
+libm/mathf/sqrtf.c:25:20:false
+libm/mathf/sqrtf.c:25:20:true
+libm/mathf/sqrtf.c:37:9:true
+libm/mathf/sqrtf.c:45:21:false
+libm/mathf/sqrtf.c:45:21:true
+libm/mathf/sqrtf.c:79:29:false
+libm/mathf/sqrtf.c:79:29:true
+libm/mathf/sqrtf.c:124:34:true
+libm/mathf/sqrtf.c:125:39:true
+libm/mathf/sqrtf.c:312:14:true
+libm/mathf/sqrtf.c:321:14:true
+libm/mathf/tanf.c:37:13:true
+libm/mathf/tanf.c:66:9:true
+libm/mathf/tanf.c:100:12:false
+libm/mathf/tanf.c:111:14:true
+libm/mathf/tanf.c:124:34:false
+libm/mathf/tanf.c:312:14:true
+libm/mathf/tanf.c:318:30:false
+libm/mathf/tanf.c:318:30:true
+libm/mathf/tanf.c:321:14:true
+libm/mathf/tanf.c:325:29:false
+libm/mathf/tanf.c:325:29:true
+libm/mathf/tanhf.c:23:9:true
+libm/mathf/tanhf.c:26:20:false
+libm/mathf/tanhf.c:26:20:true
+libm/mathf/tanhf.c:34:9:false
+libm/mathf/tanhf.c:43:13:false
+libm/mathf/tanhf.c:56:12:false
+libm/mathf/tanhf.c:124:34:false
+libm/mathf/tanhf.c:312:14:true
+libm/mathf/tanhf.c:318:30:false
+libm/mathf/tanhf.c:318:30:true
+libm/mathf/tanhf.c:325:29:false
+libm/mathf/tanhf.c:325:29:true
+libm/mathf/tgammaf.c:24:9:true
+libm/mathf/tgammaf.c:26:16:true
+libm/mathf/tgammaf.c:28:16:false
+libm/mathf/tgammaf.c:28:34:true
+libm/mathf/tgammaf.c:36:9:true
+libm/mathf/tgammaf.c:318:30:false
+libm/mathf/truncf.c:25:9:false
+libm/mathf/truncf.c:25:9:true
+libm/mathf/truncf.c:26:13:false
+libm/mathf/truncf.c:26:13:true
+libm/mathf/truncf.c:33:13:false
+libm/mathf/truncf.c:33:13:true
+libm/mathf/truncf.c:312:14:false
+libm/mathf/truncf.c:312:14:true
+libm/mathf/truncf.c:321:14:false
+libm/mathf/truncf.c:321:14:true

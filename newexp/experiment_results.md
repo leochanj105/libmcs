@@ -20,7 +20,7 @@ Model: claude-sonnet-4-6
 | S4 (old, with long double) | Function coverage feedback | 2 | 57,712 | 2,430,391 | 103,993 | 2.6M | $1.99 | 22.4m |
 | S4 (new, corrected) | Function coverage feedback | 2 | 40,942 | 439,934 | 44,243 | 525K | $0.91 | 7.0m |
 | S5 (old, with long double) | Branch coverage feedback (on S4) | 5 | 435,255 | 15,945,081 | 807,094 | 17.2M | $26.84 | 2.8h |
-| S5 (new) | Branch coverage feedback (on S4) | — | — | — | — | — | — | running |
+| S5 (new) | Branch coverage feedback (on S4) | 5 | — | — | — | $14.20 | ~80m |
 
 ### Test Counts and Coverage
 
@@ -28,25 +28,31 @@ Model: claude-sonnet-4-6
 Long double wrapper functions (`acosl`, `sinl`, etc.) are behind a disabled
 `#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS` and excluded from the function list.
 
-| Scenario | Test Prints | Functions Covered | Func Cov % | Branch Cov % | Branches (hit/total) |
-|----------|-------------|-------------------|-----------|-------------|---------------------|
-| S1 | 779 | 162/186 | 87.1% | 58.1% | 1838/3162 |
-| S2 | 508 | 178/186 | 95.7% | 47.1% | 1460/3097 |
-| S3 | 998 | 166/186 | 89.2% | 70.6% | 2238/3168 |
-| S4 (new) | 371 | 186/186 | 100.0% | 45.1% | 1398/3097 |
-| S5 (new) | — | — | — | — | running |
+Two branch coverage metrics:
+- **OUR**: from `branch_coverage.py` using `llvm-cov export` branch entries,
+  deduplicated. Each branch = 2 conditions (true/false). Covered = count > 0.
+  Total: 1634 branches = 3268 conditions.
+- **REPORT**: from `llvm-cov report` "Branches" column filtered to libm/ files.
+  Total: 3226. Uses LLVM's internal counting (different from export entries).
 
-All branch coverage measured with llvm-cov-21 (`-fprofile-instr-generate -fcoverage-mapping`).
+| Scenario | Test Prints | Func Cov | OUR Branch Cov | OUR (cov/total) | REPORT Branch Cov | REPORT (cov/total) |
+|----------|-------------|----------|---------------|-----------------|-------------------|-------------------|
+| S1 | 779 | 170/186 (91%) | 54.8% | 1790/3268 | 59.2% | 1911/3226 |
+| S2 | 508 | 186/186 (100%) | 43.4% | 1418/3268 | 47.0% | 1516/3226 |
+| S3 | 998 | 174/186 (93%) | 66.1% | 2161/3268 | 71.4% | 2302/3226 |
+| S4 | 371 | 186/186 (100%) | 41.6% | 1359/3268 | 45.3% | 1461/3226 |
+| S5 | 2039 | 186/186 (100%) | 84.0% | 2744/3268 | 90.5% | 2921/3226 |
+
+All measured with clang-21, llvm-cov-21, `-O0 -fno-builtin`, all .o linked directly.
 
 Notes:
-- S2's test_fenv crashes (segfault). Branch coverage measured with fenv test
-  skipped. Function coverage is 95.7% (178/186, missing 8 static functions).
-- S4 has 100% function coverage but only 45.1% branch coverage — it calls every
-  function but with few inputs, missing many code paths.
-- S1-S3 miss 20-24 functions (mostly internal helpers not called by single-shot
-  prompts). S4-S5 cover all functions via coverage feedback loop.
-- Previous S4/S5 results included phantom long double functions in the function
-  list, wasting testgen effort. Corrected function list has 186 entries (was 267).
+- S2's test_fenv crashes (segfault). Coverage measured with fenv test skipped.
+- S4 has 100% function coverage but only 41.6% branch condition coverage.
+- S5 builds on S4 with 5 rounds of branch coverage feedback (40.0% → 84.0%).
+- S3's edge case prompt achieves 66.1% without any coverage feedback — better
+  than S4 (41.6%) which uses function coverage feedback only.
+- OUR metric is stricter than REPORT (different denominator and counting rules).
+  Both show the same relative ordering: S5 > S3 > S1 > S2 > S4.
 
 ## Phase 3: Diff-Fix
 

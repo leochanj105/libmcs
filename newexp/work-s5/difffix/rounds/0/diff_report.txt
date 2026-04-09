@@ -1,0 +1,1342 @@
+============================================================
+Differential Test Report (C vs Rust)
+Generated: 2026-04-08 23:02
+============================================================
+
+## RUNTIME PANIC
+
+The Rust test binary panicked or crashed.
+Backtrace:
+TIMEOUT: Rust binary hung (likely infinite loop/recursion in 'ctanf' or the function after it in test order).
+Last output line: ctanf 0.5-50i = 0x0p+0+-nani
+
+## OUTPUT COMPARISON
+
+C test output:    3794 lines
+Rust test output: 2393 lines
+
+WARNING: Rust produced fewer output lines (2393 vs 3794).
+Likely cause: crash or missing functions. Lines after crash are missing.
+
+C output: 3467 test lines
+Rust output: 2214 test lines
+
+MISSING (1253 tests, 1036 functions):
+Functions not in Rust output (not implemented or crashed):
+  __ccoshsinh(-800): 1 tests
+  __ccoshsinh(0.3): 1 tests
+  __ccoshsinh(1.0): 1 tests
+  __ccoshsinhf(-200): 1 tests
+  __ccoshsinhf(0.3): 1 tests
+  __ccoshsinhf(1.0): 1 tests
+  __ccoshsinhf(200): 1 tests
+  __lgamma(-0.5,: 1 tests
+  __lgamma(0x1p-80,: 1 tests
+  __lgammaf(-0.5f,: 1 tests
+  __lgammaf(-1.25f,: 1 tests
+  __lgammaf(-1.75f,: 1 tests
+  __lgammaf(-2.25f,: 1 tests
+  __lgammaf(-2.75f,: 1 tests
+  __lgammaf(-3.25f,: 1 tests
+  __lgammaf(-3.75f,: 1 tests
+  __lgammaf(-4.25f,: 1 tests
+  __lgammaf(0.5f,: 1 tests
+  __redupif(-3.14f): 1 tests
+  __redupif(-6.28f): 1 tests
+  __redupif(3.14f): 1 tests
+  __rem_pio2(-1.5): 1 tests
+  __rem_pio2(0.5): 1 tests
+  __rem_pio2(0.7): 1 tests
+  __rem_pio2(1e10): 1 tests
+  __rem_pio2(1e100): 1 tests
+  __rem_pio2(1e20): 1 tests
+  __rem_pio2(1e5): 1 tests
+  __rem_pio2(inf): 1 tests
+  __rem_pio2(nan): 1 tests
+  __rem_pio2(pi/2): 1 tests
+  __rem_pio2f(-1.5f): 1 tests
+  __rem_pio2f(0.5): 1 tests
+  __rem_pio2f(0.7): 1 tests
+  __rem_pio2f(1e10): 1 tests
+  __rem_pio2f(1e3): 1 tests
+  __rem_pio2f(1e5): 1 tests
+  __rem_pio2f(inf): 1 tests
+  __rem_pio2f(nan): 1 tests
+  __rem_pio2f(pi/2f): 1 tests
+  __tan(-0.8,: 2 tests
+  __tan(0.3,: 1 tests
+  __tan(0.8,: 2 tests
+  __tanf(-0.8f,: 2 tests
+  __tanf(0.3f,: 1 tests
+  __tanf(0.8f,: 2 tests
+  atan2(+0,0.5): 1 tests
+  atan2(+0,2): 1 tests
+  atan2(+inf,+inf): 1 tests
+  atan2(+inf,-inf): 1 tests
+  atan2(-0,0.5): 1 tests
+  atan2(-0,2): 1 tests
+  atan2(-0.0,: 1 tests
+  atan2(-1.0,: 1 tests
+  atan2(-2,+inf): 1 tests
+  atan2(-2,-inf): 1 tests
+  atan2(-INFINITY,: 2 tests
+  atan2(-inf,+inf): 1 tests
+  atan2(-inf,-inf): 1 tests
+  atan2(0.0,: 1 tests
+  atan2(1.0,: 3 tests
+  atan2(2,+inf): 1 tests
+  atan2(2,-inf): 1 tests
+  atan2(INFINITY,: 2 tests
+  atan2(NAN,: 1 tests
+  atan2f(+0,0.5): 1 tests
+  atan2f(+0,2): 1 tests
+  atan2f(-0,0.5): 1 tests
+  atan2f(-0,2): 1 tests
+  atan2f(-2,+inf): 1 tests
+  atan2f(-INFINITY,: 2 tests
+  atan2f(0.0f,: 1 tests
+  atan2f(1.0f,: 2 tests
+  atan2f(2,+inf): 1 tests
+  atan2f(INFINITY,: 2 tests
+  atan2f(NAN,: 1 tests
+  ccos(10+1i): 1 tests
+  ccosf(1+10i): 1 tests
+  ccosf(10+1i): 1 tests
+  ccosf(100+0.5i): 1 tests
+  ceil(+0): 1 tests
+  ceil(-0): 1 tests
+  ceil(-0.0): 1 tests
+  ceil(-0.1): 1 tests
+  ceil(-0.3): 1 tests
+  ceil(-0.5): 1 tests
+  ceil(-0.9): 1 tests
+  ceil(-0x1.0000000000001p30): 1 tests
+  ceil(-0x1.0000000001p30): 1 tests
+  ceil(-0x1.8p20): 1 tests
+  ceil(-1.1): 1 tests
+  ceil(-1.25): 1 tests
+  ceil(-1.5): 1 tests
+  ceil(-1e18): 1 tests
+  ceil(-3.7): 1 tests
+  ceil(-INFINITY): 1 tests
+  ceil(-inf): 1 tests
+  ceil(0.0): 1 tests
+  ceil(0.1): 1 tests
+  ceil(0.3): 1 tests
+  ceil(0.5): 1 tests
+  ceil(0.9): 1 tests
+  ceil(0x1.0000000000001p30): 1 tests
+  ceil(0x1.0000000001p30): 1 tests
+  ceil(0x1.8p20): 1 tests
+  ceil(0x1.ffffffffffff0p30): 1 tests
+  ceil(0x1p25): 1 tests
+  ceil(0x1p30): 1 tests
+  ceil(0x1p40): 1 tests
+  ceil(1.1): 1 tests
+  ceil(1.25): 1 tests
+  ceil(1.5): 1 tests
+  ceil(1e18): 1 tests
+  ceil(1e20): 1 tests
+  ceil(2.0): 1 tests
+  ceil(3.7): 1 tests
+  ceil(4.0): 1 tests
+  ceil(8.0): 1 tests
+  ceil(INFINITY): 1 tests
+  ceil(NAN): 1 tests
+  ceil(inf): 1 tests
+  ceil(nan): 1 tests
+  ceilf(+0): 1 tests
+  ceilf(-0): 1 tests
+  ceilf(-0.1f): 1 tests
+  ceilf(-0.3f): 1 tests
+  ceilf(-0.5f): 1 tests
+  ceilf(-0x1p22f-0.5f): 1 tests
+  ceilf(-1.25f): 1 tests
+  ceilf(-1.5f): 1 tests
+  ceilf(0.0f): 1 tests
+  ceilf(0.1f): 1 tests
+  ceilf(0.3f): 1 tests
+  ceilf(0.5f): 1 tests
+  ceilf(0x1p22f+0.5f): 1 tests
+  ceilf(1.25f): 1 tests
+  ceilf(1.5f): 1 tests
+  ceilf(1e10f): 1 tests
+  ceilf(2.0f): 1 tests
+  ceilf(4.0f): 1 tests
+  ceilf(INFINITY): 1 tests
+  ceilf(NAN): 1 tests
+  ceilf(inf): 1 tests
+  ceilf(nan): 1 tests
+  cos(-100.0): 1 tests
+  cos(-1e100): 1 tests
+  cos(0.5): 1 tests
+  cos(1.5): 1 tests
+  cos(1.5707963267948966): 1 tests
+  cos(100.0): 1 tests
+  cos(1e100): 1 tests
+  cos(1e15): 1 tests
+  cos(1e6): 1 tests
+  cos(5.0): 1 tests
+  cos(INFINITY): 1 tests
+  cosf(-100.0f): 1 tests
+  cosf(0.5f): 1 tests
+  cosf(1.5707963f): 1 tests
+  cosf(100.0f): 1 tests
+  cosf(1e10f): 1 tests
+  cosf(1e30f): 1 tests
+  cosf(1e5f): 1 tests
+  cosf(1e8f): 1 tests
+  cosf(5.0f): 1 tests
+  cosf(INFINITY): 1 tests
+  csin(10+1i): 1 tests
+  csinf(1+10i): 1 tests
+  csinf(10+1i): 1 tests
+  csinf(100+0.5i): 1 tests
+  csinf(1e20+1e20i): 1 tests
+  ctan(0+50i): 1 tests
+  ctan(pi/2+0.05i): 1 tests
+  ctan(pi/2+0.1i): 1 tests
+  ctanf(0+100i): 1 tests
+  ctanf(0+50i): 1 tests
+  ctanf(0.5+0.5i): 1 tests
+  ctanf(1.5707963+50i): 1 tests
+  ctanf(pi/2+0.05i): 1 tests
+  ctanf(pi/2+0.1i): 1 tests
+  ctans: 2 tests
+  ctansf: 1 tests
+  erf: 4 tests
+  erf(-1.0): 1 tests
+  erf(-6.0): 1 tests
+  erf(-INFINITY): 1 tests
+  erf(0.0): 1 tests
+  erf(0.5): 1 tests
+  erf(0.8): 1 tests
+  erf(1.0): 1 tests
+  erf(1.2): 1 tests
+  erf(10.0): 1 tests
+  erf(2.0): 1 tests
+  erf(2.5): 1 tests
+  erf(3.5): 1 tests
+  erf(6.0): 1 tests
+  erf(INFINITY): 1 tests
+  erf(NAN): 1 tests
+  erfc: 6 tests
+  erfc(-2.0): 1 tests
+  erfc(-28.0): 1 tests
+  erfc(0.0): 1 tests
+  erfc(1.25): 1 tests
+  erfc(1.5): 1 tests
+  erfc(2.0): 1 tests
+  erfc(28.0): 1 tests
+  erfc(5.0): 1 tests
+  erfc(INFINITY): 1 tests
+  erfc(NAN): 1 tests
+  erfcf: 6 tests
+  erfcf(-1.0f): 1 tests
+  erfcf(-11.0f): 1 tests
+  erfcf(-2.0f): 1 tests
+  erfcf(-5.5f): 1 tests
+  erfcf(0.0f): 1 tests
+  erfcf(0.75f): 1 tests
+  erfcf(1.0f): 1 tests
+  erfcf(11.0f): 1 tests
+  erfcf(2.0f): 1 tests
+  erfcf(5.0f): 1 tests
+  erfcf(INFINITY): 1 tests
+  erfcf(NAN): 1 tests
+  erff: 4 tests
+  erff(-4.0f): 1 tests
+  erff(0.5f): 1 tests
+  erff(2.5f): 1 tests
+  erff(3.5f): 1 tests
+  erff(4.0f): 1 tests
+  expm1: 8 tests
+  expm1(-0.6): 1 tests
+  expm1(-0.8): 1 tests
+  expm1(-0.9): 1 tests
+  expm1(-2.0): 1 tests
+  expm1(-3.0): 1 tests
+  expm1(-5.0): 1 tests
+  expm1(-50.0): 1 tests
+  expm1(-INFINITY): 1 tests
+  expm1(0.65): 1 tests
+  expm1(0.75): 1 tests
+  expm1(0.8): 1 tests
+  expm1(0.95): 1 tests
+  expm1(10.0): 1 tests
+  expm1(100.0): 1 tests
+  expm1(15.0): 1 tests
+  expm1(1e-20): 1 tests
+  expm1(2.0): 1 tests
+  expm1(20.0): 1 tests
+  expm1(30.0): 1 tests
+  expm1(60.0): 1 tests
+  expm1(INFINITY): 1 tests
+  expm1(NAN): 1 tests
+  expm1f: 5 tests
+  expm1f(-0.6f): 1 tests
+  expm1f(-0.8f): 1 tests
+  expm1f(-2.0f): 1 tests
+  expm1f(-3.0f): 1 tests
+  expm1f(0.3f): 1 tests
+  expm1f(0.8f): 1 tests
+  expm1f(10.0f): 1 tests
+  expm1f(1e-10f): 1 tests
+  expm1f(2.0f): 1 tests
+  expm1f(25.0f): 1 tests
+  expm1f(60.0f): 1 tests
+  expm1f(INFINITY): 1 tests
+  expm1f(NAN): 1 tests
+  floor(+0): 1 tests
+  floor(-0): 1 tests
+  floor(-0.1): 1 tests
+  floor(-0.5): 1 tests
+  floor(-0x1.0000000000001p30): 1 tests
+  floor(-0x1.8p20): 1 tests
+  floor(-0x1.ffffffffffff0p30): 1 tests
+  floor(-0x1.fffffffffffffp30): 1 tests
+  floor(-1.5): 1 tests
+  floor(-1e18): 1 tests
+  floor(-1e20): 1 tests
+  floor(0.1): 1 tests
+  floor(0.5): 1 tests
+  floor(0x1.8p20): 1 tests
+  floor(0x1p30): 1 tests
+  floor(1.5): 1 tests
+  floor(1e18): 1 tests
+  floor(1e20): 1 tests
+  floor(4.0): 1 tests
+  floor(INFINITY): 1 tests
+  floor(NAN): 1 tests
+  floor(inf): 1 tests
+  floor(nan): 1 tests
+  floorf(+0): 1 tests
+  floorf(-0): 1 tests
+  floorf(-0.3f): 1 tests
+  floorf(-0.5f): 1 tests
+  floorf(-0x1.8p22f): 1 tests
+  floorf(-1.5f): 1 tests
+  floorf(0.5f): 1 tests
+  floorf(1.5f): 1 tests
+  floorf(1e10f): 1 tests
+  floorf(4.0f): 1 tests
+  floorf(INFINITY): 1 tests
+  floorf(NAN): 1 tests
+  floorf(inf): 1 tests
+  floorf(nan): 1 tests
+  fmax(-1,-2): 1 tests
+  fmax(-1.0,: 1 tests
+  fmax(1,2): 1 tests
+  fmax(1.0,: 1 tests
+  fmax(2,nan): 1 tests
+  fmax(2,snan): 1 tests
+  fmax(2.0,: 3 tests
+  fmax(3,2): 1 tests
+  fmax(3.0,: 1 tests
+  fmax(NAN,: 2 tests
+  fmax(__builtin_nans(""),: 1 tests
+  fmax(nan,2): 1 tests
+  fmax(nan,snan): 1 tests
+  fmax(snan,2): 1 tests
+  fmaxf(-1.0f,: 1 tests
+  fmaxf(1,2): 1 tests
+  fmaxf(1.0f,: 1 tests
+  fmaxf(2,nan): 1 tests
+  fmaxf(2,snan): 1 tests
+  fmaxf(2.0f,: 2 tests
+  fmaxf(3,2): 1 tests
+  fmaxf(3.0f,: 1 tests
+  fmaxf(NAN,: 2 tests
+  fmaxf(__builtin_nansf(""),: 1 tests
+  fmaxf(nan,2): 1 tests
+  fmaxf(snan,2): 1 tests
+  fmin(-1.0,: 1 tests
+  fmin(1,2): 1 tests
+  fmin(1.0,: 1 tests
+  fmin(2,nan): 1 tests
+  fmin(2,snan): 1 tests
+  fmin(2.0,: 2 tests
+  fmin(3,2): 1 tests
+  fmin(3.0,: 1 tests
+  fmin(NAN,: 2 tests
+  fmin(__builtin_nans(""),: 1 tests
+  fmin(nan,2): 1 tests
+  fmin(snan,2): 1 tests
+  fminf(-1.0f,: 1 tests
+  fminf(1,2): 1 tests
+  fminf(1.0f,: 1 tests
+  fminf(2,nan): 1 tests
+  fminf(2,snan): 1 tests
+  fminf(2.0f,: 2 tests
+  fminf(3,2): 1 tests
+  fminf(3.0f,: 1 tests
+  fminf(NAN,: 2 tests
+  fminf(__builtin_nansf(""),: 1 tests
+  fminf(nan,2): 1 tests
+  fminf(snan,2): 1 tests
+  fmod(-1,3): 1 tests
+  fmod(-3,3): 1 tests
+  fmod(-3.0,: 1 tests
+  fmod(-INFINITY,: 1 tests
+  fmod(-inf,3): 1 tests
+  fmod(0.5,: 1 tests
+  fmod(0x1p-1000,: 1 tests
+  fmod(0x1p-1020,: 1 tests
+  fmod(0x1p-1023,: 1 tests
+  fmod(0x1p-1074,: 1 tests
+  fmod(1,3): 1 tests
+  fmod(1,5e-324): 1 tests
+  fmod(1.0,: 1 tests
+  fmod(3,3): 1 tests
+  fmod(3.0,: 2 tests
+  fmod(4.0,: 1 tests
+  fmod(5,0): 1 tests
+  fmod(5,nan): 1 tests
+  fmod(5e-324,3): 1 tests
+  fmod(6.0,: 1 tests
+  fmod(INFINITY,: 1 tests
+  fmod(NAN,: 1 tests
+  fmod(inf,3): 1 tests
+  fmod(nan,3): 1 tests
+  fmodf(-3.0f,: 1 tests
+  fmodf(0.5f,: 1 tests
+  fmodf(0x1p-100f,: 1 tests
+  fmodf(0x1p-120f,: 1 tests
+  fmodf(0x1p-126f,0x1p-149f): 1 tests
+  fmodf(0x1p-149f,: 1 tests
+  fmodf(1,3): 1 tests
+  fmodf(1,sn): 1 tests
+  fmodf(1.0f,: 2 tests
+  fmodf(3,3): 1 tests
+  fmodf(3.0f,: 1 tests
+  fmodf(4.0f,: 1 tests
+  fmodf(5,0): 1 tests
+  fmodf(5.0f,: 1 tests
+  fmodf(6.0f,: 1 tests
+  fmodf(INFINITY,: 1 tests
+  fmodf(NAN,: 1 tests
+  fmodf(inf,3): 1 tests
+  fmodf(nan,3): 1 tests
+  fmodf(sn,3): 1 tests
+  frexp(-8.0,: 1 tests
+  frexp(0): 1 tests
+  frexp(0.0,: 1 tests
+  frexp(0x1.8p-1040): 1 tests
+  frexp(0x1p-1022): 1 tests
+  frexp(0x1p-1022,: 1 tests
+  frexp(0x1p-1050): 1 tests
+  frexp(0x1p-1074,: 1 tests
+  frexp(4.0,: 1 tests
+  frexp(5e-324): 1 tests
+  frexp(INFINITY,: 1 tests
+  frexp(NAN,: 1 tests
+  frexp(inf): 1 tests
+  frexpf(-8.0f,: 1 tests
+  frexpf(0): 1 tests
+  frexpf(0.0f,: 1 tests
+  frexpf(0x1p-130): 1 tests
+  frexpf(0x1p-149f,: 1 tests
+  frexpf(1.4e-45): 1 tests
+  frexpf(4.0f,: 1 tests
+  frexpf(INFINITY,: 1 tests
+  frexpf(NAN,: 1 tests
+  frexpf(inf): 1 tests
+  hypot(0x1p600,: 1 tests
+  hypot(0x1p600,0x1p599): 1 tests
+  hypot(1,5e-324): 1 tests
+  hypot(1,inf): 1 tests
+  hypot(1,nan): 1 tests
+  hypot(1.0,: 5 tests
+  hypot(1e60,1): 1 tests
+  hypot(3,4): 1 tests
+  hypot(3.0,: 1 tests
+  hypot(5,12): 1 tests
+  hypot(5e-324,5e-324): 1 tests
+  hypot(INFINITY,: 1 tests
+  hypot(NAN,: 1 tests
+  hypot(inf,1): 1 tests
+  hypot(nan,1): 1 tests
+  hypotf(0x1p70f,: 1 tests
+  hypotf(1,1e-20f): 1 tests
+  hypotf(1,inf): 1 tests
+  hypotf(1.0f,: 1 tests
+  hypotf(1e20f,1): 1 tests
+  hypotf(1e30f,1e-10f): 1 tests
+  hypotf(3.0f,: 1 tests
+  hypotf(INFINITY,: 1 tests
+  hypotf(NAN,: 1 tests
+  hypotf(inf,1): 1 tests
+  ilogb(-INFINITY): 1 tests
+  ilogb(0): 1 tests
+  ilogb(0.0): 1 tests
+  ilogb(0x0.8p-1022): 1 tests
+  ilogb(0x1.8p-1040): 1 tests
+  ilogb(0x1p-1022): 1 tests
+  ilogb(0x1p-1023): 1 tests
+  ilogb(0x1p-1074): 1 tests
+  ilogb(5e-324): 1 tests
+  ilogb(8.0): 1 tests
+  ilogb(INFINITY): 1 tests
+  ilogb(NAN): 1 tests
+  ilogb(inf): 1 tests
+  ilogb(nan): 1 tests
+  ilogbf(0): 1 tests
+  ilogbf(1.4e-45f): 1 tests
+  ilogbf(inf): 1 tests
+  ilogbf(nan): 1 tests
+  j0: 7 tests
+  j0(10): 1 tests
+  j0(100): 1 tests
+  j0(1e-15): 1 tests
+  j0(1e-5): 1 tests
+  j0(3): 1 tests
+  j0(5): 1 tests
+  j0(inf): 1 tests
+  j1: 7 tests
+  j1(10): 1 tests
+  j1(100): 1 tests
+  j1(1e-10): 1 tests
+  j1(3): 1 tests
+  j1(inf): 1 tests
+  jn: 12 tests
+  jn(0,: 1 tests
+  jn(1,: 1 tests
+  jn(10,: 1 tests
+  jn(10,100): 1 tests
+  jn(10,1e60): 1 tests
+  jn(100,50): 1 tests
+  jn(2,: 3 tests
+  jn(3,: 5 tests
+  jn(35,: 1 tests
+  jn(4,: 2 tests
+  jn(40,1e-10): 1 tests
+  jn(5,: 2 tests
+  jn(5,1e-10): 1 tests
+  jn(5,3): 1 tests
+  jn(6,: 1 tests
+  jn(7,: 1 tests
+  lgamma: 16 tests
+  lgamma(-0.1): 1 tests
+  lgamma(-0.2): 1 tests
+  lgamma(-0.5): 1 tests
+  lgamma(-0x1p-80): 1 tests
+  lgamma(-1): 1 tests
+  lgamma(-1.25): 1 tests
+  lgamma(-1.5): 1 tests
+  lgamma(-1.75): 1 tests
+  lgamma(-1e16): 1 tests
+  lgamma(-2): 1 tests
+  lgamma(-2.25): 1 tests
+  lgamma(-2.5): 1 tests
+  lgamma(-2.75): 1 tests
+  lgamma(-3.25): 1 tests
+  lgamma(-3.75): 1 tests
+  lgamma(-4.25): 1 tests
+  lgamma(0): 1 tests
+  lgamma(0x1p-80): 1 tests
+  lgamma(10.0): 1 tests
+  lgamma(1e-300): 1 tests
+  lgamma(1e60): 1 tests
+  lgamma(3.5): 1 tests
+  lgamma(4.5): 1 tests
+  lgamma(5.5): 1 tests
+  lgamma(6.5): 1 tests
+  lgamma(7.5): 1 tests
+  lgamma(inf): 1 tests
+  lgammaf: 21 tests
+  lgammaf(-0.0f): 1 tests
+  lgammaf(-0.1f): 1 tests
+  lgammaf(-0.3f): 1 tests
+  lgammaf(-0.5f): 1 tests
+  lgammaf(-0x1p-40f): 1 tests
+  lgammaf(-1): 1 tests
+  lgammaf(-1.3f): 1 tests
+  lgammaf(-1.5f): 1 tests
+  lgammaf(-1e-10f): 1 tests
+  lgammaf(-1e8f): 1 tests
+  lgammaf(-2): 1 tests
+  lgammaf(-2.0f): 1 tests
+  lgammaf(-2.5f): 1 tests
+  lgammaf(-3.5f): 1 tests
+  lgammaf(0): 1 tests
+  lgammaf(0.0f): 1 tests
+  lgammaf(0.3f): 1 tests
+  lgammaf(0.5f): 1 tests
+  lgammaf(0.8f): 1 tests
+  lgammaf(0x1p-40f): 1 tests
+  lgammaf(1): 1 tests
+  lgammaf(1.0f): 1 tests
+  lgammaf(1.2f): 1 tests
+  lgammaf(1.3f): 1 tests
+  lgammaf(1.5f): 1 tests
+  lgammaf(1.8f): 1 tests
+  lgammaf(10.0f): 1 tests
+  lgammaf(100.0f): 1 tests
+  lgammaf(1e-10f): 1 tests
+  lgammaf(1e18f): 1 tests
+  lgammaf(1e20f): 1 tests
+  lgammaf(2): 1 tests
+  lgammaf(2.0f): 1 tests
+  lgammaf(2.5f): 1 tests
+  lgammaf(3.0f): 1 tests
+  lgammaf(3.5f): 1 tests
+  lgammaf(4.0f): 1 tests
+  lgammaf(4.5f): 1 tests
+  lgammaf(5.0f): 1 tests
+  lgammaf(5.5f): 1 tests
+  lgammaf(6.0f): 1 tests
+  lgammaf(6.5f): 1 tests
+  lgammaf(7.0f): 1 tests
+  lgammaf(7.5f): 1 tests
+  lgammaf(9.0f): 1 tests
+  lgammaf(INFINITY): 1 tests
+  lgammaf(NAN): 1 tests
+  lgammaf(inf): 1 tests
+  lgammaf(nan): 1 tests
+  llrintf(-1.5f): 1 tests
+  llrintf(-1e30f): 1 tests
+  llrintf(1.5f): 1 tests
+  llrintf(1e30f): 1 tests
+  llroundf(-1.5f): 1 tests
+  llroundf(-1e30f): 1 tests
+  llroundf(1.5f): 1 tests
+  llroundf(1e30f): 1 tests
+  log(0.5): 1 tests
+  log(1.0): 1 tests
+  log(1.0+1e-7): 1 tests
+  log(1.0000000001): 1 tests
+  log(2.0): 1 tests
+  log10(-1.0): 1 tests
+  log10(0.0): 1 tests
+  log10(0.5): 1 tests
+  log10(0x1p-1074): 1 tests
+  log10(1.0): 1 tests
+  log10(1.0+1e-7): 1 tests
+  log10(2.0): 1 tests
+  log10(5e-324): 1 tests
+  log10(INFINITY): 1 tests
+  log10(NAN): 1 tests
+  log10f(-1.0f): 1 tests
+  log10f(0.0f): 1 tests
+  log10f(0.5f): 1 tests
+  log10f(0x1p-149f): 1 tests
+  log10f(1.0f): 1 tests
+  log10f(2.0f): 1 tests
+  log10f(INFINITY): 1 tests
+  log10f(NAN): 1 tests
+  log1p(-0.2): 1 tests
+  log1p(-0.5): 1 tests
+  log1p(-1.0): 1 tests
+  log1p(0.3): 1 tests
+  log1p(0.5): 1 tests
+  log1p(0x1p-31): 1 tests
+  log1p(0x1p-55): 1 tests
+  log1p(1.0): 1 tests
+  log1p(1e15): 1 tests
+  log1p(1e30): 1 tests
+  log1p(2.0): 1 tests
+  log1p(INFINITY): 1 tests
+  log1p(NAN): 1 tests
+  log1pf(-0.2f): 1 tests
+  log1pf(-0.5f): 1 tests
+  log1pf(-1.0f): 1 tests
+  log1pf(0.0f): 1 tests
+  log1pf(0.3f): 1 tests
+  log1pf(0.5f): 1 tests
+  log1pf(0x1p-22f): 1 tests
+  log1pf(0x1p-31f): 1 tests
+  log1pf(0x1p-55f): 1 tests
+  log1pf(1.0f): 1 tests
+  log1pf(1e8f): 1 tests
+  log1pf(2.0f): 1 tests
+  log1pf(INFINITY): 1 tests
+  log2(1.0+1e-7): 1 tests
+  log2f(-1.0f): 1 tests
+  log2f(0.0f): 1 tests
+  log2f(0x1p-149f): 1 tests
+  log2f(1.0f): 1 tests
+  log2f(2.0f): 1 tests
+  logf(-1.0f): 1 tests
+  logf(0.0f): 1 tests
+  logf(0.5f): 1 tests
+  logf(0x1p-126f): 1 tests
+  logf(0x1p-149f): 1 tests
+  logf(1.0f): 1 tests
+  logf(1.0f+1e-7f): 1 tests
+  logf(2.0f): 1 tests
+  logf(INFINITY): 1 tests
+  logf(NAN): 1 tests
+  lrintf(-0.0f): 1 tests
+  lrintf(-1.5f): 1 tests
+  lrintf(-1e30f): 1 tests
+  lrintf(0.0f): 1 tests
+  lrintf(1.5f): 1 tests
+  lrintf(1e30f): 1 tests
+  lroundf(-1.5f): 1 tests
+  lroundf(-1e30f): 1 tests
+  lroundf(0.5f): 1 tests
+  lroundf(1.5f): 1 tests
+  lroundf(1e30f): 1 tests
+  modf(-(0x1p25+0.5)): 1 tests
+  modf(-0.0): 1 tests
+  modf(-0.5): 1 tests
+  modf(-3.7): 1 tests
+  modf(-3.7,: 1 tests
+  modf(-4.0): 1 tests
+  modf(0.0): 1 tests
+  modf(0.5): 1 tests
+  modf(0.5,: 1 tests
+  modf(0x1p25+0.5): 1 tests
+  modf(0x1p55): 1 tests
+  modf(0x1p60): 1 tests
+  modf(1e6,: 1 tests
+  modf(3.7): 1 tests
+  modf(3.7,: 1 tests
+  modf(4.0): 1 tests
+  modf(INFINITY,: 1 tests
+  modf(NAN,: 1 tests
+  modff(-0.5f): 1 tests
+  modff(-3.7f,: 1 tests
+  modff(0.5f): 1 tests
+  modff(0.5f,: 1 tests
+  modff(0x1p22f+0.5f): 1 tests
+  modff(0x1p26f): 1 tests
+  modff(1e6f,: 1 tests
+  modff(3.7f): 1 tests
+  modff(3.7f,: 1 tests
+  modff(4.0f): 1 tests
+  modff(INFINITY,: 1 tests
+  modff(NAN,: 1 tests
+  nextafter(+0,+0): 1 tests
+  nextafter(+0,-1): 1 tests
+  nextafter(+0,1): 1 tests
+  nextafter(-0,-0): 1 tests
+  nextafter(-0,1): 1 tests
+  nextafter(-1,-2): 1 tests
+  nextafter(-1.0,: 2 tests
+  nextafter(-2,1): 1 tests
+  nextafter(0.0,: 2 tests
+  nextafter(0x1.fffffffffffffp1023,: 1 tests
+  nextafter(0x1.fffffffffffffp1023,inf): 1 tests
+  nextafter(0x1p-1022,: 1 tests
+  nextafter(0x1p-1074,: 1 tests
+  nextafter(0x1p10,: 1 tests
+  nextafter(1,1): 1 tests
+  nextafter(1,2): 1 tests
+  nextafter(1,nan): 1 tests
+  nextafter(1.0,: 3 tests
+  nextafter(2,1): 1 tests
+  nextafter(2.0,: 1 tests
+  nextafter(5e-324,0): 1 tests
+  nextafter(nan,1): 1 tests
+  nextafterf(+0,-1): 1 tests
+  nextafterf(+0,1): 1 tests
+  nextafterf(-1.0f,: 1 tests
+  nextafterf(-2,1): 1 tests
+  nextafterf(0.0f,: 2 tests
+  nextafterf(0x1.fffffep127f,: 1 tests
+  nextafterf(0x1p-149f,: 1 tests
+  nextafterf(1,2): 1 tests
+  nextafterf(1.0f,: 3 tests
+  nextafterf(1.4e-45f,0): 1 tests
+  nextafterf(2,1): 1 tests
+  nextafterf(nan,1): 1 tests
+  pow: 22 tests
+  pow(-1,inf): 1 tests
+  pow(-2,0.5): 1 tests
+  pow(-2,2): 1 tests
+  pow(-2,3): 1 tests
+  pow(-2.0,: 4 tests
+  pow(-inf,3): 1 tests
+  pow(-inf,4): 1 tests
+  pow(0,-2): 1 tests
+  pow(0,2): 1 tests
+  pow(0.5,: 5 tests
+  pow(0.5,inf): 1 tests
+  pow(0.9,1e100): 1 tests
+  pow(0x1p-1074,: 1 tests
+  pow(1,-inf): 1 tests
+  pow(1,inf): 1 tests
+  pow(1,nan): 1 tests
+  pow(1.0,: 1 tests
+  pow(1.1,: 1 tests
+  pow(1.1,1e100): 1 tests
+  pow(1.22,10): 1 tests
+  pow(1.23,10): 1 tests
+  pow(1.3,: 1 tests
+  pow(1.73,10): 1 tests
+  pow(1.74,10): 1 tests
+  pow(2,-1074): 1 tests
+  pow(2,1023): 1 tests
+  pow(2,inf): 1 tests
+  pow(2,nan): 1 tests
+  pow(2.0,: 5 tests
+  pow(5,0): 1 tests
+  pow(5e-324,0.5): 1 tests
+  pow(inf,2): 1 tests
+  pow(nan,0): 1 tests
+  powf: 12 tests
+  powf(-1.0f,: 1 tests
+  powf(-2,0.5): 1 tests
+  powf(-2,3): 1 tests
+  powf(-2.0f,: 3 tests
+  powf(0.0f,: 1 tests
+  powf(0.5,inf): 1 tests
+  powf(0.5f,: 5 tests
+  powf(0.9f,1e10f): 1 tests
+  powf(0x1p-149f,: 1 tests
+  powf(1,nan): 1 tests
+  powf(1.0f,: 1 tests
+  powf(1.1f,: 1 tests
+  powf(1.1f,1e10f): 1 tests
+  powf(1.22f,100): 1 tests
+  powf(1.73f,100): 1 tests
+  powf(2,-150): 1 tests
+  powf(2,inf): 1 tests
+  powf(2.0f,: 5 tests
+  powf(INFINITY,: 1 tests
+  remainder(-3.0,: 1 tests
+  remainder(-5,3): 1 tests
+  remainder(1.0,: 2 tests
+  remainder(1e-300,5e-324): 1 tests
+  remainder(3,5e-324): 1 tests
+  remainder(3.0,: 2 tests
+  remainder(5,3): 1 tests
+  remainder(5.5,: 1 tests
+  remainder(7,3): 1 tests
+  remainder(INFINITY,: 1 tests
+  remainder(NAN,: 1 tests
+  remainderf(-3.0f,: 1 tests
+  remainderf(0.2f,: 1 tests
+  remainderf(0.7f,: 1 tests
+  remainderf(0.9f,: 1 tests
+  remainderf(1.0f,: 1 tests
+  remainderf(1e-37f,1.4e-45f): 1 tests
+  remainderf(3,1.4e-45f): 1 tests
+  remainderf(3.0f,: 2 tests
+  remainderf(5,3): 1 tests
+  remainderf(5.5f,: 1 tests
+  remainderf(7,3): 1 tests
+  remainderf(INFINITY,: 1 tests
+  remquo(-3,3): 1 tests
+  remquo(-3.0,: 2 tests
+  remquo(1,5e-324): 1 tests
+  remquo(1.0,: 1 tests
+  remquo(10.5,: 1 tests
+  remquo(13,3): 1 tests
+  remquo(3,3): 1 tests
+  remquo(3.0,: 3 tests
+  remquo(5,0): 1 tests
+  remquo(5.5,: 1 tests
+  remquo(7,3): 1 tests
+  remquo(INFINITY,: 1 tests
+  remquo(NAN,: 1 tests
+  remquo(inf,3): 1 tests
+  remquo(nan,3): 1 tests
+  remquof(-3.0f,: 1 tests
+  remquof(0.2f,: 1 tests
+  remquof(0.7f,: 1 tests
+  remquof(0.9f,: 1 tests
+  remquof(1,1.4e-45): 1 tests
+  remquof(1.0f,: 1 tests
+  remquof(10.5f,: 1 tests
+  remquof(13,3): 1 tests
+  remquof(3,3): 1 tests
+  remquof(3.0f,: 3 tests
+  remquof(5,0): 1 tests
+  remquof(7,3): 1 tests
+  remquof(INFINITY,: 1 tests
+  remquof(NAN,: 1 tests
+  remquof(inf,3): 1 tests
+  remquof(nan,3): 1 tests
+  rintf(-0.5f): 1 tests
+  rintf(-1.5f): 1 tests
+  rintf(-2.0f): 1 tests
+  rintf(0.3f): 1 tests
+  rintf(0.5f): 1 tests
+  rintf(1.3f): 1 tests
+  rintf(1.5f): 1 tests
+  rintf(1e10f): 1 tests
+  rintf(2.0f): 1 tests
+  rintf(2.5f): 1 tests
+  rintf(4.0f): 1 tests
+  rintf(8.0f): 1 tests
+  rintf(inf): 1 tests
+  round(-0.3): 1 tests
+  round(-0.5): 1 tests
+  round(-0.7): 1 tests
+  round(-1.5): 1 tests
+  round(-2.5): 1 tests
+  round(-4.0): 1 tests
+  round(0.3): 1 tests
+  round(0.5): 1 tests
+  round(0.7): 1 tests
+  round(0x1p30): 1 tests
+  round(0x1p30+0.5): 1 tests
+  round(1.5): 1 tests
+  round(1e18): 1 tests
+  round(1e20): 1 tests
+  round(2.0): 1 tests
+  round(2.5): 1 tests
+  round(4.0): 1 tests
+  round(8.0): 1 tests
+  round(INFINITY): 1 tests
+  round(NAN): 1 tests
+  round(inf): 1 tests
+  round(nan): 1 tests
+  scalbn(0.0,: 1 tests
+  scalbn(0x1p-1022,: 1 tests
+  scalbn(0x1p-1022,−50000): 1 tests
+  scalbn(0x1p-1050,100): 1 tests
+  scalbn(0x1p-1074,: 1 tests
+  scalbn(1,-2000): 1 tests
+  scalbn(1,2047): 1 tests
+  scalbn(1,50001): 1 tests
+  scalbn(1.0,: 4 tests
+  scalbn(5e-324,1): 1 tests
+  scalbn(INFINITY,: 1 tests
+  scalbn(NAN,: 1 tests
+  scalbn(inf,1): 1 tests
+  scalbn(nan,1): 1 tests
+  scalbnf(0.0f,: 1 tests
+  scalbnf(0x1p-126f,: 1 tests
+  scalbnf(0x1p-126f,-50000): 1 tests
+  scalbnf(0x1p-130f,100): 1 tests
+  scalbnf(0x1p-149f,: 1 tests
+  scalbnf(1,-200): 1 tests
+  scalbnf(1,255): 1 tests
+  scalbnf(1,50001): 1 tests
+  scalbnf(1.0f,: 3 tests
+  scalbnf(1.4e-45f,1): 1 tests
+  scalbnf(INFINITY,: 1 tests
+  scalbnf(NAN,: 1 tests
+  sin(-1.5707963267948966): 1 tests
+  sin(-100.0): 1 tests
+  sin(-1e100): 1 tests
+  sin(0.5): 1 tests
+  sin(1.5): 1 tests
+  sin(1.5707963267948966): 1 tests
+  sin(100.0): 1 tests
+  sin(1e100): 1 tests
+  sin(1e15): 1 tests
+  sin(1e6): 1 tests
+  sin(5.0): 1 tests
+  sin(INFINITY): 1 tests
+  sinf(-100.0f): 1 tests
+  sinf(-1e30f): 1 tests
+  sinf(0.5f): 1 tests
+  sinf(1.5707963f): 1 tests
+  sinf(100.0f): 1 tests
+  sinf(1e10f): 1 tests
+  sinf(1e30f): 1 tests
+  sinf(1e5f): 1 tests
+  sinf(1e8f): 1 tests
+  sinf(5.0f): 1 tests
+  sinf(INFINITY): 1 tests
+  sqrt(-0.0): 1 tests
+  sqrt(-1.0): 1 tests
+  sqrt(-INFINITY): 1 tests
+  sqrt(0.0): 1 tests
+  sqrt(0.5): 1 tests
+  sqrt(0x1.0000000000001p0): 1 tests
+  sqrt(0x1p-1022): 1 tests
+  sqrt(0x1p-1050): 1 tests
+  sqrt(0x1p-1074): 1 tests
+  sqrt(2.0): 1 tests
+  sqrt(2.1): 1 tests
+  sqrt(3.0): 1 tests
+  sqrt(3.14159): 1 tests
+  sqrt(4.0): 1 tests
+  sqrt(5e-324): 1 tests
+  sqrt(8.0): 1 tests
+  sqrt(9.0): 1 tests
+  sqrt(INFINITY): 1 tests
+  sqrt(NAN): 1 tests
+  sqrtf(-0.5f): 1 tests
+  sqrtf(-1): 1 tests
+  sqrtf(-1.0f): 1 tests
+  sqrtf(-inf): 1 tests
+  sqrtf(0.0f): 1 tests
+  sqrtf(0x1p-130f): 1 tests
+  sqrtf(0x1p-149f): 1 tests
+  sqrtf(1.4e-45f): 1 tests
+  sqrtf(2.0f): 1 tests
+  sqrtf(NAN): 1 tests
+  sqrtf(inf): 1 tests
+  sqrtf(nan): 1 tests
+  tan(-100.0): 1 tests
+  tan(0.5): 1 tests
+  tan(100.0): 1 tests
+  tan(1e15): 1 tests
+  tan(INFINITY): 1 tests
+  tan(NAN): 1 tests
+  tanf(-100.0f): 1 tests
+  tanf(0.5f): 1 tests
+  tanf(100.0f): 1 tests
+  tanf(INFINITY): 1 tests
+  tanf(NAN): 1 tests
+  tgamma(-0.5): 1 tests
+  tgamma(-1.5): 1 tests
+  tgamma(10.0): 1 tests
+  tgamma(5.5): 1 tests
+  tgamma(7.5): 1 tests
+  tgammaf: 3 tests
+  tgammaf(-0.5f): 1 tests
+  tgammaf(-1.5f): 1 tests
+  tgammaf(10.0f): 1 tests
+  tgammaf(1e20f): 1 tests
+  tgammaf(5.5f): 1 tests
+  tgammaf(7.5f): 1 tests
+  tgammaf(inf): 1 tests
+  trunc(+0): 1 tests
+  trunc(-0): 1 tests
+  trunc(-0.5): 1 tests
+  trunc(-0.9): 1 tests
+  trunc(-0x1.0001p35): 1 tests
+  trunc(-0x1.8p20): 1 tests
+  trunc(-1.7): 1 tests
+  trunc(0.5): 1 tests
+  trunc(0.9): 1 tests
+  trunc(0x1.0000000000001p40): 1 tests
+  trunc(0x1.0001p35): 1 tests
+  trunc(0x1.4p25): 1 tests
+  trunc(0x1.8p20): 1 tests
+  trunc(1.5): 1 tests
+  trunc(1.7): 1 tests
+  trunc(1e18): 1 tests
+  trunc(1e20): 1 tests
+  trunc(INFINITY): 1 tests
+  trunc(NAN): 1 tests
+  trunc(inf): 1 tests
+  trunc(nan): 1 tests
+  truncf(+0): 1 tests
+  truncf(-0): 1 tests
+  truncf(-0.5f): 1 tests
+  truncf(-0.9f): 1 tests
+  truncf(-0x1.8p22f): 1 tests
+  truncf(-1.7f): 1 tests
+  truncf(0.5f): 1 tests
+  truncf(0.9f): 1 tests
+  truncf(0x1.8p22f): 1 tests
+  truncf(1.5f): 1 tests
+  truncf(1.7f): 1 tests
+  truncf(1e10f): 1 tests
+  truncf(INFINITY): 1 tests
+  truncf(NAN): 1 tests
+  truncf(inf): 1 tests
+  truncf(nan): 1 tests
+  y0: 7 tests
+  y0(10): 1 tests
+  y0(100): 1 tests
+  y0(3): 1 tests
+  y0(inf): 1 tests
+  y1: 7 tests
+  y1(-1.0): 1 tests
+  y1(0.0): 1 tests
+  y1(0.1): 1 tests
+  y1(0x1p-60): 1 tests
+  y1(1.0): 1 tests
+  y1(10): 1 tests
+  y1(10.0): 1 tests
+  y1(100): 1 tests
+  y1(2.0): 1 tests
+  y1(INFINITY): 1 tests
+  y1(NAN): 1 tests
+  y1(inf): 1 tests
+  yn: 9 tests
+  yn(-1,: 1 tests
+  yn(-2,: 1 tests
+  yn(-3,: 1 tests
+  yn(0,: 1 tests
+  yn(1,: 1 tests
+  yn(10,0.5): 1 tests
+  yn(2,: 2 tests
+  yn(3,: 1 tests
+  yn(3,1e100): 1 tests
+  yn(3,1e200): 1 tests
+  yn(4,: 1 tests
+  yn(5,: 2 tests
+  yn(5,1.0): 1 tests
+  yn(6,: 1 tests
+  yn(7,: 1 tests
+
+MISMATCH (39 tests, 16 functions):
+C and Rust produce different results:
+  __fpclassifyf: 6 mismatches
+    C:    __fpclassifyf 0x0p+0 = 2
+    Rust: __fpclassifyf 0x0p+0 = 0
+    C:    __fpclassifyf inf = 1
+    Rust: __fpclassifyf inf = 3
+    C:    __fpclassifyf nan = 0
+    Rust: __fpclassifyf nan = 1
+    ... (3 more)
+  acosh: 2 mismatches
+    C:    acosh 0x1p+1 = 0x1.5124271980434p+0
+    Rust: acosh 0x1p+1 = 0x1.62e42fefa39efp+0
+    C:    acosh 0x1.0000000000001p+0 = 0x1.6a09e667f3bcdp-26
+    Rust: acosh 0x1.0000000000001p+0 = 0x1.ffffffffffffep-52
+  ctanf: 1 mismatches
+    C:    ctanf pi/2+0.001i = 0x1.353d4p-4+0x1.f4000ap+9i
+    Rust: ctanf pi/2+0.001i = -0x1.575216p+3+0x1.f4000ap+9i
+  exp2: 1 mismatches
+    C:    exp2 0x1.4p+3 = 0x1p+10
+    Rust: exp2 0x1.4p+3 = 0x1.b2d809254afbcp+11
+  fmod: 1 mismatches
+    C:    fmod 1e-320 5e-324 = 0x0p+0
+    Rust: fmod 1e-320 5e-324 = 0x0.00000000007dap-1022
+  ilogb: 5 mismatches
+    C:    ilogb 0x0p+0 = -2147483647
+    Rust: ilogb 0x0p+0 = -2147483648
+    C:    ilogb 0x0.0000000000001p-1022 = -1074
+    Rust: ilogb 0x0.0000000000001p-1022 = -1075
+    C:    ilogb -0x0.0000000000001p-1022 = -1074
+    Rust: ilogb -0x0.0000000000001p-1022 = -1075
+    ... (2 more)
+  ilogbf: 1 mismatches
+    C:    ilogbf 0x0p+0 = -2147483647
+    Rust: ilogbf 0x0p+0 = -2147483648
+  log1pf: 6 mismatches
+    C:    log1pf -0x1p+1 = nan
+    Rust: log1pf -0x1p+1 = -0x1p+2
+    C:    log1pf -0x1p+0 = -inf
+    Rust: log1pf -0x1p+0 = -0x1p+1
+    C:    log1pf -0x1p-1 = -0x1.62e43p-1
+    Rust: log1pf -0x1p-1 = -0x1p+0
+    ... (3 more)
+  logb: 3 mismatches
+    C:    logb 0x0.0000000000001p-1022 = -0x1.0c8p+10
+    Rust: logb 0x0.0000000000001p-1022 = -0x1.0ccp+10
+    C:    logb -0x0.0000000000001p-1022 = -0x1.0c8p+10
+    Rust: logb -0x0.0000000000001p-1022 = -0x1.0ccp+10
+    C:    logb D_SUBNORM = -0x1.0c8p+10
+    Rust: logb D_SUBNORM = -0x1.0ccp+10
+  modf: 1 mismatches
+    C:    modf nan = nan ip=nan
+    Rust: modf nan = 0x0p+0 ip=nan
+  pow: 6 mismatches
+    C:    pow 0x1p+1 0x1.4p+3 = 0x1p+10
+    Rust: pow 0x1p+1 0x1.4p+3 = 0x1.b2d809254afbcp+11
+    C:    pow -0x1p+1 0x1.8p+1 = -0x1p+3
+    Rust: pow -0x1p+1 0x1.8p+1 = -0x1.fffee746db0fcp+5
+    C:    pow 0x1p-1 -0x1p+1 = 0x1p+2
+    Rust: pow 0x1p-1 -0x1p+1 = 0x1.fffffedd903acp+3
+    ... (3 more)
+  remainder: 1 mismatches
+    C:    remainder 1e-300 1e-316 = -0x0.00000007fd98bp-1022
+    Rust: remainder 1e-300 1e-316 = 0x0.00000000006dep-1022
+  remquo: 1 mismatches
+    C:    remquo 1e-300 1e-316 = -0x0.00000007fd98bp-1022 q=3
+    Rust: remquo 1e-300 1e-316 = 0x0.00000000035ap-1022 q=0
+  rintf: 1 mismatches
+    C:    rintf 0x1.cp+0 = 0x1p+1
+    Rust: rintf 0x1.cp+0 = 0x1p+0
+  sinf: 1 mismatches
+    C:    sinf 0x1.91eb86p+1 = 0x1.a17a16p-10
+    Rust: sinf 0x1.91eb86p+1 = 0x1.9bcff8p-10
+  tanf: 2 mismatches
+    C:    tanf 0x1.91eb86p+1 = -0x1.a17a3ap-10
+    Rust: tanf 0x1.91eb86p+1 = -0x1.9bd018p-10
+    C:    tanf -0x1.91eb86p+1 = 0x1.a17a3ap-10
+    Rust: tanf -0x1.91eb86p+1 = 0x1.9bd018p-10
+
+SUMMARY
+Tests passed:     2175
+Tests failed:     1292
+Missing functions: __ccoshsinh(-800), __ccoshsinh(0.3), __ccoshsinh(1.0), __ccoshsinhf(-200), __ccoshsinhf(0.3), __ccoshsinhf(1.0), __ccoshsinhf(200), __lgamma(-0.5,, __lgamma(0x1p-80,, __lgammaf(-0.5f,, __lgammaf(-1.25f,, __lgammaf(-1.75f,, __lgammaf(-2.25f,, __lgammaf(-2.75f,, __lgammaf(-3.25f,, __lgammaf(-3.75f,, __lgammaf(-4.25f,, __lgammaf(0.5f,, __redupif(-3.14f), __redupif(-6.28f), __redupif(3.14f), __rem_pio2(-1.5), __rem_pio2(0.5), __rem_pio2(0.7), __rem_pio2(1e10), __rem_pio2(1e100), __rem_pio2(1e20), __rem_pio2(1e5), __rem_pio2(inf), __rem_pio2(nan), __rem_pio2(pi/2), __rem_pio2f(-1.5f), __rem_pio2f(0.5), __rem_pio2f(0.7), __rem_pio2f(1e10), __rem_pio2f(1e3), __rem_pio2f(1e5), __rem_pio2f(inf), __rem_pio2f(nan), __rem_pio2f(pi/2f), __tan(-0.8,, __tan(0.3,, __tan(0.8,, __tanf(-0.8f,, __tanf(0.3f,, __tanf(0.8f,, atan2(+0,0.5), atan2(+0,2), atan2(+inf,+inf), atan2(+inf,-inf), atan2(-0,0.5), atan2(-0,2), atan2(-0.0,, atan2(-1.0,, atan2(-2,+inf), atan2(-2,-inf), atan2(-INFINITY,, atan2(-inf,+inf), atan2(-inf,-inf), atan2(0.0,, atan2(1.0,, atan2(2,+inf), atan2(2,-inf), atan2(INFINITY,, atan2(NAN,, atan2f(+0,0.5), atan2f(+0,2), atan2f(-0,0.5), atan2f(-0,2), atan2f(-2,+inf), atan2f(-INFINITY,, atan2f(0.0f,, atan2f(1.0f,, atan2f(2,+inf), atan2f(INFINITY,, atan2f(NAN,, ccos(10+1i), ccosf(1+10i), ccosf(10+1i), ccosf(100+0.5i), ceil(+0), ceil(-0), ceil(-0.0), ceil(-0.1), ceil(-0.3), ceil(-0.5), ceil(-0.9), ceil(-0x1.0000000000001p30), ceil(-0x1.0000000001p30), ceil(-0x1.8p20), ceil(-1.1), ceil(-1.25), ceil(-1.5), ceil(-1e18), ceil(-3.7), ceil(-INFINITY), ceil(-inf), ceil(0.0), ceil(0.1), ceil(0.3), ceil(0.5), ceil(0.9), ceil(0x1.0000000000001p30), ceil(0x1.0000000001p30), ceil(0x1.8p20), ceil(0x1.ffffffffffff0p30), ceil(0x1p25), ceil(0x1p30), ceil(0x1p40), ceil(1.1), ceil(1.25), ceil(1.5), ceil(1e18), ceil(1e20), ceil(2.0), ceil(3.7), ceil(4.0), ceil(8.0), ceil(INFINITY), ceil(NAN), ceil(inf), ceil(nan), ceilf(+0), ceilf(-0), ceilf(-0.1f), ceilf(-0.3f), ceilf(-0.5f), ceilf(-0x1p22f-0.5f), ceilf(-1.25f), ceilf(-1.5f), ceilf(0.0f), ceilf(0.1f), ceilf(0.3f), ceilf(0.5f), ceilf(0x1p22f+0.5f), ceilf(1.25f), ceilf(1.5f), ceilf(1e10f), ceilf(2.0f), ceilf(4.0f), ceilf(INFINITY), ceilf(NAN), ceilf(inf), ceilf(nan), cos(-100.0), cos(-1e100), cos(0.5), cos(1.5), cos(1.5707963267948966), cos(100.0), cos(1e100), cos(1e15), cos(1e6), cos(5.0), cos(INFINITY), cosf(-100.0f), cosf(0.5f), cosf(1.5707963f), cosf(100.0f), cosf(1e10f), cosf(1e30f), cosf(1e5f), cosf(1e8f), cosf(5.0f), cosf(INFINITY), csin(10+1i), csinf(1+10i), csinf(10+1i), csinf(100+0.5i), csinf(1e20+1e20i), ctan(0+50i), ctan(pi/2+0.05i), ctan(pi/2+0.1i), ctanf(0+100i), ctanf(0+50i), ctanf(0.5+0.5i), ctanf(1.5707963+50i), ctanf(pi/2+0.05i), ctanf(pi/2+0.1i), ctans, ctansf, erf, erf(-1.0), erf(-6.0), erf(-INFINITY), erf(0.0), erf(0.5), erf(0.8), erf(1.0), erf(1.2), erf(10.0), erf(2.0), erf(2.5), erf(3.5), erf(6.0), erf(INFINITY), erf(NAN), erfc, erfc(-2.0), erfc(-28.0), erfc(0.0), erfc(1.25), erfc(1.5), erfc(2.0), erfc(28.0), erfc(5.0), erfc(INFINITY), erfc(NAN), erfcf, erfcf(-1.0f), erfcf(-11.0f), erfcf(-2.0f), erfcf(-5.5f), erfcf(0.0f), erfcf(0.75f), erfcf(1.0f), erfcf(11.0f), erfcf(2.0f), erfcf(5.0f), erfcf(INFINITY), erfcf(NAN), erff, erff(-4.0f), erff(0.5f), erff(2.5f), erff(3.5f), erff(4.0f), expm1, expm1(-0.6), expm1(-0.8), expm1(-0.9), expm1(-2.0), expm1(-3.0), expm1(-5.0), expm1(-50.0), expm1(-INFINITY), expm1(0.65), expm1(0.75), expm1(0.8), expm1(0.95), expm1(10.0), expm1(100.0), expm1(15.0), expm1(1e-20), expm1(2.0), expm1(20.0), expm1(30.0), expm1(60.0), expm1(INFINITY), expm1(NAN), expm1f, expm1f(-0.6f), expm1f(-0.8f), expm1f(-2.0f), expm1f(-3.0f), expm1f(0.3f), expm1f(0.8f), expm1f(10.0f), expm1f(1e-10f), expm1f(2.0f), expm1f(25.0f), expm1f(60.0f), expm1f(INFINITY), expm1f(NAN), floor(+0), floor(-0), floor(-0.1), floor(-0.5), floor(-0x1.0000000000001p30), floor(-0x1.8p20), floor(-0x1.ffffffffffff0p30), floor(-0x1.fffffffffffffp30), floor(-1.5), floor(-1e18), floor(-1e20), floor(0.1), floor(0.5), floor(0x1.8p20), floor(0x1p30), floor(1.5), floor(1e18), floor(1e20), floor(4.0), floor(INFINITY), floor(NAN), floor(inf), floor(nan), floorf(+0), floorf(-0), floorf(-0.3f), floorf(-0.5f), floorf(-0x1.8p22f), floorf(-1.5f), floorf(0.5f), floorf(1.5f), floorf(1e10f), floorf(4.0f), floorf(INFINITY), floorf(NAN), floorf(inf), floorf(nan), fmax(-1,-2), fmax(-1.0,, fmax(1,2), fmax(1.0,, fmax(2,nan), fmax(2,snan), fmax(2.0,, fmax(3,2), fmax(3.0,, fmax(NAN,, fmax(__builtin_nans(""),, fmax(nan,2), fmax(nan,snan), fmax(snan,2), fmaxf(-1.0f,, fmaxf(1,2), fmaxf(1.0f,, fmaxf(2,nan), fmaxf(2,snan), fmaxf(2.0f,, fmaxf(3,2), fmaxf(3.0f,, fmaxf(NAN,, fmaxf(__builtin_nansf(""),, fmaxf(nan,2), fmaxf(snan,2), fmin(-1.0,, fmin(1,2), fmin(1.0,, fmin(2,nan), fmin(2,snan), fmin(2.0,, fmin(3,2), fmin(3.0,, fmin(NAN,, fmin(__builtin_nans(""),, fmin(nan,2), fmin(snan,2), fminf(-1.0f,, fminf(1,2), fminf(1.0f,, fminf(2,nan), fminf(2,snan), fminf(2.0f,, fminf(3,2), fminf(3.0f,, fminf(NAN,, fminf(__builtin_nansf(""),, fminf(nan,2), fminf(snan,2), fmod(-1,3), fmod(-3,3), fmod(-3.0,, fmod(-INFINITY,, fmod(-inf,3), fmod(0.5,, fmod(0x1p-1000,, fmod(0x1p-1020,, fmod(0x1p-1023,, fmod(0x1p-1074,, fmod(1,3), fmod(1,5e-324), fmod(1.0,, fmod(3,3), fmod(3.0,, fmod(4.0,, fmod(5,0), fmod(5,nan), fmod(5e-324,3), fmod(6.0,, fmod(INFINITY,, fmod(NAN,, fmod(inf,3), fmod(nan,3), fmodf(-3.0f,, fmodf(0.5f,, fmodf(0x1p-100f,, fmodf(0x1p-120f,, fmodf(0x1p-126f,0x1p-149f), fmodf(0x1p-149f,, fmodf(1,3), fmodf(1,sn), fmodf(1.0f,, fmodf(3,3), fmodf(3.0f,, fmodf(4.0f,, fmodf(5,0), fmodf(5.0f,, fmodf(6.0f,, fmodf(INFINITY,, fmodf(NAN,, fmodf(inf,3), fmodf(nan,3), fmodf(sn,3), frexp(-8.0,, frexp(0), frexp(0.0,, frexp(0x1.8p-1040), frexp(0x1p-1022), frexp(0x1p-1022,, frexp(0x1p-1050), frexp(0x1p-1074,, frexp(4.0,, frexp(5e-324), frexp(INFINITY,, frexp(NAN,, frexp(inf), frexpf(-8.0f,, frexpf(0), frexpf(0.0f,, frexpf(0x1p-130), frexpf(0x1p-149f,, frexpf(1.4e-45), frexpf(4.0f,, frexpf(INFINITY,, frexpf(NAN,, frexpf(inf), hypot(0x1p600,, hypot(0x1p600,0x1p599), hypot(1,5e-324), hypot(1,inf), hypot(1,nan), hypot(1.0,, hypot(1e60,1), hypot(3,4), hypot(3.0,, hypot(5,12), hypot(5e-324,5e-324), hypot(INFINITY,, hypot(NAN,, hypot(inf,1), hypot(nan,1), hypotf(0x1p70f,, hypotf(1,1e-20f), hypotf(1,inf), hypotf(1.0f,, hypotf(1e20f,1), hypotf(1e30f,1e-10f), hypotf(3.0f,, hypotf(INFINITY,, hypotf(NAN,, hypotf(inf,1), ilogb(-INFINITY), ilogb(0), ilogb(0.0), ilogb(0x0.8p-1022), ilogb(0x1.8p-1040), ilogb(0x1p-1022), ilogb(0x1p-1023), ilogb(0x1p-1074), ilogb(5e-324), ilogb(8.0), ilogb(INFINITY), ilogb(NAN), ilogb(inf), ilogb(nan), ilogbf(0), ilogbf(1.4e-45f), ilogbf(inf), ilogbf(nan), j0, j0(10), j0(100), j0(1e-15), j0(1e-5), j0(3), j0(5), j0(inf), j1, j1(10), j1(100), j1(1e-10), j1(3), j1(inf), jn, jn(0,, jn(1,, jn(10,, jn(10,100), jn(10,1e60), jn(100,50), jn(2,, jn(3,, jn(35,, jn(4,, jn(40,1e-10), jn(5,, jn(5,1e-10), jn(5,3), jn(6,, jn(7,, lgamma, lgamma(-0.1), lgamma(-0.2), lgamma(-0.5), lgamma(-0x1p-80), lgamma(-1), lgamma(-1.25), lgamma(-1.5), lgamma(-1.75), lgamma(-1e16), lgamma(-2), lgamma(-2.25), lgamma(-2.5), lgamma(-2.75), lgamma(-3.25), lgamma(-3.75), lgamma(-4.25), lgamma(0), lgamma(0x1p-80), lgamma(10.0), lgamma(1e-300), lgamma(1e60), lgamma(3.5), lgamma(4.5), lgamma(5.5), lgamma(6.5), lgamma(7.5), lgamma(inf), lgammaf, lgammaf(-0.0f), lgammaf(-0.1f), lgammaf(-0.3f), lgammaf(-0.5f), lgammaf(-0x1p-40f), lgammaf(-1), lgammaf(-1.3f), lgammaf(-1.5f), lgammaf(-1e-10f), lgammaf(-1e8f), lgammaf(-2), lgammaf(-2.0f), lgammaf(-2.5f), lgammaf(-3.5f), lgammaf(0), lgammaf(0.0f), lgammaf(0.3f), lgammaf(0.5f), lgammaf(0.8f), lgammaf(0x1p-40f), lgammaf(1), lgammaf(1.0f), lgammaf(1.2f), lgammaf(1.3f), lgammaf(1.5f), lgammaf(1.8f), lgammaf(10.0f), lgammaf(100.0f), lgammaf(1e-10f), lgammaf(1e18f), lgammaf(1e20f), lgammaf(2), lgammaf(2.0f), lgammaf(2.5f), lgammaf(3.0f), lgammaf(3.5f), lgammaf(4.0f), lgammaf(4.5f), lgammaf(5.0f), lgammaf(5.5f), lgammaf(6.0f), lgammaf(6.5f), lgammaf(7.0f), lgammaf(7.5f), lgammaf(9.0f), lgammaf(INFINITY), lgammaf(NAN), lgammaf(inf), lgammaf(nan), llrintf(-1.5f), llrintf(-1e30f), llrintf(1.5f), llrintf(1e30f), llroundf(-1.5f), llroundf(-1e30f), llroundf(1.5f), llroundf(1e30f), log(0.5), log(1.0), log(1.0+1e-7), log(1.0000000001), log(2.0), log10(-1.0), log10(0.0), log10(0.5), log10(0x1p-1074), log10(1.0), log10(1.0+1e-7), log10(2.0), log10(5e-324), log10(INFINITY), log10(NAN), log10f(-1.0f), log10f(0.0f), log10f(0.5f), log10f(0x1p-149f), log10f(1.0f), log10f(2.0f), log10f(INFINITY), log10f(NAN), log1p(-0.2), log1p(-0.5), log1p(-1.0), log1p(0.3), log1p(0.5), log1p(0x1p-31), log1p(0x1p-55), log1p(1.0), log1p(1e15), log1p(1e30), log1p(2.0), log1p(INFINITY), log1p(NAN), log1pf(-0.2f), log1pf(-0.5f), log1pf(-1.0f), log1pf(0.0f), log1pf(0.3f), log1pf(0.5f), log1pf(0x1p-22f), log1pf(0x1p-31f), log1pf(0x1p-55f), log1pf(1.0f), log1pf(1e8f), log1pf(2.0f), log1pf(INFINITY), log2(1.0+1e-7), log2f(-1.0f), log2f(0.0f), log2f(0x1p-149f), log2f(1.0f), log2f(2.0f), logf(-1.0f), logf(0.0f), logf(0.5f), logf(0x1p-126f), logf(0x1p-149f), logf(1.0f), logf(1.0f+1e-7f), logf(2.0f), logf(INFINITY), logf(NAN), lrintf(-0.0f), lrintf(-1.5f), lrintf(-1e30f), lrintf(0.0f), lrintf(1.5f), lrintf(1e30f), lroundf(-1.5f), lroundf(-1e30f), lroundf(0.5f), lroundf(1.5f), lroundf(1e30f), modf(-(0x1p25+0.5)), modf(-0.0), modf(-0.5), modf(-3.7), modf(-3.7,, modf(-4.0), modf(0.0), modf(0.5), modf(0.5,, modf(0x1p25+0.5), modf(0x1p55), modf(0x1p60), modf(1e6,, modf(3.7), modf(3.7,, modf(4.0), modf(INFINITY,, modf(NAN,, modff(-0.5f), modff(-3.7f,, modff(0.5f), modff(0.5f,, modff(0x1p22f+0.5f), modff(0x1p26f), modff(1e6f,, modff(3.7f), modff(3.7f,, modff(4.0f), modff(INFINITY,, modff(NAN,, nextafter(+0,+0), nextafter(+0,-1), nextafter(+0,1), nextafter(-0,-0), nextafter(-0,1), nextafter(-1,-2), nextafter(-1.0,, nextafter(-2,1), nextafter(0.0,, nextafter(0x1.fffffffffffffp1023,, nextafter(0x1.fffffffffffffp1023,inf), nextafter(0x1p-1022,, nextafter(0x1p-1074,, nextafter(0x1p10,, nextafter(1,1), nextafter(1,2), nextafter(1,nan), nextafter(1.0,, nextafter(2,1), nextafter(2.0,, nextafter(5e-324,0), nextafter(nan,1), nextafterf(+0,-1), nextafterf(+0,1), nextafterf(-1.0f,, nextafterf(-2,1), nextafterf(0.0f,, nextafterf(0x1.fffffep127f,, nextafterf(0x1p-149f,, nextafterf(1,2), nextafterf(1.0f,, nextafterf(1.4e-45f,0), nextafterf(2,1), nextafterf(nan,1), pow, pow(-1,inf), pow(-2,0.5), pow(-2,2), pow(-2,3), pow(-2.0,, pow(-inf,3), pow(-inf,4), pow(0,-2), pow(0,2), pow(0.5,, pow(0.5,inf), pow(0.9,1e100), pow(0x1p-1074,, pow(1,-inf), pow(1,inf), pow(1,nan), pow(1.0,, pow(1.1,, pow(1.1,1e100), pow(1.22,10), pow(1.23,10), pow(1.3,, pow(1.73,10), pow(1.74,10), pow(2,-1074), pow(2,1023), pow(2,inf), pow(2,nan), pow(2.0,, pow(5,0), pow(5e-324,0.5), pow(inf,2), pow(nan,0), powf, powf(-1.0f,, powf(-2,0.5), powf(-2,3), powf(-2.0f,, powf(0.0f,, powf(0.5,inf), powf(0.5f,, powf(0.9f,1e10f), powf(0x1p-149f,, powf(1,nan), powf(1.0f,, powf(1.1f,, powf(1.1f,1e10f), powf(1.22f,100), powf(1.73f,100), powf(2,-150), powf(2,inf), powf(2.0f,, powf(INFINITY,, remainder(-3.0,, remainder(-5,3), remainder(1.0,, remainder(1e-300,5e-324), remainder(3,5e-324), remainder(3.0,, remainder(5,3), remainder(5.5,, remainder(7,3), remainder(INFINITY,, remainder(NAN,, remainderf(-3.0f,, remainderf(0.2f,, remainderf(0.7f,, remainderf(0.9f,, remainderf(1.0f,, remainderf(1e-37f,1.4e-45f), remainderf(3,1.4e-45f), remainderf(3.0f,, remainderf(5,3), remainderf(5.5f,, remainderf(7,3), remainderf(INFINITY,, remquo(-3,3), remquo(-3.0,, remquo(1,5e-324), remquo(1.0,, remquo(10.5,, remquo(13,3), remquo(3,3), remquo(3.0,, remquo(5,0), remquo(5.5,, remquo(7,3), remquo(INFINITY,, remquo(NAN,, remquo(inf,3), remquo(nan,3), remquof(-3.0f,, remquof(0.2f,, remquof(0.7f,, remquof(0.9f,, remquof(1,1.4e-45), remquof(1.0f,, remquof(10.5f,, remquof(13,3), remquof(3,3), remquof(3.0f,, remquof(5,0), remquof(7,3), remquof(INFINITY,, remquof(NAN,, remquof(inf,3), remquof(nan,3), rintf(-0.5f), rintf(-1.5f), rintf(-2.0f), rintf(0.3f), rintf(0.5f), rintf(1.3f), rintf(1.5f), rintf(1e10f), rintf(2.0f), rintf(2.5f), rintf(4.0f), rintf(8.0f), rintf(inf), round(-0.3), round(-0.5), round(-0.7), round(-1.5), round(-2.5), round(-4.0), round(0.3), round(0.5), round(0.7), round(0x1p30), round(0x1p30+0.5), round(1.5), round(1e18), round(1e20), round(2.0), round(2.5), round(4.0), round(8.0), round(INFINITY), round(NAN), round(inf), round(nan), scalbn(0.0,, scalbn(0x1p-1022,, scalbn(0x1p-1022,−50000), scalbn(0x1p-1050,100), scalbn(0x1p-1074,, scalbn(1,-2000), scalbn(1,2047), scalbn(1,50001), scalbn(1.0,, scalbn(5e-324,1), scalbn(INFINITY,, scalbn(NAN,, scalbn(inf,1), scalbn(nan,1), scalbnf(0.0f,, scalbnf(0x1p-126f,, scalbnf(0x1p-126f,-50000), scalbnf(0x1p-130f,100), scalbnf(0x1p-149f,, scalbnf(1,-200), scalbnf(1,255), scalbnf(1,50001), scalbnf(1.0f,, scalbnf(1.4e-45f,1), scalbnf(INFINITY,, scalbnf(NAN,, sin(-1.5707963267948966), sin(-100.0), sin(-1e100), sin(0.5), sin(1.5), sin(1.5707963267948966), sin(100.0), sin(1e100), sin(1e15), sin(1e6), sin(5.0), sin(INFINITY), sinf(-100.0f), sinf(-1e30f), sinf(0.5f), sinf(1.5707963f), sinf(100.0f), sinf(1e10f), sinf(1e30f), sinf(1e5f), sinf(1e8f), sinf(5.0f), sinf(INFINITY), sqrt(-0.0), sqrt(-1.0), sqrt(-INFINITY), sqrt(0.0), sqrt(0.5), sqrt(0x1.0000000000001p0), sqrt(0x1p-1022), sqrt(0x1p-1050), sqrt(0x1p-1074), sqrt(2.0), sqrt(2.1), sqrt(3.0), sqrt(3.14159), sqrt(4.0), sqrt(5e-324), sqrt(8.0), sqrt(9.0), sqrt(INFINITY), sqrt(NAN), sqrtf(-0.5f), sqrtf(-1), sqrtf(-1.0f), sqrtf(-inf), sqrtf(0.0f), sqrtf(0x1p-130f), sqrtf(0x1p-149f), sqrtf(1.4e-45f), sqrtf(2.0f), sqrtf(NAN), sqrtf(inf), sqrtf(nan), tan(-100.0), tan(0.5), tan(100.0), tan(1e15), tan(INFINITY), tan(NAN), tanf(-100.0f), tanf(0.5f), tanf(100.0f), tanf(INFINITY), tanf(NAN), tgamma(-0.5), tgamma(-1.5), tgamma(10.0), tgamma(5.5), tgamma(7.5), tgammaf, tgammaf(-0.5f), tgammaf(-1.5f), tgammaf(10.0f), tgammaf(1e20f), tgammaf(5.5f), tgammaf(7.5f), tgammaf(inf), trunc(+0), trunc(-0), trunc(-0.5), trunc(-0.9), trunc(-0x1.0001p35), trunc(-0x1.8p20), trunc(-1.7), trunc(0.5), trunc(0.9), trunc(0x1.0000000000001p40), trunc(0x1.0001p35), trunc(0x1.4p25), trunc(0x1.8p20), trunc(1.5), trunc(1.7), trunc(1e18), trunc(1e20), trunc(INFINITY), trunc(NAN), trunc(inf), trunc(nan), truncf(+0), truncf(-0), truncf(-0.5f), truncf(-0.9f), truncf(-0x1.8p22f), truncf(-1.7f), truncf(0.5f), truncf(0.9f), truncf(0x1.8p22f), truncf(1.5f), truncf(1.7f), truncf(1e10f), truncf(INFINITY), truncf(NAN), truncf(inf), truncf(nan), y0, y0(10), y0(100), y0(3), y0(inf), y1, y1(-1.0), y1(0.0), y1(0.1), y1(0x1p-60), y1(1.0), y1(10), y1(10.0), y1(100), y1(2.0), y1(INFINITY), y1(NAN), y1(inf), yn, yn(-1,, yn(-2,, yn(-3,, yn(0,, yn(1,, yn(10,0.5), yn(2,, yn(3,, yn(3,1e100), yn(3,1e200), yn(4,, yn(5,, yn(5,1.0), yn(6,, yn(7,
+Mismatched functions: __fpclassifyf, acosh, ctanf, exp2, fmod, ilogb, ilogbf, log1pf, logb, modf, pow, remainder, remquo, rintf, sinf, tanf
+
+## FUNCTION LOCATION MAP
+
+Use this to find where each function is defined (do NOT read all files):
+
+acosl -> /home/leochanj/Desktop/libmcs/libm/mathd/acosd.c
+acoshl -> /home/leochanj/Desktop/libmcs/libm/mathd/acoshd.c
+asinl -> /home/leochanj/Desktop/libmcs/libm/mathd/asind.c
+asinhl -> /home/leochanj/Desktop/libmcs/libm/mathd/asinhd.c
+atan2l -> /home/leochanj/Desktop/libmcs/libm/mathd/atan2d.c
+atanl -> /home/leochanj/Desktop/libmcs/libm/mathd/atand.c
+atanhl -> /home/leochanj/Desktop/libmcs/libm/mathd/atanhd.c
+cbrtl -> /home/leochanj/Desktop/libmcs/libm/mathd/cbrtd.c
+ceill -> /home/leochanj/Desktop/libmcs/libm/mathd/ceild.c
+copysignl -> /home/leochanj/Desktop/libmcs/libm/mathd/copysignd.c
+cosl -> /home/leochanj/Desktop/libmcs/libm/mathd/cosd.c
+coshl -> /home/leochanj/Desktop/libmcs/libm/mathd/coshd.c
+erfcl -> /home/leochanj/Desktop/libmcs/libm/mathd/erfcd.c
+erfl -> /home/leochanj/Desktop/libmcs/libm/mathd/erfd.c
+exp2l -> /home/leochanj/Desktop/libmcs/libm/mathd/exp2d.c
+expl -> /home/leochanj/Desktop/libmcs/libm/mathd/expd.c
+expm1l -> /home/leochanj/Desktop/libmcs/libm/mathd/expm1d.c
+fabsl -> /home/leochanj/Desktop/libmcs/libm/mathd/fabsd.c
+fdiml -> /home/leochanj/Desktop/libmcs/libm/mathd/fdimd.c
+floorl -> /home/leochanj/Desktop/libmcs/libm/mathd/floord.c
+fmal -> /home/leochanj/Desktop/libmcs/libm/mathd/fmad.c
+fmaxl -> /home/leochanj/Desktop/libmcs/libm/mathd/fmaxd.c
+fminl -> /home/leochanj/Desktop/libmcs/libm/mathd/fmind.c
+fmodl -> /home/leochanj/Desktop/libmcs/libm/mathd/fmodd.c
+frexpl -> /home/leochanj/Desktop/libmcs/libm/mathd/frexpd.c
+hypotl -> /home/leochanj/Desktop/libmcs/libm/mathd/hypotd.c
+ilogb -> /home/leochanj/Desktop/libmcs/libm/mathd/ilogbd.c
+ilogbl -> /home/leochanj/Desktop/libmcs/libm/mathd/ilogbd.c
+ldexpl -> /home/leochanj/Desktop/libmcs/libm/mathd/ldexpd.c
+lgammal -> /home/leochanj/Desktop/libmcs/libm/mathd/lgammad.c
+llrint -> /home/leochanj/Desktop/libmcs/libm/mathd/llrintd.c
+llrintl -> /home/leochanj/Desktop/libmcs/libm/mathd/llrintd.c
+llround -> /home/leochanj/Desktop/libmcs/libm/mathd/llroundd.c
+llroundl -> /home/leochanj/Desktop/libmcs/libm/mathd/llroundd.c
+log10l -> /home/leochanj/Desktop/libmcs/libm/mathd/log10d.c
+log1pl -> /home/leochanj/Desktop/libmcs/libm/mathd/log1pd.c
+log2l -> /home/leochanj/Desktop/libmcs/libm/mathd/log2d.c
+logbl -> /home/leochanj/Desktop/libmcs/libm/mathd/logbd.c
+logl -> /home/leochanj/Desktop/libmcs/libm/mathd/logd.c
+lrint -> /home/leochanj/Desktop/libmcs/libm/mathd/lrintd.c
+lrintl -> /home/leochanj/Desktop/libmcs/libm/mathd/lrintd.c
+lround -> /home/leochanj/Desktop/libmcs/libm/mathd/lroundd.c
+lroundl -> /home/leochanj/Desktop/libmcs/libm/mathd/lroundd.c
+modfl -> /home/leochanj/Desktop/libmcs/libm/mathd/modfd.c
+nanl -> /home/leochanj/Desktop/libmcs/libm/mathd/nand.c
+nearbyintl -> /home/leochanj/Desktop/libmcs/libm/mathd/nearbyintd.c
+nextafterl -> /home/leochanj/Desktop/libmcs/libm/mathd/nextafterd.c
+nexttowardl -> /home/leochanj/Desktop/libmcs/libm/mathd/nexttowardd.c
+powl -> /home/leochanj/Desktop/libmcs/libm/mathd/powd.c
+remainderl -> /home/leochanj/Desktop/libmcs/libm/mathd/remainderd.c
+remquol -> /home/leochanj/Desktop/libmcs/libm/mathd/remquod.c
+rintl -> /home/leochanj/Desktop/libmcs/libm/mathd/rintd.c
+roundl -> /home/leochanj/Desktop/libmcs/libm/mathd/roundd.c
+scalblnl -> /home/leochanj/Desktop/libmcs/libm/mathd/scalblnd.c
+scalbnl -> /home/leochanj/Desktop/libmcs/libm/mathd/scalbnd.c
+sinl -> /home/leochanj/Desktop/libmcs/libm/mathd/sind.c
+sinhl -> /home/leochanj/Desktop/libmcs/libm/mathd/sinhd.c
+sqrtl -> /home/leochanj/Desktop/libmcs/libm/mathd/sqrtd.c
+__tan -> /home/leochanj/Desktop/libmcs/libm/mathd/tand.c
+tanl -> /home/leochanj/Desktop/libmcs/libm/mathd/tand.c
+tanhl -> /home/leochanj/Desktop/libmcs/libm/mathd/tanhd.c
+tgammal -> /home/leochanj/Desktop/libmcs/libm/mathd/tgammad.c
+truncl -> /home/leochanj/Desktop/libmcs/libm/mathd/truncd.c
+__fpclassifyd -> /home/leochanj/Desktop/libmcs/libm/mathd/internal/fpclassifyd.c
+__sin_pi -> /home/leochanj/Desktop/libmcs/libm/mathd/internal/gammad.c
+__signbitd -> /home/leochanj/Desktop/libmcs/libm/mathd/internal/signbitd.c
+__rem_pio2_internal -> /home/leochanj/Desktop/libmcs/libm/mathd/internal/trigd.c
+__rem_pio2 -> /home/leochanj/Desktop/libmcs/libm/mathd/internal/trigd.c
+acosf -> /home/leochanj/Desktop/libmcs/libm/mathf/acosf.c
+acoshf -> /home/leochanj/Desktop/libmcs/libm/mathf/acoshf.c
+asinf -> /home/leochanj/Desktop/libmcs/libm/mathf/asinf.c
+asinhf -> /home/leochanj/Desktop/libmcs/libm/mathf/asinhf.c
+atan2f -> /home/leochanj/Desktop/libmcs/libm/mathf/atan2f.c
+atanf -> /home/leochanj/Desktop/libmcs/libm/mathf/atanf.c
+atanhf -> /home/leochanj/Desktop/libmcs/libm/mathf/atanhf.c
+cbrtf -> /home/leochanj/Desktop/libmcs/libm/mathf/cbrtf.c
+ceilf -> /home/leochanj/Desktop/libmcs/libm/mathf/ceilf.c
+copysignf -> /home/leochanj/Desktop/libmcs/libm/mathf/copysignf.c
+cosf -> /home/leochanj/Desktop/libmcs/libm/mathf/cosf.c
+coshf -> /home/leochanj/Desktop/libmcs/libm/mathf/coshf.c
+erfcf -> /home/leochanj/Desktop/libmcs/libm/mathf/erfcf.c
+erff -> /home/leochanj/Desktop/libmcs/libm/mathf/erff.c
+exp2f -> /home/leochanj/Desktop/libmcs/libm/mathf/exp2f.c
+expm1f -> /home/leochanj/Desktop/libmcs/libm/mathf/expm1f.c
+fabsf -> /home/leochanj/Desktop/libmcs/libm/mathf/fabsf.c
+fdimf -> /home/leochanj/Desktop/libmcs/libm/mathf/fdimf.c
+floorf -> /home/leochanj/Desktop/libmcs/libm/mathf/floorf.c
+fmaf -> /home/leochanj/Desktop/libmcs/libm/mathf/fmaf.c
+fmaxf -> /home/leochanj/Desktop/libmcs/libm/mathf/fmaxf.c
+fminf -> /home/leochanj/Desktop/libmcs/libm/mathf/fminf.c
+fmodf -> /home/leochanj/Desktop/libmcs/libm/mathf/fmodf.c
+frexpf -> /home/leochanj/Desktop/libmcs/libm/mathf/frexpf.c
+hypotf -> /home/leochanj/Desktop/libmcs/libm/mathf/hypotf.c
+ilogbf -> /home/leochanj/Desktop/libmcs/libm/mathf/ilogbf.c
+ilogb -> /home/leochanj/Desktop/libmcs/libm/mathf/ilogbf.c
+ldexpf -> /home/leochanj/Desktop/libmcs/libm/mathf/ldexpf.c
+lgammaf -> /home/leochanj/Desktop/libmcs/libm/mathf/lgammaf.c
+llrintf -> /home/leochanj/Desktop/libmcs/libm/mathf/llrintf.c
+llrint -> /home/leochanj/Desktop/libmcs/libm/mathf/llrintf.c
+llroundf -> /home/leochanj/Desktop/libmcs/libm/mathf/llroundf.c
+llround -> /home/leochanj/Desktop/libmcs/libm/mathf/llroundf.c
+log10f -> /home/leochanj/Desktop/libmcs/libm/mathf/log10f.c
+log1pf -> /home/leochanj/Desktop/libmcs/libm/mathf/log1pf.c
+log2f -> /home/leochanj/Desktop/libmcs/libm/mathf/log2f.c
+logbf -> /home/leochanj/Desktop/libmcs/libm/mathf/logbf.c
+logf -> /home/leochanj/Desktop/libmcs/libm/mathf/logf.c
+lrintf -> /home/leochanj/Desktop/libmcs/libm/mathf/lrintf.c
+lrint -> /home/leochanj/Desktop/libmcs/libm/mathf/lrintf.c
+lroundf -> /home/leochanj/Desktop/libmcs/libm/mathf/lroundf.c
+lround -> /home/leochanj/Desktop/libmcs/libm/mathf/lroundf.c
+modff -> /home/leochanj/Desktop/libmcs/libm/mathf/modff.c
+nanf -> /home/leochanj/Desktop/libmcs/libm/mathf/nanf.c
+nearbyintf -> /home/leochanj/Desktop/libmcs/libm/mathf/nearbyintf.c
+nextafterf -> /home/leochanj/Desktop/libmcs/libm/mathf/nextafterf.c
+nexttowardf -> /home/leochanj/Desktop/libmcs/libm/mathf/nexttowardf.c
+powf -> /home/leochanj/Desktop/libmcs/libm/mathf/powf.c
+remainderf -> /home/leochanj/Desktop/libmcs/libm/mathf/remainderf.c
+remquof -> /home/leochanj/Desktop/libmcs/libm/mathf/remquof.c
+rintf -> /home/leochanj/Desktop/libmcs/libm/mathf/rintf.c
+roundf -> /home/leochanj/Desktop/libmcs/libm/mathf/roundf.c
+scalblnf -> /home/leochanj/Desktop/libmcs/libm/mathf/scalblnf.c
+scalbnf -> /home/leochanj/Desktop/libmcs/libm/mathf/scalbnf.c
+sinf -> /home/leochanj/Desktop/libmcs/libm/mathf/sinf.c
+sinhf -> /home/leochanj/Desktop/libmcs/libm/mathf/sinhf.c
+sqrtf -> /home/leochanj/Desktop/libmcs/libm/mathf/sqrtf.c
+__tanf -> /home/leochanj/Desktop/libmcs/libm/mathf/tanf.c
+tanf -> /home/leochanj/Desktop/libmcs/libm/mathf/tanf.c
+tanhf -> /home/leochanj/Desktop/libmcs/libm/mathf/tanhf.c
+tgammaf -> /home/leochanj/Desktop/libmcs/libm/mathf/tgammaf.c
+truncf -> /home/leochanj/Desktop/libmcs/libm/mathf/truncf.c
+__fpclassifyf -> /home/leochanj/Desktop/libmcs/libm/mathf/internal/fpclassifyf.c
+__sin_pif -> /home/leochanj/Desktop/libmcs/libm/mathf/internal/gammaf.c
+__lgammaf -> /home/leochanj/Desktop/libmcs/libm/mathf/internal/gammaf.c
+__signbitf -> /home/leochanj/Desktop/libmcs/libm/mathf/internal/signbitf.c
+__rem_pio2f_internal -> /home/leochanj/Desktop/libmcs/libm/mathf/internal/trigf.c
+__rem_pio2f -> /home/leochanj/Desktop/libmcs/libm/mathf/internal/trigf.c
+__cosf -> /home/leochanj/Desktop/libmcs/libm/mathf/internal/trigf.c
+__sinf -> /home/leochanj/Desktop/libmcs/libm/mathf/internal/trigf.c
+cabsl -> /home/leochanj/Desktop/libmcs/libm/complexd/cabsd.c
+cacosl -> /home/leochanj/Desktop/libmcs/libm/complexd/cacosd.c
+cacoshl -> /home/leochanj/Desktop/libmcs/libm/complexd/cacoshd.c
+cargl -> /home/leochanj/Desktop/libmcs/libm/complexd/cargd.c
+casinl -> /home/leochanj/Desktop/libmcs/libm/complexd/casind.c
+casinhl -> /home/leochanj/Desktop/libmcs/libm/complexd/casinhd.c
+catanl -> /home/leochanj/Desktop/libmcs/libm/complexd/catand.c
+catanhl -> /home/leochanj/Desktop/libmcs/libm/complexd/catanhd.c
+ccosl -> /home/leochanj/Desktop/libmcs/libm/complexd/ccosd.c
+ccoshl -> /home/leochanj/Desktop/libmcs/libm/complexd/ccoshd.c
+cexpl -> /home/leochanj/Desktop/libmcs/libm/complexd/cexpd.c
+cimagl -> /home/leochanj/Desktop/libmcs/libm/complexd/cimagd.c
+clogl -> /home/leochanj/Desktop/libmcs/libm/complexd/clogd.c
+conjl -> /home/leochanj/Desktop/libmcs/libm/complexd/conjd.c
+cpowl -> /home/leochanj/Desktop/libmcs/libm/complexd/cpowd.c
+cprojl -> /home/leochanj/Desktop/libmcs/libm/complexd/cprojd.c
+creall -> /home/leochanj/Desktop/libmcs/libm/complexd/creald.c
+csinl -> /home/leochanj/Desktop/libmcs/libm/complexd/csind.c
+csinhl -> /home/leochanj/Desktop/libmcs/libm/complexd/csinhd.c
+csqrtl -> /home/leochanj/Desktop/libmcs/libm/complexd/csqrtd.c
+__ctans -> /home/leochanj/Desktop/libmcs/libm/complexd/ctand.c
+ctanl -> /home/leochanj/Desktop/libmcs/libm/complexd/ctand.c
+ctanhl -> /home/leochanj/Desktop/libmcs/libm/complexd/ctanhd.c
+__ccoshsinh -> /home/leochanj/Desktop/libmcs/libm/complexd/internal/ctrigd.c
+cabsf -> /home/leochanj/Desktop/libmcs/libm/complexf/cabsf.c
+cacosf -> /home/leochanj/Desktop/libmcs/libm/complexf/cacosf.c
+cacoshf -> /home/leochanj/Desktop/libmcs/libm/complexf/cacoshf.c
+cargf -> /home/leochanj/Desktop/libmcs/libm/complexf/cargf.c
+casinf -> /home/leochanj/Desktop/libmcs/libm/complexf/casinf.c
+casinhf -> /home/leochanj/Desktop/libmcs/libm/complexf/casinhf.c
+catanf -> /home/leochanj/Desktop/libmcs/libm/complexf/catanf.c
+catanhf -> /home/leochanj/Desktop/libmcs/libm/complexf/catanhf.c
+ccosf -> /home/leochanj/Desktop/libmcs/libm/complexf/ccosf.c
+ccoshf -> /home/leochanj/Desktop/libmcs/libm/complexf/ccoshf.c
+cexpf -> /home/leochanj/Desktop/libmcs/libm/complexf/cexpf.c
+cimagf -> /home/leochanj/Desktop/libmcs/libm/complexf/cimagf.c
+clogf -> /home/leochanj/Desktop/libmcs/libm/complexf/clogf.c
+conjf -> /home/leochanj/Desktop/libmcs/libm/complexf/conjf.c
+cpowf -> /home/leochanj/Desktop/libmcs/libm/complexf/cpowf.c
+cprojf -> /home/leochanj/Desktop/libmcs/libm/complexf/cprojf.c
+crealf -> /home/leochanj/Desktop/libmcs/libm/complexf/crealf.c
+csinf -> /home/leochanj/Desktop/libmcs/libm/complexf/csinf.c
+csinhf -> /home/leochanj/Desktop/libmcs/libm/complexf/csinhf.c
+csqrtf -> /home/leochanj/Desktop/libmcs/libm/complexf/csqrtf.c
+__ctansf -> /home/leochanj/Desktop/libmcs/libm/complexf/ctanf.c
+ctanf -> /home/leochanj/Desktop/libmcs/libm/complexf/ctanf.c
+ctanhf -> /home/leochanj/Desktop/libmcs/libm/complexf/ctanhf.c
+__ccoshsinhf -> /home/leochanj/Desktop/libmcs/libm/complexf/internal/ctrigf.c
+__redupif -> /home/leochanj/Desktop/libmcs/libm/complexf/internal/ctrigf.c
+
+============================================================
+Tests failed:     1292
+============================================================
