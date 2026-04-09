@@ -31,7 +31,7 @@ Long double wrapper functions (`acosl`, `sinl`, etc.) are behind a disabled
 | Scenario | Test Prints | Functions Covered | Func Cov % | Branch Cov % | Branches (hit/total) |
 |----------|-------------|-------------------|-----------|-------------|---------------------|
 | S1 | 779 | 162/186 | 87.1% | 58.1% | 1838/3162 |
-| S2 | 508 | 178/186 | 95.7% | — (crashed) | — |
+| S2 | 508 | 178/186 | 95.7% | 47.1% | 1460/3097 |
 | S3 | 998 | 166/186 | 89.2% | 70.6% | 2238/3168 |
 | S4 (new) | 371 | 186/186 | 100.0% | 45.1% | 1398/3097 |
 | S5 (new) | — | — | — | — | running |
@@ -39,8 +39,8 @@ Long double wrapper functions (`acosl`, `sinl`, etc.) are behind a disabled
 All branch coverage measured with llvm-cov-21 (`-fprofile-instr-generate -fcoverage-mapping`).
 
 Notes:
-- S2 crashed during coverage run (likely test-triggered segfault). Function
-  coverage is 100% of public functions by static analysis.
+- S2's test_fenv crashes (segfault). Branch coverage measured with fenv test
+  skipped. Function coverage is 95.7% (178/186, missing 8 static functions).
 - S4 has 100% function coverage but only 45.1% branch coverage — it calls every
   function but with few inputs, missing many code paths.
 - S1-S3 miss 20-24 functions (mostly internal helpers not called by single-shot
