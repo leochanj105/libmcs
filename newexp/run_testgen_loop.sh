@@ -75,15 +75,31 @@ if has_mode "function"; then
     echo "  Total functions: ${_total_funcs}"
 fi
 
-# ── Ensure branch list exists (extracted once, persistent) ──
-BRANCHES_FILE="${EXP_DIR}/work-branches.md"
+# ── Ensure branch ground truth exists (extracted once, persistent) ──
+BRANCHES_JSON="${EXP_DIR}/work-branches.json"
 if has_mode "branch"; then
-    bash "${EXP_DIR}/scripts/extract_branches.sh" "$BRANCHES_FILE"
-    _total_branches=$(grep -c -v '^#\|^$' "$BRANCHES_FILE" || echo 0)
-    [ "$_total_branches" -gt 0 ] || panic "Branch list is empty: ${BRANCHES_FILE}"
-    echo "  Total branches: ${_total_branches}"
-    # Copy to workdir where harness coverage scripts expect it
-    cp "$BRANCHES_FILE" "${WORKDIR}/branches.md"
+    if [ ! -f "$BRANCHES_JSON" ]; then
+        echo "  Extracting branch ground truth..."
+        # Build library with coverage, export, extract branches
+        _BBDIR=$(mktemp -d)
+        _EXCL="cmplx.c|isfinite.c|isgreater.c|isgreaterequal.c|isinf.c|isless.c|islessequal.c|islessgreater.c|isnan.c|isnormal.c|isunordered.c|fenv.c"
+        for _d in $C_SRC_DIRS; do
+            [ -d "$_d" ] || continue
+            find "$_d" -name '*.c' -type f | grep -vE "$_EXCL" | while read -r _cf; do
+                $CC -I${C_INCLUDE_DIRS} -fprofile-instr-generate -fcoverage-mapping -O0 -fno-builtin \
+                    -c "$_cf" -o "${_BBDIR}/c_$(basename "$_cf" .c).o" 2>/dev/null || true
+            done
+        done
+        _OBJ=$(find "$_BBDIR" -name 'c_*.o' -type f | sort)
+        echo 'int main(void){return 0;}' > "${_BBDIR}/m.c"
+        $CC -fprofile-instr-generate -fcoverage-mapping -O0 "${_BBDIR}/m.c" $_OBJ \
+            -lm -Wl,--allow-multiple-definition -o "${_BBDIR}/b" 2>/dev/null
+        ${LLVM_COV} export "${_BBDIR}/b" -empty-profile > "${_BBDIR}/static.json" 2>/dev/null
+        python3 "${SCRIPTS}/branch_coverage.py" extract "${_BBDIR}/static.json" "$BRANCHES_JSON"
+        rm -rf "$_BBDIR"
+    fi
+    _total_conditions=$(python3 -c "import json; print(json.load(open('$BRANCHES_JSON'))['total_conditions'])")
+    echo "  Total branch conditions: ${_total_conditions}"
 fi
 
 # ── Compute uncovered functions (grep-based, with call-pattern matching) ──
@@ -116,7 +132,7 @@ compute_uncovered_functions() {
     fi
 }
 
-# ── Compute uncovered branches (via LLVM coverage) ──
+# ── Compute uncovered branches (via LLVM coverage + branch_coverage.py) ──
 compute_uncovered_branches() {
     local round_dir="$1"
 
@@ -126,32 +142,33 @@ compute_uncovered_branches() {
         echo "  WARNING: run_all_configs.sh had errors (may be test crashes)"
     fi
 
-    # Check that feedback files exist and have branch data
+    # Check that export JSON exists
     local feedback_dir="${WORKDIR}/feedback"
-    if [ ! -d "$feedback_dir" ] || [ -z "$(ls "$feedback_dir" 2>/dev/null)" ]; then
-        panic "No feedback files produced by run_all_configs.sh"
+    local export_json=""
+    for ej in "${feedback_dir}"/*_export.json; do
+        [ -f "$ej" ] || continue
+        export_json="$ej"
+        break
+    done
+
+    if [ -z "$export_json" ]; then
+        panic "No export JSON produced by build_and_cover.sh"
     fi
 
-    local has_branch_data=0
-    for fb in "${feedback_dir}"/*_feedback; do
-        [ -f "$fb" ] || continue
-        if grep -q "Branch " "$fb" 2>/dev/null; then
-            has_branch_data=1
-            break
-        fi
-    done
-    [ "$has_branch_data" -eq 1 ] || panic "No branch data in any feedback file. Check LLVM tool versions."
-
-    # Summarize coverage
-    "${SCRIPTS}/summarize_coverage.sh" "$WORKDIR"
+    # Use branch_coverage.py to extract uncovered conditions
+    python3 "${SCRIPTS}/branch_coverage.py" uncovered "$export_json" \
+        "${WORKDIR}/uncovered.md"
 
     if [ ! -f "${WORKDIR}/uncovered.md" ]; then
-        panic "summarize_coverage.sh did not produce uncovered.md"
+        panic "branch_coverage.py did not produce uncovered.md"
     fi
 
     local uncov_count
     uncov_count=$(grep -c -v '^#\|^$' "${WORKDIR}/uncovered.md" || echo 0)
-    echo "  Uncovered branches: ${uncov_count}"
+    local total_count
+    total_count=$(head -3 "${WORKDIR}/uncovered.md" | grep -oP 'Total conditions: \K[0-9]+' || echo 0)
+    local covered_count=$((total_count - uncov_count))
+    echo "  Branch conditions: ${covered_count}/${total_count} covered, ${uncov_count} uncovered"
 
     cp "${WORKDIR}/uncovered.md" "${round_dir}/uncovered_snapshot.md"
 }

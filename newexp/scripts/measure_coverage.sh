@@ -105,7 +105,7 @@ $LLVM_PROFDATA merge "${BDIR}/test.profraw" -o "${BDIR}/test.profdata" 2>/dev/nu
 $LLVM_COV report "${BDIR}/test" -instr-profile="${BDIR}/test.profdata" 2>/dev/null \
     > "${BDIR}/full_report.txt"
 
-grep "^libm/" "${BDIR}/full_report.txt" > "${BDIR}/lib_report.txt"
+grep "libm/" "${BDIR}/full_report.txt" > "${BDIR}/lib_report.txt"
 
 # Parse library-only totals
 # llvm-cov report columns: Filename Regions Missed Cover% Functions Missed Cover% Lines Missed Cover% Branches Missed Cover%
