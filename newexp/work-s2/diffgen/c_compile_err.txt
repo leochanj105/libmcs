@@ -1,0 +1,8 @@
+/home/leochanj/Desktop/libmcs/newexp/work-s2/diffgen/difftest_suite.c:248:44: warning: format specifies type 'int' but the argument has type 'double' [-Wformat]
+  248 |     printf("lgamma %a signgam=%d\n", -0.5, lgamma(-0.5), __signgam);
+      |                               ~~           ^~~~~~~~~~~~
+      |                               %f
+/home/leochanj/Desktop/libmcs/newexp/work-s2/diffgen/difftest_suite.c:248:58: warning: data argument not used by format string [-Wformat-extra-args]
+  248 |     printf("lgamma %a signgam=%d\n", -0.5, lgamma(-0.5), __signgam);
+      |            ~~~~~~~~~~~~~~~~~~~~~~~~                      ^
+2 warnings generated.

@@ -1,0 +1,55 @@
+# Goal 8: Fix powd discarded p_h update
+
+## Function
+pow (powd)
+
+## Source files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/powd.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s2/src/mathd.rs` (lines 3504-3707)
+
+## Problem
+In the final section of powd (lines 3676-3686), `p_h` is supposed to be adjusted by subtracting
+`t_var`, but the Rust code creates a local `p_h2` and immediately discards it:
+
+```rust
+// mathd.rs:3682-3685 (BUGGY)
+if i2 > 0x3fe00000 {
+    ...
+    let mut p_h2 = p_h;
+    p_h2 = p_h2 - t_var;
+    let _ = p_h2;          // ← computed value is DISCARDED
+}
+```
+
+The C code modifies `p_h` in place:
+```c
+if (i > 0x3fe00000) {
+    ...
+    p_h -= t;              // ← p_h is UPDATED
+}
+```
+
+The subsequent computation at line 3688 (`let mut tt = p_l + p_h`) uses the original, un-adjusted
+`p_h`, producing a wrong exponent and therefore a wrong result.
+
+## Failing test
+- `pow 0x1p+1 0x1.4p+3` → C: 0x1p+10 (1024), Rust: 0x1.b2d809254afbcp+11 (~3491)
+
+## What needs to change
+Make `p_h` mutable and update it in place. Replace lines 3682-3685:
+
+```rust
+// Before:
+let mut p_h2 = p_h;
+p_h2 = p_h2 - t_var;
+let _ = p_h2;
+
+// After (need p_h to be declared mut earlier):
+p_h = p_h - t_var;
+```
+
+Also need to ensure `p_h` is declared as `let mut p_h = ...` at line 3657 (or wherever it's
+first bound) so it can be reassigned here.
+
+## Success Criteria
+`pow(2.0, 10.0)` returns `0x1p+10` (1024.0), bitwise matching the C output.

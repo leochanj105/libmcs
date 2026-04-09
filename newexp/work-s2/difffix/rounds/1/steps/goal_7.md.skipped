@@ -1,0 +1,54 @@
+# Goal 7: Fix nexttoward/nexttowardf ABI mismatch
+
+## Functions
+nexttoward, nexttowardf
+
+## Source files
+- C source (nexttoward): `/home/leochanj/Desktop/libmcs/libm/mathd/nexttowardd.c`
+- C source (nexttowardf): `/home/leochanj/Desktop/libmcs/libm/mathf/nexttowardf.c`
+- Rust source:
+  - `/home/leochanj/Desktop/libmcs/newexp/rust-s2/src/lib.rs` line 95: `fn nexttoward(x: f64, y: f64)`
+  - `/home/leochanj/Desktop/libmcs/newexp/rust-s2/src/lib.rs` line 179: `fn nexttowardf(x: f32, y: f64)`
+  - `/home/leochanj/Desktop/libmcs/newexp/rust-s2/src/mathd.rs` line 3502: `nexttowardd`
+  - `/home/leochanj/Desktop/libmcs/newexp/rust-s2/src/mathf.rs` lines 2434-2459: `nexttowardf`
+
+## Problem
+The C functions use `long double y` as the second parameter:
+```c
+double nexttoward(double x, long double y);
+float nexttowardf(float x, long double y);
+```
+
+On x86-64 Linux, `long double` is 80-bit extended precision, passed via the x87 FPU stack.
+The Rust exports declare `y: f64`, which expects the value in an SSE (XMM) register. This ABI
+mismatch causes the Rust function to read garbage for y, stepping in the wrong direction.
+
+The internal `nextafterd` logic is correct — the bug is purely in the extern "C" function signatures.
+
+## Failing tests
+- `nexttoward 0x1p+0 0x8p-2` → C: 0x1.0000000000001p+0, Rust: 0x1.fffffffffffffp-1
+- `nexttowardf 0x1p+0 0x8p-2` → C: 0x1.000002p+0, Rust: 0x1.fffffep-1
+
+## What needs to change
+Fix the ABI by accepting the `long double` parameter correctly. Options:
+
+**Option A** (if `__LIBMCS_LONG_DOUBLE_IS_64BITS` — test harness compiles with `-mlong-double-64`):
+The signatures are already correct (`y: f64` matches 64-bit long double). Verify the test harness
+compilation flags match.
+
+**Option B** (x86-64 80-bit long double ABI):
+Use a C shim or platform-specific type to receive the 80-bit value and convert to f64:
+```rust
+// Use a repr(C) wrapper for x87 long double, or
+// link against a small C shim that converts long double → double
+```
+
+**Option C** (simplest, if long double == double on this platform):
+Ensure the test driver and Rust library agree on the calling convention. If the C library
+internally defines `__LIBMCS_LONG_DOUBLE_IS_64BITS`, confirm the test harness is compiled
+with the same flag.
+
+## Success Criteria
+- `nexttoward(1.0, 2.0)` returns `0x1.0000000000001p+0`
+- `nexttowardf(1.0, 2.0)` returns `0x1.000002p+0`
+Both bitwise matching the C output.

@@ -1,0 +1,46 @@
+# Goal 6: Fix lgamma signgam not being set correctly
+
+## Function
+lgamma (lgammad, lgamma_r)
+
+## Source files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/lgammad.c`
+- Rust source:
+  - `/home/leochanj/Desktop/libmcs/newexp/rust-s2/src/lib.rs` (lines 71-75) — lgamma export
+  - `/home/leochanj/Desktop/libmcs/newexp/rust-s2/src/mathd.rs` (lines 616-668, 3334-3339) — lgamma_r, lgammad
+
+## Problem
+`lgamma(-0.5)` should set the global `signgam = -1`, but Rust sets it to 0.
+
+The Rust code uses a thread-local `SIGNGAM` (Cell<i32>) as an intermediary:
+1. `lgammad` calls `lgamma_r(x, &mut s)` which sets s
+2. `lgammad` stores s into thread-local SIGNGAM
+3. `lgamma` in lib.rs reads thread-local SIGNGAM into global `signgam`
+
+The value 0 is suspicious — it's the initial value of `s` in lgammad (line 3335: `let mut s = 0i32`).
+`lgamma_r` sets `*signgamp = 1` at line 622, so s should be at least 1 after the call.
+Getting 0 suggests the thread-local mechanism or global `signgam` symbol resolution is broken
+across the FFI boundary.
+
+## What needs to change
+Investigate and fix the signgam propagation chain. Likely fixes:
+1. Remove the thread-local intermediary and update `signgam` directly in lgamma_r
+2. Or ensure the `#[no_mangle] pub static mut signgam` symbol is correctly resolved by the
+   test harness
+3. Verify `sin_pi(-0.5)` returns -1.0 (not +1.0), which triggers `*signgamp = -1`
+
+The simplest fix may be to have lgamma directly set signgam without the thread-local:
+```rust
+#[no_mangle] pub extern "C" fn lgamma(x: f64) -> f64 {
+    let mut s = 1i32;
+    let r = mathd::lgamma_r(x, &mut s);
+    unsafe { signgam = s; }
+    r
+}
+```
+
+## Failing test
+- `lgamma -0x1p-1` → C: signgam=-1, Rust: signgam=0
+
+## Success Criteria
+`lgamma(-0.5)` sets `signgam = -1`, bitwise matching the C behavior.

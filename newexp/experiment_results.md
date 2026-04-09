@@ -63,7 +63,7 @@ Two branch coverage metrics:
 | Scenario | Test Cases | Func Cov | OUR Branch Cov | OUR (cov/total) | REPORT Branch Cov | REPORT (cov/total) |
 |----------|-----------|----------|---------------|-----------------|-------------------|-------------------|
 | S1 | 785 | 170/186 (91%) | 54.8% | 1790/3268 | 59.2% | 1911/3226 |
-| S2 | 496 | 186/186 (100%) | 43.4% | 1418/3268 | 47.0% | 1516/3226 |
+| S2 | 458 | 186/186 (100%) | 43.4% | 1418/3268 | 47.0% | 1516/3226 |
 | S3 | 1190 | 174/186 (93%) | 66.1% | 2161/3268 | 71.4% | 2302/3226 |
 | S4 | 371 | 186/186 (100%) | 41.6% | 1359/3268 | 45.3% | 1461/3226 |
 | S5 | 2039 | 186/186 (100%) | 84.0% | 2744/3268 | 90.5% | 2921/3226 |
@@ -181,7 +181,36 @@ S5 has 2039 test cases.
 
 #### Remaining Failures: 0
 
-### S1, S2 Difffix
+### S2 Results (with test isolation)
+
+Fixer mode: separate analyze + fix. No regressions occurred.
+
+Results stored in: `work-s2/difffix/`, `rust-s2/`
+
+S2 has 458 test cases + 1 fenv FAULT (crash) + 44 section headers in output.
+Previous counts (496, 502) were wrong — section headers containing '=' were
+miscounted as test cases. Fixed in compare_outputs.py.
+
+#### Per-Round Progression
+
+| Round | Prev Fails | Fails | Passed | Pass Rate | Goals | Active Time | Cost |
+|-------|-----------|-------|--------|-----------|-------|------------|------|
+| Baseline | — | 16 | 442 | 96.5% | — | — | — |
+| R1 | 16 | 5 | 453 | 98.9% | 5 | 8.3m | $1.44 |
+| R2 | 5 | 0 | 458 | 100.0% | 4 | 21.4m | $3.38 |
+| **Total** | | | | | **9** | **29.7m** | **$4.82** |
+
+#### Per-Round Token Usage
+
+| Round | Input | Output | Cache Read | Cache Create | Cost |
+|-------|-------|--------|-----------|-------------|------|
+| R1 | 101 | 23,945 | 861,128 | 93,949 | $1.44 |
+| R2 | 164 | 72,731 | 4,049,481 | 196,164 | $3.38 |
+| **Total** | **265** | **96,676** | **4,910,609** | **290,113** | **$4.82** |
+
+#### Remaining Failures: 0
+
+### S1 Difffix
 
 Not yet run with the corrected infrastructure.
 
@@ -194,12 +223,11 @@ Test cases = individual function calls (one call, one input, one output comparis
 | S3 | 1190 | 52 | 0 | 4 | $11.38 |
 | S4 | 371 | 7 | 0 | 2 | $2.04 |
 | S1 | 785 | — | — | — | — |
-| S2 | 496 | — | — | — | — |
+| S2 | 458 | 16 | 0 | 2 | $4.82 |
 | S5 | 2039 | 44 | 0 | 3 | $6.12 |
 
-Note: S2 has 496 test cases + 1 fault (fenv crash). Test case = one library
-function call with one input. Counts verified by running C binary with fork
-wrapper.
+Test case = one library function call with one input. Section headers and FAULT
+lines are excluded. S2 has 1 fenv FAULT (crash).
 
 ## Configuration
 

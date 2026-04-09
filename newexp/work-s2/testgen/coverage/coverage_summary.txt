@@ -1,0 +1,11 @@
+functions_covered=0
+functions_total=162
+functions_pct=0.0
+branches_covered=0
+branches_total=3226
+branches_pct=0.0
+lines_covered=0
+lines_total=6673
+tool=clang-21
+llvm_cov=llvm-cov-21
+test_suite=test_suite.c
