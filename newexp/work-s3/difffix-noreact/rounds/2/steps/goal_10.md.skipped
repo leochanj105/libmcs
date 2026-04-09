@@ -1,0 +1,20 @@
+# Goal 10: Fix logb — wrong result for subnormal
+
+## Function
+`logb` (double)
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/logbd.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathd.rs` (~line 3103)
+
+## Problem
+Wrong result for the smallest subnormal double. `logb(0x0.0000000000001p-1022)` returns `-0x1.0ccp+10` (-1075.0) instead of the correct `-0x1.0c8p+10` (-1074.0).
+
+The result is off by one. The C library returns -1074 (since the smallest subnormal has exponent -1074), but Rust returns -1075. The subnormal normalization counting is likely off by one.
+
+## What Needs to Change
+Read the C source for logb's subnormal handling. The normalization loop or bit-counting logic in the Rust version has an off-by-one error. Fix it to match the C implementation.
+
+## Success Criteria
+- `logb(0x0.0000000000001p-1022)` returns `-0x1.0c8p+10` (-1074.0) — bitwise match with C
+- All other logb test cases continue to pass

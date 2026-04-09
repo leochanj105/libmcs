@@ -38,6 +38,7 @@ run_difffix() {
     export MAX_ROUNDS="${DIFFFIX_MAX_ROUNDS:-5}"
     export STALL_LIMIT="${DIFFFIX_STALL_LIMIT:-2}"
     export MAX_GOALS="${MAX_GOALS:-5}"
+    export REACT_MODE="${REACT_MODE:-0}"
 
     mkdir -p "${difffix_dir}"
 

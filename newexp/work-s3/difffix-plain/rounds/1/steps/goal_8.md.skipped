@@ -1,0 +1,26 @@
+# Goal 8: Fix ilogb / ilogbf — wrong special values
+
+## Functions
+`ilogb` (double), `ilogbf` (float)
+
+## Source files
+- C (double): /home/leochanj/Desktop/libmcs/libm/mathd/ilogbd.c
+- C (float): /home/leochanj/Desktop/libmcs/libm/mathf/ilogbf.c
+- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathd.rs (ilogb), /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathf.rs (ilogbf)
+
+## Problem
+ilogb(0) = -2147483648 (INT_MIN, Rust) vs -2147483647 (INT_MIN+1, C)
+ilogb(-0) = -2147483648 vs -2147483647
+ilogb(0x0.0000000000001p-1022) = -1075 (Rust) vs -1074 (C) — subnormal exponent off by 1
+ilogbf(0) = -2147483648 vs -2147483647
+
+## What needs to change
+1. The C library defines FP_ILOGB0 as INT_MIN+1 (-2147483647). Rust is returning INT_MIN. Fix the zero-input special case to return the correct constant.
+2. For the subnormal case in ilogb, the exponent counting is off by 1. Check the bit-counting loop or leading-zero logic.
+
+## Success Criteria
+- `ilogb 0x0p+0` = `-2147483647`
+- `ilogb -0x0p+0` = `-2147483647`
+- `ilogb 0x0.0000000000001p-1022` = `-1074`
+- `ilogbf 0x0p+0` = `-2147483647`
+- All other ilogb/ilogbf tests continue to pass

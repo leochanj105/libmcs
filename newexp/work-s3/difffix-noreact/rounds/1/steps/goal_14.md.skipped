@@ -1,0 +1,20 @@
+# Goal 14: Fix logb (double) — subnormal exponent off by 1
+
+## Function
+`logb` (double)
+
+## Source files
+- C: /home/leochanj/Desktop/libmcs/libm/mathd/logbd.c
+- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathd.rs
+
+## Problem
+logb(0x0.0000000000001p-1022) = -0x1.0ccp+10 (-1075, Rust) vs -0x1.0c8p+10 (-1074, C)
+
+The smallest subnormal double has exponent -1074 (since the mantissa has 52 bits and minimum biased exponent is -1022, so -1022 - 52 = -1074). The Rust implementation returns -1075, off by 1.
+
+## What needs to change
+Compare Rust logb against C logbd.c. The subnormal normalization loop or leading-zero count is off by one. Check whether the counting starts from the wrong bit position or the loop has an off-by-one.
+
+## Success Criteria
+- `logb 0x0.0000000000001p-1022` = `-0x1.0c8p+10` (-1074, bitwise exact)
+- All other logb tests continue to pass

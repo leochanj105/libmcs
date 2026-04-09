@@ -1,0 +1,20 @@
+# Goal 9: Fix log1pf — wrong result for -1.0
+
+## Function
+`log1pf` (float)
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathf/log1pf.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathf.rs` (~line 2099)
+
+## Problem
+Wrong output. `log1pf(-1.0)` should return `-inf` (since log(0) = -inf), but Rust returns `-0x1p+1` (-2.0).
+
+This is a critical edge case: when x = -1.0, log1p(x) = log(0) = -infinity. The Rust implementation fails to handle this boundary correctly.
+
+## What Needs to Change
+Read the C source to see how the x == -1.0 case is handled (likely an early return of -INFINITY). Add or fix the same check in the Rust implementation.
+
+## Success Criteria
+- `log1pf(-0x1p+0)` returns `-inf` — bitwise match with C
+- All other log1pf test cases continue to pass

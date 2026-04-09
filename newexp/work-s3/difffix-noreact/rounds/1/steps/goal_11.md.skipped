@@ -1,0 +1,23 @@
+# Goal 11: Fix cacos/cacosf — NaN sign on real part
+
+## Functions
+`cacos` (complex double), `cacosf` (complex float)
+
+## Source files
+- C (double): /home/leochanj/Desktop/libmcs/libm/complexd/cacosd.c
+- C (float): /home/leochanj/Desktop/libmcs/libm/complexf/cacosf.c
+- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/complexd.rs (cacos), /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/complexf.rs (cacosf)
+
+## Problem
+cacos(NaN, NaN) real part:
+- C: -nan (negative NaN, sign bit set)
+- Rust: nan (positive NaN, sign bit clear)
+
+The sign bit of NaN matters for bitwise comparison. The C implementation produces a negative NaN for the real part, likely via a specific computation path (e.g., pi - nan).
+
+## What needs to change
+Compare the NaN handling path in Rust cacos/cacosf against C. When both inputs are NaN, the C code likely computes `pi/2 - nan` or similar which preserves a negative NaN sign. The Rust implementation may handle NaN differently.
+
+## Success Criteria
+- `cacos (nan,nan)` = `-nan,nan` (bitwise exact, including NaN sign bits)
+- `cacosf (nan,nan)` = `-nan,nan` (bitwise exact)

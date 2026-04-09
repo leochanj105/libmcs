@@ -4,3 +4,4 @@ round	prev_fails	fails	passed	total	goals	in_tokens	out_tokens	cache_read	cache_
 2	38	31	1158	1189	5	73	55197	2063479	164244	2.3664	post-round-2
 3	31	7	1182	1189	5	62	26444	1452935	125252	1.4610	post-round-3
 4	7	8	1181	1189	5	42	22108	726451	84873	1.0109	post-round-4
+5	7	2	1187	1189	5	32	7670	464504	78599	0.5493	post-round-5

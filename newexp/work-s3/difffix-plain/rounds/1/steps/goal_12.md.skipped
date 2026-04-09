@@ -1,0 +1,29 @@
+# Goal 12: Fix casinh/casinhf and catanh/catanhf — NaN sign on imaginary part
+
+## Functions
+`casinh` (complex double), `casinhf` (complex float), `catanh` (complex double), `catanhf` (complex float)
+
+## Source files
+- C: /home/leochanj/Desktop/libmcs/libm/complexd/casinhd.c, catanhd.c
+- C: /home/leochanj/Desktop/libmcs/libm/complexf/casinhf.c, catanhf.c
+- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/complexd.rs, complexf.rs
+
+## Problem
+casinh(NaN, 0) imaginary part:
+- C: nan (positive NaN)
+- Rust: -nan (negative NaN)
+
+catanh(NaN, 0) imaginary part:
+- C: nan (positive NaN)
+- Rust: -nan (negative NaN)
+
+Same pattern for float variants. The imaginary part NaN sign bit is wrong.
+
+## What needs to change
+Compare NaN handling in Rust casinh/catanh against C originals. When real=NaN, imag=0, the functions should return (NaN, NaN) with the correct sign bits. Check how the imaginary part is computed — the C code likely returns the input imaginary (0→NaN via a specific path) while Rust may negate it.
+
+## Success Criteria
+- `casinh (nan,0x0p+0)` = `-nan,nan` (bitwise exact)
+- `casinhf (nan,0x0p+0)` = `-nan,nan` (bitwise exact)
+- `catanh (nan,0x0p+0)` = `nan,nan` (bitwise exact)
+- `catanhf (nan,0x0p+0)` = `nan,nan` (bitwise exact)

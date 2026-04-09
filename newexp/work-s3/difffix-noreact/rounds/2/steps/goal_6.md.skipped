@@ -1,0 +1,26 @@
+# Goal 6: Fix fpclassifyf — wrong classification constants
+
+## Function
+`fpclassifyf` (via `__fpclassifyf`)
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathf/internal/fpclassifyf.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathf.rs` (~line 3161)
+
+## Problem
+The classification return values don't match the C library's constants. The C library uses custom FP_* constants (likely: FP_NAN=0, FP_INFINITE=1, FP_ZERO=2, FP_SUBNORMAL=3, FP_NORMAL=4), but the Rust code returns different values.
+
+Failing cases:
+- `fpclassifyf(0.0)`: C returns 2, Rust returns 0
+- `fpclassifyf(inf)`: C returns 1, Rust returns 3
+- `fpclassifyf(nan)`: C returns 0, Rust returns 1
+- Plus 1 more mismatch (likely subnormal or normal)
+
+## What Needs to Change
+Read the C source to determine the exact FP_* constant values used, then update the Rust implementation to return those same integer constants instead of whatever it currently uses. Do NOT use Rust's standard library classification — match the C library's custom enum values exactly.
+
+## Success Criteria
+- `fpclassifyf(0.0)` returns 2
+- `fpclassifyf(inf)` returns 1
+- `fpclassifyf(nan)` returns 0
+- All fpclassifyf test cases match C output bitwise

@@ -21,6 +21,7 @@ source "${HARNESS}/scripts/ai_runner.sh"
 : "${MAX_ROUNDS:=5}"
 : "${STALL_LIMIT:=2}"
 : "${MAX_GOALS:=5}"
+: "${REACT_MODE:=0}"
 
 VERBOSE=""
 [ "${1:-}" = "-v" ] && VERBOSE="-v"
@@ -211,9 +212,57 @@ for round in $(seq "$start_round" "$MAX_ROUNDS"); do
     if [ ! -f "${ROUND_DIR}/.step2_done" ]; then
         echo "--- Step 2: Analyzing failures ---"
 
-        # Check if previous round caused a regression — if so, include feedback
-        REGRESSION_FEEDBACK=""
-        if [ "$round" -gt 1 ]; then
+        # Build history feedback based on mode
+        HISTORY_FEEDBACK=""
+        if [ "${REACT_MODE}" -eq 2 ] && [ "$round" -gt 1 ]; then
+            # ReAct mode: accumulate ALL previous rounds' fixes and results
+            echo "  (ReAct mode: building full history)"
+            HISTORY_FEEDBACK="
+## FIX HISTORY (all previous rounds)
+Review what was tried before. Learn from successes and failures.
+"
+            for _hr in $(seq 1 $((round - 1))); do
+                _hr_dir="${OUTDIR}/rounds/${_hr}"
+                [ -d "$_hr_dir" ] || continue
+                _hr_report="${_hr_dir}/diff_report.txt"
+                _hr_prev_report="${OUTDIR}/rounds/$((_hr - 1))/diff_report.txt"
+                [ -f "$_hr_report" ] || continue
+                _hr_prev_fails=$(parse_fail_count "$_hr_prev_report")
+                _hr_fails=$(parse_fail_count "$_hr_report")
+                _hr_diff=$(cd "${RUST_DIR}" && git diff "pre-round-${_hr}" "post-round-${_hr}" -- src/ 2>/dev/null | head -150 || true)
+                _hr_failures=$(sed -n '/MISMATCH\|MISSING/,/SUMMARY\|FUNCTION LOC/p' "$_hr_report" 2>/dev/null | head -30 || true)
+                if [ "$_hr_fails" -lt "$_hr_prev_fails" ]; then
+                    _hr_verdict="IMPROVED (${_hr_prev_fails} -> ${_hr_fails})"
+                elif [ "$_hr_fails" -gt "$_hr_prev_fails" ]; then
+                    _hr_verdict="REGRESSED (${_hr_prev_fails} -> ${_hr_fails})"
+                else
+                    _hr_verdict="NO CHANGE (${_hr_fails})"
+                fi
+                # Include analysis goals if they exist (separate analyze+fix mode)
+                _hr_goals=""
+                if [ -d "${_hr_dir}/steps" ]; then
+                    for _gf in "${_hr_dir}/steps"/goal_*.md; do
+                        [ -f "$_gf" ] || continue
+                        _hr_goals="${_hr_goals}
+$(cat "$_gf")
+"
+                    done
+                fi
+
+                HISTORY_FEEDBACK="${HISTORY_FEEDBACK}
+### Round ${_hr}: ${_hr_verdict}
+${_hr_goals:+Analysis goals:
+${_hr_goals}}
+Code changes:
+\`\`\`diff
+${_hr_diff}
+\`\`\`
+Failures after this round:
+${_hr_failures}
+"
+            done
+        elif [ "${REACT_MODE}" -eq 1 ] && [ "$round" -gt 1 ]; then
+            # Regression feedback mode: show previous round's regression
             _prev=$((round - 1))
             _prev_dir="${OUTDIR}/rounds/${_prev}"
             _prevprev=$((round - 2))
@@ -226,7 +275,7 @@ for round in $(seq "$start_round" "$MAX_ROUNDS"); do
                     _prev_diff=$(cd "${RUST_DIR}" && git diff "pre-round-${_prev}" "post-round-${_prev}" -- src/ 2>/dev/null | head -200 || true)
                     _prev_failures=$(sed -n '/MISMATCH/,/SUMMARY\|FUNCTION LOC/p' "$_prev_report" 2>/dev/null | head -40 || true)
                     _prevprev_failures=$(sed -n '/MISMATCH/,/SUMMARY\|FUNCTION LOC/p' "$_prevprev_report" 2>/dev/null | head -40 || true)
-                    REGRESSION_FEEDBACK="
+                    HISTORY_FEEDBACK="
 ## REGRESSION WARNING (round ${_prev} made things worse: ${_pp_fails} -> ${_p_fails} failures)
 
 Round ${_prev} changes:
@@ -255,7 +304,7 @@ Compact divergences: ${ROUND_DIR}/compact_divergences.md
 Goal output directory: ${STEPS_DIR}/
 Rust source: ${RUST_DIR}/
 C source: ${TEST_CASE_DIR}/
-${REGRESSION_FEEDBACK}
+${HISTORY_FEEDBACK}
 $(cat "${EXPANDED_PROMPTS_DIR}/analyze.md")
 "
         # cd into OUTDIR so Claude CLI picks up .claude/settings.json

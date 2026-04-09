@@ -1,0 +1,21 @@
+# Goal 6: Fix log1pf boundary case for -1
+
+## Function
+log1pf (float)
+
+## Source Files
+- C: /home/leochanj/Desktop/libmcs/libm/mathf/log1pf.c
+- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathf.rs (fn log1pf, line ~2099)
+
+## What's Wrong
+Output mismatch:
+- `log1pf(-1.0)`: C returns `-inf`, Rust returns `-0x1p+1` (-2.0)
+
+log1p(-1) = log(0) = -infinity. The Rust implementation fails to handle this boundary case and instead computes a finite (wrong) result.
+
+## What Needs to Change
+Add or fix the special-case check in the Rust log1pf: when x == -1.0, return -inf (f32::NEG_INFINITY). Compare with the C log1pf.c implementation to see how it handles this case.
+
+## Success Criteria
+- `log1pf(-1.0)` returns `-inf`
+- All other log1pf test cases continue to pass

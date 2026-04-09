@@ -1,0 +1,20 @@
+# Goal 6: Fix acosh (double) — wrong value
+
+## Function
+`acosh` (double-precision inverse hyperbolic cosine)
+
+## Source files
+- C: /home/leochanj/Desktop/libmcs/libm/mathd/acoshd.c
+- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathd.rs
+
+## Problem
+acosh(2) = 0x1.62e42fefa39efp+0 (Rust) vs 0x1.5124271980434p+0 (C)
+
+Rust returns ln(2) ≈ 0.6931 instead of arccosh(2) ≈ 1.3169. This suggests the Rust implementation may be using `log(x)` instead of the correct formula `log(x + sqrt(x*x - 1))`, or there's an error in the branch for x near 1 vs x > 2.
+
+## What needs to change
+Compare Rust acosh against C acoshd.c. Check the formula used — the C library likely uses `acosh(x) = log(2*x - 1/(x+sqrt(x*x-1)))` or similar for different ranges.
+
+## Success Criteria
+- `acosh 0x1p+1` = `0x1.5124271980434p+0` (bitwise exact)
+- All other acosh tests continue to pass
