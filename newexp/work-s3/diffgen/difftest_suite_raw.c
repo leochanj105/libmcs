@@ -1922,277 +1922,228 @@ static void test_nexttowardf(void) {
 #endif
 
 /* ===== main ===== */
-
-/* ── Independent test execution wrapper ── */
-#include <unistd.h>
-#include <sys/wait.h>
-#include <signal.h>
-#include <string.h>
-
-static void run_test(const char *name, void (*fn)(void), int timeout_sec) {
-    fflush(stdout);
-    fflush(stderr);
-    pid_t pid = fork();
-    if (pid == 0) {
-        /* Child: run the test, exit */
-        fn();
-        fflush(stdout);
-        _exit(0);
-    }
-    /* Parent: wait with timeout using alarm */
-    int status;
-    /* First try non-blocking wait — most tests finish instantly */
-    usleep(1000); /* 1ms grace period */
-    pid_t r = waitpid(pid, &status, WNOHANG);
-    if (r == pid) goto done;
-    if (r < 0) goto done;
-    /* Still running — poll with 100ms intervals up to timeout */
-    int polls = timeout_sec * 10; /* 100ms per poll */
-    for (int i = 0; i < polls; i++) {
-        usleep(100000); /* 100ms */
-        r = waitpid(pid, &status, WNOHANG);
-        if (r == pid) goto done;
-        if (r < 0) goto done;
-    }
-    /* Timeout — kill child */
-    kill(pid, SIGKILL);
-    waitpid(pid, &status, 0);
-    printf("FAULT %s TIMEOUT\n", name);
-    fflush(stdout);
-    return;
-done:
-    if (WIFSIGNALED(status)) {
-        printf("FAULT %s SIGNAL %d\n", name, WTERMSIG(status));
-        fflush(stdout);
-    } else if (WIFEXITED(status) && WEXITSTATUS(status) != 0) {
-        printf("FAULT %s EXIT %d\n", name, WEXITSTATUS(status));
-        fflush(stdout);
-    }
-}
-/* ── End wrapper ── */
-
 int main(void) {
     /* Double trig */
-    run_test("acos", test_acos, 2);
-    run_test("asin", test_asin, 2);
-    run_test("atan", test_atan, 2);
-    run_test("atan2", test_atan2, 2);
-    run_test("cos", test_cos, 2);
-    run_test("sin", test_sin, 2);
-    run_test("tan", test_tan, 2);
+    test_acos();
+    test_asin();
+    test_atan();
+    test_atan2();
+    test_cos();
+    test_sin();
+    test_tan();
 
     /* Double hyperbolic */
-    run_test("acosh", test_acosh, 2);
-    run_test("asinh", test_asinh, 2);
-    run_test("atanh", test_atanh, 2);
-    run_test("cosh", test_cosh, 2);
-    run_test("sinh", test_sinh, 2);
-    run_test("tanh", test_tanh, 2);
+    test_acosh();
+    test_asinh();
+    test_atanh();
+    test_cosh();
+    test_sinh();
+    test_tanh();
 
     /* Double exp/log */
-    run_test("exp", test_exp, 2);
-    run_test("exp2", test_exp2, 2);
-    run_test("expm1", test_expm1, 2);
-    run_test("frexp", test_frexp, 2);
-    run_test("ilogb", test_ilogb, 2);
-    run_test("ldexp", test_ldexp, 2);
-    run_test("log", test_log, 2);
-    run_test("log10", test_log10, 2);
-    run_test("log1p", test_log1p, 2);
-    run_test("log2", test_log2, 2);
-    run_test("logb", test_logb, 2);
-    run_test("modf", test_modf, 2);
-    run_test("scalbn", test_scalbn, 2);
-    run_test("scalbln", test_scalbln, 2);
+    test_exp();
+    test_exp2();
+    test_expm1();
+    test_frexp();
+    test_ilogb();
+    test_ldexp();
+    test_log();
+    test_log10();
+    test_log1p();
+    test_log2();
+    test_logb();
+    test_modf();
+    test_scalbn();
+    test_scalbln();
 
     /* Double power */
-    run_test("cbrt", test_cbrt, 2);
-    run_test("fabs", test_fabs, 2);
-    run_test("hypot", test_hypot, 2);
-    run_test("pow", test_pow, 2);
-    run_test("sqrt", test_sqrt, 2);
+    test_cbrt();
+    test_fabs();
+    test_hypot();
+    test_pow();
+    test_sqrt();
 
     /* Double error/gamma */
-    run_test("erf", test_erf, 2);
-    run_test("erfc", test_erfc, 2);
-    run_test("lgamma", test_lgamma, 2);
-    run_test("tgamma", test_tgamma, 2);
+    test_erf();
+    test_erfc();
+    test_lgamma();
+    test_tgamma();
 
     /* Double nearest integer */
-    run_test("ceil", test_ceil, 2);
-    run_test("floor", test_floor, 2);
-    run_test("nearbyint", test_nearbyint, 2);
-    run_test("rint", test_rint, 2);
-    run_test("lrint", test_lrint, 2);
-    run_test("llrint", test_llrint, 2);
-    run_test("round", test_round, 2);
-    run_test("lround", test_lround, 2);
-    run_test("llround", test_llround, 2);
-    run_test("trunc", test_trunc, 2);
+    test_ceil();
+    test_floor();
+    test_nearbyint();
+    test_rint();
+    test_lrint();
+    test_llrint();
+    test_round();
+    test_lround();
+    test_llround();
+    test_trunc();
 
     /* Double remainder */
-    run_test("fmod", test_fmod, 2);
-    run_test("remainder", test_remainder, 2);
-    run_test("remquo", test_remquo, 2);
+    test_fmod();
+    test_remainder();
+    test_remquo();
 
     /* Double manipulation */
-    run_test("copysign", test_copysign, 2);
-    run_test("nan", test_nan, 2);
-    run_test("nextafter", test_nextafter, 2);
+    test_copysign();
+    test_nan();
+    test_nextafter();
 
     /* Double max/min/fdim/fma */
-    run_test("fdim", test_fdim, 2);
-    run_test("fmax", test_fmax, 2);
-    run_test("fmin", test_fmin, 2);
-    run_test("fma", test_fma, 2);
+    test_fdim();
+    test_fmax();
+    test_fmin();
+    test_fma();
 
     /* Double Bessel */
-    run_test("j0", test_j0, 2);
-    run_test("j1", test_j1, 2);
-    run_test("jn", test_jn, 2);
-    run_test("y0", test_y0, 2);
-    run_test("y1", test_y1, 2);
-    run_test("yn", test_yn, 2);
+    test_j0();
+    test_j1();
+    test_jn();
+    test_y0();
+    test_y1();
+    test_yn();
 
     /* Float trig */
-    run_test("acosf", test_acosf, 2);
-    run_test("asinf", test_asinf, 2);
-    run_test("atanf", test_atanf, 2);
-    run_test("atan2f", test_atan2f, 2);
-    run_test("cosf", test_cosf, 2);
-    run_test("sinf", test_sinf, 2);
-    run_test("tanf", test_tanf, 2);
+    test_acosf();
+    test_asinf();
+    test_atanf();
+    test_atan2f();
+    test_cosf();
+    test_sinf();
+    test_tanf();
 
     /* Float hyperbolic */
-    run_test("acoshf", test_acoshf, 2);
-    run_test("asinhf", test_asinhf, 2);
-    run_test("atanhf", test_atanhf, 2);
-    run_test("coshf", test_coshf, 2);
-    run_test("sinhf", test_sinhf, 2);
-    run_test("tanhf", test_tanhf, 2);
+    test_acoshf();
+    test_asinhf();
+    test_atanhf();
+    test_coshf();
+    test_sinhf();
+    test_tanhf();
 
     /* Float exp/log */
-    run_test("expf", test_expf, 2);
-    run_test("exp2f", test_exp2f, 2);
-    run_test("expm1f", test_expm1f, 2);
-    run_test("frexpf", test_frexpf, 2);
-    run_test("ilogbf", test_ilogbf, 2);
-    run_test("ldexpf", test_ldexpf, 2);
-    run_test("logf", test_logf, 2);
-    run_test("log10f", test_log10f, 2);
-    run_test("log1pf", test_log1pf, 2);
-    run_test("log2f", test_log2f, 2);
-    run_test("logbf", test_logbf, 2);
-    run_test("modff", test_modff, 2);
-    run_test("scalbnf", test_scalbnf, 2);
-    run_test("scalblnf", test_scalblnf, 2);
+    test_expf();
+    test_exp2f();
+    test_expm1f();
+    test_frexpf();
+    test_ilogbf();
+    test_ldexpf();
+    test_logf();
+    test_log10f();
+    test_log1pf();
+    test_log2f();
+    test_logbf();
+    test_modff();
+    test_scalbnf();
+    test_scalblnf();
 
     /* Float power */
-    run_test("cbrtf", test_cbrtf, 2);
-    run_test("fabsf", test_fabsf, 2);
-    run_test("hypotf", test_hypotf, 2);
-    run_test("powf", test_powf, 2);
-    run_test("sqrtf", test_sqrtf, 2);
+    test_cbrtf();
+    test_fabsf();
+    test_hypotf();
+    test_powf();
+    test_sqrtf();
 
     /* Float error/gamma */
-    run_test("erff", test_erff, 2);
-    run_test("erfcf", test_erfcf, 2);
-    run_test("lgammaf", test_lgammaf, 2);
-    run_test("tgammaf", test_tgammaf, 2);
+    test_erff();
+    test_erfcf();
+    test_lgammaf();
+    test_tgammaf();
 
     /* Float nearest integer */
-    run_test("ceilf", test_ceilf, 2);
-    run_test("floorf", test_floorf, 2);
-    run_test("nearbyintf", test_nearbyintf, 2);
-    run_test("rintf", test_rintf, 2);
-    run_test("lrintf", test_lrintf, 2);
-    run_test("llrintf", test_llrintf, 2);
-    run_test("roundf", test_roundf, 2);
-    run_test("lroundf", test_lroundf, 2);
-    run_test("llroundf", test_llroundf, 2);
-    run_test("truncf", test_truncf, 2);
+    test_ceilf();
+    test_floorf();
+    test_nearbyintf();
+    test_rintf();
+    test_lrintf();
+    test_llrintf();
+    test_roundf();
+    test_lroundf();
+    test_llroundf();
+    test_truncf();
 
     /* Float remainder */
-    run_test("fmodf", test_fmodf, 2);
-    run_test("remainderf", test_remainderf, 2);
-    run_test("remquof", test_remquof, 2);
+    test_fmodf();
+    test_remainderf();
+    test_remquof();
 
     /* Float manipulation */
-    run_test("copysignf", test_copysignf, 2);
-    run_test("nanf", test_nanf, 2);
-    run_test("nextafterf", test_nextafterf, 2);
+    test_copysignf();
+    test_nanf();
+    test_nextafterf();
 
     /* Float max/min/fdim/fma */
-    run_test("fdimf", test_fdimf, 2);
-    run_test("fmaxf", test_fmaxf, 2);
-    run_test("fminf", test_fminf, 2);
-    run_test("fmaf", test_fmaf, 2);
+    test_fdimf();
+    test_fmaxf();
+    test_fminf();
+    test_fmaf();
 
     /* Complex double */
-    run_test("cacos", test_cacos, 2);
-    run_test("casin", test_casin, 2);
-    run_test("catan", test_catan, 2);
-    run_test("ccos", test_ccos, 2);
-    run_test("csin", test_csin, 2);
-    run_test("ctan", test_ctan, 2);
-    run_test("cacosh", test_cacosh, 2);
-    run_test("casinh", test_casinh, 2);
-    run_test("catanh", test_catanh, 2);
-    run_test("ccosh", test_ccosh, 2);
-    run_test("csinh", test_csinh, 2);
-    run_test("ctanh", test_ctanh, 2);
-    run_test("cexp", test_cexp, 2);
-    run_test("clog", test_clog, 2);
-    run_test("cabs", test_cabs, 2);
-    run_test("cpow", test_cpow, 2);
-    run_test("csqrt", test_csqrt, 2);
-    run_test("carg", test_carg, 2);
-    run_test("cimag", test_cimag, 2);
-    run_test("conj", test_conj, 2);
-    run_test("cproj", test_cproj, 2);
-    run_test("creal", test_creal, 2);
+    test_cacos();
+    test_casin();
+    test_catan();
+    test_ccos();
+    test_csin();
+    test_ctan();
+    test_cacosh();
+    test_casinh();
+    test_catanh();
+    test_ccosh();
+    test_csinh();
+    test_ctanh();
+    test_cexp();
+    test_clog();
+    test_cabs();
+    test_cpow();
+    test_csqrt();
+    test_carg();
+    test_cimag();
+    test_conj();
+    test_cproj();
+    test_creal();
 
     /* Complex float */
-    run_test("cacosf", test_cacosf, 2);
-    run_test("casinf", test_casinf, 2);
-    run_test("catanf", test_catanf, 2);
-    run_test("ccosf", test_ccosf, 2);
-    run_test("csinf", test_csinf, 2);
-    run_test("ctanf", test_ctanf, 2);
-    run_test("cacoshf", test_cacoshf, 2);
-    run_test("casinhf", test_casinhf, 2);
-    run_test("catanhf", test_catanhf, 2);
-    run_test("ccoshf", test_ccoshf, 2);
-    run_test("csinhf", test_csinhf, 2);
-    run_test("ctanhf", test_ctanhf, 2);
-    run_test("cexpf", test_cexpf, 2);
-    run_test("clogf", test_clogf, 2);
-    run_test("cabsf", test_cabsf, 2);
-    run_test("cpowf", test_cpowf, 2);
-    run_test("csqrtf", test_csqrtf, 2);
-    run_test("cargf", test_cargf, 2);
-    run_test("cimagf", test_cimagf, 2);
-    run_test("conjf", test_conjf, 2);
-    run_test("cprojf", test_cprojf, 2);
-    run_test("crealf", test_crealf, 2);
+    test_cacosf();
+    test_casinf();
+    test_catanf();
+    test_ccosf();
+    test_csinf();
+    test_ctanf();
+    test_cacoshf();
+    test_casinhf();
+    test_catanhf();
+    test_ccoshf();
+    test_csinhf();
+    test_ctanhf();
+    test_cexpf();
+    test_clogf();
+    test_cabsf();
+    test_cpowf();
+    test_csqrtf();
+    test_cargf();
+    test_cimagf();
+    test_conjf();
+    test_cprojf();
+    test_crealf();
 
     /* Classification */
-    run_test("fpclassify", test_fpclassify, 2);
-    run_test("signbit", test_signbit, 2);
+    test_fpclassify();
+    test_signbit();
 
     /* Bridge / static internal functions */
-    run_test("bridge_rem_pio2_internal", test_bridge_rem_pio2_internal, 2);
-    run_test("bridge_rem_pio2f_internal", test_bridge_rem_pio2f_internal, 2);
-    run_test("bridge_tan", test_bridge_tan, 2);
-    run_test("bridge_tanf", test_bridge_tanf, 2);
-    run_test("bridge_sin_pi", test_bridge_sin_pi, 2);
-    run_test("bridge_sin_pif", test_bridge_sin_pif, 2);
-    run_test("bridge_ctans", test_bridge_ctans, 2);
-    run_test("bridge_ctansf", test_bridge_ctansf, 2);
+    test_bridge_rem_pio2_internal();
+    test_bridge_rem_pio2f_internal();
+    test_bridge_tan();
+    test_bridge_tanf();
+    test_bridge_sin_pi();
+    test_bridge_sin_pif();
+    test_bridge_ctans();
+    test_bridge_ctansf();
 
 #ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
-    run_test("nexttoward", test_nexttoward, 2);
-    run_test("nexttowardf", test_nexttowardf, 2);
+    test_nexttoward();
+    test_nexttowardf();
 #endif
 
     return 0;
