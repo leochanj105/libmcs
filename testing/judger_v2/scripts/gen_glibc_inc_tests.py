@@ -32,8 +32,8 @@ FLOAT_INT_D = ["scalbn"]
 FLOAT_LONG_D = ["scalbln"]
 
 # double,double→double  (TEST_fj_f: func, in1, in2, out, flags)
-# nexttoward second arg is long double but we cast to double
-FLOAT_J_D = ["nexttoward"]
+# nexttoward requires __LIBMCS_LONG_DOUBLE_IS_64BITS which is not set on x86_64
+FLOAT_J_D = []
 
 # double→int  (TEST_f_i: func, in, out_int, flags)
 FLOAT_TO_INT = ["ilogb"]

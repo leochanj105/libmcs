@@ -27,6 +27,11 @@ CC="${CC:-gcc}"
 BDIR=$(mktemp -d)
 trap 'rm -rf "$BDIR"' EXIT
 
+# Compile compat builtins (provides __inff etc. missing from Rust lib)
+COMPAT="${SCRIPT_DIR}/tests/compat_builtins.c"
+COMPAT_OBJ="$BDIR/compat_builtins.o"
+$CC -O0 -c "$COMPAT" -o "$COMPAT_OBJ" 2>/dev/null || true
+
 total_diff=0
 total_lines=0
 
@@ -34,13 +39,13 @@ run_one() {
     local name="$1" src="$2"
     echo "--- ${name} ---"
 
-    if ! $CC -O0 -I"$INCDIR" "$src" "$C_LIB" -fno-builtin -lm \
+    if ! $CC -O0 -I"$INCDIR" "$src" "$C_LIB" -lm \
          -o "$BDIR/${name}_c" 2>"$BDIR/${name}_c_err"; then
         echo "  C compile FAILED"
         head -5 "$BDIR/${name}_c_err"
         return
     fi
-    if ! $CC -O0 -I"$INCDIR" "$src" "$RUST_LIB" -fno-builtin -lm -lpthread -ldl \
+    if ! $CC -O0 -I"$INCDIR" "$src" "$COMPAT_OBJ" "$RUST_LIB" -lm -lpthread -ldl \
          -o "$BDIR/${name}_r" 2>"$BDIR/${name}_r_err"; then
         echo "  Rust compile FAILED"
         head -5 "$BDIR/${name}_r_err"
@@ -104,9 +109,9 @@ WC_MANIFEST="${SCRIPT_DIR}/tests/wc_manifest.txt"
             [ -f "$src" ] || continue
             func=$(echo "$fname" | sed 's/^wc_//;s/\.c$//')
 
-            $CC -O0 -I"$INCDIR" "$src" "$C_LIB" -fno-builtin -lm \
+            $CC -O0 -I"$INCDIR" "$src" "$C_LIB" -lm \
                 -o "$BDIR/wc_${func}_c" 2>/dev/null || { echo "  $func: C compile FAILED"; continue; }
-            $CC -O0 -I"$INCDIR" "$src" "$RUST_LIB" -fno-builtin -lm -lpthread -ldl \
+            $CC -O0 -I"$INCDIR" "$src" "$COMPAT_OBJ" "$RUST_LIB" -lm -lpthread -ldl \
                 -o "$BDIR/wc_${func}_r" 2>/dev/null || { echo "  $func: Rust compile FAILED"; continue; }
 
             timeout 120 "$BDIR/wc_${func}_c" > "$BDIR/wc_${func}_c.out" 2>/dev/null
