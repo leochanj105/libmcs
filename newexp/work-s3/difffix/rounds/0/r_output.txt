@@ -1180,3 +1180,5 @@ bridge___sin_pif 0.5 = 0x1p+0
 bridge___sin_pif 1.0 = -0x0p+0
 bridge___sin_pif -0.5 = -0x1p+0
 bridge___sin_pif 0.25 = 0x1.6a09e8p-1
+FAULT bridge_ctans TIMEOUT
+FAULT bridge_ctansf TIMEOUT

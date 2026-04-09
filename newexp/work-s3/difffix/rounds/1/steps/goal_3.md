@@ -1,24 +1,30 @@
-# Goal 3: Fix pow (double) — wrong values (likely exp2 dependency)
+# Goal 3: Fix cacos / cacosf — NaN sign mismatch
 
 ## Function
-`pow` (double-precision)
+- `cacos` (complex double)
+- `cacosf` (complex float)
 
-## Source files
-- C: /home/leochanj/Desktop/libmcs/libm/mathd/powd.c
-- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathd.rs
+## Source Files
+- C: `/home/leochanj/Desktop/libmcs/libm/complexd/cacosd.c`
+- C: `/home/leochanj/Desktop/libmcs/libm/complexf/cacosf.c`
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/lib.rs` (wrapper)
 
 ## Problem
-pow returns wrong results:
-- pow(2, 10) = 0x1.b2d809254afbcp+11 (~3566.9, should be 0x1p+10 = 1024)
-- pow(-2, 3) = -0x1.fffee746db0fcp+5 (~-63.998, should be -0x1p+3 = -8)
+MISMATCH on NaN input:
+- C:    `cacos (nan,nan) = -nan,nan`
+- Rust: `cacos (nan,nan) = nan,nan`
 
-Note: pow(2,10) produces the exact same wrong value as exp2(10), strongly suggesting pow uses exp2 internally.
+The real part should be `-nan` but Rust returns `nan`. The sign bit of NaN
+matters for bitwise exactness.
 
-## What needs to change
-1. Fix exp2 first (Goal 2) — this will likely fix pow(2,10)
-2. If pow(-2,3) still fails after exp2 fix, check the negative base handling path in the pow implementation
+Same issue for cacosf.
+
+## What Needs to Change
+Compare the Rust cacos/cacosf NaN handling against the C source. The C code
+likely negates or sets the sign bit of the real part NaN in a specific code path.
+Ensure the Rust code preserves the same NaN sign bit behavior.
 
 ## Success Criteria
-- `pow 0x1p+1 0x1.4p+3` = `0x1p+10` (bitwise exact)
-- `pow -0x1p+1 0x1.8p+1` = `-0x1p+3` (bitwise exact)
-- All other pow tests continue to pass
+- `cacos(nan,nan)` returns `(-nan, nan)` — real part has sign bit set
+- `cacosf(nan,nan)` returns `(-nan, nan)` — real part has sign bit set
+- Bitwise exact match with C output

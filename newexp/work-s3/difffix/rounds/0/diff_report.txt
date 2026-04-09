@@ -1,21 +1,14 @@
 ============================================================
 Differential Test Report (C vs Rust)
-Generated: 2026-04-08 18:50
+Generated: 2026-04-09 10:31
 ============================================================
-
-## RUNTIME PANIC
-
-The Rust test binary panicked or crashed.
-Backtrace:
-TIMEOUT: Rust binary hung (likely infinite loop/recursion in 'bridge___sin_pif' or the function after it in test order).
-Last output line: bridge___sin_pif 0.25 = 0x1.6a09e8p-1
 
 ## OUTPUT COMPARISON
 
 C test output:    1190 lines
-Rust test output: 1182 lines
+Rust test output: 1184 lines
 
-WARNING: Rust produced fewer output lines (1182 vs 1190).
+WARNING: Rust produced fewer output lines (1184 vs 1190).
 Likely cause: crash or missing functions. Lines after crash are missing.
 
 C output: 1189 test lines

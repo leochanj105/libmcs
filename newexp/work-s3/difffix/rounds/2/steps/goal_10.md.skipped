@@ -1,20 +1,28 @@
-# Goal 10: Fix logb — wrong result for subnormal
+# Goal 10: Fix sinf — precision loss near pi
 
 ## Function
-`logb` (double)
+- `sinf` (float)
 
 ## Source Files
-- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/logbd.c`
-- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathd.rs` (~line 3103)
+- C: `/home/leochanj/Desktop/libmcs/libm/mathf/sinf.c`
+- C internal: `/home/leochanj/Desktop/libmcs/libm/mathf/internal/trigf.c` (__rem_pio2f, __sinf)
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathf.rs` line ~2968 (sinf)
 
 ## Problem
-Wrong result for the smallest subnormal double. `logb(0x0.0000000000001p-1022)` returns `-0x1.0ccp+10` (-1075.0) instead of the correct `-0x1.0c8p+10` (-1074.0).
+MISMATCH: sinf near pi produces a result with much lower precision.
 
-The result is off by one. The C library returns -1074 (since the smallest subnormal has exponent -1074), but Rust returns -1075. The subnormal normalization counting is likely off by one.
+Failing test:
+- sinf(0x1.921fb6p+1): C returns -0x1.777a5cp-24, Rust returns -0x1.6bff7ap-16
+
+The input is approximately pi. The result should be very close to zero. C gives
+a result near 2^-24 while Rust gives a result near 2^-16 — about 256x larger error.
+This suggests the argument reduction (__rem_pio2f) or the sine kernel (__sinf)
+has a precision problem.
 
 ## What Needs to Change
-Read the C source for logb's subnormal handling. The normalization loop or bit-counting logic in the Rust version has an off-by-one error. Fix it to match the C implementation.
+Compare the Rust __rem_pio2f and __sinf implementations with the C versions.
+The argument reduction likely loses precision for values near multiples of pi/2.
+Check that the pi/2 constants and reduction algorithm match C exactly.
 
 ## Success Criteria
-- `logb(0x0.0000000000001p-1022)` returns `-0x1.0c8p+10` (-1074.0) — bitwise match with C
-- All other logb test cases continue to pass
+- sinf(0x1.921fb6p+1) = -0x1.777a5cp-24 — bitwise exact

@@ -1,21 +1,33 @@
-# Goal 6: Fix log1pf boundary case for -1
+# Goal 6: Fix pow — wrong results for integer exponents
 
 ## Function
-log1pf (float)
+- `pow` (double)
 
 ## Source Files
-- C: /home/leochanj/Desktop/libmcs/libm/mathf/log1pf.c
-- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathf.rs (fn log1pf, line ~2099)
+- C: `/home/leochanj/Desktop/libmcs/libm/mathd/powd.c`
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathd.rs`
 
-## What's Wrong
-Output mismatch:
-- `log1pf(-1.0)`: C returns `-inf`, Rust returns `-0x1p+1` (-2.0)
+## Problem
+MISMATCH: Two test cases fail:
+1. pow(2.0, 10.0): C returns 0x1p+10 (1024.0), Rust returns 0x1.b2d809254afbcp+11 (~3477.5)
+2. pow(-2.0, 3.0): C returns -0x1p+3 (-8.0), Rust returns -0x1.fffee746db0fcp+5 (~-63.998)
 
-log1p(-1) = log(0) = -infinity. The Rust implementation fails to handle this boundary case and instead computes a finite (wrong) result.
+Both are cases of integer exponents with small bases where the result should be exact.
+pow(2,10) = 1024 and pow(-2,3) = -8 are mathematically exact in floating point.
+The Rust results are wildly wrong (off by 3-8x), indicating a fundamental computation
+error — likely in the log2/exp2 decomposition path or in the handling of the high/low
+parts of the intermediate computation.
 
 ## What Needs to Change
-Add or fix the special-case check in the Rust log1pf: when x == -1.0, return -inf (f32::NEG_INFINITY). Compare with the C log1pf.c implementation to see how it handles this case.
+Compare the Rust pow (powd) implementation against the C version. The pow function is
+complex, using log2(x)*y followed by exp2. Check:
+1. The log2 decomposition (splitting x into exponent + mantissa)
+2. The multiplication of log2(x) * y
+3. The exp2 reconstruction
+4. Any special-case paths for integer exponents
+
+Look for wrong constants, swapped variables, or missing precision terms.
 
 ## Success Criteria
-- `log1pf(-1.0)` returns `-inf`
-- All other log1pf test cases continue to pass
+- pow 0x1p+1 0x1.4p+3 = 0x1p+10 — bitwise exact match with C (2^10 = 1024)
+- pow -0x1p+1 0x1.8p+1 = -0x1p+3 — bitwise exact match with C ((-2)^3 = -8)

@@ -1,29 +1,24 @@
-# Goal 12: Fix casinh/casinhf and catanh/catanhf — NaN sign on imaginary part
+# Goal 12: Fix log1pf — wrong output for -1.0
 
-## Functions
-`casinh` (complex double), `casinhf` (complex float), `catanh` (complex double), `catanhf` (complex float)
+## Function
+- `log1pf` (float precision)
 
-## Source files
-- C: /home/leochanj/Desktop/libmcs/libm/complexd/casinhd.c, catanhd.c
-- C: /home/leochanj/Desktop/libmcs/libm/complexf/casinhf.c, catanhf.c
-- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/complexd.rs, complexf.rs
+## Source Files
+- C: `/home/leochanj/Desktop/libmcs/libm/mathf/log1pf.c`
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/lib.rs` (wrapper), implementation in `mathf.rs`
 
 ## Problem
-casinh(NaN, 0) imaginary part:
-- C: nan (positive NaN)
-- Rust: -nan (negative NaN)
+MISMATCH:
+- C:    `log1pf -0x1p+0 = -inf`
+- Rust: `log1pf -0x1p+0 = -0x1p+1`
 
-catanh(NaN, 0) imaginary part:
-- C: nan (positive NaN)
-- Rust: -nan (negative NaN)
+log1p(-1.0) = ln(0) = -infinity. The Rust code returns -2.0 instead.
+This is a critical bug in the special case handling for x = -1.0.
 
-Same pattern for float variants. The imaginary part NaN sign bit is wrong.
-
-## What needs to change
-Compare NaN handling in Rust casinh/catanh against C originals. When real=NaN, imag=0, the functions should return (NaN, NaN) with the correct sign bits. Check how the imaginary part is computed — the C code likely returns the input imaginary (0→NaN via a specific path) while Rust may negate it.
+## What Needs to Change
+Compare the Rust log1pf implementation against the C source in `log1pf.c`.
+The special case where x == -1.0 (i.e., 1+x == 0) must return -INFINITY.
+The Rust code is likely missing this check or has a wrong condition.
 
 ## Success Criteria
-- `casinh (nan,0x0p+0)` = `-nan,nan` (bitwise exact)
-- `casinhf (nan,0x0p+0)` = `-nan,nan` (bitwise exact)
-- `catanh (nan,0x0p+0)` = `nan,nan` (bitwise exact)
-- `catanhf (nan,0x0p+0)` = `nan,nan` (bitwise exact)
+- `log1pf(-1.0)` returns `-inf` (bitwise exact match with C)

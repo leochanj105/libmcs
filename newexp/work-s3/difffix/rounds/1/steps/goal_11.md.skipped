@@ -1,23 +1,31 @@
-# Goal 11: Fix cacos/cacosf — NaN sign on real part
+# Goal 11: Fix lgamma / lgammaf — signgam not set
 
-## Functions
-`cacos` (complex double), `cacosf` (complex float)
+## Function
+- `lgamma` (double precision)
+- `lgammaf` (float precision)
 
-## Source files
-- C (double): /home/leochanj/Desktop/libmcs/libm/complexd/cacosd.c
-- C (float): /home/leochanj/Desktop/libmcs/libm/complexf/cacosf.c
-- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/complexd.rs (cacos), /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/complexf.rs (cacosf)
+## Source Files
+- C (double): `/home/leochanj/Desktop/libmcs/libm/mathd/lgammad.c`
+- C (float): `/home/leochanj/Desktop/libmcs/libm/mathf/lgammaf.c` and `/home/leochanj/Desktop/libmcs/libm/mathf/internal/gammaf.c`
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/lib.rs` (wrapper)
 
 ## Problem
-cacos(NaN, NaN) real part:
-- C: -nan (negative NaN, sign bit set)
-- Rust: nan (positive NaN, sign bit clear)
+MISMATCH: The function values match, but signgam is always 0 in Rust instead
+of the correct value:
+- C:    `lgamma 0x1p+0 = 0x0p+0 signgam 1`     Rust: `signgam 0`
+- C:    `lgamma 0x1p+1 = 0x0p+0 signgam 1`     Rust: `signgam 0`
+- C:    `lgamma 0x1p-1 = ... signgam 1`         Rust: `signgam 0`
+- (7 more for lgamma, 6 for lgammaf — all have signgam 0 in Rust)
 
-The sign bit of NaN matters for bitwise comparison. The C implementation produces a negative NaN for the real part, likely via a specific computation path (e.g., pi - nan).
+The Rust lgamma/lgammaf is not setting the global `signgam` variable.
 
-## What needs to change
-Compare the NaN handling path in Rust cacos/cacosf against C. When both inputs are NaN, the C code likely computes `pi/2 - nan` or similar which preserves a negative NaN sign. The Rust implementation may handle NaN differently.
+## What Needs to Change
+The Rust code must set the global `signgam` variable (an extern C int) to
+match the C behavior. Compare how the C code sets signgam in lgammad.c and
+lgammaf.c, and replicate in Rust. The bridge/test harness reads signgam
+after calling lgamma, so it must be properly exported and written.
 
 ## Success Criteria
-- `cacos (nan,nan)` = `-nan,nan` (bitwise exact, including NaN sign bits)
-- `cacosf (nan,nan)` = `-nan,nan` (bitwise exact)
+- All lgamma test cases return correct signgam values (1 or -1) matching C
+- All lgammaf test cases return correct signgam values matching C
+- Function return values remain correct

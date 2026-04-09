@@ -1,19 +1,28 @@
-# Goal 2: Fix cacos/cacosf — NaN sign in real part
+# Goal 2: Fix exp2 — wrong results for specific inputs
 
-## Functions
-`cacos` (double), `cacosf` (float)
+## Function
+- `exp2` (double)
 
 ## Source Files
-- C sources: `/home/leochanj/Desktop/libmcs/libm/complexd/cacosd.c`, `/home/leochanj/Desktop/libmcs/libm/complexf/cacosf.c`
-- Rust sources: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/complexd.rs` (~line 278), `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/complexf.rs` (~line 272)
+- C: `/home/leochanj/Desktop/libmcs/libm/mathd/exp2d.c`
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathd.rs` line ~2119 (exp2d)
 
 ## Problem
-Wrong NaN sign. `cacos(nan, nan)` real part: C returns `-nan`, Rust returns `nan`. The sign of the NaN in the real component is wrong.
+MISMATCH: exp2 produces incorrect results for two test inputs.
+
+Failing tests:
+- exp2(0x1.ff8p+9): C returns 0x1p+1023, Rust returns 0x1.ffffffffcf4p+1022
+  (Input is 1023.0; result should be exactly 2^1023)
+- exp2(0x1.4p+3): C returns 0x1p+10, Rust returns 0x1.b2d809254afbcp+11
+  (Input is 10.0; result should be exactly 1024.0 = 2^10)
+
+These are exact integer powers of 2 that should produce exact results.
 
 ## What Needs to Change
-Read the C source NaN-handling path in cacos/cacosf and ensure the Rust version applies the same sign manipulation (likely a negation) to the real part when inputs are NaN.
+The Rust exp2d implementation has a computational error. Compare with the C source
+to find where the calculation diverges. The function should return exact results
+for integer inputs that are within range (ldexp(1.0, n) for integer n).
 
 ## Success Criteria
-- `cacos(nan, nan)` returns `(-nan, nan)` — bitwise match with C
-- `cacosf(nan, nan)` returns `(-nan, nan)` — bitwise match with C
-- All other cacos/cacosf test cases continue to pass
+- exp2(0x1.ff8p+9) = 0x1p+1023 — bitwise exact
+- exp2(0x1.4p+3) = 0x1p+10 — bitwise exact

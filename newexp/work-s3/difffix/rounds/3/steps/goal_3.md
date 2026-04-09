@@ -1,26 +1,23 @@
-# Goal 3: Fix fpclassifyf classification constants
+# Goal 3: Fix log1pf — wrong result for log1pf(-1.0)
 
 ## Function
-fpclassifyf (__fpclassifyf)
+- `log1pf` (float)
 
 ## Source Files
-- C: /home/leochanj/Desktop/libmcs/libm/mathf/internal/fpclassifyf.c
-- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathf.rs (fn __fpclassifyf, line ~3161)
+- C: `/home/leochanj/Desktop/libmcs/libm/mathf/log1pf.c`
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathf.rs`
 
-## What's Wrong
-Output mismatch — 4 tests return wrong classification values.
-- `fpclassifyf(0)`: C=2, Rust=0
-- `fpclassifyf(inf)`: C=1, Rust=3
-- `fpclassifyf(nan)`: C=0, Rust=1
-- Plus 1 more mismatch (likely subnormal)
+## Problem
+MISMATCH: log1pf(-1.0) should return -inf but Rust returns -0x1p+1 (i.e., -2.0).
 
-The Rust implementation uses different numeric constants for the FP classification categories than the C library defines.
+log1p(x) = ln(1+x). When x = -1.0, the argument is 0 and ln(0) = -infinity.
+The Rust implementation returns -2.0 instead, which means it is not handling the
+x == -1.0 special case correctly. The C code likely has an explicit check for this case.
 
 ## What Needs to Change
-Read the C fpclassifyf.c to find the correct constant values for each classification (FP_NAN, FP_INFINITE, FP_ZERO, FP_SUBNORMAL, FP_NORMAL). Update the Rust __fpclassifyf to return the same constants. The C library likely defines: FP_NAN=0, FP_INFINITE=1, FP_ZERO=2, FP_SUBNORMAL=3, FP_NORMAL=4 (or similar).
+The Rust log1pf must handle the special case where x == -1.0 by returning -infinity,
+matching the C behavior. Check if the Rust code is missing the special-case branch or
+if the condition is wrong.
 
 ## Success Criteria
-- `fpclassifyf(0)` returns 2 (matching C)
-- `fpclassifyf(inf)` returns 1 (matching C)
-- `fpclassifyf(nan)` returns 0 (matching C)
-- All fpclassifyf classifications match the C output bitwise
+- log1pf -0x1p+0 = -inf — bitwise exact match with C

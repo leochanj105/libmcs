@@ -1,6 +1,6 @@
 ============================================================
 Differential Test Report (C vs Rust)
-Generated: 2026-04-08 19:49
+Generated: 2026-04-09 11:37
 ============================================================
 
 ## OUTPUT COMPARISON
@@ -11,34 +11,18 @@ Rust test output: 1190 lines
 C output: 1189 test lines
 Rust output: 1189 test lines
 
-MISMATCH (7 tests, 7 functions):
+MISMATCH (2 tests, 1 functions):
 C and Rust produce different results:
-  cacos: 1 mismatches
-    C:    cacos (nan,nan) = -nan,nan
-    Rust: cacos (nan,nan) = nan,nan
-  cacosf: 1 mismatches
-    C:    cacosf (nan,nan) = -nan,nan
-    Rust: cacosf (nan,nan) = nan,nan
-  casinh: 1 mismatches
-    C:    casinh (nan,0x0p+0) = -nan,nan
-    Rust: casinh (nan,0x0p+0) = -nan,-nan
-  casinhf: 1 mismatches
-    C:    casinhf (nan,0x0p+0) = -nan,nan
-    Rust: casinhf (nan,0x0p+0) = -nan,-nan
-  log1pf: 1 mismatches
-    C:    log1pf -0x1p+0 = -inf
-    Rust: log1pf -0x1p+0 = -0x1p+1
-  logb: 1 mismatches
-    C:    logb 0x0.0000000000001p-1022 = -0x1.0c8p+10
-    Rust: logb 0x0.0000000000001p-1022 = -0x1.0ccp+10
-  modf: 1 mismatches
-    C:    modf nan = nan int nan
-    Rust: modf nan = 0x0p+0 int nan
+  pow: 2 mismatches
+    C:    pow 0x1p+1 0x1.4p+3 = 0x1p+10
+    Rust: pow 0x1p+1 0x1.4p+3 = 0x1.b2d809254afbcp+11
+    C:    pow -0x1p+1 0x1.8p+1 = -0x1p+3
+    Rust: pow -0x1p+1 0x1.8p+1 = -0x1.fffee746db0fcp+5
 
 SUMMARY
-Tests passed:     1182
-Tests failed:     7
-Mismatched functions: cacos, cacosf, casinh, casinhf, log1pf, logb, modf
+Tests passed:     1187
+Tests failed:     2
+Mismatched functions: pow
 
 ## FUNCTION LOCATION MAP
 
@@ -233,5 +217,5 @@ __ccoshsinhf -> /home/leochanj/Desktop/libmcs/libm/complexf/internal/ctrigf.c
 __redupif -> /home/leochanj/Desktop/libmcs/libm/complexf/internal/ctrigf.c
 
 ============================================================
-Tests failed:     7
+Tests failed:     2
 ============================================================

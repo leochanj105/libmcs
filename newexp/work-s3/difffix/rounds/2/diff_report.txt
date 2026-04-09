@@ -1,6 +1,6 @@
 ============================================================
 Differential Test Report (C vs Rust)
-Generated: 2026-04-08 19:42
+Generated: 2026-04-09 11:25
 ============================================================
 
 ## OUTPUT COMPARISON
@@ -11,54 +11,11 @@ Rust test output: 1190 lines
 C output: 1189 test lines
 Rust output: 1189 test lines
 
-MISMATCH (31 tests, 12 functions):
+MISMATCH (7 tests, 6 functions):
 C and Rust produce different results:
-  cacos: 1 mismatches
-    C:    cacos (inf,0x0p+0) = nan,inf
-    Rust: cacos (inf,0x0p+0) = -nan,inf
-  cacosf: 1 mismatches
-    C:    cacosf (inf,0x0p+0) = nan,inf
-    Rust: cacosf (inf,0x0p+0) = -nan,inf
-  casinh: 1 mismatches
-    C:    casinh (inf,0x1p+0) = -nan,nan
-    Rust: casinh (inf,0x1p+0) = -nan,-nan
-  casinhf: 1 mismatches
-    C:    casinhf (inf,0x1p+0) = -nan,nan
-    Rust: casinhf (inf,0x1p+0) = -nan,-nan
-  fpclassifyf: 4 mismatches
-    C:    fpclassifyf 0x0p+0 = 2
-    Rust: fpclassifyf 0x0p+0 = 0
-    C:    fpclassifyf inf = 1
-    Rust: fpclassifyf inf = 3
-    C:    fpclassifyf nan = 0
-    Rust: fpclassifyf nan = 1
-    ... (1 more)
-  ilogb: 3 mismatches
-    C:    ilogb 0x0p+0 = -2147483647
-    Rust: ilogb 0x0p+0 = -2147483648
-    C:    ilogb -0x0p+0 = -2147483647
-    Rust: ilogb -0x0p+0 = -2147483648
-    C:    ilogb 0x0.0000000000001p-1022 = -1074
-    Rust: ilogb 0x0.0000000000001p-1022 = -1075
-  ilogbf: 1 mismatches
-    C:    ilogbf 0x0p+0 = -2147483647
-    Rust: ilogbf 0x0p+0 = -2147483648
-  lgamma: 10 mismatches
-    C:    lgamma 0x1p+0 = 0x0p+0 signgam 1
-    Rust: lgamma 0x1p+0 = 0x0p+0 signgam 0
-    C:    lgamma 0x1p+1 = 0x0p+0 signgam 1
-    Rust: lgamma 0x1p+1 = 0x0p+0 signgam 0
-    C:    lgamma 0x1p-1 = 0x1.250d048e7a1bdp-1 signgam 1
-    Rust: lgamma 0x1p-1 = 0x1.250d048e7a1bdp-1 signgam 0
-    ... (7 more)
-  lgammaf: 6 mismatches
-    C:    lgammaf 0x1p+0 = 0x0p+0 signgam 1
-    Rust: lgammaf 0x1p+0 = 0x0p+0 signgam 0
-    C:    lgammaf 0x1p-1 = 0x1.250d04p-1 signgam 1
-    Rust: lgammaf 0x1p-1 = 0x1.250d04p-1 signgam 0
-    C:    lgammaf inf = inf signgam 1
-    Rust: lgammaf inf = inf signgam 0
-    ... (3 more)
+  cpowf: 1 mismatches
+    C:    cpowf (0x0p+0,0x1p+0),(0x1p+1,0x0p+0) = -0x1p+0,-0x1.777a5cp-24
+    Rust: cpowf (0x0p+0,0x1p+0),(0x1p+1,0x0p+0) = -0x1p+0,-0x1.6bff7ap-16
   log1pf: 1 mismatches
     C:    log1pf -0x1p+0 = -inf
     Rust: log1pf -0x1p+0 = -0x1p+1
@@ -68,11 +25,19 @@ C and Rust produce different results:
   modf: 1 mismatches
     C:    modf nan = nan int nan
     Rust: modf nan = 0x0p+0 int nan
+  pow: 2 mismatches
+    C:    pow 0x1p+1 0x1.4p+3 = 0x1p+10
+    Rust: pow 0x1p+1 0x1.4p+3 = 0x1.b2d809254afbcp+11
+    C:    pow -0x1p+1 0x1.8p+1 = -0x1p+3
+    Rust: pow -0x1p+1 0x1.8p+1 = -0x1.fffee746db0fcp+5
+  sinf: 1 mismatches
+    C:    sinf 0x1.921fb6p+1 = -0x1.777a5cp-24
+    Rust: sinf 0x1.921fb6p+1 = -0x1.6bff7ap-16
 
 SUMMARY
-Tests passed:     1158
-Tests failed:     31
-Mismatched functions: cacos, cacosf, casinh, casinhf, fpclassifyf, ilogb, ilogbf, lgamma, lgammaf, log1pf, logb, modf
+Tests passed:     1182
+Tests failed:     7
+Mismatched functions: cpowf, log1pf, logb, modf, pow, sinf
 
 ## FUNCTION LOCATION MAP
 
@@ -267,5 +232,5 @@ __ccoshsinhf -> /home/leochanj/Desktop/libmcs/libm/complexf/internal/ctrigf.c
 __redupif -> /home/leochanj/Desktop/libmcs/libm/complexf/internal/ctrigf.c
 
 ============================================================
-Tests failed:     31
+Tests failed:     7
 ============================================================

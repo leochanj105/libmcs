@@ -1,20 +1,25 @@
-# Goal 13: Fix log1pf — wrong value at -1
+# Goal 13: Fix logb — wrong for subnormal input
 
 ## Function
-`log1pf` (float)
+- `logb` (double precision)
 
-## Source files
-- C: /home/leochanj/Desktop/libmcs/libm/mathf/log1pf.c
-- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathf.rs
+## Source Files
+- C: `/home/leochanj/Desktop/libmcs/libm/mathd/logbd.c`
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/lib.rs` (wrapper), implementation in `mathd.rs`
 
 ## Problem
-log1pf(-1) = -0x1p+1 (-2.0, Rust) vs -inf (C)
+MISMATCH for subnormal input:
+- C:    `logb 0x0.0000000000001p-1022 = -0x1.0c8p+10`  (i.e., -1074.0)
+- Rust: `logb 0x0.0000000000001p-1022 = -0x1.0ccp+10`  (i.e., -1075.0)
 
-log(1 + (-1)) = log(0) = -infinity. The Rust implementation returns -2 instead of -inf, indicating the special case for x == -1 (pole at zero) is not handled correctly.
+The smallest subnormal double has exponent -1074. Rust returns -1075 (off by one).
+This is the same off-by-one pattern as ilogb's subnormal case (Goal 10).
 
-## What needs to change
-Compare Rust log1pf against C log1pf.c. Add or fix the special case: when x == -1.0f, return -INFINITY. The C code likely checks for this explicitly.
+## What Needs to Change
+Compare the Rust logb subnormal normalization against the C source in `logbd.c`.
+The exponent calculation for subnormals is off by one. The normalization
+loop or bit-counting logic needs to match C exactly.
 
 ## Success Criteria
-- `log1pf -0x1p+0` = `-inf` (bitwise exact)
-- All other log1pf tests continue to pass
+- `logb(0x0.0000000000001p-1022)` returns `-0x1.0c8p+10` (i.e., -1074.0)
+- Bitwise exact match with C

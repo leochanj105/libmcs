@@ -1,26 +1,31 @@
-# Goal 8: Fix ilogb / ilogbf — wrong special values
+# Goal 8: Fix pow — wrong output
 
-## Functions
-`ilogb` (double), `ilogbf` (float)
+## Function
+- `pow` (double precision)
 
-## Source files
-- C (double): /home/leochanj/Desktop/libmcs/libm/mathd/ilogbd.c
-- C (float): /home/leochanj/Desktop/libmcs/libm/mathf/ilogbf.c
-- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathd.rs (ilogb), /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathf.rs (ilogbf)
+## Source Files
+- C: `/home/leochanj/Desktop/libmcs/libm/mathd/powd.c`
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/lib.rs` (wrapper), implementation in `mathd.rs`
 
 ## Problem
-ilogb(0) = -2147483648 (INT_MIN, Rust) vs -2147483647 (INT_MIN+1, C)
-ilogb(-0) = -2147483648 vs -2147483647
-ilogb(0x0.0000000000001p-1022) = -1075 (Rust) vs -1074 (C) — subnormal exponent off by 1
-ilogbf(0) = -2147483648 vs -2147483647
+MISMATCH: pow returns wrong values:
+- C:    `pow 0x1p+1 0x1.4p+3 = 0x1p+10`
+  (pow(2,10) = 1024 exactly)
+- Rust: `pow 0x1p+1 0x1.4p+3 = 0x1.b2d809254afbcp+11`
 
-## What needs to change
-1. The C library defines FP_ILOGB0 as INT_MIN+1 (-2147483647). Rust is returning INT_MIN. Fix the zero-input special case to return the correct constant.
-2. For the subnormal case in ilogb, the exponent counting is off by 1. Check the bit-counting loop or leading-zero logic.
+- C:    `pow -0x1p+1 0x1.8p+1 = -0x1p+3`
+  (pow(-2,3) = -8 exactly)
+- Rust: `pow -0x1p+1 0x1.8p+1 = -0x1.fffee746db0fcp+5`
+
+Note: pow(2,10) has the same wrong Rust value as exp2(10), suggesting
+pow internally uses exp2. Fixing exp2 (Goal 7) may fix pow as well, but
+pow should be verified independently.
+
+## What Needs to Change
+Compare the Rust pow implementation against the C source in `powd.c`. The
+error pattern matches exp2, so likely the same root cause (exp2 bug).
+After fixing exp2, re-test pow. If still failing, fix pow's own logic.
 
 ## Success Criteria
-- `ilogb 0x0p+0` = `-2147483647`
-- `ilogb -0x0p+0` = `-2147483647`
-- `ilogb 0x0.0000000000001p-1022` = `-1074`
-- `ilogbf 0x0p+0` = `-2147483647`
-- All other ilogb/ilogbf tests continue to pass
+- `pow(2.0, 10.0)` returns `0x1p+10` (bitwise exact)
+- `pow(-2.0, 3.0)` returns `-0x1p+3` (bitwise exact)

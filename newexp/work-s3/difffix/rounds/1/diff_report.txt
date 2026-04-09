@@ -1,6 +1,6 @@
 ============================================================
 Differential Test Report (C vs Rust)
-Generated: 2026-04-08 19:26
+Generated: 2026-04-09 11:14
 ============================================================
 
 ## OUTPUT COMPARISON
@@ -11,29 +11,11 @@ Rust test output: 1190 lines
 C output: 1189 test lines
 Rust output: 1189 test lines
 
-MISMATCH (38 tests, 17 functions):
+MISMATCH (37 tests, 14 functions):
 C and Rust produce different results:
-  acosh: 1 mismatches
-    C:    acosh 0x1p+1 = 0x1.5124271980434p+0
-    Rust: acosh 0x1p+1 = 0x1.62e42fefa39efp+0
-  cacos: 1 mismatches
-    C:    cacos (nan,nan) = -nan,nan
-    Rust: cacos (nan,nan) = nan,nan
-  cacosf: 1 mismatches
-    C:    cacosf (nan,nan) = -nan,nan
-    Rust: cacosf (nan,nan) = nan,nan
-  casinh: 1 mismatches
-    C:    casinh (nan,0x0p+0) = -nan,nan
-    Rust: casinh (nan,0x0p+0) = -nan,-nan
-  casinhf: 1 mismatches
-    C:    casinhf (nan,0x0p+0) = -nan,nan
-    Rust: casinhf (nan,0x0p+0) = -nan,-nan
-  catanh: 1 mismatches
-    C:    catanh (nan,0x0p+0) = nan,nan
-    Rust: catanh (nan,0x0p+0) = nan,-nan
-  catanhf: 1 mismatches
-    C:    catanhf (nan,0x0p+0) = nan,nan
-    Rust: catanhf (nan,0x0p+0) = nan,-nan
+  cpowf: 1 mismatches
+    C:    cpowf (0x0p+0,0x1p+0),(0x1p+1,0x0p+0) = -0x1p+0,-0x1.777a5cp-24
+    Rust: cpowf (0x0p+0,0x1p+0),(0x1p+1,0x0p+0) = -0x1p+0,-0x1.6bff7ap-16
   cproj: 2 mismatches
     C:    cproj (inf,-inf) = inf,-0x0p+0
     Rust: cproj (inf,-inf) = inf,inf
@@ -44,6 +26,11 @@ C and Rust produce different results:
     Rust: cprojf (inf,-inf) = inf,inf
     C:    cprojf (nan,inf) = inf,0x0p+0
     Rust: cprojf (nan,inf) = inf,inf
+  exp2: 2 mismatches
+    C:    exp2 0x1.ff8p+9 = 0x1p+1023
+    Rust: exp2 0x1.ff8p+9 = 0x1.ffffffffcf4p+1022
+    C:    exp2 0x1.4p+3 = 0x1p+10
+    Rust: exp2 0x1.4p+3 = 0x1.b2d809254afbcp+11
   fpclassifyf: 4 mismatches
     C:    fpclassifyf 0x0p+0 = 2
     Rust: fpclassifyf 0x0p+0 = 0
@@ -87,11 +74,19 @@ C and Rust produce different results:
   modf: 1 mismatches
     C:    modf nan = nan int nan
     Rust: modf nan = 0x0p+0 int nan
+  pow: 2 mismatches
+    C:    pow 0x1p+1 0x1.4p+3 = 0x1p+10
+    Rust: pow 0x1p+1 0x1.4p+3 = 0x1.b2d809254afbcp+11
+    C:    pow -0x1p+1 0x1.8p+1 = -0x1p+3
+    Rust: pow -0x1p+1 0x1.8p+1 = -0x1.fffee746db0fcp+5
+  sinf: 1 mismatches
+    C:    sinf 0x1.921fb6p+1 = -0x1.777a5cp-24
+    Rust: sinf 0x1.921fb6p+1 = -0x1.6bff7ap-16
 
 SUMMARY
-Tests passed:     1151
-Tests failed:     38
-Mismatched functions: acosh, cacos, cacosf, casinh, casinhf, catanh, catanhf, cproj, cprojf, fpclassifyf, ilogb, ilogbf, lgamma, lgammaf, log1pf, logb, modf
+Tests passed:     1152
+Tests failed:     37
+Mismatched functions: cpowf, cproj, cprojf, exp2, fpclassifyf, ilogb, ilogbf, lgamma, lgammaf, log1pf, logb, modf, pow, sinf
 
 ## FUNCTION LOCATION MAP
 
@@ -286,5 +281,5 @@ __ccoshsinhf -> /home/leochanj/Desktop/libmcs/libm/complexf/internal/ctrigf.c
 __redupif -> /home/leochanj/Desktop/libmcs/libm/complexf/internal/ctrigf.c
 
 ============================================================
-Tests failed:     38
+Tests failed:     37
 ============================================================

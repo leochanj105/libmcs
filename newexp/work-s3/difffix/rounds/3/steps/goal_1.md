@@ -1,25 +1,25 @@
-# Goal 1: Fix cacos / cacosf NaN sign propagation
+# Goal 1: Fix sinf — wrong result near pi
 
 ## Function
-cacos (double), cacosf (float)
+- `sinf` (float)
 
 ## Source Files
-- C (double): /home/leochanj/Desktop/libmcs/libm/complexd/cacosd.c
-- C (float): /home/leochanj/Desktop/libmcs/libm/complexf/cacosf.c
-- Rust (double): /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/complexd.rs (fn cacosd, line ~278)
-- Rust (float): /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/complexf.rs (fn cacosf, line ~272)
+- C: `/home/leochanj/Desktop/libmcs/libm/mathf/sinf.c`
+- C internal: `/home/leochanj/Desktop/libmcs/libm/mathf/internal/trigf.c` (__rem_pio2f, __sinf, __cosf)
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathf.rs`
 
-## What's Wrong
-Output mismatch — NaN sign differs.
-- `cacos(inf, 0)`: C returns `(nan, inf)`, Rust returns `(-nan, inf)`
-- `cacosf(inf, 0)`: same pattern
+## Problem
+MISMATCH: sinf(0x1.921fb6p+1) should return -0x1.777a5cp-24 but Rust returns -0x1.6bff7ap-16.
 
-The real part should be NaN (positive NaN bit pattern), but Rust produces negative NaN.
+The input 0x1.921fb6p+1 is the float representation of pi. sin(pi) should be very close to zero.
+The C result (-0x1.777a5cp-24 ~ -8.74e-8) is much more accurate than the Rust result
+(-0x1.6bff7ap-16 ~ -2.14e-5), indicating a precision problem in the Rust argument reduction
+(__rem_pio2f) or the polynomial evaluation (__sinf/__cosf).
 
 ## What Needs to Change
-Compare the C cacosd/cacosf implementations with the Rust versions. The NaN generation or sign handling for the inf input special case needs to match the C behavior exactly. Likely the Rust code computes `acos(inf)` differently or applies a sign flip that shouldn't be there.
+Compare the Rust sinf implementation and its internal helpers (__rem_pio2f_internal, __sinf, __cosf)
+against the C originals. The argument reduction for values near multiples of pi/2 likely has
+a precision bug — possibly wrong constants or a missing step in the range reduction.
 
 ## Success Criteria
-- `cacos(inf, 0)` returns `(nan, inf)` — real part has positive NaN sign bit
-- `cacosf(inf, 0)` returns `(nan, inf)` — same
-- All other cacos/cacosf test cases continue to pass
+- sinf 0x1.921fb6p+1 = -0x1.777a5cp-24 — bitwise exact match with C

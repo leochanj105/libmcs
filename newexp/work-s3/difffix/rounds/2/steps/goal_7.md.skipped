@@ -1,31 +1,24 @@
-# Goal 7: Fix ilogb/ilogbf — wrong return for zero and subnormals
+# Goal 7: Fix logb — wrong exponent for smallest subnormal
 
-## Functions
-`ilogb` (double), `ilogbf` (float)
+## Function
+- `logb` (double)
 
 ## Source Files
-- C sources: `/home/leochanj/Desktop/libmcs/libm/mathd/ilogbd.c`, `/home/leochanj/Desktop/libmcs/libm/mathf/ilogbf.c`
-- Rust sources: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathd.rs` (~line 2753), `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathf.rs` (~line 1971)
+- C: `/home/leochanj/Desktop/libmcs/libm/mathd/logbd.c`
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathd.rs` line ~3103 (logbd)
 
 ## Problem
-Wrong return values for edge cases:
+MISMATCH: logb returns wrong exponent for the smallest subnormal double.
 
-ilogb (double):
-- `ilogb(0.0)`: C returns -2147483647 (INT_MAX-like sentinel), Rust returns -2147483648 (INT_MIN)
-- `ilogb(-0.0)`: same issue
-- `ilogb(0x0.0000000000001p-1022)` (smallest subnormal): C returns -1074, Rust returns -1075
+Failing test:
+- logb(0x0.0000000000001p-1022): C returns -0x1.0c8p+10 (-1074.0), Rust returns -0x1.0ccp+10 (-1075.0)
 
-ilogbf (float):
-- `ilogbf(0.0)`: C returns -2147483647, Rust returns -2147483648
-
-The C library uses `FP_ILOGB0 = -2147483647` (INT_MAX negated) for zero, but Rust uses INT_MIN. Also the subnormal exponent calculation is off by one.
+The off-by-one error is the same pattern as ilogb for subnormals — the Rust
+subnormal exponent calculation is one too low.
 
 ## What Needs to Change
-Read the C source to identify the exact sentinel values for zero/NaN/infinity and the subnormal exponent calculation. Update the Rust implementation to use the same constants and fix the off-by-one in subnormal handling.
+Fix the subnormal exponent calculation in Rust logbd. Compare with the C source
+to find where the exponent normalization loop or bit-counting logic differs.
 
 ## Success Criteria
-- `ilogb(0.0)` returns -2147483647
-- `ilogb(-0.0)` returns -2147483647
-- `ilogb(0x0.0000000000001p-1022)` returns -1074
-- `ilogbf(0.0)` returns -2147483647
-- All other ilogb/ilogbf test cases continue to pass
+- logb(0x0.0000000000001p-1022) = -0x1.0c8p+10 (-1074.0) — bitwise exact

@@ -1,20 +1,31 @@
-# Goal 6: Fix acosh (double) — wrong value
+# Goal 6: Fix cproj / cprojf — wrong infinity handling
 
 ## Function
-`acosh` (double-precision inverse hyperbolic cosine)
+- `cproj` (complex double)
+- `cprojf` (complex float)
 
-## Source files
-- C: /home/leochanj/Desktop/libmcs/libm/mathd/acoshd.c
-- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathd.rs
+## Source Files
+- C: `/home/leochanj/Desktop/libmcs/libm/complexd/cprojd.c`
+- C: `/home/leochanj/Desktop/libmcs/libm/complexf/cprojf.c`
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/lib.rs` (wrapper)
 
 ## Problem
-acosh(2) = 0x1.62e42fefa39efp+0 (Rust) vs 0x1.5124271980434p+0 (C)
+MISMATCH: When input contains infinity, the imaginary part should be copysigned zero:
+- C:    `cproj (inf,-inf) = inf,-0x0p+0`   Rust: `inf,inf`
+- C:    `cproj (nan,inf) = inf,0x0p+0`     Rust: `inf,inf`
 
-Rust returns ln(2) ≈ 0.6931 instead of arccosh(2) ≈ 1.3169. This suggests the Rust implementation may be using `log(x)` instead of the correct formula `log(x + sqrt(x*x - 1))`, or there's an error in the branch for x near 1 vs x > 2.
+Per C11, cproj should return (INFINITY, copysign(0.0, imag)) when either
+component is infinite. Rust is not replacing the imaginary part with
+copysigned zero.
 
-## What needs to change
-Compare Rust acosh against C acoshd.c. Check the formula used — the C library likely uses `acosh(x) = log(2*x - 1/(x+sqrt(x*x-1)))` or similar for different ranges.
+Same for cprojf with both test cases.
+
+## What Needs to Change
+Fix the Rust cproj/cprojf to match C behavior: when either real or imaginary
+part is infinite, return (INFINITY, copysign(0.0, cimag(z))).
 
 ## Success Criteria
-- `acosh 0x1p+1` = `0x1.5124271980434p+0` (bitwise exact)
-- All other acosh tests continue to pass
+- `cproj(inf, -inf)` returns `(inf, -0.0)` bitwise exact
+- `cproj(nan, inf)` returns `(inf, 0.0)` bitwise exact
+- `cprojf(inf, -inf)` returns `(inf, -0.0)` bitwise exact
+- `cprojf(nan, inf)` returns `(inf, 0.0)` bitwise exact

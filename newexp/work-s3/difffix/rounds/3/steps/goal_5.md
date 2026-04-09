@@ -1,26 +1,24 @@
-# Goal 5: Fix lgamma / lgammaf signgam global variable
+# Goal 5: Fix modf — wrong fractional part for NaN input
 
 ## Function
-lgamma (double), lgammaf (float)
+- `modf` (double)
 
 ## Source Files
-- C (double): /home/leochanj/Desktop/libmcs/libm/mathd/lgammad.c
-- C (float): /home/leochanj/Desktop/libmcs/libm/mathf/lgammaf.c
-- Rust wrappers: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/lib.rs (lgamma line ~71, lgammaf line ~156)
-- Rust impl (double): /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathd.rs (fn lgammad, line ~3334)
-- Rust impl (float): /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathf.rs (fn lgammaf, line ~1999)
+- C: `/home/leochanj/Desktop/libmcs/libm/mathd/modfd.c`
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathd.rs`
 
-## What's Wrong
-Output mismatch — 10 lgamma + 6 lgammaf mismatches. The computed values are correct, but `signgam` is always 0 in Rust instead of the correct sign (+1 or -1).
+## Problem
+MISMATCH: modf(nan) should return (nan, int=nan) but Rust returns (0x0p+0, int=nan).
 
-Examples:
-- `lgamma(1.0)`: value matches, but C signgam=1, Rust signgam=0
-- `lgamma(-0.5)`: value matches, but C signgam=-1, Rust signgam=0
+The fractional part should be NaN when the input is NaN, but Rust returns 0.0 for the
+fractional part. The integer part is correctly NaN. This indicates the NaN special case
+is not handled correctly — the C code returns (NaN, NaN) for NaN input, but the Rust
+code appears to fall through to normal processing which produces 0.0 for the fraction.
 
 ## What Needs to Change
-The Rust lgamma/lgammaf wrapper functions in lib.rs need to properly set the `signgam` global variable. Check how the C code sets signgam (likely via a pointer parameter or global). The Rust implementation must export and set a `signgam` global that the test harness reads, or properly wire through the sign output from the internal implementation.
+The Rust modf (modfd) must return NaN for both the fractional and integer parts when
+the input is NaN. Check if the Rust code is missing the NaN special-case check or if
+the check exists but only sets the integer part.
 
 ## Success Criteria
-- All lgamma test cases: signgam matches C output (1 or -1, never 0)
-- All lgammaf test cases: signgam matches C output
-- Computed lgamma/lgammaf values remain unchanged (they already match)
+- modf nan = nan int nan — both fractional and integer parts must be NaN, bitwise exact

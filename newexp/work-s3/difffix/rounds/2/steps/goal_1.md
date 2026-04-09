@@ -1,20 +1,33 @@
-# Goal 1: Fix acosh — wrong computation
+# Goal 1: Fix cproj / cprojf — wrong imaginary part for infinity inputs
 
 ## Function
-`acosh` (double precision)
+- `cproj` (complex double)
+- `cprojf` (complex float)
 
 ## Source Files
-- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/acoshd.c`
-- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathd.rs` (function `acoshd`, ~line 1385)
+- C: `/home/leochanj/Desktop/libmcs/libm/complexd/cprojd.c` (cproj)
+- C: `/home/leochanj/Desktop/libmcs/libm/complexf/cprojf.c` (cprojf)
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/complexd.rs` line ~122 (cprojd)
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/complexf.rs` line ~120 (cprojf)
 
 ## Problem
-Wrong output. `acosh(2.0)` returns `0x1.62e42fefa39efp+0` (which is ln(2)) instead of the correct `0x1.5124271980434p+0`.
+MISMATCH: When either component is infinity, cproj should return (inf, copysign(0.0, imag)).
+Instead, Rust returns (inf, inf) — it is not zeroing the imaginary part.
 
-The Rust implementation computes the wrong value — likely using an incorrect formula. The correct value of acosh(2) ~ 1.3169578969248.  The Rust result 0x1.62e4... ~ 1.3862... which is ln(2) * 2 / some factor. The formula may have a bug in the mathematical expression.
+Failing tests (cproj):
+- cproj (inf,-inf): C returns (inf,-0x0p+0), Rust returns (inf,inf)
+- cproj (nan,inf): C returns (inf,0x0p+0), Rust returns (inf,inf)
+
+Failing tests (cprojf):
+- cprojf (inf,-inf): C returns (inf,-0x0p+0), Rust returns (inf,inf)
+- cprojf (nan,inf): C returns (inf,0x0p+0), Rust returns (inf,inf)
 
 ## What Needs to Change
-Read the C source and the Rust source, compare the acosh implementation logic, and fix the mathematical formula in the Rust version to match the C version exactly.
+The Rust cproj/cprojf implementations must set the imaginary part to copysign(0.0, imag(z))
+when either real or imaginary part is infinite, matching the C behavior per IEEE 754.
 
 ## Success Criteria
-- `acosh(0x1p+1)` returns `0x1.5124271980434p+0` (bitwise match with C)
-- All other acosh test cases continue to pass
+- cproj (inf,-inf) = (inf,-0x0p+0) — bitwise exact
+- cproj (nan,inf) = (inf,0x0p+0) — bitwise exact
+- cprojf (inf,-inf) = (inf,-0x0p+0) — bitwise exact
+- cprojf (nan,inf) = (inf,0x0p+0) — bitwise exact

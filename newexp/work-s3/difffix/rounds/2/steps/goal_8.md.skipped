@@ -1,26 +1,23 @@
-# Goal 8: Fix lgamma/lgammaf — signgam not set correctly
+# Goal 8: Fix modf — wrong fractional part for NaN input
 
-## Functions
-`lgamma` (double), `lgammaf` (float)
+## Function
+- `modf` (double)
 
 ## Source Files
-- C sources: `/home/leochanj/Desktop/libmcs/libm/mathd/lgammad.c`, `/home/leochanj/Desktop/libmcs/libm/mathf/lgammaf.c`
-- Rust sources: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathd.rs` (~line 3334), `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathf.rs` (~line 1999)
+- C: `/home/leochanj/Desktop/libmcs/libm/mathd/modfd.c`
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathd.rs` line ~3422 (modfd)
 
 ## Problem
-The `signgam` global variable is always 0 in Rust output instead of being set to the correct sign (+1 or -1). The lgamma return values themselves are correct — only signgam is wrong.
+MISMATCH: modf(nan) should return (nan, nan) — both fractional and integer parts
+should be NaN. Rust returns (0x0p+0, nan) — fractional part is zero instead of NaN.
 
-lgamma (10 mismatches): signgam is 0 for all inputs where C sets it to 1 or -1.
-lgammaf (6 mismatches): same pattern.
+Failing test:
+- modf(nan): C returns nan int nan, Rust returns 0x0p+0 int nan
 
 ## What Needs to Change
-Read the C source to understand how signgam is set. The Rust implementation likely either doesn't set signgam at all, or uses a different mechanism. Ensure the Rust code writes the correct sign value (+1 or -1) to signgam for each input.
+The Rust modfd must handle the NaN special case: when input is NaN, both the
+fractional return value and the integer output pointer should be set to NaN.
+The current code likely falls through to a code path that zeros the fractional part.
 
 ## Success Criteria
-- `lgamma(1.0)` signgam = 1
-- `lgamma(2.0)` signgam = 1
-- `lgamma(0.5)` signgam = 1
-- `lgamma(-0.5)` signgam = -1
-- `lgammaf(1.0)` signgam = 1
-- `lgammaf(inf)` signgam = 1
-- All lgamma/lgammaf test cases match C output bitwise (both value and signgam)
+- modf(nan) = nan int nan — bitwise exact (both parts must be NaN)

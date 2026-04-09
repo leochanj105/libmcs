@@ -1,26 +1,22 @@
-# Goal 6: Fix fpclassifyf — wrong classification constants
+# Goal 6: Fix log1pf — wrong result for log1pf(-1.0)
 
 ## Function
-`fpclassifyf` (via `__fpclassifyf`)
+- `log1pf` (float)
 
 ## Source Files
-- C source: `/home/leochanj/Desktop/libmcs/libm/mathf/internal/fpclassifyf.c`
-- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathf.rs` (~line 3161)
+- C: `/home/leochanj/Desktop/libmcs/libm/mathf/log1pf.c`
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathf.rs` line ~2099 (log1pf)
 
 ## Problem
-The classification return values don't match the C library's constants. The C library uses custom FP_* constants (likely: FP_NAN=0, FP_INFINITE=1, FP_ZERO=2, FP_SUBNORMAL=3, FP_NORMAL=4), but the Rust code returns different values.
+MISMATCH: log1pf(-1.0) should return -inf (since log(0) = -inf), but Rust returns -2.0.
 
-Failing cases:
-- `fpclassifyf(0.0)`: C returns 2, Rust returns 0
-- `fpclassifyf(inf)`: C returns 1, Rust returns 3
-- `fpclassifyf(nan)`: C returns 0, Rust returns 1
-- Plus 1 more mismatch (likely subnormal or normal)
+Failing test:
+- log1pf(-0x1p+0): C returns -inf, Rust returns -0x1p+1
 
 ## What Needs to Change
-Read the C source to determine the exact FP_* constant values used, then update the Rust implementation to return those same integer constants instead of whatever it currently uses. Do NOT use Rust's standard library classification — match the C library's custom enum values exactly.
+The Rust log1pf must handle the special case where x = -1.0 (i.e., 1+x = 0) by
+returning -infinity. The C code has a special-case check for this. The Rust version
+is missing this check or computing it incorrectly.
 
 ## Success Criteria
-- `fpclassifyf(0.0)` returns 2
-- `fpclassifyf(inf)` returns 1
-- `fpclassifyf(nan)` returns 0
-- All fpclassifyf test cases match C output bitwise
+- log1pf(-0x1p+0) = -inf — bitwise exact

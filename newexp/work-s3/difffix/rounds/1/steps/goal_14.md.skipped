@@ -1,20 +1,24 @@
-# Goal 14: Fix logb (double) — subnormal exponent off by 1
+# Goal 14: Fix modf — NaN fractional part wrong
 
 ## Function
-`logb` (double)
+- `modf` (double precision)
 
-## Source files
-- C: /home/leochanj/Desktop/libmcs/libm/mathd/logbd.c
-- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathd.rs
+## Source Files
+- C: `/home/leochanj/Desktop/libmcs/libm/mathd/modfd.c`
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/lib.rs` (wrapper), implementation in `mathd.rs`
 
 ## Problem
-logb(0x0.0000000000001p-1022) = -0x1.0ccp+10 (-1075, Rust) vs -0x1.0c8p+10 (-1074, C)
+MISMATCH for NaN input:
+- C:    `modf nan = nan int nan`
+- Rust: `modf nan = 0x0p+0 int nan`
 
-The smallest subnormal double has exponent -1074 (since the mantissa has 52 bits and minimum biased exponent is -1022, so -1022 - 52 = -1074). The Rust implementation returns -1075, off by 1.
+The fractional part should be NaN when input is NaN, but Rust returns 0.0.
+The integer part is correctly NaN in both.
 
-## What needs to change
-Compare Rust logb against C logbd.c. The subnormal normalization loop or leading-zero count is off by one. Check whether the counting starts from the wrong bit position or the loop has an off-by-one.
+## What Needs to Change
+Compare the Rust modf NaN handling against the C source in `modfd.c`. The C
+code returns (NaN, NaN) for NaN input. The Rust code sets the integer part
+to NaN but returns 0.0 as the fractional part.
 
 ## Success Criteria
-- `logb 0x0.0000000000001p-1022` = `-0x1.0c8p+10` (-1074, bitwise exact)
-- All other logb tests continue to pass
+- `modf(NaN)` returns fractional=NaN, integer=NaN (both bitwise exact with C)

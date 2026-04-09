@@ -1,25 +1,23 @@
-# Goal 2: Fix casinh / casinhf NaN sign propagation
+# Goal 2: Fix cpowf — wrong imaginary part (depends on sinf fix)
 
 ## Function
-casinh (double), casinhf (float)
+- `cpowf` (complex float)
 
 ## Source Files
-- C (double): /home/leochanj/Desktop/libmcs/libm/complexd/casinhd.c
-- C (float): /home/leochanj/Desktop/libmcs/libm/complexf/casinhf.c
-- Rust (double): /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/complexd.rs (fn casinhd, line ~303)
-- Rust (float): /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/complexf.rs (fn casinhf, line ~297)
+- C: `/home/leochanj/Desktop/libmcs/libm/complexf/cpowf.c`
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/complexf.rs`
 
-## What's Wrong
-Output mismatch — imaginary part NaN sign differs.
-- `casinh(inf, 1)`: C returns `(-nan, nan)`, Rust returns `(-nan, -nan)`
-- `casinhf(inf, 1)`: same pattern
+## Problem
+MISMATCH: cpowf((0,1),(2,0)) should return (-1, -0x1.777a5cp-24) but Rust returns (-1, -0x1.6bff7ap-16).
 
-The imaginary part should be positive NaN, but Rust produces negative NaN.
+The imaginary part error (-0x1.6bff7ap-16 vs -0x1.777a5cp-24) is identical to the sinf error.
+cpowf internally computes exp(w * log(z)), which involves sin/cos for the imaginary part.
+This failure is almost certainly caused by the same sinf/__rem_pio2f bug.
 
 ## What Needs to Change
-Compare the C casinhd/casinhf implementations with the Rust versions. The NaN handling for the case where real part is inf needs to produce positive NaN for the imaginary part, matching the C behavior.
+This will likely be fixed automatically once sinf (Goal 1) is fixed. After fixing sinf,
+re-test cpowf. If it still fails, compare the Rust cpowf implementation against the C version
+for any additional divergences.
 
 ## Success Criteria
-- `casinh(inf, 1)` returns `(-nan, nan)` — imaginary part has positive NaN sign bit
-- `casinhf(inf, 1)` returns `(-nan, nan)` — same
-- All other casinh/casinhf test cases continue to pass
+- cpowf (0x0p+0,0x1p+0),(0x1p+1,0x0p+0) = -0x1p+0,-0x1.777a5cp-24 — bitwise exact match with C

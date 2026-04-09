@@ -1,26 +1,29 @@
-# Goal 7: Fix fpclassifyf — wrong classification constants
+# Goal 7: Fix exp2 — wrong output
 
 ## Function
-`__fpclassifyf` (float classification)
+- `exp2` (double precision)
 
-## Source files
-- C: /home/leochanj/Desktop/libmcs/libm/mathf/internal/fpclassifyf.c
-- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathf.rs
+## Source Files
+- C: `/home/leochanj/Desktop/libmcs/libm/mathd/exp2d.c`
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/lib.rs` (wrapper), implementation in `mathd.rs`
 
 ## Problem
-fpclassifyf returns wrong classification values:
-- fpclassifyf(0) = 0 (Rust) vs 2 (C) — zero
-- fpclassifyf(inf) = 3 (Rust) vs 1 (C) — infinite
-- fpclassifyf(NaN) = 1 (Rust) vs 0 (C) — NaN
-- (1 more mismatch, likely subnormal or normal)
+MISMATCH: exp2 returns grossly wrong values:
+- C:    `exp2 0x1.ff8p+9 = 0x1p+1023`
+- Rust: `exp2 0x1.ff8p+9 = 0x1.ffffffffcf4p+1022`
+  (0x1.ff8p+9 = 1023.0, so exp2(1023) should be 2^1023 exactly)
 
-The classification constant mapping is different. The C library uses its own constants (likely: 0=NaN, 1=INF, 2=ZERO, 3=SUBNORMAL, 4=NORMAL) but the Rust version uses different numbering.
+- C:    `exp2 0x1.4p+3 = 0x1p+10`
+- Rust: `exp2 0x1.4p+3 = 0x1.b2d809254afbcp+11`
+  (0x1.4p+3 = 10.0, so exp2(10) should be 1024 exactly)
 
-## What needs to change
-Check the C header for FP_NAN, FP_INFINITE, FP_ZERO, FP_SUBNORMAL, FP_NORMAL values and match them exactly in the Rust implementation. The Rust code likely uses Rust's standard classification enum values instead of the libmcs-specific constants.
+The Rust exp2 is producing completely wrong values for exact integer inputs.
+
+## What Needs to Change
+Compare the Rust exp2 implementation against the C source in `exp2d.c`. The
+algorithm likely has a bug in the polynomial evaluation, table lookup, or
+the integer-exponent fast path.
 
 ## Success Criteria
-- `fpclassifyf 0x0p+0` = `2`
-- `fpclassifyf inf` = `1`
-- `fpclassifyf nan` = `0`
-- All fpclassifyf tests match C output bitwise
+- `exp2(1023.0)` returns `0x1p+1023` (bitwise exact)
+- `exp2(10.0)` returns `0x1p+10` (bitwise exact)

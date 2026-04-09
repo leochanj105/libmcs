@@ -81,53 +81,44 @@ Notes:
 
 ## Phase 3: Diff-Fix
 
-### S3 Results (rollback + regression feedback mode)
+### S3 Results (with test isolation)
 
-Fixer mode: separate analyze + fix. Rounds 1-3 plain. Round 4 regressed and
-was rolled back. Round 5 received round 4's failed diff + failures as feedback
-and ran on round 3's code.
+Fixer mode: separate analyze + fix. Default mode (rollback + failed attempt
+feedback on regression). Tests run independently via fork wrapper — crashes
+and timeouts in one test don't affect others.
 
-Results stored in: `work-s3/difffix-noreact/`, `rust-s3-noreact/`
+Results stored in: `work-s3/difffix/`, `rust-s3/`
 
 #### Per-Round Progression
 
-| Round | Prev Fails | Fails | Passed | Pass Rate | Goals | Wall Clock | Cost |
-|-------|-----------|-------|--------|-----------|-------|-----------|------|
+| Round | Prev Fails | Fails | Passed | Pass Rate | Goals | Active Time | Cost |
+|-------|-----------|-------|--------|-----------|-------|------------|------|
 | Baseline | — | 52 | 1137 | 95.6% | — | — | — |
-| R1 | 52 | 38 | 1151 | 96.8% | 5 | 36.1m | $4.52 |
-| R2 | 38 | 31 | 1158 | 97.4% | 5 | 15.7m | $2.37 |
-| R3 | 31 | 7 | 1182 | 99.4% | 5 | 7.1m | $1.46 |
-| R4 | 7 | 8 | 1181 | 99.3% | 5 | 9.2m | $1.01 |
-| R5 | 7 | 2 | 1187 | 99.8% | 5 | 11.4m | $0.55 |
-| **Total** | | | | | **25** | **79.5m** | **$9.91** |
+| R1 | 52 | 37 | 1152 | 96.9% | 5 | 42.4m | $7.03 |
+| R2 | 37 | 7 | 1182 | 99.4% | 5 | 11.1m | $2.11 |
+| R3 | 7 | 2 | 1187 | 99.8% | 5 | 10.7m | $1.79 |
+| R4 | 2 | 0 | 1189 | 100.0% | 1 | 1.6m | $0.44 |
+| **Total** | | | | | **16** | **65.8m** | **$11.38** |
 
 #### Per-Round Token Usage
 
 | Round | Input | Output | Cache Read | Cache Create | Cost |
 |-------|-------|--------|-----------|-------------|------|
-| R1 | 90 | 147,503 | 3,329,913 | 252,778 | $4.52 |
-| R2 | 73 | 55,197 | 2,063,479 | 164,244 | $2.37 |
-| R3 | 62 | 26,444 | 1,452,935 | 125,252 | $1.46 |
-| R4 | 42 | 22,108 | 726,451 | 84,873 | $1.01 |
-| R5 | 32 | 7,670 | 464,504 | 78,599 | $0.55 |
-| **Total** | **299** | **258,922** | **8,037,282** | **705,746** | **$9.91** |
+| R1 | 166 | 153,214 | 10,661,132 | 334,649 | $7.03 |
+| R2 | 72 | 36,466 | 2,437,294 | 145,470 | $2.11 |
+| R3 | 131 | 37,677 | 1,685,650 | 148,831 | $1.79 |
+| R4 | 17 | 5,175 | 387,141 | 40,758 | $0.44 |
+| **Total** | **386** | **232,532** | **15,171,217** | **669,708** | **$11.38** |
 
-#### Remaining Failures (2)
+#### Remaining Failures: 0
 
-- `cacos(inf,0)`: NaN sign bit mismatch (C returns `nan`, Rust returns `-nan`)
-- `cacosf(inf,0)`: same, float version
+#### Previous S3 Results (without test isolation, for reference)
 
-### S3 Round 5 Mode Comparison
-
-Starting from same rounds 1-4. Only round 5 differs.
-
-| Mode | Code State | Starting Fails | Final Fails | Cost |
-|------|-----------|---------------|-------------|------|
-| Plain (REACT_MODE=0) | Round 4 code (8 fails) | 8 | 5 | ~$0.55 |
-| Rollback + regression feedback | Round 3 code (7 fails) | 7 | 2 | $0.55 |
-
-Note: not directly comparable — different starting code states due to rollback.
-Results in: `work-s3/difffix-plain/`, `rust-s3-plain/` (plain mode)
+Old results stored in: `work-s3/difffix-noreact/`, `rust-s3-noreact/`
+- 5 rounds, ended at 2 failures (cacos/cacosf NaN sign), $9.91
+- Round 4 regressed (7→8), rolled back; round 5 with feedback got 7→2
+- Without test isolation, ctans timeout killed subsequent tests, giving
+  the fixer less accurate feedback
 
 ### S4 Results (default mode)
 
@@ -162,11 +153,11 @@ Not yet run with the corrected infrastructure (no C fallback, Rust bridge, O0).
 
 | Scenario | Tests | Baseline Fails | Final Fails | Rounds | Cost |
 |----------|-------|---------------|-------------|--------|------|
-| S3 | 1189 | 52 | 2 | 5 | $9.91 |
+| S3 | 1189 | 52 | 0 | 4 | $11.38 |
 | S4 | 441 | 5 | 0 | 2 | $1.24 |
 | S1 | 779 | — | — | — | — |
 | S2 | 508 | — | — | — | — |
-| S5 | 3875 | — | — | — | — |
+| S5 | 2039 | — | — | — | — |
 
 ## Configuration
 

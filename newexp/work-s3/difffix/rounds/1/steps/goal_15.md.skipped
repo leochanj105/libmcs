@@ -1,21 +1,36 @@
-# Goal 15: Fix modf (double) — NaN handling
+# Goal 15: Fix sinf — wrong output and cpowf dependency
 
 ## Function
-`modf` (double)
+- `sinf` (float precision)
+- `cpowf` (complex float) — affected downstream
 
-## Source files
-- C: /home/leochanj/Desktop/libmcs/libm/mathd/modfd.c
-- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathd.rs
+## Source Files
+- C (sinf): `/home/leochanj/Desktop/libmcs/libm/mathf/sinf.c`
+- C (sinf internals): `/home/leochanj/Desktop/libmcs/libm/mathf/internal/trigf.c`
+- C (cpowf): `/home/leochanj/Desktop/libmcs/libm/complexf/cpowf.c`
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/lib.rs` (wrapper)
 
 ## Problem
-modf(NaN) fractional part: 0x0p+0 (Rust) vs nan (C)
-modf(NaN) integer part: nan (both correct)
+MISMATCH for sinf:
+- C:    `sinf 0x1.921fb6p+1 = -0x1.777a5cp-24`
+- Rust: `sinf 0x1.921fb6p+1 = -0x1.6bff7ap-16`
 
-When input is NaN, modf should return (NaN, NaN) — both the fractional and integer parts should be NaN. The Rust version returns 0 for the fractional part.
+The input is approximately pi. The C result is ~8.74e-8, Rust gives ~2.1e-5
+(off by ~250x). This is a significant precision error in range reduction or
+the polynomial approximation.
 
-## What needs to change
-Compare Rust modf against C modfd.c. The NaN check at the top of the function should return NaN for both parts. The Rust code likely has the NaN special case wrong or missing for the fractional return value.
+MISMATCH for cpowf (downstream):
+- C:    `cpowf (0x0p+0,0x1p+0),(0x1p+1,0x0p+0) = -0x1p+0,-0x1.777a5cp-24`
+- Rust: `cpowf ... = -0x1p+0,-0x1.6bff7ap-16`
+
+The cpowf imaginary part has the exact same wrong value as sinf, confirming
+cpowf's error is caused by sinf.
+
+## What Needs to Change
+Compare the Rust sinf and its internal helpers (__rem_pio2f, __sinf, __cosf)
+against the C source. The range reduction or kernel function has a bug causing
+large errors near pi. Fix sinf and cpowf should be fixed automatically.
 
 ## Success Criteria
-- `modf nan` = `nan int nan` (both parts NaN, bitwise exact)
-- All other modf tests continue to pass
+- `sinf(0x1.921fb6p+1)` returns `-0x1.777a5cp-24` (bitwise exact)
+- `cpowf((0,1),(2,0))` returns `(-1.0, -0x1.777a5cp-24)` (bitwise exact)

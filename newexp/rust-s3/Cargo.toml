@@ -1,0 +1,12 @@
+[package]
+name = "rust-baseline"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "rust_baseline"
+path = "src/lib.rs"
+crate-type = ["staticlib", "cdylib"]
+
+[profile.release]
+opt-level = 0

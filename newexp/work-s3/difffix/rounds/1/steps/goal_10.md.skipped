@@ -1,26 +1,35 @@
-# Goal 10: Fix cproj / cprojf — wrong infinity handling
+# Goal 10: Fix ilogb / ilogbf — wrong return for zero and subnormal
 
-## Functions
-`cproj` (double), `cprojf` (float)
+## Function
+- `ilogb` (double precision)
+- `ilogbf` (float precision)
 
-## Source files
-- C (double): /home/leochanj/Desktop/libmcs/libm/complexd/cprojd.c
-- C (float): /home/leochanj/Desktop/libmcs/libm/complexf/cprojf.c
-- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/complexd.rs (cproj), /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/complexf.rs (cprojf)
+## Source Files
+- C (double): `/home/leochanj/Desktop/libmcs/libm/mathd/ilogbd.c`
+- C (float): `/home/leochanj/Desktop/libmcs/libm/mathf/ilogbf.c`
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/lib.rs` (wrapper)
 
 ## Problem
-When input has an infinite component, cproj should return (inf, copysign(0, imag)):
-- cproj(inf, -inf) = (inf, inf) Rust vs (inf, -0) C
-- cproj(NaN, inf) = (inf, inf) Rust vs (inf, 0) C
-- cprojf shows same pattern
+MISMATCH for ilogb:
+- C:    `ilogb 0x0p+0 = -2147483647`    Rust: `-2147483648`
+- C:    `ilogb -0x0p+0 = -2147483647`   Rust: `-2147483648`
+  (C returns INT_MIN+1 = -2147483647 for zero, Rust returns INT_MIN = -2147483648)
+- C:    `ilogb 0x0.0000000000001p-1022 = -1074`  Rust: `-1075`
+  (subnormal exponent off by one)
 
-The Rust implementation doesn't handle the infinity projection correctly — it should replace the imaginary part with copysign(0, imag) when either component is infinite.
+MISMATCH for ilogbf:
+- C:    `ilogbf 0x0p+0 = -2147483647`   Rust: `-2147483648`
 
-## What needs to change
-Compare Rust cproj/cprojf against C cprojd.c/cprojf.c. The infinity detection and result construction needs to match: when isinf(real) || isinf(imag), return CMPLX(INFINITY, copysign(0.0, imag)).
+## What Needs to Change
+The C library defines FP_ILOGB0 as -2147483647 (INT_MIN+1), but the Rust code
+returns -2147483648 (INT_MIN). Fix the Rust constant for the zero case.
+
+For the subnormal case, the exponent calculation is off by one. Compare the
+subnormal normalization loop/shift in the Rust code against the C source.
 
 ## Success Criteria
-- `cproj (inf,-inf)` = `inf,-0x0p+0` (bitwise exact)
-- `cproj (nan,inf)` = `inf,0x0p+0` (bitwise exact)
-- `cprojf (inf,-inf)` = `inf,-0x0p+0` (bitwise exact)
-- `cprojf (nan,inf)` = `inf,0x0p+0` (bitwise exact)
+- `ilogb(0.0)` returns `-2147483647`
+- `ilogb(-0.0)` returns `-2147483647`
+- `ilogb(0x0.0000000000001p-1022)` returns `-1074`
+- `ilogbf(0.0)` returns `-2147483647`
+- All results bitwise exact with C

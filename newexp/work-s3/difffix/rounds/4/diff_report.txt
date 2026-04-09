@@ -1,6 +1,6 @@
 ============================================================
 Differential Test Report (C vs Rust)
-Generated: 2026-04-08 19:59
+Generated: 2026-04-09 11:38
 ============================================================
 
 ## OUTPUT COMPARISON
@@ -11,35 +11,9 @@ Rust test output: 1190 lines
 C output: 1189 test lines
 Rust output: 1189 test lines
 
-MISMATCH (8 tests, 6 functions):
-C and Rust produce different results:
-  cacos: 2 mismatches
-    C:    cacos (0x1p+0,0x0p+0) = 0x0p+0,0x0p+0
-    Rust: cacos (0x1p+0,0x0p+0) = -0x0p+0,0x0p+0
-    C:    cacos (inf,0x0p+0) = nan,inf
-    Rust: cacos (inf,0x0p+0) = -nan,inf
-  cacosf: 2 mismatches
-    C:    cacosf (0x1p+0,0x0p+0) = 0x0p+0,0x0p+0
-    Rust: cacosf (0x1p+0,0x0p+0) = -0x0p+0,0x0p+0
-    C:    cacosf (inf,0x0p+0) = nan,inf
-    Rust: cacosf (inf,0x0p+0) = -nan,inf
-  casinh: 1 mismatches
-    C:    casinh (inf,0x1p+0) = -nan,nan
-    Rust: casinh (inf,0x1p+0) = -nan,-nan
-  casinhf: 1 mismatches
-    C:    casinhf (inf,0x1p+0) = -nan,nan
-    Rust: casinhf (inf,0x1p+0) = -nan,-nan
-  logb: 1 mismatches
-    C:    logb 0x0.0000000000001p-1022 = -0x1.0c8p+10
-    Rust: logb 0x0.0000000000001p-1022 = -0x1.0ccp+10
-  modf: 1 mismatches
-    C:    modf nan = nan int nan
-    Rust: modf nan = 0x0p+0 int nan
-
 SUMMARY
-Tests passed:     1181
-Tests failed:     8
-Mismatched functions: cacos, cacosf, casinh, casinhf, logb, modf
+Tests passed:     1189
+Tests failed:     0
 
 ## FUNCTION LOCATION MAP
 
@@ -234,5 +208,5 @@ __ccoshsinhf -> /home/leochanj/Desktop/libmcs/libm/complexf/internal/ctrigf.c
 __redupif -> /home/leochanj/Desktop/libmcs/libm/complexf/internal/ctrigf.c
 
 ============================================================
-Tests failed:     8
+Tests failed:     0
 ============================================================

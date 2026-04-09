@@ -1,23 +1,25 @@
-# Goal 2: Fix exp2 (double) — wrong values
+# Goal 2: Fix acosh — wrong output
 
 ## Function
-`exp2` (double-precision)
+- `acosh` (double precision)
 
-## Source files
-- C: /home/leochanj/Desktop/libmcs/libm/mathd/exp2d.c
-- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathd.rs
+## Source Files
+- C: `/home/leochanj/Desktop/libmcs/libm/mathd/acoshd.c`
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/lib.rs` (wrapper), implementation in `mathd.rs`
 
 ## Problem
-exp2 returns wrong results:
-- exp2(0x1.ff8p+9) = 0x1.ffffffffcf4p+1022 (should be 0x1p+1023)
-- exp2(0x1.4p+3) = 0x1.b2d809254afbcp+11 (should be 0x1p+10, i.e. 1024)
+MISMATCH: acosh(2.0) returns wrong value.
+- C:    `acosh 0x1p+1 = 0x1.5124271980434p+0`
+- Rust: `acosh 0x1p+1 = 0x1.62e42fefa39efp+0`
 
-exp2(10) returning ~3566.9 instead of 1024 indicates a fundamental computation error.
+The Rust value `0x1.62e42fefa39ef` is ln(2)*2 = 1.3862..., while the correct C
+value `0x1.5124271980434` is acosh(2) = 1.3169... The Rust implementation is
+computing the wrong formula.
 
-## What needs to change
-Compare Rust exp2 against C exp2d.c. The algorithm for integer exponents and near-integer exponents is likely broken — possibly wrong polynomial coefficients, incorrect range reduction, or mishandled table lookup.
+## What Needs to Change
+Compare the Rust implementation against the C source in `acoshd.c` and fix the
+mathematical computation. The algorithm or formula used in Rust diverges from
+the C version.
 
 ## Success Criteria
-- `exp2 0x1.ff8p+9` = `0x1p+1023` (bitwise exact)
-- `exp2 0x1.4p+3` = `0x1p+10` (bitwise exact)
-- All other exp2 tests continue to pass
+- `acosh(0x1p+1)` returns `0x1.5124271980434p+0` (bitwise exact match with C)

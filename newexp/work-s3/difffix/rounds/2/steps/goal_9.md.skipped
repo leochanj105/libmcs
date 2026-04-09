@@ -1,20 +1,27 @@
-# Goal 9: Fix log1pf — wrong result for -1.0
+# Goal 9: Fix pow — wrong results for integer exponents
 
 ## Function
-`log1pf` (float)
+- `pow` (double)
 
 ## Source Files
-- C source: `/home/leochanj/Desktop/libmcs/libm/mathf/log1pf.c`
-- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathf.rs` (~line 2099)
+- C: `/home/leochanj/Desktop/libmcs/libm/mathd/powd.c`
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathd.rs` line ~3504 (powd)
 
 ## Problem
-Wrong output. `log1pf(-1.0)` should return `-inf` (since log(0) = -inf), but Rust returns `-0x1p+1` (-2.0).
+MISMATCH: pow produces incorrect results for two test cases involving integer exponents.
 
-This is a critical edge case: when x = -1.0, log1p(x) = log(0) = -infinity. The Rust implementation fails to handle this boundary correctly.
+Failing tests:
+- pow(2.0, 10.0): C returns 0x1p+10 (1024.0), Rust returns 0x1.b2d809254afbcp+11 (~3496.9)
+- pow(-2.0, 3.0): C returns -0x1p+3 (-8.0), Rust returns -0x1.fffee746db0fcp+5 (~-63.999)
+
+Note: The exp2 bug shows the same wrong value for exp2(10.0), suggesting pow and exp2
+may share a common flawed code path (exp2 is used internally by pow via exp(y*log(x))).
 
 ## What Needs to Change
-Read the C source to see how the x == -1.0 case is handled (likely an early return of -INFINITY). Add or fix the same check in the Rust implementation.
+The root cause is likely the same as Goal 2 (exp2). Fix exp2 first, then verify
+if pow is also fixed. If pow still fails after fixing exp2, investigate the pow
+implementation independently.
 
 ## Success Criteria
-- `log1pf(-0x1p+0)` returns `-inf` — bitwise match with C
-- All other log1pf test cases continue to pass
+- pow(2.0, 10.0) = 0x1p+10 — bitwise exact
+- pow(-2.0, 3.0) = -0x1p+3 — bitwise exact

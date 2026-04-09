@@ -1,20 +1,27 @@
-# Goal 5: Fix cpowf — wrong imaginary part (likely sinf dependency)
+# Goal 5: Fix catanh / catanhf — NaN sign mismatch in imaginary part
 
 ## Function
-`cpowf` (complex float power)
+- `catanh` (complex double)
+- `catanhf` (complex float)
 
-## Source files
-- C: /home/leochanj/Desktop/libmcs/libm/complexf/cpowf.c
-- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/complexf.rs
+## Source Files
+- C: `/home/leochanj/Desktop/libmcs/libm/complexd/catanhd.c`
+- C: `/home/leochanj/Desktop/libmcs/libm/complexf/catanhf.c`
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/lib.rs` (wrapper)
 
 ## Problem
-cpowf((0+1i), (2+0i)) imaginary part: -0x1.6bff7ap-16 (Rust) vs -0x1.777a5cp-24 (C)
+MISMATCH on NaN input with zero imaginary:
+- C:    `catanh (nan,0x0p+0) = nan,nan`
+- Rust: `catanh (nan,0x0p+0) = nan,-nan`
 
-The wrong imaginary value (-0x1.6bff7ap-16) is identical to the wrong sinf result in Goal 4. cpowf likely calls sinf internally (via cexpf or direct computation), so fixing sinf should fix this.
+The imaginary part should be `nan` (no sign bit) but Rust returns `-nan`
+(NaN with sign bit set). Same for catanhf.
 
-## What needs to change
-1. Fix sinf first (Goal 4) — this should resolve the cpowf mismatch
-2. If mismatch persists after sinf fix, compare cpowf implementation against C original
+## What Needs to Change
+Compare the Rust catanh/catanhf implementation against the C source for the
+(NaN, 0) special case. The imaginary part's sign bit handling differs.
 
 ## Success Criteria
-- `cpowf (0x0p+0,0x1p+0),(0x1p+1,0x0p+0)` = `-0x1p+0,-0x1.777a5cp-24` (bitwise exact)
+- `catanh(nan, 0)` returns `(nan, nan)` — imaginary part has no sign bit
+- `catanhf(nan, 0)` returns `(nan, nan)` — imaginary part has no sign bit
+- Bitwise exact match with C output

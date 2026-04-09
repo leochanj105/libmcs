@@ -1,27 +1,30 @@
-# Goal 9: Fix lgamma / lgammaf — signgam not set
+# Goal 9: Fix fpclassifyf — wrong classification values
 
-## Functions
-`lgamma` (double), `lgammaf` (float)
+## Function
+- `fpclassifyf` (float)
 
-## Source files
-- C (double): /home/leochanj/Desktop/libmcs/libm/mathd/lgammad.c
-- C (float): /home/leochanj/Desktop/libmcs/libm/mathf/lgammaf.c (and internal/gammaf.c for __lgammaf)
-- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathd.rs (lgamma), /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathf.rs (lgammaf)
+## Source Files
+- C: `/home/leochanj/Desktop/libmcs/libm/mathf/internal/fpclassifyf.c`
+- Rust: `/home/leochanj/Desktop/libmcs/newexp/rust-s3/src/lib.rs` (wrapper), implementation in `mathf.rs`
 
 ## Problem
-lgamma and lgammaf always return signgam=0 instead of the correct sign:
-- lgamma(1) → signgam should be 1, got 0
-- lgamma(2) → signgam should be 1, got 0
-- lgamma(0.5) → signgam should be 1, got 0
-- lgamma(-0.5) → signgam should be -1, got 0
-- lgammaf shows same pattern (all signgam=0)
+MISMATCH: fpclassifyf returns wrong classification integers:
+- C:    `fpclassifyf 0x0p+0 = 2`     Rust: `0`  (zero should be class 2)
+- C:    `fpclassifyf inf = 1`         Rust: `3`  (inf should be class 1)
+- C:    `fpclassifyf nan = 0`         Rust: `1`  (nan should be class 0)
+- (1 more mismatch)
 
-The computed lgamma values are correct; only signgam is wrong.
+The C library uses: 0=NaN, 1=Inf, 2=Zero, 3=Subnormal, 4=Normal.
+The Rust code appears to use different enum values.
 
-## What needs to change
-The Rust implementation likely doesn't write to the global `signgam` variable. In C, lgamma sets a global `extern int signgam`. The Rust bridge must write this value through the FFI. Check how the Rust bridge exposes signgam and ensure the lgamma/lgammaf functions actually set it.
+## What Needs to Change
+Compare the Rust fpclassifyf return values against the C source in
+`fpclassifyf.c`. The classification constants must match exactly:
+0=FP_NAN, 1=FP_INFINITE, 2=FP_ZERO, 3=FP_SUBNORMAL, 4=FP_NORMAL
+(or whatever the C source defines).
 
 ## Success Criteria
-- All lgamma tests produce correct signgam values (1 or -1, matching C)
-- All lgammaf tests produce correct signgam values
-- lgamma/lgammaf computed values remain correct
+- `fpclassifyf(0.0)` returns `2`
+- `fpclassifyf(inf)` returns `1`
+- `fpclassifyf(nan)` returns `0`
+- All 4 test cases match C output bitwise exactly
