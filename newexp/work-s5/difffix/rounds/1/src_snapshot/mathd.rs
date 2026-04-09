@@ -1409,7 +1409,7 @@ pub fn acoshd(x: f64) -> f64 {
         return (2.0 * x - ONE / (x + (t - ONE).sqrt())).ln();
     } else {
         let t = x - ONE;
-        return (2.0 * t + t * t).ln_1p();
+        return (t + (2.0 * t + t * t).sqrt()).ln_1p();
     }
 }
 

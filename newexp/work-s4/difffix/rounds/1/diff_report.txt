@@ -1,26 +1,29 @@
 ============================================================
 Differential Test Report (C vs Rust)
-Generated: 2026-04-08 22:46
+Generated: 2026-04-09 11:53
 ============================================================
 
 ## OUTPUT COMPARISON
 
-C test output:    443 lines
-Rust test output: 443 lines
+C test output:    371 lines
+Rust test output: 371 lines
 
-C output: 441 test lines
-Rust output: 441 test lines
+C output: 371 test lines
+Rust output: 371 test lines
 
-MISMATCH (1 tests, 1 functions):
+MISMATCH (2 tests, 2 functions):
 C and Rust produce different results:
-  acosh: 1 mismatches
-    C:    acosh 0x1p+1 = 0x1.5124271980434p+0
-    Rust: acosh 0x1p+1 = 0x1.62e42fefa39efp+0
+  exp2: 1 mismatches
+    C:    exp2 0x1.8p+1 = 0x1p+3
+    Rust: exp2 0x1.8p+1 = 0x1.fffee746db0fcp+5
+  pow: 1 mismatches
+    C:    pow 0x1p+1 0x1.4p+3 = 0x1p+10
+    Rust: pow 0x1p+1 0x1.4p+3 = 0x1.b2d809254afbcp+11
 
 SUMMARY
-Tests passed:     440
-Tests failed:     1
-Mismatched functions: acosh
+Tests passed:     369
+Tests failed:     2
+Mismatched functions: exp2, pow
 
 ## FUNCTION LOCATION MAP
 
@@ -215,5 +218,5 @@ __ccoshsinhf -> /home/leochanj/Desktop/libmcs/libm/complexf/internal/ctrigf.c
 __redupif -> /home/leochanj/Desktop/libmcs/libm/complexf/internal/ctrigf.c
 
 ============================================================
-Tests failed:     1
+Tests failed:     2
 ============================================================

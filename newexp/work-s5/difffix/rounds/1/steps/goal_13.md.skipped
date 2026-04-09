@@ -1,0 +1,29 @@
+# Goal 13: Fix pow — wrong results for integer and large exponents
+
+## Function
+`pow` (double precision)
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/powd.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s5/src/mathd.rs` (fn `powd` at line 3504)
+
+## Problem
+MISMATCH — `pow` produces wrong results (9 failures):
+- `pow(2.0, 10.0)`: C=`0x1p+10` (1024, exact), Rust=`0x1.b2d809254afbcp+11` (~3429, completely wrong)
+- `pow(2.0, 1000.0)`: C=`0x1p+1000`, Rust=`0x1.ffffffffbbp+999` (off by ~1 ULP at extreme scale)
+- `pow(2.0, -1000.0)`: C=`0x1p-1000`, Rust=`0x1.ffffffffbb4p-1001` (similar)
+
+The first case shows a large error (2^10 should be exactly 1024), suggesting a fundamental issue in the algorithm — possibly wrong polynomial, table corruption, or scaling error. The large-exponent cases show smaller relative errors.
+
+## What Needs to Change
+Compare the Rust `powd` implementation with the C source. Check:
+- The exp/log decomposition approach
+- Table values if used
+- Scaling and reconstruction logic
+- Integer exponent fast path (if any)
+
+## Success Criteria
+- `pow(2.0, 10.0)` returns exactly `0x1p+10`
+- `pow(2.0, 1000.0)` returns exactly `0x1p+1000`
+- `pow(2.0, -1000.0)` returns exactly `0x1p-1000`
+- All 9 pow test cases match C output exactly

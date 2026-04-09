@@ -1,45 +1,58 @@
-# Goal 1: Fix acosh mismatch
+# Goal 1: Fix powd — p_h not updated when |z| > 0.5
 
 ## Function
-`acosh` (double precision, implemented as `acoshd` in Rust)
+`pow` (double-precision power function)
 
 ## Source Files
-- **C source:** `/home/leochanj/Desktop/libmcs/libm/mathd/acoshd.c`
-- **Rust source:** `/home/leochanj/Desktop/libmcs/newexp/rust-s4/src/mathd.rs` (line 1412)
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/powd.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s4/src/mathd.rs` (line 3504, function `powd`)
 
-## Problem
-**MISMATCH** — Rust produces wrong output for `acosh(2.0)`.
+## Failure Type
+MISMATCH — wrong output
 
-- Input: `0x1p+1` (2.0)
-- Expected (C): `0x1.5124271980434p+0`
-- Got (Rust): `0x1.62e42fefa39efp+0`
+## Symptom
+```
+C:    pow 0x1p+1 0x1.4p+3 = 0x1p+10
+Rust: pow 0x1p+1 0x1.4p+3 = 0x1.b2d809254afbcp+11
+```
+pow(2.0, 10.0) should return 1024.0 but Rust returns ~3557.5.
 
 ## Root Cause
-In the `1 < x < 2` branch (the final `else` clause), the Rust code reads:
-```rust
-return log1pd(2.0 * t + t * t);
-```
-
-But the C code reads:
+In the C code (powd.c:410), when `|z| > 0.5`, the variable `p_h` is updated in place:
 ```c
-return log1p(t + sqrt(2.0 * t + t * t));
+p_h -= t;
 ```
 
-The Rust translation is missing:
-1. The `sqrt()` call around `2.0 * t + t * t`
-2. The `t +` term before the `sqrt` result
-
-## Required Fix
-Change line 1412 in `mathd.rs` from:
+In the Rust code (mathd.rs:3683-3685), this mutation is lost. The code creates a
+local copy `p_h2`, subtracts from it, then discards the result with `let _ = p_h2`:
 ```rust
-return log1pd(2.0 * t + t * t);
+let mut p_h2 = p_h;
+p_h2 = p_h2 - t_var;
+let _ = p_h2;
 ```
-to:
+
+The original `p_h` is never modified, so the subsequent computation
+`tt = p_l + p_h` (line 3688) uses the wrong value. This corrupts the final
+exponentiation result.
+
+## Fix
+In `mathd.rs`, replace lines 3683-3685:
 ```rust
-return log1pd(t + sqrtd(2.0 * t + t * t));
+let mut p_h2 = p_h;
+p_h2 = p_h2 - t_var;
+let _ = p_h2;
+```
+with a direct mutation of `p_h`. Since `p_h` is currently immutable (bound by
+`let`), it must be declared mutable earlier (or shadowed). The cleanest fix:
+
+Change the `let p_h = y1 * t1;` binding (line 3657) to `let mut p_h = ...;`, then
+replace the dead-code block with:
+```rust
+p_h -= t_var;
 ```
 
 ## Success Criteria
-- `acosh(0x1p+1)` must return `0x1.5124271980434p+0` (bitwise exact match with C)
-- All 441 differential tests pass with zero mismatches
-- No compile errors or runtime panics introduced
+- `pow 0x1p+1 0x1.4p+3` produces `0x1p+10` (matches C output exactly)
+- This also fixes `exp2` since `exp2d` calls `powd(2.0, x)`:
+  `exp2 0x1.8p+1` must produce `0x1p+3` (matches C output exactly)
+- All other pow and exp2 tests continue to pass

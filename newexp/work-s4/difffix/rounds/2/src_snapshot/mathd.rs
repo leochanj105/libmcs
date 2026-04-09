@@ -1400,16 +1400,16 @@ pub fn acoshd(x: f64) -> f64 {
         if hx >= 0x7ff00000_u32 as i32 {
             return x + x;
         } else {
-            return logd(x) + LN2;
+            return x.ln() + LN2;
         }
     } else if ((hx - 0x3ff00000) as u32 | lx) == 0 {
         return 0.0;
     } else if hx > 0x40000000_u32 as i32 {
         let t = x * x;
-        return logd(2.0 * x - ONE / (x + sqrtd(t - ONE)));
+        return (2.0 * x - ONE / (x + (t - ONE).sqrt())).ln();
     } else {
         let t = x - ONE;
-        return log1pd(t + sqrtd(2.0 * t + t * t));
+        return (t + (2.0 * t + t * t).sqrt()).ln_1p();
     }
 }
 

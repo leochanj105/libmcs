@@ -1,34 +1,25 @@
-# Goal 2: Fix __fpclassifyf wrong classification constants
+# Goal 2: Fix acosh — incorrect computation
 
 ## Function
-__fpclassifyf (float classification)
+`acosh` (double precision)
 
 ## Source Files
-- C source: /home/leochanj/Desktop/libmcs/libm/mathf/internal/fpclassifyf.c
-- Rust source: /home/leochanj/Desktop/libmcs/newexp/rust-s5/src/mathf.rs (or internal module)
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/acoshd.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s5/src/mathd.rs` (fn `acoshd` at line 1385)
 
-## What's Wrong
-The Rust __fpclassifyf returns wrong classification values. The enum mapping is different from C:
+## Problem
+MISMATCH — Rust produces significantly wrong values for acosh, indicating an algorithmic error (not just a rounding issue):
+- `acosh(2.0)`: C=`0x1.5124271980434p+0`, Rust=`0x1.62e42fefa39efp+0`
+- `acosh(1.5)`: C=`0x1.ecc2caec5160ap-1`, Rust=`0x1.9f323ecbf984cp-1`
+- `acosh(1.1)`: C=`0x1.c636c1a882f2cp-2`, Rust=`0x1.8663f793c46ccp-3`
 
-| Input | C result | Rust result |
-|-------|----------|-------------|
-| 0x0p+0 (zero) | 2 | 0 |
-| inf | 1 | 3 |
-| nan | 0 | 1 |
-
-Plus 3 more similar mismatches. The classification constants are permuted.
+The differences are large (not ULP-level), suggesting wrong formula or wrong branch logic.
 
 ## What Needs to Change
-Match the C library's FP classification constants exactly:
-- NAN → 0
-- INFINITE → 1
-- ZERO → 2
-- (check the C header for NORMAL, SUBNORMAL values too)
-
-The Rust code likely uses different constant values (possibly from Rust's standard library or a different convention). Replace them with the exact values from the C libmcs headers.
+Compare the C `acoshd` implementation against the Rust `acoshd` function. Look for:
+- Wrong formula (e.g., using `log(x + sqrt(x*x-1))` vs the C implementation's specific algorithm)
+- Wrong branch thresholds
+- Missing or incorrect special-case handling
 
 ## Success Criteria
-- __fpclassifyf(0) returns 2
-- __fpclassifyf(inf) returns 1
-- __fpclassifyf(nan) returns 0
-- All 6 __fpclassifyf test cases match C output bitwise
+- All 5 `acosh` test cases produce bitwise-exact matches with C output

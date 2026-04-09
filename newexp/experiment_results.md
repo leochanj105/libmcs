@@ -152,9 +152,38 @@ S4 test suite: 371 printf calls, produces 371 output lines.
 
 #### Remaining Failures: 0
 
-### S1, S2, S5 Difffix
+### S5 Results (with test isolation)
 
-Not yet run with the corrected infrastructure (no C fallback, Rust bridge, O0).
+Fixer mode: separate analyze + fix. No regressions occurred.
+
+Results stored in: `work-s5/difffix/`, `rust-s5/`
+
+S5 has 2039 test cases.
+
+#### Per-Round Progression
+
+| Round | Prev Fails | Fails | Passed | Pass Rate | Goals | Active Time | Cost |
+|-------|-----------|-------|--------|-----------|-------|------------|------|
+| Baseline | — | 44 | 1995 | 97.8% | — | — | — |
+| R1 | 44 | 23 | 2016 | 98.9% | 5 | 22.8m | $3.84 |
+| R2 | 23 | 3 | 2036 | 99.9% | 5 | 12.3m | $1.74 |
+| R3 | 3 | 0 | 2039 | 100.0% | 2 | 1.8m | $0.54 |
+| **Total** | | | | | **12** | **36.9m** | **$6.12** |
+
+#### Per-Round Token Usage
+
+| Round | Input | Output | Cache Read | Cache Create | Cost |
+|-------|-------|--------|-----------|-------------|------|
+| R1 | 88 | 86,133 | 5,006,907 | 219,527 | $3.84 |
+| R2 | 117 | 44,516 | 1,177,111 | 132,709 | $1.74 |
+| R3 | 18 | 6,209 | 303,999 | 53,369 | $0.54 |
+| **Total** | **223** | **136,858** | **6,488,017** | **405,605** | **$6.12** |
+
+#### Remaining Failures: 0
+
+### S1, S2 Difffix
+
+Not yet run with the corrected infrastructure.
 
 ## Difffix Cross-Scenario Summary
 
@@ -166,7 +195,7 @@ Test cases = individual function calls (one call, one input, one output comparis
 | S4 | 371 | 7 | 0 | 2 | $2.04 |
 | S1 | 785 | — | — | — | — |
 | S2 | 496 | — | — | — | — |
-| S5 | 2039 | — | — | — | — |
+| S5 | 2039 | 44 | 0 | 3 | $6.12 |
 
 Note: S2 has 496 test cases + 1 fault (fenv crash). Test case = one library
 function call with one input. Counts verified by running C binary with fork

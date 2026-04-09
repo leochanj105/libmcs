@@ -1,61 +1,74 @@
 #!/usr/bin/env python3
-"""Compare C and Rust test outputs using key-based matching.
+"""Compare C and Rust test outputs line by line.
 
-Each line is expected to be: "funcname input... = result..."
-Matches by key (everything before '='), compares result.
+Each line is one test case: "funcname input... = result..."
+Compares corresponding lines between C and Rust output.
 
 Produces a structured report:
-- MISSING: functions in C output but not Rust (crash/not implemented)
-- MISMATCH: same key, different result
-- EXTRA: in Rust but not C (shouldn't happen)
+- MISSING: lines in C output but not in Rust (crash/timeout/not implemented)
+- MISMATCH: same line position, different result
+- FAULT: lines starting with "FAULT" (crash/timeout detected by fork wrapper)
 
 Usage: compare_outputs.py <c_output> <rust_output> [-o report_file]
 """
 
 import sys
 import argparse
-from collections import OrderedDict
 
 
 def parse_output(filepath):
-    """Parse test output into {key: full_line} dict."""
-    entries = OrderedDict()
+    """Parse test output into list of (line_number, line) tuples.
+    Skips FAULT lines (handled separately) and blank lines."""
+    test_lines = []
+    fault_lines = []
     with open(filepath) as f:
         for line in f:
             line = line.strip()
-            if not line or line.startswith("Total:") or line.startswith("==="):
+            if not line:
+                continue
+            if line.startswith("FAULT "):
+                fault_lines.append(line)
                 continue
             if '=' not in line:
                 continue
-            key = line.split('=')[0].strip()
-            entries[key] = line
-    return entries
+            test_lines.append(line)
+    return test_lines, fault_lines
+
+
+def func_name(line):
+    """Extract function name from a test line like 'sin 0x1p-1 = 0x1p-1'."""
+    key = line.split('=')[0].strip()
+    return key.split()[0] if key.split() else key
 
 
 def compare(c_file, r_file):
-    c_entries = parse_output(c_file)
-    r_entries = parse_output(r_file)
+    c_lines, c_faults = parse_output(c_file)
+    r_lines, r_faults = parse_output(r_file)
 
-    missing = []    # in C but not Rust
-    mismatch = []   # in both but different
-    extra = []      # in Rust but not C
+    missing = []    # test cases in C but not in Rust
+    mismatch = []   # test cases in both but different result
 
-    for key, c_line in c_entries.items():
-        if key not in r_entries:
-            missing.append((key, c_line))
-        elif c_line != r_entries[key]:
-            mismatch.append((key, c_line, r_entries[key]))
+    # Build Rust lookup: key -> list of lines (preserves duplicates)
+    r_by_key = {}
+    for line in r_lines:
+        key = line.split('=')[0].strip()
+        if key not in r_by_key:
+            r_by_key[key] = []
+        r_by_key[key].append(line)
 
-    for key, r_line in r_entries.items():
-        if key not in c_entries:
-            extra.append((key, r_line))
+    # For each C test case, find matching Rust result
+    r_used = {}  # track which Rust lines we've matched
+    for c_line in c_lines:
+        key = c_line.split('=')[0].strip()
+        if key not in r_by_key or len(r_by_key[key]) == 0:
+            missing.append(c_line)
+        else:
+            # Pop first matching Rust line for this key
+            r_line = r_by_key[key].pop(0)
+            if c_line != r_line:
+                mismatch.append((c_line, r_line))
 
-    return missing, mismatch, extra, len(c_entries), len(r_entries)
-
-
-def func_name(key):
-    """Extract function name from key like 'sin 0x1p-1'."""
-    return key.split()[0] if key.split() else key
+    return missing, mismatch, r_faults, len(c_lines), len(r_lines)
 
 
 def main():
@@ -65,7 +78,7 @@ def main():
     parser.add_argument("-o", "--output", default=None)
     args = parser.parse_args()
 
-    missing, mismatch, extra, c_count, r_count = compare(
+    missing, mismatch, r_faults, c_count, r_count = compare(
         args.c_output, args.rust_output)
 
     lines = []
@@ -74,11 +87,18 @@ def main():
     lines.append(f"Rust output: {r_count} test lines")
     lines.append("")
 
+    # Faults (crashes/timeouts caught by fork wrapper)
+    if r_faults:
+        lines.append(f"FAULT ({len(r_faults)} test functions crashed/timed out):")
+        for fl in r_faults:
+            lines.append(f"  {fl}")
+        lines.append("")
+
     # Group missing by function
     if missing:
         missing_funcs = {}
-        for key, c_line in missing:
-            fn = func_name(key)
+        for c_line in missing:
+            fn = func_name(c_line)
             if fn not in missing_funcs:
                 missing_funcs[fn] = []
             missing_funcs[fn].append(c_line)
@@ -92,8 +112,8 @@ def main():
     # Group mismatch by function
     if mismatch:
         mismatch_funcs = {}
-        for key, c_line, r_line in mismatch:
-            fn = func_name(key)
+        for c_line, r_line in mismatch:
+            fn = func_name(c_line)
             if fn not in mismatch_funcs:
                 mismatch_funcs[fn] = []
             mismatch_funcs[fn].append((c_line, r_line))
@@ -110,22 +130,16 @@ def main():
                 lines.append(f"    ... ({len(pairs) - 3} more)")
         lines.append("")
 
-    if extra:
-        lines.append(f"EXTRA ({len(extra)} tests in Rust but not C — unexpected):")
-        for key, r_line in extra[:5]:
-            lines.append(f"  {r_line}")
-        lines.append("")
-
     # Summary
     total_failures = len(missing) + len(mismatch)
     lines.append("SUMMARY")
-    lines.append(f"Tests passed:     {c_count - len(missing) - len(mismatch)}")
+    lines.append(f"Tests passed:     {c_count - total_failures}")
     lines.append(f"Tests failed:     {total_failures}")
     if missing:
-        missing_funcs_list = sorted(set(func_name(k) for k, _ in missing))
+        missing_funcs_list = sorted(set(func_name(l) for l in missing))
         lines.append(f"Missing functions: {', '.join(missing_funcs_list)}")
     if mismatch:
-        mismatch_funcs_list = sorted(set(func_name(k) for k, _, _ in mismatch))
+        mismatch_funcs_list = sorted(set(func_name(c) for c, _ in mismatch))
         lines.append(f"Mismatched functions: {', '.join(mismatch_funcs_list)}")
 
     output = '\n'.join(lines)

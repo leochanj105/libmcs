@@ -1400,16 +1400,16 @@ pub fn acoshd(x: f64) -> f64 {
         if hx >= 0x7ff00000_u32 as i32 {
             return x + x;
         } else {
-            return logd(x) + LN2;
+            return x.ln() + LN2;
         }
     } else if ((hx - 0x3ff00000) as u32 | lx) == 0 {
         return 0.0;
     } else if hx > 0x40000000_u32 as i32 {
         let t = x * x;
-        return logd(2.0 * x - ONE / (x + sqrtd(t - ONE)));
+        return (2.0 * x - ONE / (x + (t - ONE).sqrt())).ln();
     } else {
         let t = x - ONE;
-        return log1pd(2.0 * t + t * t);
+        return (t + (2.0 * t + t * t).sqrt()).ln_1p();
     }
 }
 
@@ -3654,7 +3654,7 @@ pub fn powd(x: f64, y: f64) -> f64 {
 
     let y1 = f64::from_bits(y.to_bits() & 0xffffffff00000000u64);
     let p_l = (y - y1)*t1 + y*t2;
-    let mut p_h = y1 * t1;
+    let p_h = y1 * t1;
     let z = p_l + p_h;
     let zb = z.to_bits();
     let j = (zb >> 32) as i32;
@@ -3680,7 +3680,9 @@ pub fn powd(x: f64, y: f64) -> f64 {
         let t_var = f64::from_bits(t_bits);
         n = (((n & 0x000fffff) | 0x00100000) >> (20 - k2)) as i32;
         if j < 0 { n = -n; }
-        p_h -= t_var;
+        let mut p_h2 = p_h;
+        p_h2 = p_h2 - t_var;
+        let _ = p_h2;
     }
 
     let mut tt = p_l + p_h;

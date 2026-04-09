@@ -1,0 +1,23 @@
+# Goal 6: Fix logb — wrong exponent for subnormals
+
+## Function
+`logb` (double precision, `logbd` in Rust)
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/logbd.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s5/src/mathd.rs` (fn `logbd` around line 3103)
+
+## Problem
+MISMATCH — 2 test cases, both subnormal inputs with exponent off by 1:
+1. `logb 0x1p-1074`: C returns `-0x1.0c8p+10` (-1074.0), Rust returns `-0x1.0ccp+10` (-1075.0)
+2. `logb 0x1p-1073`: C returns `-0x1.0c4p+10` (-1073.0), Rust returns `-0x1.0c8p+10` (-1074.0)
+
+Rust consistently returns an exponent 1 less than C for subnormal values. This is the same off-by-one subnormal handling issue as in ilogb.
+
+## What Needs to Change
+Fix the subnormal exponent calculation. The leading-zero count or bias adjustment for subnormal numbers is off by 1. Compare against the C source to find the exact discrepancy.
+
+## Success Criteria
+- `logb 0x1p-1074` returns `-0x1.0c8p+10` (-1074.0)
+- `logb 0x1p-1073` returns `-0x1.0c4p+10` (-1073.0)
+- All logb test cases match C output exactly

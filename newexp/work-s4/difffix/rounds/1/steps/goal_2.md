@@ -1,30 +1,58 @@
-# Goal 2: Fix acosh — uses Rust std math instead of transpiled functions
+# Goal 2: Fix __fpclassifyf return values
 
 ## Function
-`acosh` (implemented as `acoshd`)
+`__fpclassifyf` (float classification)
 
 ## Source Files
-- **C source**: `/home/leochanj/Desktop/libmcs/libm/mathd/acoshd.c`
-- **Rust source**: `/home/leochanj/Desktop/libmcs/newexp/rust-s4/src/mathd.rs:1385`
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathf/internal/fpclassifyf.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s4/src/mathf.rs` (line 3161)
 
-## Problem
-The Rust `acoshd` implementation calls Rust standard library math methods (`.ln()`, `.sqrt()`, `.ln_1p()`) instead of the transpiled libmcs functions (`logd()`, `sqrtd()`, `log1pd()`). This produces different bit patterns because the std implementations use different algorithms.
+## Failure Type
+MISMATCH — wrong output (2 direct mismatches + 1 cascading failure in nanf)
 
-Specific lines with wrong calls (in `acoshd`):
-- Line 1403: `x.ln()` should be `logd(x)`
-- Line 1409: `(t - ONE).sqrt()` should be `sqrtd(t - ONE)`
-- Line 1409: `(...).ln()` should be `logd(...)`
-- Line 1412: `(...).ln_1p()` should be `log1pd(...)`
+## Symptom
+```
+C:    __fpclassifyf zero = 2
+Rust: __fpclassifyf zero = 0
+C:    __fpclassifyf inf = 1
+Rust: __fpclassifyf inf = 3
+```
+Also causes nanf test failure (see Goal 3).
 
-## Failing Tests
-- `acosh(0x1p+1)`: C returns `0x1.5124271980434p+0`, Rust returns `0x1.62e42fefa39efp+0`
+## Root Cause
+The Rust function returns hardcoded integer values that don't match the C library's `FP_*` constants defined in `libm/include/math.h`:
+```c
+#define FP_NAN        0
+#define FP_INFINITE   1
+#define FP_ZERO       2
+#define FP_SUBNORMAL  3
+#define FP_NORMAL     4
+```
 
-## What Needs to Change
-In `/home/leochanj/Desktop/libmcs/newexp/rust-s4/src/mathd.rs`, function `acoshd`:
-1. Replace `.ln()` calls with `logd()`
-2. Replace `.sqrt()` calls with `sqrtd()`
-3. Replace `.ln_1p()` calls with `log1pd()`
+Current Rust code returns:
+| Category   | Rust returns | C returns (correct) |
+|------------|-------------|-------------------|
+| ZERO       | 0           | 2 (FP_ZERO)      |
+| NORMAL     | 4           | 4 (FP_NORMAL)    |
+| SUBNORMAL  | 2           | 3 (FP_SUBNORMAL) |
+| INFINITE   | 3           | 1 (FP_INFINITE)  |
+| NAN        | 1           | 0 (FP_NAN)       |
+
+## Fix
+In `mathf.rs` at line 3161, change the return values to match:
+```rust
+pub fn __fpclassifyf(x: f32) -> i32 {
+    let w = get_float_word(x) & 0x7fffffffu32;
+    if w == 0x00000000u32 { return 2; }        // FP_ZERO
+    if w >= 0x00800000u32 && w <= 0x7f7fffffu32 { return 4; } // FP_NORMAL
+    if w <= 0x007fffffu32 { return 3; }        // FP_SUBNORMAL
+    if w == 0x7f800000u32 { return 1; }        // FP_INFINITE
+    0                                           // FP_NAN
+}
+```
 
 ## Success Criteria
-- `acosh(0x1p+1)` returns `0x1.5124271980434p+0` (bitwise match with C)
-- All other acosh test cases continue to pass
+- `__fpclassifyf zero` returns `2`
+- `__fpclassifyf inf` returns `1`
+- `__fpclassifyf normal` returns `4`
+- `nanf isnan=1` (cascading fix — see Goal 3)

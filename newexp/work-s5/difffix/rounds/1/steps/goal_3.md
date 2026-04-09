@@ -1,31 +1,28 @@
-# Goal 3: Fix log1pf completely broken
+# Goal 3: Fix cosf and __cosf — wrong output for large arguments
 
-## Function
-log1pf (log(1+x), float precision)
+## Functions
+`cosf`, `__cosf`
 
 ## Source Files
-- C source: /home/leochanj/Desktop/libmcs/libm/mathf/log1pf.c
-- Rust source: /home/leochanj/Desktop/libmcs/newexp/rust-s5/src/mathf.rs
+- C source (cosf): `/home/leochanj/Desktop/libmcs/libm/mathf/cosf.c`
+- C source (__cosf kernel): `/home/leochanj/Desktop/libmcs/libm/mathf/internal/trigf.c`
+- Rust source (cosf): `/home/leochanj/Desktop/libmcs/newexp/rust-s5/src/mathf.rs` (fn `cosf` at line 1341)
+- Rust source (__cosf kernel): `/home/leochanj/Desktop/libmcs/newexp/rust-s5/src/mathf.rs` (fn `cosf_kern` at line 479)
 
-## What's Wrong
-log1pf produces completely wrong results — it appears to not implement the log1p algorithm at all:
+## Problem
+MISMATCH — both `cosf` and `__cosf` produce wrong results:
+- `__cosf 0x1p+0 0x0p+0`: C=`0x1.14a282p-1`, Rust=`0x1.14a284p-1` (1 ULP off in kernel)
+- `cosf 3*pi/2`: C=`0x1.99bc5cp-27`, Rust=`0x1.1p-15` (grossly wrong — likely argument reduction issue)
+- `cosf 7*pi/2`: C=`0x1.644588p-21`, Rust=`0x1.3fff8cp-14` (grossly wrong)
 
-| Input | C result | Rust result |
-|-------|----------|-------------|
-| -2.0 | nan | -4.0 |
-| -1.0 | -inf | -2.0 |
-| -0.5 | -0x1.62e43p-1 | -1.0 |
-
-The pattern suggests Rust may be computing `2*x` or `log(x)` instead of `log(1+x)`.
-There are 6 mismatches total, plus 3 more hidden.
+The kernel has a small error (1 ULP). The outer `cosf` has large errors for multiples of pi/2, suggesting broken argument reduction (`__rem_pio2f`).
 
 ## What Needs to Change
-The log1pf implementation needs to be compared line-by-line with the C source.
-The core algorithm is likely completely wrong — possibly a mistranslation or the function body was replaced with something else during transpilation.
+1. Compare the `cosf_kern` polynomial coefficients with the C `__cosf` kernel
+2. Compare `cosf` argument reduction logic and `__rem_pio2f` / `__rem_pio2f_internal` with the C versions
 
 ## Success Criteria
-- log1pf(-1.0f) = -inf
-- log1pf(-2.0f) = nan (with appropriate NaN handling)
-- log1pf(-0.5f) = -0x1.62e43p-1
-- log1pf(0.3f), log1pf(0.5f), log1pf(1.0f) all match C output bitwise
-- All log1pf test cases pass
+- `__cosf 0x1p+0 0x0p+0` returns `0x1.14a282p-1`
+- `cosf 3*pi/2` returns `0x1.99bc5cp-27`
+- `cosf 7*pi/2` returns `0x1.644588p-21`
+- All cosf/__cosf test cases match C output exactly

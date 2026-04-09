@@ -1,34 +1,28 @@
-# Goal 9: Fix sinf and tanf trigonometric reduction
+# Goal 9: Fix log1pf — completely wrong for negative inputs
 
-## Functions
-- sinf (sine, float)
-- tanf (tangent, float)
+## Function
+`log1pf`
 
 ## Source Files
-- C source (sinf): /home/leochanj/Desktop/libmcs/libm/mathf/sinf.c
-- C source (tanf): /home/leochanj/Desktop/libmcs/libm/mathf/tanf.c
-- C source (__rem_pio2f): /home/leochanj/Desktop/libmcs/libm/mathf/internal/trigf.c
-- Rust source: /home/leochanj/Desktop/libmcs/newexp/rust-s5/src/mathf.rs
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathf/log1pf.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s5/src/mathf.rs` (fn `log1pf` at line 2099)
 
-## What's Wrong
-Both sinf and tanf produce slightly wrong results for input near pi:
+## Problem
+MISMATCH — `log1pf` is fundamentally broken for negative arguments:
+- `log1pf(-1.0f)`: C=`-inf`, Rust=`-0x1p+1` (-2.0). Should be -infinity (log of 0)
+- `log1pf(-2.0f)`: C=`nan`, Rust=`-0x1p+2` (-4.0). Should be NaN (log of negative)
+- `log1pf(-0.9f)`: C=`-0x1.26bb1ap+1`, Rust=`-0x1.ccccccp+0` (wrong value)
 
-**sinf (1 mismatch):**
-- sinf(pi) = sinf(0x1.91eb86p+1): C returns 0x1.a17a16p-10, Rust returns 0x1.9bcff8p-10
-
-**tanf (2 mismatches):**
-- tanf(pi): C returns -0x1.a17a3ap-10, Rust returns -0x1.9bd018p-10
-- tanf(-pi): C returns 0x1.a17a3ap-10, Rust returns 0x1.9bd018p-10
-
-The results are close but not bitwise exact. This pattern (small error at multiples of pi) strongly suggests the argument reduction (__rem_pio2f) is slightly off, leading to a small but consistent error in the reduced argument.
+The Rust version appears to be computing something like `x` instead of `log(1+x)` for negative inputs, or the special-case handling for x <= -1 is missing entirely.
 
 ## What Needs to Change
-1. Compare the __rem_pio2f implementation in Rust with the C version in trigf.c
-2. Check the pi/2 constants used — a slightly wrong constant will cause this exact pattern
-3. Also check __sinf and __cosf kernel functions used internally
+Compare the Rust `log1pf` with the C source. Fix:
+- Special case: `x == -1.0` must return `-inf`
+- Special case: `x < -1.0` must return `NaN`
+- General computation for `-1 < x < 0`
 
 ## Success Criteria
-- sinf(0x1.91eb86p+1) = 0x1.a17a16p-10
-- tanf(0x1.91eb86p+1) = -0x1.a17a3ap-10
-- tanf(-0x1.91eb86p+1) = 0x1.a17a3ap-10
-- All sinf and tanf test cases match C output bitwise
+- `log1pf(-1.0f)` returns `-inf`
+- `log1pf(-2.0f)` returns `nan`
+- `log1pf(-0.9f)` returns `-0x1.26bb1ap+1`
+- All 4 log1pf test cases match C output exactly

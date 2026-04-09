@@ -1,0 +1,69 @@
+# Goal 6: Fix pow — p_h adjustment discarded in final computation
+
+## Function
+`pow` (double-precision power function)
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/powd.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s4/src/mathd.rs` (line 3504, function `powd`)
+
+## Failure Type
+MISMATCH — wrong output
+
+## Symptom
+```
+C:    pow 0x1p+1 0x1.4p+3 = 0x1p+10
+Rust: pow 0x1p+1 0x1.4p+3 = 0x1.b2d809254afbcp+11
+```
+Input: `pow(2.0, 10.0)`. Expected `1024.0` (`0x1p+10`), Rust gives ~3557.5.
+
+## Root Cause
+In the final `2**(p_h+p_l)` computation section (Rust lines 3676-3686), the adjustment `p_h -= t` from C is computed but **discarded**:
+
+**C code (correct):**
+```c
+if (i > 0x3fe00000) {
+    ...
+    p_h -= t;   // p_h is modified in place
+}
+t = p_l + p_h;  // uses adjusted p_h
+```
+
+**Rust code (buggy):**
+```rust
+if i2 > 0x3fe00000 {
+    ...
+    let mut p_h2 = p_h;
+    p_h2 = p_h2 - t_var;
+    let _ = p_h2;  // BUG: discards the adjusted value!
+}
+let mut tt = p_l + p_h;  // uses ORIGINAL p_h, not adjusted
+```
+
+The `let _ = p_h2;` explicitly discards the modified value. The subsequent computation on line 3688 uses the original `p_h` instead of `p_h - t_var`, causing a large error in the final result.
+
+## Fix
+In `mathd.rs` lines 3676-3688, restructure to propagate the p_h adjustment:
+
+Replace the block starting at line 3676:
+```rust
+let p_h_adj;
+if i2 > 0x3fe00000 {
+    n = j + (0x00100000 >> (k + 1));
+    let k2 = ((n & 0x7fffffff) >> 20) - 0x3ff;
+    let t_bits: u64 = ((n as u64) & !((0x000fffffu64) >> (k2 as u32))) << 32;
+    let t_var = f64::from_bits(t_bits);
+    n = (((n & 0x000fffff) | 0x00100000) >> (20 - k2)) as i32;
+    if j < 0 { n = -n; }
+    p_h_adj = p_h - t_var;
+} else {
+    p_h_adj = p_h;
+}
+
+let mut tt = p_l + p_h_adj;
+```
+
+## Success Criteria
+- `pow 0x1p+1 0x1.4p+3` produces `0x1p+10` (bitwise match with C, i.e. exactly 1024.0)
+- All other pow tests continue to pass
+- exp2 tests pass (exp2 depends on pow — see Goal 5)

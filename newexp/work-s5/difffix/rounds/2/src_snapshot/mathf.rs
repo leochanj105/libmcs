@@ -45,7 +45,7 @@ const FLT_LARGEST_EXP: u32 = FLT_UWORD_MAX >> 23; // = 0xfe
 const FLT_SMALLEST_EXP: i32 = -22;
 
 // FP_ILOGB constants (from math.h)
-const FP_ILOGB0: i32 = i32::MIN; // -INT_MAX => use i32::MIN as proxy
+const FP_ILOGB0: i32 = -2147483647; // -INT_MAX (FP_ILOGB0 per C standard)
 const FP_ILOGBNAN: i32 = i32::MAX;
 
 // __issignalingf: checks if a float is a signaling NaN
@@ -404,7 +404,7 @@ pub(crate) fn rem_pio2f_fn(x: f32, y: &mut [f32; 2]) -> i32 {
         let t = fabsf_fn(x);
         let n = (t * INVPIO2 + HALF) as i32;
         let fn_ = n as f32;
-        let r = t - fn_ * PIO2_1;
+        let mut r = t - fn_ * PIO2_1;
         let mut w = fn_ * PIO2_1T;
         {
             let j = ix >> 23;
@@ -414,17 +414,17 @@ pub(crate) fn rem_pio2f_fn(x: f32, y: &mut [f32; 2]) -> i32 {
             if i > 8 {
                 let t2 = r;
                 w = fn_ * PIO2_2;
-                let r2 = t2 - w;
-                w = fn_ * PIO2_2T - ((t2 - r2) - w);
-                y[0] = r2 - w;
+                r = t2 - w;
+                w = fn_ * PIO2_2T - ((t2 - r) - w);
+                y[0] = r - w;
                 let high2 = get_float_word(y[0]);
                 let i2 = j - (((high2 >> 23) & 0xff) as i32);
                 if i2 > 25 {
-                    let t3 = r2;
+                    let t3 = r;
                     w = fn_ * PIO2_3;
-                    let r3 = t3 - w;
-                    w = fn_ * PIO2_3T - ((t3 - r3) - w);
-                    y[0] = r3 - w;
+                    r = t3 - w;
+                    w = fn_ * PIO2_3T - ((t3 - r) - w);
+                    y[0] = r - w;
                 }
             }
         }
@@ -480,7 +480,7 @@ pub(crate) fn cosf_kern(x: f32, y: f32) -> f32 {
     // C1 =  0xaaaaa5.0p-28f = 0x3D2AAAAA => 4.16666455e-2
     // C2 = -0xb60615.0p-33f = 0xBAB60615 => -1.38873106e-3
     // C3 =  0xccf47d.0p-39f = 0x37CCF47C => 2.44325429e-5
-    let c1 = f32::from_bits(0x3D2AAAAA);  // ~0.04166664556
+    let c1 = f32::from_bits(0x3D2AAAA5);  // ~0.04166664556
     let c2 = f32::from_bits(0xBAB60615);  // ~-0.001388731063
     let c3 = f32::from_bits(0x37CCF47C);  // ~0.00002443254289
     let z = x * x;
@@ -2108,7 +2108,7 @@ pub fn log1pf(x: f32) -> f32 {
     let mut f = f32::NAN;
     let mut hu = i32::MAX;
 
-    if !flt_uword_is_finite(hx as u32) { return x + x; }
+    if !flt_uword_is_finite(ax as u32) { return x + x; }
 
     if hx < 0x3ed413d7 {
         if ax >= 0x3f800000 {
@@ -3160,11 +3160,11 @@ pub fn truncf(x: f32) -> f32 {
 
 pub fn __fpclassifyf(x: f32) -> i32 {
     let w = get_float_word(x) & 0x7fffffffu32;
-    if w == 0x00000000u32 { return 0; }        // FP_ZERO
+    if w == 0x00000000u32 { return 2; }        // FP_ZERO
     if w >= 0x00800000u32 && w <= 0x7f7fffffu32 { return 4; } // FP_NORMAL
-    if w <= 0x007fffffu32 { return 2; }        // FP_SUBNORMAL
-    if w == 0x7f800000u32 { return 3; }        // FP_INFINITE
-    1                                           // FP_NAN
+    if w <= 0x007fffffu32 { return 3; }        // FP_SUBNORMAL
+    if w == 0x7f800000u32 { return 1; }        // FP_INFINITE
+    0                                           // FP_NAN
 }
 
 pub fn __signbitf(x: f32) -> i32 {

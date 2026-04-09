@@ -1,0 +1,1607 @@
+/* test_suite.c — generated test suite for libmcs */
+#include <stdio.h>
+#include <stdint.h>
+#include <complex.h>
+#include "test_bridge.h"
+
+/* Headers from the library */
+#include "/home/leochanj/Desktop/libmcs/libm/include/math.h"
+#include "/home/leochanj/Desktop/libmcs/libm/include/complex.h"
+
+/* Declarations for non-static internal functions not in public headers */
+extern double __cos(double x, double y);
+extern double __sin(double x, double y, int iy);
+extern int32_t __rem_pio2(double x, double *y);
+extern float __cosf(float x, float y);
+extern float __sinf(float x, float y, int iy);
+extern int32_t __rem_pio2f(float x, float *y);
+extern double __lgamma(double x, int *signgamp);
+extern float __lgammaf(float x, int *signgamp);
+extern double __redupi(double x);
+extern float __redupif(float x);
+extern void __ccoshsinh(double x, double *c, double *s);
+extern void __ccoshsinhf(float x, float *c, float *s);
+
+/* ------------------------------------------------------------------ */
+/* Double trigonometric */
+/* ------------------------------------------------------------------ */
+static void test_acos(void)
+{
+    printf("acos %a = %a\n", 0.5, acos(0.5));
+    printf("acos %a = %a\n", 1.0, acos(1.0));
+    printf("acos %a = %a\n", -1.0, acos(-1.0));
+    printf("acos %a = %a\n", 0.0, acos(0.0));
+}
+
+static void test_asin(void)
+{
+    printf("asin %a = %a\n", 0.5, asin(0.5));
+    printf("asin %a = %a\n", 1.0, asin(1.0));
+    printf("asin %a = %a\n", -1.0, asin(-1.0));
+    printf("asin %a = %a\n", 0.0, asin(0.0));
+}
+
+static void test_atan(void)
+{
+    printf("atan %a = %a\n", 1.0, atan(1.0));
+    printf("atan %a = %a\n", 0.0, atan(0.0));
+    printf("atan %a = %a\n", -1.0, atan(-1.0));
+}
+
+static void test_atan2(void)
+{
+    printf("atan2 %a %a = %a\n", 1.0, 1.0, atan2(1.0, 1.0));
+    printf("atan2 %a %a = %a\n", 0.0, 1.0, atan2(0.0, 1.0));
+    printf("atan2 %a %a = %a\n", 1.0, 0.0, atan2(1.0, 0.0));
+    printf("atan2 %a %a = %a\n", -1.0, -1.0, atan2(-1.0, -1.0));
+}
+
+static void test_cos(void)
+{
+    printf("cos %a = %a\n", 0.0, cos(0.0));
+    printf("cos %a = %a\n", 1.0, cos(1.0));
+    printf("cos %a = %a\n", M_PI, cos(M_PI));
+}
+
+static void test_sin(void)
+{
+    printf("sin %a = %a\n", 0.0, sin(0.0));
+    printf("sin %a = %a\n", 1.0, sin(1.0));
+    printf("sin %a = %a\n", M_PI_2, sin(M_PI_2));
+}
+
+static void test_tan(void)
+{
+    printf("tan %a = %a\n", 0.0, tan(0.0));
+    printf("tan %a = %a\n", 1.0, tan(1.0));
+    printf("tan %a = %a\n", -1.0, tan(-1.0));
+}
+
+/* ------------------------------------------------------------------ */
+/* Double hyperbolic */
+/* ------------------------------------------------------------------ */
+static void test_acosh(void)
+{
+    printf("acosh %a = %a\n", 1.0, acosh(1.0));
+    printf("acosh %a = %a\n", 2.0, acosh(2.0));
+}
+
+static void test_asinh(void)
+{
+    printf("asinh %a = %a\n", 0.0, asinh(0.0));
+    printf("asinh %a = %a\n", 1.0, asinh(1.0));
+    printf("asinh %a = %a\n", -1.0, asinh(-1.0));
+}
+
+static void test_atanh(void)
+{
+    printf("atanh %a = %a\n", 0.0, atanh(0.0));
+    printf("atanh %a = %a\n", 0.5, atanh(0.5));
+    printf("atanh %a = %a\n", -0.5, atanh(-0.5));
+}
+
+static void test_cosh(void)
+{
+    printf("cosh %a = %a\n", 0.0, cosh(0.0));
+    printf("cosh %a = %a\n", 1.0, cosh(1.0));
+    printf("cosh %a = %a\n", -1.0, cosh(-1.0));
+}
+
+static void test_sinh(void)
+{
+    printf("sinh %a = %a\n", 0.0, sinh(0.0));
+    printf("sinh %a = %a\n", 1.0, sinh(1.0));
+    printf("sinh %a = %a\n", -1.0, sinh(-1.0));
+}
+
+static void test_tanh(void)
+{
+    printf("tanh %a = %a\n", 0.0, tanh(0.0));
+    printf("tanh %a = %a\n", 1.0, tanh(1.0));
+    printf("tanh %a = %a\n", -1.0, tanh(-1.0));
+}
+
+/* ------------------------------------------------------------------ */
+/* Double exponential and logarithmic */
+/* ------------------------------------------------------------------ */
+static void test_exp(void)
+{
+    printf("exp %a = %a\n", 0.0, exp(0.0));
+    printf("exp %a = %a\n", 1.0, exp(1.0));
+    printf("exp %a = %a\n", -1.0, exp(-1.0));
+}
+
+static void test_exp2(void)
+{
+    printf("exp2 %a = %a\n", 0.0, exp2(0.0));
+    printf("exp2 %a = %a\n", 1.0, exp2(1.0));
+    printf("exp2 %a = %a\n", 3.0, exp2(3.0));
+}
+
+static void test_expm1(void)
+{
+    printf("expm1 %a = %a\n", 0.0, expm1(0.0));
+    printf("expm1 %a = %a\n", 1.0, expm1(1.0));
+    printf("expm1 %a = %a\n", -1.0, expm1(-1.0));
+}
+
+static void test_frexp(void)
+{
+    int exp_val;
+    double r = frexp(1.0, &exp_val);
+    printf("frexp %a = %a exp=%d\n", 1.0, r, exp_val);
+    r = frexp(0.5, &exp_val);
+    printf("frexp %a = %a exp=%d\n", 0.5, r, exp_val);
+    r = frexp(0.0, &exp_val);
+    printf("frexp %a = %a exp=%d\n", 0.0, r, exp_val);
+}
+
+static void test_ilogb(void)
+{
+    printf("ilogb %a = %d\n", 1.0, ilogb(1.0));
+    printf("ilogb %a = %d\n", 2.0, ilogb(2.0));
+    printf("ilogb %a = %d\n", 0.5, ilogb(0.5));
+}
+
+static void test_ldexp(void)
+{
+    printf("ldexp %a %d = %a\n", 1.0, 2, ldexp(1.0, 2));
+    printf("ldexp %a %d = %a\n", 0.5, 3, ldexp(0.5, 3));
+    printf("ldexp %a %d = %a\n", 1.0, -1, ldexp(1.0, -1));
+}
+
+static void test_log(void)
+{
+    printf("log %a = %a\n", 1.0, log(1.0));
+    printf("log %a = %a\n", M_E, log(M_E));
+    printf("log %a = %a\n", 2.0, log(2.0));
+}
+
+static void test_log10(void)
+{
+    printf("log10 %a = %a\n", 1.0, log10(1.0));
+    printf("log10 %a = %a\n", 10.0, log10(10.0));
+    printf("log10 %a = %a\n", 100.0, log10(100.0));
+}
+
+static void test_log1p(void)
+{
+    printf("log1p %a = %a\n", 0.0, log1p(0.0));
+    printf("log1p %a = %a\n", 1.0, log1p(1.0));
+    printf("log1p %a = %a\n", -0.5, log1p(-0.5));
+}
+
+static void test_log2(void)
+{
+    printf("log2 %a = %a\n", 1.0, log2(1.0));
+    printf("log2 %a = %a\n", 2.0, log2(2.0));
+    printf("log2 %a = %a\n", 8.0, log2(8.0));
+}
+
+static void test_logb(void)
+{
+    printf("logb %a = %a\n", 1.0, logb(1.0));
+    printf("logb %a = %a\n", 2.0, logb(2.0));
+    printf("logb %a = %a\n", 0.5, logb(0.5));
+}
+
+static void test_modf(void)
+{
+    double int_part;
+    double r = modf(3.75, &int_part);
+    printf("modf %a = %a int=%a\n", 3.75, r, int_part);
+    r = modf(-2.5, &int_part);
+    printf("modf %a = %a int=%a\n", -2.5, r, int_part);
+}
+
+static void test_scalbn(void)
+{
+    printf("scalbn %a %d = %a\n", 1.0, 2, scalbn(1.0, 2));
+    printf("scalbn %a %d = %a\n", 1.5, -1, scalbn(1.5, -1));
+}
+
+static void test_scalbln(void)
+{
+    printf("scalbln %a %ld = %a\n", 1.0, 2L, scalbln(1.0, 2L));
+    printf("scalbln %a %ld = %a\n", 1.5, -1L, scalbln(1.5, -1L));
+}
+
+/* ------------------------------------------------------------------ */
+/* Double power and absolute value */
+/* ------------------------------------------------------------------ */
+static void test_cbrt(void)
+{
+    printf("cbrt %a = %a\n", 8.0, cbrt(8.0));
+    printf("cbrt %a = %a\n", -27.0, cbrt(-27.0));
+    printf("cbrt %a = %a\n", 0.0, cbrt(0.0));
+}
+
+static void test_fabs(void)
+{
+    printf("fabs %a = %a\n", -1.5, fabs(-1.5));
+    printf("fabs %a = %a\n", 1.5, fabs(1.5));
+    printf("fabs %a = %a\n", 0.0, fabs(0.0));
+}
+
+static void test_hypot(void)
+{
+    printf("hypot %a %a = %a\n", 3.0, 4.0, hypot(3.0, 4.0));
+    printf("hypot %a %a = %a\n", 1.0, 0.0, hypot(1.0, 0.0));
+}
+
+static void test_pow(void)
+{
+    printf("pow %a %a = %a\n", 2.0, 10.0, pow(2.0, 10.0));
+    printf("pow %a %a = %a\n", 4.0, 0.5, pow(4.0, 0.5));
+    printf("pow %a %a = %a\n", 1.0, 0.0, pow(1.0, 0.0));
+}
+
+static void test_sqrt(void)
+{
+    printf("sqrt %a = %a\n", 4.0, sqrt(4.0));
+    printf("sqrt %a = %a\n", 2.0, sqrt(2.0));
+    printf("sqrt %a = %a\n", 0.0, sqrt(0.0));
+}
+
+/* ------------------------------------------------------------------ */
+/* Double error and gamma */
+/* ------------------------------------------------------------------ */
+static void test_erf(void)
+{
+    printf("erf %a = %a\n", 0.0, erf(0.0));
+    printf("erf %a = %a\n", 1.0, erf(1.0));
+    printf("erf %a = %a\n", -1.0, erf(-1.0));
+}
+
+static void test_erfc(void)
+{
+    printf("erfc %a = %a\n", 0.0, erfc(0.0));
+    printf("erfc %a = %a\n", 1.0, erfc(1.0));
+    printf("erfc %a = %a\n", -1.0, erfc(-1.0));
+}
+
+static void test_lgamma(void)
+{
+    printf("lgamma %a = %a\n", 1.0, lgamma(1.0));
+    printf("lgamma %a = %a\n", 2.0, lgamma(2.0));
+    printf("lgamma %a = %a\n", 0.5, lgamma(0.5));
+}
+
+static void test_tgamma(void)
+{
+    printf("tgamma %a = %a\n", 1.0, tgamma(1.0));
+    printf("tgamma %a = %a\n", 2.0, tgamma(2.0));
+    printf("tgamma %a = %a\n", 0.5, tgamma(0.5));
+}
+
+/* ------------------------------------------------------------------ */
+/* Double nearest integer */
+/* ------------------------------------------------------------------ */
+static void test_ceil(void)
+{
+    printf("ceil %a = %a\n", 1.2, ceil(1.2));
+    printf("ceil %a = %a\n", -1.2, ceil(-1.2));
+    printf("ceil %a = %a\n", 2.0, ceil(2.0));
+}
+
+static void test_floor(void)
+{
+    printf("floor %a = %a\n", 1.7, floor(1.7));
+    printf("floor %a = %a\n", -1.7, floor(-1.7));
+    printf("floor %a = %a\n", 2.0, floor(2.0));
+}
+
+static void test_nearbyint(void)
+{
+    printf("nearbyint %a = %a\n", 1.5, nearbyint(1.5));
+    printf("nearbyint %a = %a\n", 2.5, nearbyint(2.5));
+    printf("nearbyint %a = %a\n", -1.5, nearbyint(-1.5));
+}
+
+static void test_rint(void)
+{
+    printf("rint %a = %a\n", 1.5, rint(1.5));
+    printf("rint %a = %a\n", 2.5, rint(2.5));
+    printf("rint %a = %a\n", -1.5, rint(-1.5));
+}
+
+static void test_lrint(void)
+{
+    printf("lrint %a = %ld\n", 1.5, lrint(1.5));
+    printf("lrint %a = %ld\n", -1.5, lrint(-1.5));
+}
+
+static void test_llrint(void)
+{
+    printf("llrint %a = %lld\n", 1.5, llrint(1.5));
+    printf("llrint %a = %lld\n", -1.5, llrint(-1.5));
+}
+
+static void test_round(void)
+{
+    printf("round %a = %a\n", 1.5, round(1.5));
+    printf("round %a = %a\n", 2.5, round(2.5));
+    printf("round %a = %a\n", -1.5, round(-1.5));
+}
+
+static void test_lround(void)
+{
+    printf("lround %a = %ld\n", 1.5, lround(1.5));
+    printf("lround %a = %ld\n", -1.5, lround(-1.5));
+}
+
+static void test_llround(void)
+{
+    printf("llround %a = %lld\n", 1.5, llround(1.5));
+    printf("llround %a = %lld\n", -1.5, llround(-1.5));
+}
+
+static void test_trunc(void)
+{
+    printf("trunc %a = %a\n", 1.7, trunc(1.7));
+    printf("trunc %a = %a\n", -1.7, trunc(-1.7));
+    printf("trunc %a = %a\n", 2.0, trunc(2.0));
+}
+
+/* ------------------------------------------------------------------ */
+/* Double remainder */
+/* ------------------------------------------------------------------ */
+static void test_fmod(void)
+{
+    printf("fmod %a %a = %a\n", 5.1, 3.0, fmod(5.1, 3.0));
+    printf("fmod %a %a = %a\n", -5.1, 3.0, fmod(-5.1, 3.0));
+}
+
+static void test_remainder(void)
+{
+    printf("remainder %a %a = %a\n", 5.1, 3.0, remainder(5.1, 3.0));
+    printf("remainder %a %a = %a\n", -5.1, 3.0, remainder(-5.1, 3.0));
+}
+
+static void test_remquo(void)
+{
+    int quo;
+    double r = remquo(5.1, 3.0, &quo);
+    printf("remquo %a %a = %a quo=%d\n", 5.1, 3.0, r, quo);
+    r = remquo(-5.1, 3.0, &quo);
+    printf("remquo %a %a = %a quo=%d\n", -5.1, 3.0, r, quo);
+}
+
+/* ------------------------------------------------------------------ */
+/* Double manipulation */
+/* ------------------------------------------------------------------ */
+static void test_copysign(void)
+{
+    printf("copysign %a %a = %a\n", 1.0, -1.0, copysign(1.0, -1.0));
+    printf("copysign %a %a = %a\n", -1.0, 1.0, copysign(-1.0, 1.0));
+}
+
+static void test_nan(void)
+{
+    double r = nan("");
+    printf("nan isnan=%d\n", __fpclassifyd(r) == FP_NAN);
+}
+
+static void test_nextafter(void)
+{
+    printf("nextafter %a %a = %a\n", 1.0, 2.0, nextafter(1.0, 2.0));
+    printf("nextafter %a %a = %a\n", 1.0, 0.0, nextafter(1.0, 0.0));
+}
+
+/* ------------------------------------------------------------------ */
+/* Double max/min/fdim */
+/* ------------------------------------------------------------------ */
+static void test_fdim(void)
+{
+    printf("fdim %a %a = %a\n", 3.0, 2.0, fdim(3.0, 2.0));
+    printf("fdim %a %a = %a\n", 2.0, 3.0, fdim(2.0, 3.0));
+}
+
+static void test_fmax(void)
+{
+    printf("fmax %a %a = %a\n", 3.0, 2.0, fmax(3.0, 2.0));
+    printf("fmax %a %a = %a\n", -1.0, 1.0, fmax(-1.0, 1.0));
+}
+
+static void test_fmin(void)
+{
+    printf("fmin %a %a = %a\n", 3.0, 2.0, fmin(3.0, 2.0));
+    printf("fmin %a %a = %a\n", -1.0, 1.0, fmin(-1.0, 1.0));
+}
+
+/* ------------------------------------------------------------------ */
+/* Double fma */
+/* ------------------------------------------------------------------ */
+static void test_fma(void)
+{
+    printf("fma %a %a %a = %a\n", 2.0, 3.0, 1.0, fma(2.0, 3.0, 1.0));
+    printf("fma %a %a %a = %a\n", 1.0, 1.0, -1.0, fma(1.0, 1.0, -1.0));
+}
+
+/* ------------------------------------------------------------------ */
+/* Double Bessel */
+/* ------------------------------------------------------------------ */
+static void test_j0(void)
+{
+    printf("j0 %a = %a\n", 0.0, j0(0.0));
+    printf("j0 %a = %a\n", 1.0, j0(1.0));
+}
+
+static void test_j1(void)
+{
+    printf("j1 %a = %a\n", 0.0, j1(0.0));
+    printf("j1 %a = %a\n", 1.0, j1(1.0));
+}
+
+static void test_jn(void)
+{
+    printf("jn %d %a = %a\n", 0, 1.0, jn(0, 1.0));
+    printf("jn %d %a = %a\n", 1, 1.0, jn(1, 1.0));
+    printf("jn %d %a = %a\n", 2, 1.0, jn(2, 1.0));
+}
+
+static void test_y0(void)
+{
+    printf("y0 %a = %a\n", 1.0, y0(1.0));
+    printf("y0 %a = %a\n", 2.0, y0(2.0));
+}
+
+static void test_y1(void)
+{
+    printf("y1 %a = %a\n", 1.0, y1(1.0));
+    printf("y1 %a = %a\n", 2.0, y1(2.0));
+}
+
+static void test_yn(void)
+{
+    printf("yn %d %a = %a\n", 0, 1.0, yn(0, 1.0));
+    printf("yn %d %a = %a\n", 1, 1.0, yn(1, 1.0));
+    printf("yn %d %a = %a\n", 2, 1.0, yn(2, 1.0));
+}
+
+/* ------------------------------------------------------------------ */
+/* Float trigonometric */
+/* ------------------------------------------------------------------ */
+static void test_acosf(void)
+{
+    printf("acosf %a = %a\n", 0.5f, acosf(0.5f));
+    printf("acosf %a = %a\n", 1.0f, acosf(1.0f));
+    printf("acosf %a = %a\n", 0.0f, acosf(0.0f));
+}
+
+static void test_asinf(void)
+{
+    printf("asinf %a = %a\n", 0.5f, asinf(0.5f));
+    printf("asinf %a = %a\n", 1.0f, asinf(1.0f));
+    printf("asinf %a = %a\n", 0.0f, asinf(0.0f));
+}
+
+static void test_atanf(void)
+{
+    printf("atanf %a = %a\n", 1.0f, atanf(1.0f));
+    printf("atanf %a = %a\n", 0.0f, atanf(0.0f));
+}
+
+static void test_atan2f(void)
+{
+    printf("atan2f %a %a = %a\n", 1.0f, 1.0f, atan2f(1.0f, 1.0f));
+    printf("atan2f %a %a = %a\n", 0.0f, 1.0f, atan2f(0.0f, 1.0f));
+}
+
+static void test_cosf(void)
+{
+    printf("cosf %a = %a\n", 0.0f, cosf(0.0f));
+    printf("cosf %a = %a\n", 1.0f, cosf(1.0f));
+}
+
+static void test_sinf(void)
+{
+    printf("sinf %a = %a\n", 0.0f, sinf(0.0f));
+    printf("sinf %a = %a\n", 1.0f, sinf(1.0f));
+}
+
+static void test_tanf(void)
+{
+    printf("tanf %a = %a\n", 0.0f, tanf(0.0f));
+    printf("tanf %a = %a\n", 1.0f, tanf(1.0f));
+}
+
+/* ------------------------------------------------------------------ */
+/* Float hyperbolic */
+/* ------------------------------------------------------------------ */
+static void test_acoshf(void)
+{
+    printf("acoshf %a = %a\n", 1.0f, acoshf(1.0f));
+    printf("acoshf %a = %a\n", 2.0f, acoshf(2.0f));
+}
+
+static void test_asinhf(void)
+{
+    printf("asinhf %a = %a\n", 0.0f, asinhf(0.0f));
+    printf("asinhf %a = %a\n", 1.0f, asinhf(1.0f));
+}
+
+static void test_atanhf(void)
+{
+    printf("atanhf %a = %a\n", 0.0f, atanhf(0.0f));
+    printf("atanhf %a = %a\n", 0.5f, atanhf(0.5f));
+}
+
+static void test_coshf(void)
+{
+    printf("coshf %a = %a\n", 0.0f, coshf(0.0f));
+    printf("coshf %a = %a\n", 1.0f, coshf(1.0f));
+}
+
+static void test_sinhf(void)
+{
+    printf("sinhf %a = %a\n", 0.0f, sinhf(0.0f));
+    printf("sinhf %a = %a\n", 1.0f, sinhf(1.0f));
+}
+
+static void test_tanhf(void)
+{
+    printf("tanhf %a = %a\n", 0.0f, tanhf(0.0f));
+    printf("tanhf %a = %a\n", 1.0f, tanhf(1.0f));
+}
+
+/* ------------------------------------------------------------------ */
+/* Float exponential and logarithmic */
+/* ------------------------------------------------------------------ */
+static void test_expf(void)
+{
+    printf("expf %a = %a\n", 0.0f, expf(0.0f));
+    printf("expf %a = %a\n", 1.0f, expf(1.0f));
+}
+
+static void test_exp2f(void)
+{
+    printf("exp2f %a = %a\n", 0.0f, exp2f(0.0f));
+    printf("exp2f %a = %a\n", 3.0f, exp2f(3.0f));
+}
+
+static void test_expm1f(void)
+{
+    printf("expm1f %a = %a\n", 0.0f, expm1f(0.0f));
+    printf("expm1f %a = %a\n", 1.0f, expm1f(1.0f));
+}
+
+static void test_frexpf(void)
+{
+    int exp_val;
+    float r = frexpf(1.0f, &exp_val);
+    printf("frexpf %a = %a exp=%d\n", 1.0f, r, exp_val);
+    r = frexpf(0.0f, &exp_val);
+    printf("frexpf %a = %a exp=%d\n", 0.0f, r, exp_val);
+}
+
+static void test_ilogbf(void)
+{
+    printf("ilogbf %a = %d\n", 1.0f, ilogbf(1.0f));
+    printf("ilogbf %a = %d\n", 2.0f, ilogbf(2.0f));
+}
+
+static void test_ldexpf(void)
+{
+    printf("ldexpf %a %d = %a\n", 1.0f, 2, ldexpf(1.0f, 2));
+    printf("ldexpf %a %d = %a\n", 0.5f, 3, ldexpf(0.5f, 3));
+}
+
+static void test_logf(void)
+{
+    printf("logf %a = %a\n", 1.0f, logf(1.0f));
+    printf("logf %a = %a\n", 2.0f, logf(2.0f));
+}
+
+static void test_log10f(void)
+{
+    printf("log10f %a = %a\n", 1.0f, log10f(1.0f));
+    printf("log10f %a = %a\n", 10.0f, log10f(10.0f));
+}
+
+static void test_log1pf(void)
+{
+    printf("log1pf %a = %a\n", 0.0f, log1pf(0.0f));
+    printf("log1pf %a = %a\n", 1.0f, log1pf(1.0f));
+}
+
+static void test_log2f(void)
+{
+    printf("log2f %a = %a\n", 1.0f, log2f(1.0f));
+    printf("log2f %a = %a\n", 8.0f, log2f(8.0f));
+}
+
+static void test_logbf(void)
+{
+    printf("logbf %a = %a\n", 1.0f, logbf(1.0f));
+    printf("logbf %a = %a\n", 2.0f, logbf(2.0f));
+}
+
+static void test_modff(void)
+{
+    float int_part;
+    float r = modff(3.75f, &int_part);
+    printf("modff %a = %a int=%a\n", 3.75f, r, int_part);
+    r = modff(-2.5f, &int_part);
+    printf("modff %a = %a int=%a\n", -2.5f, r, int_part);
+}
+
+static void test_scalbnf(void)
+{
+    printf("scalbnf %a %d = %a\n", 1.0f, 2, scalbnf(1.0f, 2));
+    printf("scalbnf %a %d = %a\n", 1.5f, -1, scalbnf(1.5f, -1));
+}
+
+static void test_scalblnf(void)
+{
+    printf("scalblnf %a %ld = %a\n", 1.0f, 2L, scalblnf(1.0f, 2L));
+    printf("scalblnf %a %ld = %a\n", 1.5f, -1L, scalblnf(1.5f, -1L));
+}
+
+/* ------------------------------------------------------------------ */
+/* Float power and absolute value */
+/* ------------------------------------------------------------------ */
+static void test_cbrtf(void)
+{
+    printf("cbrtf %a = %a\n", 8.0f, cbrtf(8.0f));
+    printf("cbrtf %a = %a\n", -27.0f, cbrtf(-27.0f));
+}
+
+static void test_fabsf(void)
+{
+    printf("fabsf %a = %a\n", -1.5f, fabsf(-1.5f));
+    printf("fabsf %a = %a\n", 1.5f, fabsf(1.5f));
+}
+
+static void test_hypotf(void)
+{
+    printf("hypotf %a %a = %a\n", 3.0f, 4.0f, hypotf(3.0f, 4.0f));
+}
+
+static void test_powf(void)
+{
+    printf("powf %a %a = %a\n", 2.0f, 10.0f, powf(2.0f, 10.0f));
+    printf("powf %a %a = %a\n", 4.0f, 0.5f, powf(4.0f, 0.5f));
+}
+
+static void test_sqrtf(void)
+{
+    printf("sqrtf %a = %a\n", 4.0f, sqrtf(4.0f));
+    printf("sqrtf %a = %a\n", 2.0f, sqrtf(2.0f));
+}
+
+/* ------------------------------------------------------------------ */
+/* Float error and gamma */
+/* ------------------------------------------------------------------ */
+static void test_erff(void)
+{
+    printf("erff %a = %a\n", 0.0f, erff(0.0f));
+    printf("erff %a = %a\n", 1.0f, erff(1.0f));
+}
+
+static void test_erfcf(void)
+{
+    printf("erfcf %a = %a\n", 0.0f, erfcf(0.0f));
+    printf("erfcf %a = %a\n", 1.0f, erfcf(1.0f));
+}
+
+static void test_lgammaf(void)
+{
+    printf("lgammaf %a = %a\n", 1.0f, lgammaf(1.0f));
+    printf("lgammaf %a = %a\n", 2.0f, lgammaf(2.0f));
+}
+
+static void test_tgammaf(void)
+{
+    printf("tgammaf %a = %a\n", 1.0f, tgammaf(1.0f));
+    printf("tgammaf %a = %a\n", 2.0f, tgammaf(2.0f));
+}
+
+/* ------------------------------------------------------------------ */
+/* Float nearest integer */
+/* ------------------------------------------------------------------ */
+static void test_ceilf(void)
+{
+    printf("ceilf %a = %a\n", 1.2f, ceilf(1.2f));
+    printf("ceilf %a = %a\n", -1.2f, ceilf(-1.2f));
+}
+
+static void test_floorf(void)
+{
+    printf("floorf %a = %a\n", 1.7f, floorf(1.7f));
+    printf("floorf %a = %a\n", -1.7f, floorf(-1.7f));
+}
+
+static void test_nearbyintf(void)
+{
+    printf("nearbyintf %a = %a\n", 1.5f, nearbyintf(1.5f));
+    printf("nearbyintf %a = %a\n", -1.5f, nearbyintf(-1.5f));
+}
+
+static void test_rintf(void)
+{
+    printf("rintf %a = %a\n", 1.5f, rintf(1.5f));
+    printf("rintf %a = %a\n", -1.5f, rintf(-1.5f));
+}
+
+static void test_lrintf(void)
+{
+    printf("lrintf %a = %ld\n", 1.5f, lrintf(1.5f));
+    printf("lrintf %a = %ld\n", -1.5f, lrintf(-1.5f));
+}
+
+static void test_llrintf(void)
+{
+    printf("llrintf %a = %lld\n", 1.5f, llrintf(1.5f));
+    printf("llrintf %a = %lld\n", -1.5f, llrintf(-1.5f));
+}
+
+static void test_roundf(void)
+{
+    printf("roundf %a = %a\n", 1.5f, roundf(1.5f));
+    printf("roundf %a = %a\n", -1.5f, roundf(-1.5f));
+}
+
+static void test_lroundf(void)
+{
+    printf("lroundf %a = %ld\n", 1.5f, lroundf(1.5f));
+    printf("lroundf %a = %ld\n", -1.5f, lroundf(-1.5f));
+}
+
+static void test_llroundf(void)
+{
+    printf("llroundf %a = %lld\n", 1.5f, llroundf(1.5f));
+    printf("llroundf %a = %lld\n", -1.5f, llroundf(-1.5f));
+}
+
+static void test_truncf(void)
+{
+    printf("truncf %a = %a\n", 1.7f, truncf(1.7f));
+    printf("truncf %a = %a\n", -1.7f, truncf(-1.7f));
+}
+
+/* ------------------------------------------------------------------ */
+/* Float remainder */
+/* ------------------------------------------------------------------ */
+static void test_fmodf(void)
+{
+    printf("fmodf %a %a = %a\n", 5.1f, 3.0f, fmodf(5.1f, 3.0f));
+    printf("fmodf %a %a = %a\n", -5.1f, 3.0f, fmodf(-5.1f, 3.0f));
+}
+
+static void test_remainderf(void)
+{
+    printf("remainderf %a %a = %a\n", 5.1f, 3.0f, remainderf(5.1f, 3.0f));
+    printf("remainderf %a %a = %a\n", -5.1f, 3.0f, remainderf(-5.1f, 3.0f));
+}
+
+static void test_remquof(void)
+{
+    int quo;
+    float r = remquof(5.1f, 3.0f, &quo);
+    printf("remquof %a %a = %a quo=%d\n", 5.1f, 3.0f, r, quo);
+}
+
+/* ------------------------------------------------------------------ */
+/* Float manipulation */
+/* ------------------------------------------------------------------ */
+static void test_copysignf(void)
+{
+    printf("copysignf %a %a = %a\n", 1.0f, -1.0f, copysignf(1.0f, -1.0f));
+    printf("copysignf %a %a = %a\n", -1.0f, 1.0f, copysignf(-1.0f, 1.0f));
+}
+
+static void test_nanf(void)
+{
+    float r = nanf("");
+    printf("nanf isnan=%d\n", __fpclassifyf(r) == FP_NAN);
+}
+
+static void test_nextafterf(void)
+{
+    printf("nextafterf %a %a = %a\n", 1.0f, 2.0f, nextafterf(1.0f, 2.0f));
+    printf("nextafterf %a %a = %a\n", 1.0f, 0.0f, nextafterf(1.0f, 0.0f));
+}
+
+/* ------------------------------------------------------------------ */
+/* Float max/min/fdim */
+/* ------------------------------------------------------------------ */
+static void test_fdimf(void)
+{
+    printf("fdimf %a %a = %a\n", 3.0f, 2.0f, fdimf(3.0f, 2.0f));
+    printf("fdimf %a %a = %a\n", 2.0f, 3.0f, fdimf(2.0f, 3.0f));
+}
+
+static void test_fmaxf(void)
+{
+    printf("fmaxf %a %a = %a\n", 3.0f, 2.0f, fmaxf(3.0f, 2.0f));
+    printf("fmaxf %a %a = %a\n", -1.0f, 1.0f, fmaxf(-1.0f, 1.0f));
+}
+
+static void test_fminf(void)
+{
+    printf("fminf %a %a = %a\n", 3.0f, 2.0f, fminf(3.0f, 2.0f));
+    printf("fminf %a %a = %a\n", -1.0f, 1.0f, fminf(-1.0f, 1.0f));
+}
+
+/* ------------------------------------------------------------------ */
+/* Float fma */
+/* ------------------------------------------------------------------ */
+static void test_fmaf(void)
+{
+    printf("fmaf %a %a %a = %a\n", 2.0f, 3.0f, 1.0f, fmaf(2.0f, 3.0f, 1.0f));
+    printf("fmaf %a %a %a = %a\n", 1.0f, 1.0f, -1.0f, fmaf(1.0f, 1.0f, -1.0f));
+}
+
+/* ------------------------------------------------------------------ */
+/* Classification and signbit */
+/* ------------------------------------------------------------------ */
+static void test_fpclassifyd(void)
+{
+    printf("__fpclassifyd normal = %d\n", __fpclassifyd(1.0));
+    printf("__fpclassifyd zero = %d\n", __fpclassifyd(0.0));
+    printf("__fpclassifyd inf = %d\n", __fpclassifyd(1.0 / 0.0));
+}
+
+static void test_fpclassifyf(void)
+{
+    printf("__fpclassifyf normal = %d\n", __fpclassifyf(1.0f));
+    printf("__fpclassifyf zero = %d\n", __fpclassifyf(0.0f));
+    printf("__fpclassifyf inf = %d\n", __fpclassifyf(1.0f / 0.0f));
+}
+
+static void test_signbitd(void)
+{
+    printf("__signbitd pos = %d\n", __signbitd(1.0));
+    printf("__signbitd neg = %d\n", __signbitd(-1.0));
+    printf("__signbitd zero = %d\n", __signbitd(0.0));
+}
+
+static void test_signbitf(void)
+{
+    printf("__signbitf pos = %d\n", __signbitf(1.0f));
+    printf("__signbitf neg = %d\n", __signbitf(-1.0f));
+    printf("__signbitf zero = %d\n", __signbitf(0.0f));
+}
+
+/* ------------------------------------------------------------------ */
+/* Internal trig helpers (non-static) */
+/* ------------------------------------------------------------------ */
+static void test___cos(void)
+{
+    printf("__cos %a %a = %a\n", 1.0, 0.0, __cos(1.0, 0.0));
+    printf("__cos %a %a = %a\n", 0.0, 0.0, __cos(0.0, 0.0));
+}
+
+static void test___sin(void)
+{
+    printf("__sin %a %a %d = %a\n", 1.0, 0.0, 0, __sin(1.0, 0.0, 0));
+    printf("__sin %a %a %d = %a\n", 0.0, 0.0, 1, __sin(0.0, 0.0, 1));
+}
+
+static void test___cosf(void)
+{
+    printf("__cosf %a %a = %a\n", 1.0f, 0.0f, __cosf(1.0f, 0.0f));
+    printf("__cosf %a %a = %a\n", 0.0f, 0.0f, __cosf(0.0f, 0.0f));
+}
+
+static void test___sinf(void)
+{
+    printf("__sinf %a %a %d = %a\n", 1.0f, 0.0f, 0, __sinf(1.0f, 0.0f, 0));
+    printf("__sinf %a %a %d = %a\n", 0.0f, 0.0f, 1, __sinf(0.0f, 0.0f, 1));
+}
+
+static void test___rem_pio2(void)
+{
+    double y[2];
+    int32_t n = __rem_pio2(1.0, y);
+    printf("__rem_pio2 %a n=%d y0=%a\n", 1.0, n, y[0]);
+    n = __rem_pio2(5.0, y);
+    printf("__rem_pio2 %a n=%d y0=%a\n", 5.0, n, y[0]);
+}
+
+static void test___rem_pio2f(void)
+{
+    float y[2];
+    int32_t n = __rem_pio2f(1.0f, y);
+    printf("__rem_pio2f %a n=%d y0=%a\n", 1.0f, n, y[0]);
+    n = __rem_pio2f(5.0f, y);
+    printf("__rem_pio2f %a n=%d y0=%a\n", 5.0f, n, y[0]);
+}
+
+static void test___lgamma(void)
+{
+    int sgn;
+    double r = __lgamma(2.0, &sgn);
+    printf("__lgamma %a = %a sgn=%d\n", 2.0, r, sgn);
+    r = __lgamma(0.5, &sgn);
+    printf("__lgamma %a = %a sgn=%d\n", 0.5, r, sgn);
+}
+
+static void test___lgammaf(void)
+{
+    int sgn;
+    float r = __lgammaf(2.0f, &sgn);
+    printf("__lgammaf %a = %a sgn=%d\n", 2.0f, r, sgn);
+    r = __lgammaf(0.5f, &sgn);
+    printf("__lgammaf %a = %a sgn=%d\n", 0.5f, r, sgn);
+}
+
+static void test___redupi(void)
+{
+    printf("__redupi %a = %a\n", 1.0, __redupi(1.0));
+    printf("__redupi %a = %a\n", 4.0, __redupi(4.0));
+}
+
+static void test___redupif(void)
+{
+    printf("__redupif %a = %a\n", 1.0f, __redupif(1.0f));
+    printf("__redupif %a = %a\n", 4.0f, __redupif(4.0f));
+}
+
+static void test___ccoshsinh(void)
+{
+    double c, s;
+    __ccoshsinh(1.0, &c, &s);
+    printf("__ccoshsinh %a c=%a s=%a\n", 1.0, c, s);
+    __ccoshsinh(0.0, &c, &s);
+    printf("__ccoshsinh %a c=%a s=%a\n", 0.0, c, s);
+}
+
+static void test___ccoshsinhf(void)
+{
+    float c, s;
+    __ccoshsinhf(1.0f, &c, &s);
+    printf("__ccoshsinhf %a c=%a s=%a\n", 1.0f, c, s);
+    __ccoshsinhf(0.0f, &c, &s);
+    printf("__ccoshsinhf %a c=%a s=%a\n", 0.0f, c, s);
+}
+
+/* ------------------------------------------------------------------ */
+/* Static internal (via bridge) */
+/* ------------------------------------------------------------------ */
+static void test_bridge___rem_pio2_internal(void)
+{
+    double x = 1.0;
+    double y[2];
+    int n = bridge___rem_pio2_internal(&x, y, 0, 1);
+    printf("bridge___rem_pio2_internal n=%d y0=%a\n", n, y[0]);
+}
+
+static void test_bridge___rem_pio2f_internal(void)
+{
+    float x = 1.0f;
+    float y[2];
+    int n = bridge___rem_pio2f_internal(&x, y, 0, 1);
+    printf("bridge___rem_pio2f_internal n=%d y0=%a\n", n, y[0]);
+}
+
+static void test_bridge___tan(void)
+{
+    double r = bridge___tan(1.0, 0.0, 1);
+    printf("bridge___tan %a %a %d = %a\n", 1.0, 0.0, 1, r);
+    r = bridge___tan(0.0, 0.0, 0);
+    printf("bridge___tan %a %a %d = %a\n", 0.0, 0.0, 0, r);
+}
+
+static void test_bridge___tanf(void)
+{
+    float r = bridge___tanf(1.0f, 0.0f, 1);
+    printf("bridge___tanf %a %a %d = %a\n", 1.0f, 0.0f, 1, r);
+    r = bridge___tanf(0.0f, 0.0f, 0);
+    printf("bridge___tanf %a %a %d = %a\n", 0.0f, 0.0f, 0, r);
+}
+
+static void test_bridge___sin_pi(void)
+{
+    double r = bridge___sin_pi(0.5);
+    printf("bridge___sin_pi %a = %a\n", 0.5, r);
+    r = bridge___sin_pi(1.0);
+    printf("bridge___sin_pi %a = %a\n", 1.0, r);
+}
+
+static void test_bridge___sin_pif(void)
+{
+    float r = bridge___sin_pif(0.5f);
+    printf("bridge___sin_pif %a = %a\n", 0.5f, r);
+    r = bridge___sin_pif(1.0f);
+    printf("bridge___sin_pif %a = %a\n", 1.0f, r);
+}
+
+static void test_bridge___ctans(void)
+{
+    double _Complex z = CMPLX(1.0, 1.0);
+    double r = bridge___ctans(z);
+    printf("bridge___ctans %a+%ai = %a\n", creal(z), cimag(z), r);
+}
+
+static void test_bridge___ctansf(void)
+{
+    float _Complex z = CMPLXF(1.0f, 1.0f);
+    float r = bridge___ctansf(z);
+    printf("bridge___ctansf %a+%ai = %a\n", crealf(z), cimagf(z), r);
+}
+
+/* ------------------------------------------------------------------ */
+/* Complex double */
+/* ------------------------------------------------------------------ */
+static void test_cabs(void)
+{
+    double _Complex z = CMPLX(3.0, 4.0);
+    printf("cabs %a+%ai = %a\n", creal(z), cimag(z), cabs(z));
+    z = CMPLX(1.0, 0.0);
+    printf("cabs %a+%ai = %a\n", creal(z), cimag(z), cabs(z));
+}
+
+static void test_carg(void)
+{
+    double _Complex z = CMPLX(1.0, 1.0);
+    printf("carg %a+%ai = %a\n", creal(z), cimag(z), carg(z));
+    z = CMPLX(1.0, 0.0);
+    printf("carg %a+%ai = %a\n", creal(z), cimag(z), carg(z));
+}
+
+static void test_cimag(void)
+{
+    double _Complex z = CMPLX(3.0, 4.0);
+    printf("cimag %a+%ai = %a\n", creal(z), cimag(z), cimag(z));
+}
+
+static void test_creal(void)
+{
+    double _Complex z = CMPLX(3.0, 4.0);
+    printf("creal %a+%ai = %a\n", creal(z), cimag(z), creal(z));
+}
+
+static void test_conj(void)
+{
+    double _Complex z = CMPLX(3.0, 4.0);
+    double _Complex r = conj(z);
+    printf("conj %a+%ai = %a+%ai\n", creal(z), cimag(z), creal(r), cimag(r));
+}
+
+static void test_cproj(void)
+{
+    double _Complex z = CMPLX(1.0, 2.0);
+    double _Complex r = cproj(z);
+    printf("cproj %a+%ai = %a+%ai\n", creal(z), cimag(z), creal(r), cimag(r));
+}
+
+static void test_cacos(void)
+{
+    double _Complex z = CMPLX(0.5, 0.0);
+    double _Complex r = cacos(z);
+    printf("cacos %a+%ai = %a+%ai\n", creal(z), cimag(z), creal(r), cimag(r));
+}
+
+static void test_casin(void)
+{
+    double _Complex z = CMPLX(0.5, 0.0);
+    double _Complex r = casin(z);
+    printf("casin %a+%ai = %a+%ai\n", creal(z), cimag(z), creal(r), cimag(r));
+}
+
+static void test_catan(void)
+{
+    double _Complex z = CMPLX(1.0, 0.5);
+    double _Complex r = catan(z);
+    printf("catan %a+%ai = %a+%ai\n", creal(z), cimag(z), creal(r), cimag(r));
+}
+
+static void test_ccos(void)
+{
+    double _Complex z = CMPLX(1.0, 1.0);
+    double _Complex r = ccos(z);
+    printf("ccos %a+%ai = %a+%ai\n", creal(z), cimag(z), creal(r), cimag(r));
+}
+
+static void test_csin(void)
+{
+    double _Complex z = CMPLX(1.0, 1.0);
+    double _Complex r = csin(z);
+    printf("csin %a+%ai = %a+%ai\n", creal(z), cimag(z), creal(r), cimag(r));
+}
+
+static void test_ctan(void)
+{
+    double _Complex z = CMPLX(1.0, 1.0);
+    double _Complex r = ctan(z);
+    printf("ctan %a+%ai = %a+%ai\n", creal(z), cimag(z), creal(r), cimag(r));
+}
+
+static void test_cacosh(void)
+{
+    double _Complex z = CMPLX(2.0, 0.0);
+    double _Complex r = cacosh(z);
+    printf("cacosh %a+%ai = %a+%ai\n", creal(z), cimag(z), creal(r), cimag(r));
+}
+
+static void test_casinh(void)
+{
+    double _Complex z = CMPLX(1.0, 0.5);
+    double _Complex r = casinh(z);
+    printf("casinh %a+%ai = %a+%ai\n", creal(z), cimag(z), creal(r), cimag(r));
+}
+
+static void test_catanh(void)
+{
+    double _Complex z = CMPLX(0.5, 0.5);
+    double _Complex r = catanh(z);
+    printf("catanh %a+%ai = %a+%ai\n", creal(z), cimag(z), creal(r), cimag(r));
+}
+
+static void test_ccosh(void)
+{
+    double _Complex z = CMPLX(1.0, 1.0);
+    double _Complex r = ccosh(z);
+    printf("ccosh %a+%ai = %a+%ai\n", creal(z), cimag(z), creal(r), cimag(r));
+}
+
+static void test_csinh(void)
+{
+    double _Complex z = CMPLX(1.0, 1.0);
+    double _Complex r = csinh(z);
+    printf("csinh %a+%ai = %a+%ai\n", creal(z), cimag(z), creal(r), cimag(r));
+}
+
+static void test_ctanh(void)
+{
+    double _Complex z = CMPLX(1.0, 1.0);
+    double _Complex r = ctanh(z);
+    printf("ctanh %a+%ai = %a+%ai\n", creal(z), cimag(z), creal(r), cimag(r));
+}
+
+static void test_cexp(void)
+{
+    double _Complex z = CMPLX(1.0, 1.0);
+    double _Complex r = cexp(z);
+    printf("cexp %a+%ai = %a+%ai\n", creal(z), cimag(z), creal(r), cimag(r));
+}
+
+static void test_clog(void)
+{
+    double _Complex z = CMPLX(1.0, 1.0);
+    double _Complex r = clog(z);
+    printf("clog %a+%ai = %a+%ai\n", creal(z), cimag(z), creal(r), cimag(r));
+}
+
+static void test_cpow(void)
+{
+    double _Complex z = CMPLX(1.0, 1.0);
+    double _Complex w = CMPLX(2.0, 0.0);
+    double _Complex r = cpow(z, w);
+    printf("cpow %a+%ai ^ %a+%ai = %a+%ai\n",
+           creal(z), cimag(z), creal(w), cimag(w), creal(r), cimag(r));
+}
+
+static void test_csqrt(void)
+{
+    double _Complex z = CMPLX(3.0, 4.0);
+    double _Complex r = csqrt(z);
+    printf("csqrt %a+%ai = %a+%ai\n", creal(z), cimag(z), creal(r), cimag(r));
+    z = CMPLX(4.0, 0.0);
+    r = csqrt(z);
+    printf("csqrt %a+%ai = %a+%ai\n", creal(z), cimag(z), creal(r), cimag(r));
+}
+
+static void test___ccoshsinh_d(void)
+{
+    /* exercised via test___ccoshsinh */
+}
+
+/* ------------------------------------------------------------------ */
+/* Complex float */
+/* ------------------------------------------------------------------ */
+static void test_cabsf(void)
+{
+    float _Complex z = CMPLXF(3.0f, 4.0f);
+    printf("cabsf %a+%ai = %a\n", crealf(z), cimagf(z), cabsf(z));
+}
+
+static void test_cargf(void)
+{
+    float _Complex z = CMPLXF(1.0f, 1.0f);
+    printf("cargf %a+%ai = %a\n", crealf(z), cimagf(z), cargf(z));
+}
+
+static void test_cimagf(void)
+{
+    float _Complex z = CMPLXF(3.0f, 4.0f);
+    printf("cimagf %a+%ai = %a\n", crealf(z), cimagf(z), cimagf(z));
+}
+
+static void test_crealf(void)
+{
+    float _Complex z = CMPLXF(3.0f, 4.0f);
+    printf("crealf %a+%ai = %a\n", crealf(z), cimagf(z), crealf(z));
+}
+
+static void test_conjf(void)
+{
+    float _Complex z = CMPLXF(3.0f, 4.0f);
+    float _Complex r = conjf(z);
+    printf("conjf %a+%ai = %a+%ai\n", crealf(z), cimagf(z), crealf(r), cimagf(r));
+}
+
+static void test_cprojf(void)
+{
+    float _Complex z = CMPLXF(1.0f, 2.0f);
+    float _Complex r = cprojf(z);
+    printf("cprojf %a+%ai = %a+%ai\n", crealf(z), cimagf(z), crealf(r), cimagf(r));
+}
+
+static void test_cacosf(void)
+{
+    float _Complex z = CMPLXF(0.5f, 0.0f);
+    float _Complex r = cacosf(z);
+    printf("cacosf %a+%ai = %a+%ai\n", crealf(z), cimagf(z), crealf(r), cimagf(r));
+}
+
+static void test_casinf(void)
+{
+    float _Complex z = CMPLXF(0.5f, 0.0f);
+    float _Complex r = casinf(z);
+    printf("casinf %a+%ai = %a+%ai\n", crealf(z), cimagf(z), crealf(r), cimagf(r));
+}
+
+static void test_catanf(void)
+{
+    float _Complex z = CMPLXF(1.0f, 0.5f);
+    float _Complex r = catanf(z);
+    printf("catanf %a+%ai = %a+%ai\n", crealf(z), cimagf(z), crealf(r), cimagf(r));
+}
+
+static void test_ccosf(void)
+{
+    float _Complex z = CMPLXF(1.0f, 1.0f);
+    float _Complex r = ccosf(z);
+    printf("ccosf %a+%ai = %a+%ai\n", crealf(z), cimagf(z), crealf(r), cimagf(r));
+}
+
+static void test_csinf(void)
+{
+    float _Complex z = CMPLXF(1.0f, 1.0f);
+    float _Complex r = csinf(z);
+    printf("csinf %a+%ai = %a+%ai\n", crealf(z), cimagf(z), crealf(r), cimagf(r));
+}
+
+static void test_ctanf(void)
+{
+    float _Complex z = CMPLXF(1.0f, 1.0f);
+    float _Complex r = ctanf(z);
+    printf("ctanf %a+%ai = %a+%ai\n", crealf(z), cimagf(z), crealf(r), cimagf(r));
+}
+
+static void test_cacoshf(void)
+{
+    float _Complex z = CMPLXF(2.0f, 0.0f);
+    float _Complex r = cacoshf(z);
+    printf("cacoshf %a+%ai = %a+%ai\n", crealf(z), cimagf(z), crealf(r), cimagf(r));
+}
+
+static void test_casinhf(void)
+{
+    float _Complex z = CMPLXF(1.0f, 0.5f);
+    float _Complex r = casinhf(z);
+    printf("casinhf %a+%ai = %a+%ai\n", crealf(z), cimagf(z), crealf(r), cimagf(r));
+}
+
+static void test_catanhf(void)
+{
+    float _Complex z = CMPLXF(0.5f, 0.5f);
+    float _Complex r = catanhf(z);
+    printf("catanhf %a+%ai = %a+%ai\n", crealf(z), cimagf(z), crealf(r), cimagf(r));
+}
+
+static void test_ccoshf(void)
+{
+    float _Complex z = CMPLXF(1.0f, 1.0f);
+    float _Complex r = ccoshf(z);
+    printf("ccoshf %a+%ai = %a+%ai\n", crealf(z), cimagf(z), crealf(r), cimagf(r));
+}
+
+static void test_csinhf(void)
+{
+    float _Complex z = CMPLXF(1.0f, 1.0f);
+    float _Complex r = csinhf(z);
+    printf("csinhf %a+%ai = %a+%ai\n", crealf(z), cimagf(z), crealf(r), cimagf(r));
+}
+
+static void test_ctanhf(void)
+{
+    float _Complex z = CMPLXF(1.0f, 1.0f);
+    float _Complex r = ctanhf(z);
+    printf("ctanhf %a+%ai = %a+%ai\n", crealf(z), cimagf(z), crealf(r), cimagf(r));
+}
+
+static void test_cexpf(void)
+{
+    float _Complex z = CMPLXF(1.0f, 1.0f);
+    float _Complex r = cexpf(z);
+    printf("cexpf %a+%ai = %a+%ai\n", crealf(z), cimagf(z), crealf(r), cimagf(r));
+}
+
+static void test_clogf(void)
+{
+    float _Complex z = CMPLXF(1.0f, 1.0f);
+    float _Complex r = clogf(z);
+    printf("clogf %a+%ai = %a+%ai\n", crealf(z), cimagf(z), crealf(r), cimagf(r));
+}
+
+static void test_cpowf(void)
+{
+    float _Complex z = CMPLXF(1.0f, 1.0f);
+    float _Complex w = CMPLXF(2.0f, 0.0f);
+    float _Complex r = cpowf(z, w);
+    printf("cpowf %a+%ai ^ %a+%ai = %a+%ai\n",
+           crealf(z), cimagf(z), crealf(w), cimagf(w), crealf(r), cimagf(r));
+}
+
+static void test_csqrtf(void)
+{
+    float _Complex z = CMPLXF(3.0f, 4.0f);
+    float _Complex r = csqrtf(z);
+    printf("csqrtf %a+%ai = %a+%ai\n", crealf(z), cimagf(z), crealf(r), cimagf(r));
+}
+
+/* ------------------------------------------------------------------ */
+/* main */
+/* ------------------------------------------------------------------ */
+int main(void)
+{
+    /* Double trig */
+    test_acos();
+    test_asin();
+    test_atan();
+    test_atan2();
+    test_cos();
+    test_sin();
+    test_tan();
+
+    /* Double hyperbolic */
+    test_acosh();
+    test_asinh();
+    test_atanh();
+    test_cosh();
+    test_sinh();
+    test_tanh();
+
+    /* Double exp/log */
+    test_exp();
+    test_exp2();
+    test_expm1();
+    test_frexp();
+    test_ilogb();
+    test_ldexp();
+    test_log();
+    test_log10();
+    test_log1p();
+    test_log2();
+    test_logb();
+    test_modf();
+    test_scalbn();
+    test_scalbln();
+
+    /* Double power/abs */
+    test_cbrt();
+    test_fabs();
+    test_hypot();
+    test_pow();
+    test_sqrt();
+
+    /* Double error/gamma */
+    test_erf();
+    test_erfc();
+    test_lgamma();
+    test_tgamma();
+
+    /* Double nearest int */
+    test_ceil();
+    test_floor();
+    test_nearbyint();
+    test_rint();
+    test_lrint();
+    test_llrint();
+    test_round();
+    test_lround();
+    test_llround();
+    test_trunc();
+
+    /* Double remainder */
+    test_fmod();
+    test_remainder();
+    test_remquo();
+
+    /* Double manipulation */
+    test_copysign();
+    test_nan();
+    test_nextafter();
+
+    /* Double max/min/fdim/fma */
+    test_fdim();
+    test_fmax();
+    test_fmin();
+    test_fma();
+
+    /* Double Bessel */
+    test_j0();
+    test_j1();
+    test_jn();
+    test_y0();
+    test_y1();
+    test_yn();
+
+    /* Float trig */
+    test_acosf();
+    test_asinf();
+    test_atanf();
+    test_atan2f();
+    test_cosf();
+    test_sinf();
+    test_tanf();
+
+    /* Float hyperbolic */
+    test_acoshf();
+    test_asinhf();
+    test_atanhf();
+    test_coshf();
+    test_sinhf();
+    test_tanhf();
+
+    /* Float exp/log */
+    test_expf();
+    test_exp2f();
+    test_expm1f();
+    test_frexpf();
+    test_ilogbf();
+    test_ldexpf();
+    test_logf();
+    test_log10f();
+    test_log1pf();
+    test_log2f();
+    test_logbf();
+    test_modff();
+    test_scalbnf();
+    test_scalblnf();
+
+    /* Float power/abs */
+    test_cbrtf();
+    test_fabsf();
+    test_hypotf();
+    test_powf();
+    test_sqrtf();
+
+    /* Float error/gamma */
+    test_erff();
+    test_erfcf();
+    test_lgammaf();
+    test_tgammaf();
+
+    /* Float nearest int */
+    test_ceilf();
+    test_floorf();
+    test_nearbyintf();
+    test_rintf();
+    test_lrintf();
+    test_llrintf();
+    test_roundf();
+    test_lroundf();
+    test_llroundf();
+    test_truncf();
+
+    /* Float remainder */
+    test_fmodf();
+    test_remainderf();
+    test_remquof();
+
+    /* Float manipulation */
+    test_copysignf();
+    test_nanf();
+    test_nextafterf();
+
+    /* Float max/min/fdim/fma */
+    test_fdimf();
+    test_fmaxf();
+    test_fminf();
+    test_fmaf();
+
+    /* Classification / signbit */
+    test_fpclassifyd();
+    test_fpclassifyf();
+    test_signbitd();
+    test_signbitf();
+
+    /* Internal non-static helpers */
+    test___cos();
+    test___sin();
+    test___cosf();
+    test___sinf();
+    test___rem_pio2();
+    test___rem_pio2f();
+    test___lgamma();
+    test___lgammaf();
+    test___redupi();
+    test___redupif();
+    test___ccoshsinh();
+    test___ccoshsinhf();
+
+    /* Bridge (static) helpers */
+    test_bridge___rem_pio2_internal();
+    test_bridge___rem_pio2f_internal();
+    test_bridge___tan();
+    test_bridge___tanf();
+    test_bridge___sin_pi();
+    test_bridge___sin_pif();
+    test_bridge___ctans();
+    test_bridge___ctansf();
+
+    /* Complex double */
+    test_cabs();
+    test_carg();
+    test_cimag();
+    test_creal();
+    test_conj();
+    test_cproj();
+    test_cacos();
+    test_casin();
+    test_catan();
+    test_ccos();
+    test_csin();
+    test_ctan();
+    test_cacosh();
+    test_casinh();
+    test_catanh();
+    test_ccosh();
+    test_csinh();
+    test_ctanh();
+    test_cexp();
+    test_clog();
+    test_cpow();
+    test_csqrt();
+
+    /* Complex float */
+    test_cabsf();
+    test_cargf();
+    test_cimagf();
+    test_crealf();
+    test_conjf();
+    test_cprojf();
+    test_cacosf();
+    test_casinf();
+    test_catanf();
+    test_ccosf();
+    test_csinf();
+    test_ctanf();
+    test_cacoshf();
+    test_casinhf();
+    test_catanhf();
+    test_ccoshf();
+    test_csinhf();
+    test_ctanhf();
+    test_cexpf();
+    test_clogf();
+    test_cpowf();
+    test_csqrtf();
+
+    return 0;
+}

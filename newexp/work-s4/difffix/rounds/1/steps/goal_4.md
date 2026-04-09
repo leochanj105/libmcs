@@ -1,30 +1,47 @@
-# Goal 4: Fix pow — powd implementation produces wrong results
+# Goal 4: Fix acosh — missing sqrt and addition in else branch
 
 ## Function
-`pow` (implemented as `powd`)
+`acosh` (double-precision hyperbolic arc cosine)
 
 ## Source Files
-- **C source**: `/home/leochanj/Desktop/libmcs/libm/mathd/powd.c`
-- **Rust source**: `/home/leochanj/Desktop/libmcs/newexp/rust-s4/src/mathd.rs:3504`
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/acoshd.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s4/src/mathd.rs` (line 1385, function `acoshd`)
 
-## Problem
-The Rust `powd(x, y)` implementation produces incorrect results. For the test case `pow(2.0, 10.0)`, it returns `0x1.b2d809254afbcp+11` (~3524) instead of the correct `0x1p+10` (1024.0). This is a large numerical error indicating a bug in the core computation, not just a rounding difference.
+## Failure Type
+MISMATCH — wrong output
 
-The C `pow` implementation is a complex ~200-line function. The Rust transpilation likely has an error in the bit manipulation, constant values, or arithmetic logic.
+## Symptom
+```
+C:    acosh 0x1p+1 = 0x1.5124271980434p+0
+Rust: acosh 0x1p+1 = 0x1.62e42fefa39efp+0
+```
+Input `0x1p+1` = 2.0. The correct result is ~1.317, Rust gives ~1.387.
 
-## Failing Tests
-- `pow(0x1p+1, 0x1.4p+3)` i.e. `pow(2.0, 10.0)`: C returns `0x1p+10` (1024.0), Rust returns `0x1.b2d809254afbcp+11`
+## Root Cause
+For `1 < x <= 2` (the else branch), the C code computes:
+```c
+t = x - one;
+return log1p(t + sqrt(2.0 * t + t * t));
+```
 
-## What Needs to Change
-In `/home/leochanj/Desktop/libmcs/newexp/rust-s4/src/mathd.rs`, function `powd` starting at line 3504:
-1. Carefully compare the Rust `powd` implementation against the C `pow` in `powd.c` line by line
-2. Check all bit manipulation operations (EXTRACT_WORDS equivalents, SET_HIGH_WORD equivalents)
-3. Check all constant values match the C source exactly
-4. Check signed vs unsigned integer comparisons
-5. Check that internal function calls (e.g., `sqrtd`, `logd`) use transpiled versions, not std
-6. Fix all discrepancies found
+But the Rust code is missing both the `sqrt` call and the `t +` term:
+```rust
+let t = x - ONE;
+return (2.0 * t + t * t).ln_1p();  // BUG: missing sqrt() and t +
+```
+
+This computes `log1p(2t + t^2)` instead of `log1p(t + sqrt(2t + t^2))`.
+
+## Fix
+In `mathd.rs` at line 1412, change:
+```rust
+return (2.0 * t + t * t).ln_1p();
+```
+to:
+```rust
+return (t + (2.0 * t + t * t).sqrt()).ln_1p();
+```
 
 ## Success Criteria
-- `pow(0x1p+1, 0x1.4p+3)` returns `0x1p+10` (bitwise match with C)
-- All other pow test cases continue to pass
-- After this fix, Goal 3 (exp2) should also produce correct results
+- `acosh 0x1p+1` produces `0x1.5124271980434p+0` (bitwise match with C)
+- All other acosh tests continue to pass

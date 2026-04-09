@@ -1,0 +1,22 @@
+# Goal 12: Fix nanf — not returning NaN
+
+## Function
+`nanf`
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathf/nanf.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s5/src/mathf.rs` (fn `nanf` at line 2390)
+
+## Problem
+MISMATCH — `nanf` does not produce a NaN value:
+- C: `nanf isnan=1`
+- Rust: `nanf isnan=0`
+
+The test checks `isnan(nanf(""))`. Rust's `nanf` returns a non-NaN value.
+
+## What Needs to Change
+Read the Rust `nanf` implementation and ensure it returns a proper quiet NaN (e.g., `f32::NAN` or the bit pattern `0x7FC00000`). Compare with the C source to match the exact NaN bit pattern.
+
+## Success Criteria
+- `nanf("")` returns a value where `isnan()` is true (isnan=1)
+- The returned NaN bit pattern matches C output exactly

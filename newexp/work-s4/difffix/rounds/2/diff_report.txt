@@ -1,18 +1,18 @@
 ============================================================
 Differential Test Report (C vs Rust)
-Generated: 2026-04-08 22:47
+Generated: 2026-04-09 11:55
 ============================================================
 
 ## OUTPUT COMPARISON
 
-C test output:    443 lines
-Rust test output: 443 lines
+C test output:    371 lines
+Rust test output: 371 lines
 
-C output: 441 test lines
-Rust output: 441 test lines
+C output: 371 test lines
+Rust output: 371 test lines
 
 SUMMARY
-Tests passed:     441
+Tests passed:     371
 Tests failed:     0
 
 ## FUNCTION LOCATION MAP

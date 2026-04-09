@@ -1,0 +1,21 @@
+# Goal 7: Fix modf — wrong fractional part for NaN
+
+## Function
+`modf` (double precision, `modfd` in Rust)
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/modfd.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s5/src/mathd.rs` (fn `modfd` around line 3422)
+
+## Problem
+MISMATCH — 1 test case:
+- `modf nan`: C returns `nan`, Rust returns `0x0p+0` (0.0)
+
+When input is NaN, the fractional part should be NaN, but Rust returns 0.0. The NaN special case handling is missing or incorrect.
+
+## What Needs to Change
+Compare the Rust `modfd` NaN handling against the C source. For NaN input, both the integer and fractional parts should be NaN (or at minimum, the fractional part that's being tested must be NaN).
+
+## Success Criteria
+- `modf nan` returns `nan` (bitwise match with C)
+- All modf test cases match C output exactly

@@ -1,26 +1,23 @@
-# Goal 10: Fix acosh wrong computation
+# Goal 10: Fix logb — off-by-one for subnormal doubles
 
 ## Function
-acosh (inverse hyperbolic cosine, double)
+`logb` (double precision)
 
 ## Source Files
-- C source: /home/leochanj/Desktop/libmcs/libm/mathd/acoshd.c
-- Rust source: /home/leochanj/Desktop/libmcs/newexp/rust-s5/src/mathd.rs
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/logbd.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s5/src/mathd.rs` (fn `logbd` at line 3103)
 
-## What's Wrong
-acosh produces wrong results for basic inputs (2 mismatches):
+## Problem
+MISMATCH — `logb` returns wrong exponents for subnormal numbers:
+- `logb 0x1p-1074`: C=`-0x1.0c8p+10` (-1074.0), Rust=`-0x1.0ccp+10` (-1075.0)
+- `logb 0x1p-1073`: C=`-0x1.0c4p+10` (-1073.0), Rust=`-0x1.0c8p+10` (-1074.0)
 
-- acosh(2.0): C returns 0x1.5124271980434p+0 (~1.317), Rust returns 0x1.62e42fefa39efp+0 (~1.443)
-  - Note: Rust's value equals ln(2) ≈ 0.6931×2 = 1.386... actually 0x1.62e42fefa39efp+0 = ln(4) ≈ 1.386
-  - The correct acosh(2) = 1.31696... The Rust result looks like it might be computing log(x) instead of acosh(x)
-
-- acosh(1+epsilon): C returns 0x1.6a09e667f3bcdp-26, Rust returns 0x1.ffffffffffffep-52
-  - Very different — wrong formula for near-1 case
+Off by one, same pattern as ilogb. Likely shares the same subnormal normalization bug.
 
 ## What Needs to Change
-Compare the acosh algorithm with C. The formula acosh(x) = log(x + sqrt(x*x - 1)) may be incorrectly implemented. The near-1 case uses a different expansion and is also wrong.
+Compare the subnormal handling in Rust `logbd` with the C source. The bit-counting or normalization shift for subnormals is off by one.
 
 ## Success Criteria
-- acosh(2.0) = 0x1.5124271980434p+0
-- acosh(1+epsilon) = 0x1.6a09e667f3bcdp-26
-- All acosh test cases match C output bitwise
+- `logb 0x1p-1074` returns `-0x1.0c8p+10` (-1074.0)
+- `logb 0x1p-1073` returns `-0x1.0c4p+10` (-1073.0)
+- All logb test cases match C output exactly

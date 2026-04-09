@@ -477,10 +477,10 @@ pub(crate) fn rem_pio2f_fn(x: f32, y: &mut [f32; 2]) -> i32 {
 
 // __cosf internal
 pub(crate) fn cosf_kern(x: f32, y: f32) -> f32 {
-    // C1 =  0xaaaaa5.0p-28f = 0x3D2AAAAA => 4.16666455e-2
+    // C1 =  0xaaaaa5.0p-28f = 0x3D2AAAA5 => 4.16666455e-2
     // C2 = -0xb60615.0p-33f = 0xBAB60615 => -1.38873106e-3
     // C3 =  0xccf47d.0p-39f = 0x37CCF47C => 2.44325429e-5
-    let c1 = f32::from_bits(0x3D2AAAAA);  // ~0.04166664556
+    let c1 = f32::from_bits(0x3D2AAAA5);  // ~0.04166664556
     let c2 = f32::from_bits(0xBAB60615);  // ~-0.001388731063
     let c3 = f32::from_bits(0x37CCF47C);  // ~0.00002443254289
     let z = x * x;

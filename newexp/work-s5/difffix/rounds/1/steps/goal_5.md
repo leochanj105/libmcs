@@ -1,36 +1,26 @@
-# Goal 5: Fix ilogb, ilogbf, and logb subnormal/zero handling
+# Goal 5: Fix ctanf — wrong real part for near-pi/2 arguments
 
-## Functions
-- ilogb (integer log base 2, double)
-- ilogbf (integer log base 2, float)
-- logb (log base 2 exponent, double)
+## Function
+`ctanf`
 
 ## Source Files
-- C source (ilogb): /home/leochanj/Desktop/libmcs/libm/mathd/ilogbd.c
-- C source (ilogbf): /home/leochanj/Desktop/libmcs/libm/mathf/ilogbf.c
-- C source (logb): /home/leochanj/Desktop/libmcs/libm/mathd/logbd.c
-- Rust source (mathd): /home/leochanj/Desktop/libmcs/newexp/rust-s5/src/mathd.rs
-- Rust source (mathf): /home/leochanj/Desktop/libmcs/newexp/rust-s5/src/mathf.rs
+- C source: `/home/leochanj/Desktop/libmcs/libm/complexf/ctanf.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s5/src/complexf.rs` (fn `ctanf` at line 241)
 
-## What's Wrong
+## Problem
+MISMATCH — `ctanf` produces wrong real parts:
+- `ctanf pi/2+0i`: C=`-0x1.5d1496p+24+0x0p+0i`, Rust=`-0x1.52685p+32+0x0p+0i` (real part magnitude off by ~256x)
+- `ctanf near-pi/2`: C=`0x1.8de6bcp+12+0x1.09a042p-8i`, Rust=`0x1.728826p+12+0x1.09a042p-8i` (real part wrong, imaginary matches)
 
-**ilogb (5 mismatches):**
-- ilogb(0): C returns -2147483647 (INT_MAX negated = FP_ILOGB0), Rust returns -2147483648 (INT_MIN)
-- ilogb(5e-324) and subnormals: C returns -1074, Rust returns -1075 (off by 1)
-
-**ilogbf (1 mismatch):**
-- ilogbf(0): C returns -2147483647, Rust returns -2147483648
-
-**logb (3 mismatches):**
-- logb(5e-324): C returns -1074.0, Rust returns -1075.0 (off by 1 for subnormals)
+The imaginary parts are correct in the second case, suggesting the real-part computation has an error in the tangent calculation or argument reduction.
 
 ## What Needs to Change
-1. **FP_ILOGB0 constant**: The C library defines FP_ILOGB0 as -2147483647 (INT_MAX negated). The Rust code uses -2147483648 (INT_MIN). Fix the zero case to return the correct constant.
-2. **Subnormal exponent calculation**: The subnormal bit-counting loop is off by 1. The C code likely counts leading zeros differently. Compare the normalization loop in both implementations.
+Compare the Rust `ctanf` implementation against the C source. Check:
+- The `__ctansf` helper and `__redupif` functions used internally
+- Polynomial coefficients for the tangent computation
+- Argument reduction logic
 
 ## Success Criteria
-- ilogb(0) = -2147483647
-- ilogbf(0) = -2147483647
-- ilogb(5e-324) = -1074
-- logb(5e-324) = -1074.0
-- All ilogb, ilogbf, and logb test cases match C output bitwise
+- `ctanf pi/2+0i` returns `-0x1.5d1496p+24+0x0p+0i`
+- `ctanf near-pi/2` returns `0x1.8de6bcp+12+0x1.09a042p-8i`
+- All ctanf test cases match C output exactly

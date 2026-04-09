@@ -1,38 +1,31 @@
-# Goal 3: Fix exp2 — delegates to Rust std instead of transpiled powd
+# Goal 3: Fix nanf test failure (cascading from __fpclassifyf)
 
 ## Function
-`exp2` (implemented as `exp2d`)
+`nanf` (float NaN generator)
 
 ## Source Files
-- **C source**: `/home/leochanj/Desktop/libmcs/libm/mathd/exp2d.c`
-- **Rust source**: `/home/leochanj/Desktop/libmcs/newexp/rust-s4/src/mathd.rs:2119`
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathf/nanf.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s4/src/mathf.rs` (line 2390)
 
-## Problem
-The C `exp2` implementation is `return pow(2.0, x)`, which calls the libmcs `pow` function.
-The Rust `exp2d` implementation is `(2.0f64).powf(x)`, which calls the Rust standard library `powf`.
+## Failure Type
+MISMATCH — wrong output (cascading failure)
 
-This produces different results because std `powf` uses a different algorithm than the transpiled `powd`.
-
-## Failing Tests
-- `exp2(0x1.4p+3)`: C returns `0x1p+10` (1024.0), Rust returns `0x1.b2d809254afbcp+11`
-
-## What Needs to Change
-In `/home/leochanj/Desktop/libmcs/newexp/rust-s4/src/mathd.rs` at line 2119-2121, change:
-```rust
-pub fn exp2d(x: f64) -> f64 {
-    (2.0f64).powf(x)
-}
+## Symptom
 ```
-to:
-```rust
-pub fn exp2d(x: f64) -> f64 {
-    powd(2.0, x)
-}
+C:    nanf isnan=1
+Rust: nanf isnan=0
 ```
 
-**Note**: This fix depends on Goal 4 (powd must also be correct for this to produce correct results).
+## Root Cause
+This is a **cascading failure** from Goal 2 (__fpclassifyf). The `nanf` function itself is correct — it returns `f32::from_bits(0x7FCF067D)` which is a valid NaN bit pattern.
+
+The test checks: `__fpclassifyf(nanf("")) == FP_NAN` where `FP_NAN = 0`.
+
+With the buggy `__fpclassifyf`, NaN returns `1` instead of `0` (FP_NAN), so the comparison `1 == 0` yields false (0).
+
+## Fix
+No change needed in `nanf` itself. Fixing `__fpclassifyf` (Goal 2) will resolve this test failure automatically.
 
 ## Success Criteria
-- `exp2(0x1.4p+3)` returns `0x1p+10` (bitwise match with C)
-- All other exp2 test cases continue to pass
-- Depends on Goal 4 being fixed first
+- `nanf isnan=1` (matches C output)
+- This is achieved by fixing __fpclassifyf to return `0` for NaN inputs

@@ -1,32 +1,25 @@
-# Goal 1: Fix ctanf timeout (CRITICAL BLOCKER)
+# Goal 1: Fix __fpclassifyf — wrong classification constants
 
 ## Function
-ctanf (complex tangent, float precision)
+`__fpclassifyf`
 
 ## Source Files
-- C source: /home/leochanj/Desktop/libmcs/libm/complexf/ctanf.c
-- Rust source: /home/leochanj/Desktop/libmcs/newexp/rust-s5/src/complexf.rs
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathf/internal/fpclassifyf.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s5/src/mathf.rs` (fn `__fpclassifyf` at line 3161)
 
-## What's Wrong
-The Rust test binary hangs (infinite loop or infinite recursion) when computing `ctanf(0.5-50i)`.
-Last output before hang: `ctanf 0.5-50i = 0x0p+0+-nani`
-This timeout blocks ~1000+ subsequent tests from running.
+## Problem
+MISMATCH — Rust returns wrong classification values. The integer constants for each fp class are different from the C implementation:
+- `zero`: C returns 2, Rust returns 0
+- `inf`: C returns 1, Rust returns 3
+- `subnorm`: C returns 3, Rust returns 2
 
-Additionally, `ctanf(pi/2+0.001i)` produces wrong real part:
-- C:    `0x1.353d4p-4 + 0x1.f4000ap+9i`
-- Rust: `-0x1.575216p+3 + 0x1.f4000ap+9i`
+The Rust code uses different numeric values for FP_ZERO, FP_INFINITE, FP_SUBNORMAL, etc. than the C code.
 
 ## What Needs to Change
-1. Identify the infinite loop/recursion in ctanf for large imaginary inputs (|imag| >= 50)
-2. Compare with C implementation — likely missing an early return or overflow guard for large imaginary parts
-3. Fix the computation for inputs near pi/2 with small imaginary part
-
-## Dependencies
-ctanf may call __ctansf and __ccoshsinhf internally. Check those helpers too.
-Also check __redupif which reduces the real part.
+Read the C source to find the exact constant values used for each classification (FP_NAN, FP_INFINITE, FP_ZERO, FP_SUBNORMAL, FP_NORMAL) and update the Rust `__fpclassifyf` function to return the same values.
 
 ## Success Criteria
-- `ctanf(0.5-50i)` completes without hanging and produces the correct result
-- `ctanf(pi/2+0.001i)` matches C output bitwise: `0x1.353d4p-4+0x1.f4000ap+9i`
-- All ctanf test cases pass
-- The test binary no longer times out, allowing all subsequent tests to run
+- `__fpclassifyf zero` returns 2
+- `__fpclassifyf inf` returns 1
+- `__fpclassifyf subnorm` returns 3
+- All 5 `__fpclassifyf` test cases match C output exactly

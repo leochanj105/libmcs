@@ -1,37 +1,43 @@
 ============================================================
 Differential Test Report (C vs Rust)
-Generated: 2026-04-08 22:42
+Generated: 2026-04-09 11:47
 ============================================================
 
 ## OUTPUT COMPARISON
 
-C test output:    443 lines
-Rust test output: 443 lines
+C test output:    371 lines
+Rust test output: 371 lines
 
-C output: 441 test lines
-Rust output: 441 test lines
+C output: 371 test lines
+Rust output: 371 test lines
 
-MISMATCH (5 tests, 4 functions):
+MISMATCH (7 tests, 6 functions):
 C and Rust produce different results:
+  __cosf: 1 mismatches
+    C:    __cosf 0x1p+0 0x0p+0 = 0x1.14a282p-1
+    Rust: __cosf 0x1p+0 0x0p+0 = 0x1.14a284p-1
   __fpclassifyf: 2 mismatches
-    C:    __fpclassifyf 0x0p+0 = 2
-    Rust: __fpclassifyf 0x0p+0 = 0
+    C:    __fpclassifyf zero = 2
+    Rust: __fpclassifyf zero = 0
     C:    __fpclassifyf inf = 1
     Rust: __fpclassifyf inf = 3
   acosh: 1 mismatches
     C:    acosh 0x1p+1 = 0x1.5124271980434p+0
     Rust: acosh 0x1p+1 = 0x1.62e42fefa39efp+0
   exp2: 1 mismatches
-    C:    exp2 0x1.4p+3 = 0x1p+10
-    Rust: exp2 0x1.4p+3 = 0x1.b2d809254afbcp+11
+    C:    exp2 0x1.8p+1 = 0x1p+3
+    Rust: exp2 0x1.8p+1 = 0x1.fffee746db0fcp+5
+  nanf: 1 mismatches
+    C:    nanf isnan=1
+    Rust: nanf isnan=0
   pow: 1 mismatches
     C:    pow 0x1p+1 0x1.4p+3 = 0x1p+10
     Rust: pow 0x1p+1 0x1.4p+3 = 0x1.b2d809254afbcp+11
 
 SUMMARY
-Tests passed:     436
-Tests failed:     5
-Mismatched functions: __fpclassifyf, acosh, exp2, pow
+Tests passed:     364
+Tests failed:     7
+Mismatched functions: __cosf, __fpclassifyf, acosh, exp2, nanf, pow
 
 ## FUNCTION LOCATION MAP
 
@@ -226,5 +232,5 @@ __ccoshsinhf -> /home/leochanj/Desktop/libmcs/libm/complexf/internal/ctrigf.c
 __redupif -> /home/leochanj/Desktop/libmcs/libm/complexf/internal/ctrigf.c
 
 ============================================================
-Tests failed:     5
+Tests failed:     7
 ============================================================

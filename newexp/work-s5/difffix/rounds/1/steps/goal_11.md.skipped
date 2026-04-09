@@ -1,32 +1,22 @@
-# Goal 11: Verify missing functions after ctanf fix
+# Goal 11: Fix modf — returns 0 instead of NaN for NaN input
 
-## Functions
-~1036 function/input combinations across ~90 distinct functions
-
-## What's Wrong
-1253 tests produced no Rust output. The Rust test binary hung at ctanf (Goal 1), so all tests after ctanf in execution order never ran. This includes:
-
-**Internal helpers (may need test bridge fixes):**
-- __ccoshsinh, __ccoshsinhf (complex trig helpers)
-- __lgamma, __lgammaf (gamma internals)
-- __redupif (angle reduction)
-- __rem_pio2, __rem_pio2f (pi/2 reduction)
-- __tan, __tanf (tangent kernel)
-
-**Standard math functions (should work once ctanf is fixed):**
-- atan2(f), ceil(f), cos(f), erf(f), erfc(f), expm1(f), floor(f), fmax(f), fmin(f), fmod(f), frexp(f), hypot(f), ilogb(f), j0, j1, jn, lgamma(f), log(f), log10(f), log1p(f), log2f, logf, llrintf, llroundf, lrintf, lroundf, modf(f), nextafter(f), pow(f), remainder(f), remquo(f), rint(f), round(f), scalbn(f), sin(f), sqrt(f), tan(f), tgamma(f), trunc(f), y0, y1, yn, ccos(f), csin(f), ctan
+## Function
+`modf` (double precision)
 
 ## Source Files
-- Rust test bridge: /home/leochanj/Desktop/libmcs/newexp/rust-s5/src/test_bridge.rs
-- Various Rust source files in src/mathd.rs, src/mathf.rs, src/complexf.rs, src/complexd.rs
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/modfd.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s5/src/mathd.rs` (fn `modfd` at line 3422)
+
+## Problem
+MISMATCH — `modf(NaN)` returns wrong value:
+- C: `modf nan = nan`
+- Rust: `modf nan = 0x0p+0` (returns 0.0 instead of NaN)
+
+The NaN special case is not handled — modf should return NaN when the input is NaN.
 
 ## What Needs to Change
-1. Fix ctanf (Goal 1) first
-2. Re-run the differential test
-3. If internal helpers are still missing, check test_bridge.rs to ensure they are properly exposed
-4. File new goals for any functions that remain failing after ctanf fix
+Add or fix the NaN check at the beginning of `modfd`. When input is NaN, both the fractional return value and the integer part (`*iptr`) should be NaN.
 
 ## Success Criteria
-- After fixing ctanf, re-run produces Rust output for all 3794 expected test lines
-- Internal helper functions (__rem_pio2, __tan, __lgamma, __ccoshsinh, __redupif) produce output
-- No remaining MISSING entries in the diff report (only MISMATCH if any)
+- `modf(NaN)` returns `NaN`
+- All modf test cases match C output exactly

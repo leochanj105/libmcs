@@ -1,22 +1,24 @@
-# Goal 8: Fix rintf wrong rounding
+# Goal 8: Fix log10 — 1 ULP error
 
 ## Function
-rintf (round to nearest integer, float)
+`log10` (double precision)
 
 ## Source Files
-- C source: /home/leochanj/Desktop/libmcs/libm/mathf/rintf.c
-- Rust source: /home/leochanj/Desktop/libmcs/newexp/rust-s5/src/mathf.rs
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/log10d.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s5/src/mathd.rs` (fn `log10d` at line 2946)
 
-## What's Wrong
-rintf(1.75) rounds the wrong direction:
-- C:    rintf(0x1.cp+0) = 0x1p+1 (2.0)
-- Rust: rintf(0x1.cp+0) = 0x1p+0 (1.0)
+## Problem
+MISMATCH — small error in log10:
+- `log10(5.0)`: C=`0x1.65df657b04301p-1`, Rust=`0x1.65df657b043p-1`
 
-1.75 should round to 2.0 (round to nearest even). Rust returns 1.0, which is truncation, not rounding. The rounding logic is incorrect.
+The last hex digit differs (`01` vs `0`), a 1-ULP difference. This is likely a coefficient precision issue or a missing correction term.
 
 ## What Needs to Change
-Compare the rintf implementation with C. The issue is likely in how the rounding bias is applied — the code may be truncating instead of rounding to nearest even.
+Compare the Rust `log10d` polynomial coefficients and computation steps with the C source. Look for:
+- Truncated constants
+- Missing or reordered operations that affect rounding
+- Differences in the final multiply by log10(e) or similar conversion
 
 ## Success Criteria
-- rintf(1.75) = 2.0 (0x1p+1)
-- All rintf test cases match C output bitwise
+- `log10(5.0)` returns exactly `0x1.65df657b04301p-1`
+- All log10 test cases match C output exactly

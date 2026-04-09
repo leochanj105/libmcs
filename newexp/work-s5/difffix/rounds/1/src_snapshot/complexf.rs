@@ -121,7 +121,7 @@ pub fn cprojf(z: FloatComplex) -> FloatComplex {
     if z.re.is_infinite() || z.im.is_infinite() {
         FloatComplex {
             re: f32::INFINITY,
-            im: z.im.copysign(0.0_f32),
+            im: (0.0_f32).copysign(z.im),
         }
     } else {
         z

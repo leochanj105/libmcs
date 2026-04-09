@@ -123,7 +123,7 @@ pub fn cprojd(z: DoubleComplex) -> DoubleComplex {
     if z.re.is_infinite() || z.im.is_infinite() {
         DoubleComplex {
             re: f64::INFINITY,
-            im: z.im.copysign(0.0),
+            im: (0.0_f64).copysign(z.im),
         }
     } else {
         z

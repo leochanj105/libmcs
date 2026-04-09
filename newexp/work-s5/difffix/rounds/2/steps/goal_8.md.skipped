@@ -1,0 +1,40 @@
+# Goal 8: Fix pow — wrong results across many inputs
+
+## Function
+`pow` (double precision, `powd` in Rust)
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/powd.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s5/src/mathd.rs` (fn `powd` around line 3504)
+
+## Problem
+MISMATCH — 9 test cases with wildly wrong results (not rounding errors):
+1. `pow 2.0 10.0`: C=`0x1p+10` (1024), Rust=`0x1.b2d809254afbcp+11` (~3493) — off by ~3.4x
+2. `pow 2.0 1000.0`: C=`0x1p+1000`, Rust=`0x1.ffffffffbbp+999` — off by ~0.5
+3. `pow 2.0 -1000.0`: C=`0x1p-1000`, Rust=`0x1.ffffffffbb4p-1001` — off by ~0.5
+4. `pow -2.0 3.0`: C=`-0x1p+3` (-8), Rust=`-0x1.fffee746db0fcp+5` (~-64) — off by ~8x
+5. `pow -2.0 -3.0`: C=`-0x1p-3` (-0.125), Rust=`-0x1.00008c5cdf6ep-6` — off by ~8x
+6. `pow -2.0 4.0`: C=`0x1p+4` (16), Rust=`0x1.ffc69ca97345p+7` (~255) — off by ~16x
+7. `pow -2.0 -4.0`: C=`0x1p-4` (0.0625), Rust=`0x1.001cb4e2fb77p-8` — off by ~16x
+8. `pow 0.999 1000.0`: C=`0x1.788526411ed72p-2`, Rust=`0x1.788526438e07p-3` — off by ~2x
+9. `pow 1.001 1000.0`: C=`0x1.5bc429d555f6dp+1`, Rust=`0x1.5bc429d31e4f6p+2` — off by ~2x
+
+The errors are systematic and large — this is a fundamental algorithm bug, likely in the exp/log decomposition used by pow (pow(x,y) = exp(y*log(x))). The intermediate log or exp computation has a major error.
+
+## What Needs to Change
+Compare the Rust `powd` implementation against the C `powd.c` source. Key areas to check:
+1. The log2 decomposition of the base
+2. The multiplication of exponent with log result
+3. The exp2 reconstruction
+4. Constants and polynomial coefficients
+
+Since exp2 is also broken (Goal 1), pow may share the same root cause if it uses exp2 internally.
+
+## Success Criteria
+- `pow 2.0 10.0` returns `0x1p+10`
+- `pow 2.0 1000.0` returns `0x1p+1000`
+- `pow -2.0 3.0` returns `-0x1p+3`
+- `pow -2.0 4.0` returns `0x1p+4`
+- `pow 0.999 1000.0` returns `0x1.788526411ed72p-2`
+- `pow 1.001 1000.0` returns `0x1.5bc429d555f6dp+1`
+- All 9 mismatched pow test cases match C output exactly
