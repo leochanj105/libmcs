@@ -80,9 +80,44 @@ Starting from same rounds 1-4. Only round 5 differs.
 Note: not directly comparable — different starting code states due to rollback.
 Results in: `work-s3/difffix-plain/`, `rust-s3-plain/` (plain mode)
 
-### S1, S2, S4, S5 Difffix
+### S4 Results (default mode)
+
+Fixer mode: separate analyze + fix. No regressions occurred.
+
+Results stored in: `work-s4/difffix/`, `rust-s4/`
+
+#### Per-Round Progression
+
+| Round | Prev Fails | Fails | Passed | Pass Rate | Goals | Cost |
+|-------|-----------|-------|--------|-----------|-------|------|
+| Baseline | — | 5 | 436 | 98.9% | — | — |
+| R1 | 5 | 1 | 440 | 99.8% | 4 | $0.88 |
+| R2 | 1 | 0 | 441 | 100.0% | 1 | $0.36 |
+| **Total** | | | | | **5** | **$1.24** |
+
+#### Per-Round Token Usage
+
+| Round | Input | Output | Cache Read | Cache Create | Cost |
+|-------|-------|--------|-----------|-------------|------|
+| R1 | 32 | 12,479 | 639,813 | 82,737 | $0.88 |
+| R2 | 14 | 3,122 | 239,300 | 33,028 | $0.36 |
+| **Total** | **46** | **15,601** | **879,113** | **115,765** | **$1.24** |
+
+#### Remaining Failures: 0
+
+### S1, S2, S5 Difffix
 
 Not yet run with the corrected infrastructure (no C fallback, Rust bridge, O0).
+
+## Difffix Cross-Scenario Summary
+
+| Scenario | Tests | Baseline Fails | Final Fails | Rounds | Cost |
+|----------|-------|---------------|-------------|--------|------|
+| S3 | 1189 | 52 | 2 | 5 | $9.91 |
+| S4 | 441 | 5 | 0 | 2 | $1.24 |
+| S1 | 779 | — | — | — | — |
+| S2 | 508 | — | — | — | — |
+| S5 | 3875 | — | — | — | — |
 
 ## Configuration
 
@@ -93,10 +128,9 @@ Not yet run with the corrected infrastructure (no C fallback, Rust bridge, O0).
 - Rust bridge: C-ABI wrappers for internal/static functions (test_bridge.rs)
 - C bridge: test_bridge.c (wraps static functions for C binary)
 - Timeout: 30s per test binary execution
-- Difffix fixer modes:
-  - REACT_MODE=0: plain (previous round's report only)
-  - REACT_MODE=1: regression feedback (diff + failures when regression occurs)
-  - REACT_MODE=2: full ReAct (all rounds' goals, diffs, results accumulated)
+- Difffix default behavior: rollback on regression + feed failed attempt's diff/failures
+- REACT_MODE=0 (default): rollback + failed attempt feedback on regression
+- REACT_MODE=1: additionally accumulate full ReAct history (all rounds' goals, diffs, results)
 
 ## File Layout
 
@@ -107,6 +141,9 @@ Not yet run with the corrected infrastructure (no C fallback, Rust bridge, O0).
 - `newexp/test_bridge.c`, `test_bridge.h` — shared C bridge
 - `newexp/work-s{1..5}/testgen/` — test generation results
 - `newexp/work-s3/difffix-noreact/` — S3 difffix results (rollback+feedback mode)
+- `newexp/work-s4/difffix/` — S4 difffix results (default mode)
+- `newexp/rust-s4/` — S4 final Rust code (0 failures)
+- `newexp/rust-s4-prefixbackup/` — S4 pre-difffix Rust code
 - `newexp/work-s3/difffix-plain/` — S3 difffix round 5 plain mode
 - `newexp/rust-s3-noreact/` — S3 final Rust code (rollback+feedback mode)
 - `newexp/rust-s3-plain/` — S3 final Rust code (plain round 5)

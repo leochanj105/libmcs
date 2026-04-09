@@ -160,12 +160,14 @@ total_tests=$((pass_total + fail_total))
 
 # Record baseline in stats
 if ! grep -q "^0	" "$STATS_FILE" 2>/dev/null; then
-    printf "0\t-\t%s\t%s\t%s\t-\t-\t-\t-\t-\t-\tbaseline\n" \
+    printf "0\t-\t%s\t%s\t%s\t-\t-\t-\t-\t-\t-\n" \
         "$fail_total" "$pass_total" "$total_tests" >> "$STATS_FILE"
 fi
 echo ""
 
 prev_fails="$fail_total"
+rolled_back_round=""
+last_good_report=0
 
 # ── Determine starting round ──
 start_round=1
@@ -197,8 +199,12 @@ for round in $(seq "$start_round" "$MAX_ROUNDS"); do
     echo "DIFF-FIX ROUND ${round}/${MAX_ROUNDS}"
     echo "========================================"
 
-    # Get the previous round's report
-    PREV_REPORT="${OUTDIR}/rounds/$((round-1))/diff_report.txt"
+    # Get the report to use: if we rolled back, use the round before the failed one
+    if [ -n "${rolled_back_round:-}" ]; then
+        PREV_REPORT="${OUTDIR}/rounds/$((rolled_back_round - 1))/diff_report.txt"
+    else
+        PREV_REPORT="${OUTDIR}/rounds/$((round-1))/diff_report.txt"
+    fi
 
     # ── Step 1: Generate compact context from latest diff ──
     if [ ! -f "${ROUND_DIR}/.step1_done" ]; then
@@ -217,12 +223,36 @@ for round in $(seq "$start_round" "$MAX_ROUNDS"); do
     if [ ! -f "${ROUND_DIR}/.step2_done" ]; then
         echo "--- Step 2: Analyzing failures ---"
 
-        # Build history feedback based on mode
+        # Build feedback based on mode
         HISTORY_FEEDBACK=""
-        if [ "${REACT_MODE}" -eq 2 ] && [ "$round" -gt 1 ]; then
-            # ReAct mode: accumulate ALL previous rounds' fixes and results
-            echo "  (ReAct mode: building full history)"
+
+        # Default: if a rollback happened (rolled_back_round set), feed the
+        # failed attempt's diff + failures alongside the current (good) report.
+        if [ -n "${rolled_back_round:-}" ] && [ "$round" -gt 1 ]; then
+            _rb_dir="${OUTDIR}/rounds/${rolled_back_round}"
+            _rb_diff=$(cat "${_rb_dir}/code_changes.diff" 2>/dev/null | head -200 || true)
+            _rb_failures=$(sed -n '/MISMATCH\|MISSING/,/SUMMARY\|FUNCTION LOC/p' \
+                "${_rb_dir}/diff_report.txt" 2>/dev/null | head -40 || true)
             HISTORY_FEEDBACK="
+## FAILED ATTEMPT (round ${rolled_back_round} — rolled back, made things worse)
+
+These code changes were tried and then reverted because they increased failures:
+\`\`\`diff
+${_rb_diff}
+\`\`\`
+
+Failures after that attempt:
+${_rb_failures}
+
+Do NOT repeat this approach. Try a different strategy for these functions.
+"
+            rolled_back_round=""
+        fi
+
+        # ReAct mode: additionally accumulate ALL previous rounds' history
+        if [ "${REACT_MODE}" -eq 1 ] && [ "$round" -gt 1 ]; then
+            echo "  (ReAct mode: building full history)"
+            REACT_HISTORY="
 ## FIX HISTORY (all previous rounds)
 Review what was tried before. Learn from successes and failures.
 "
@@ -243,7 +273,6 @@ Review what was tried before. Learn from successes and failures.
                 else
                     _hr_verdict="NO CHANGE (${_hr_fails})"
                 fi
-                # Include analysis goals if they exist (separate analyze+fix mode)
                 _hr_goals=""
                 if [ -d "${_hr_dir}/steps" ]; then
                     for _gf in "${_hr_dir}/steps"/goal_*.md; do
@@ -253,8 +282,7 @@ $(cat "$_gf")
 "
                     done
                 fi
-
-                HISTORY_FEEDBACK="${HISTORY_FEEDBACK}
+                REACT_HISTORY="${REACT_HISTORY}
 ### Round ${_hr}: ${_hr_verdict}
 ${_hr_goals:+Analysis goals:
 ${_hr_goals}}
@@ -266,39 +294,7 @@ Failures after this round:
 ${_hr_failures}
 "
             done
-        elif [ "${REACT_MODE}" -eq 1 ] && [ "$round" -gt 1 ]; then
-            # Regression feedback mode: show previous round's regression
-            _prev=$((round - 1))
-            _prev_dir="${OUTDIR}/rounds/${_prev}"
-            _prevprev=$((round - 2))
-            _prevprev_report="${OUTDIR}/rounds/${_prevprev}/diff_report.txt"
-            _prev_report="${_prev_dir}/diff_report.txt"
-            if [ -f "$_prevprev_report" ] && [ -f "$_prev_report" ]; then
-                _pp_fails=$(parse_fail_count "$_prevprev_report")
-                _p_fails=$(parse_fail_count "$_prev_report")
-                if [ "$_p_fails" -gt "$_pp_fails" ]; then
-                    _prev_diff=$(cat "${_prev_dir}/code_changes.diff" 2>/dev/null | head -200 || true)
-                    _prev_failures=$(sed -n '/MISMATCH/,/SUMMARY\|FUNCTION LOC/p' "$_prev_report" 2>/dev/null | head -40 || true)
-                    _prevprev_failures=$(sed -n '/MISMATCH/,/SUMMARY\|FUNCTION LOC/p' "$_prevprev_report" 2>/dev/null | head -40 || true)
-                    HISTORY_FEEDBACK="
-## REGRESSION WARNING (round ${_prev} made things worse: ${_pp_fails} -> ${_p_fails} failures)
-
-Round ${_prev} changes:
-\`\`\`diff
-${_prev_diff}
-\`\`\`
-
-Before round ${_prev} (${_pp_fails} failures):
-${_prevprev_failures}
-
-After round ${_prev} (${_p_fails} failures):
-${_prev_failures}
-
-Some of these changes may have been good (fixed real bugs) while others introduced
-regressions. Fix the regressions without reverting the good fixes.
-"
-                fi
-            fi
+            HISTORY_FEEDBACK="${HISTORY_FEEDBACK}${REACT_HISTORY}"
         fi
 
         ANALYZE_PROMPT="Read the diff report and compact divergences, then generate fix goals.
@@ -411,22 +407,31 @@ $(cat "$goal_file")
     [ "$fail_total" -eq 0 ] && { echo "ALL TESTS PASS!"; break; }
 
     # ── Step 5: Stall check ──
-    if [ "$fail_total" -ge "$prev_fails" ]; then
+    if [ "$fail_total" -gt "$prev_fails" ]; then
         stall=$((stall + 1))
         echo "${stall}" > "${OUTDIR}/stall_count"
-        if [ "$fail_total" -gt "$prev_fails" ]; then
-            echo "  Regression (${prev_fails} -> ${fail_total}), stall ${stall}/${STALL_LIMIT}"
-            echo "  Keeping code — next round will get regression feedback."
-        else
-            echo "  No progress (stall ${stall}/${STALL_LIMIT})"
+        echo "  Regression (${prev_fails} -> ${fail_total}). Rolling back."
+        # Rollback: restore previous round's snapshot
+        _last_good_snap="${OUTDIR}/rounds/$((round - 1))/src_snapshot"
+        if [ -d "$_last_good_snap" ]; then
+            rm -rf "${RUST_DIR}/src"
+            cp -r "$_last_good_snap" "${RUST_DIR}/src"
+            echo "  Restored src/ from round $((round - 1)) snapshot."
         fi
+        rolled_back_round="$round"
+        # Don't update prev_fails — we rolled back
+        [ "$stall" -ge "$STALL_LIMIT" ] && { echo "Stalled."; break; }
+    elif [ "$fail_total" -eq "$prev_fails" ]; then
+        stall=$((stall + 1))
+        echo "${stall}" > "${OUTDIR}/stall_count"
+        echo "  No progress (stall ${stall}/${STALL_LIMIT})"
+        prev_fails="$fail_total"
         [ "$stall" -ge "$STALL_LIMIT" ] && { echo "Stalled."; break; }
     else
         stall=0
         echo "0" > "${OUTDIR}/stall_count"
+        prev_fails="$fail_total"
     fi
-
-    prev_fails="$fail_total"
     touch "${ROUND_DIR}/.done"
 done
 
