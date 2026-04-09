@@ -1,0 +1,26 @@
+# Goal 10: Fix cproj / cprojf — wrong infinity handling
+
+## Functions
+`cproj` (double), `cprojf` (float)
+
+## Source files
+- C (double): /home/leochanj/Desktop/libmcs/libm/complexd/cprojd.c
+- C (float): /home/leochanj/Desktop/libmcs/libm/complexf/cprojf.c
+- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/complexd.rs (cproj), /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/complexf.rs (cprojf)
+
+## Problem
+When input has an infinite component, cproj should return (inf, copysign(0, imag)):
+- cproj(inf, -inf) = (inf, inf) Rust vs (inf, -0) C
+- cproj(NaN, inf) = (inf, inf) Rust vs (inf, 0) C
+- cprojf shows same pattern
+
+The Rust implementation doesn't handle the infinity projection correctly — it should replace the imaginary part with copysign(0, imag) when either component is infinite.
+
+## What needs to change
+Compare Rust cproj/cprojf against C cprojd.c/cprojf.c. The infinity detection and result construction needs to match: when isinf(real) || isinf(imag), return CMPLX(INFINITY, copysign(0.0, imag)).
+
+## Success Criteria
+- `cproj (inf,-inf)` = `inf,-0x0p+0` (bitwise exact)
+- `cproj (nan,inf)` = `inf,0x0p+0` (bitwise exact)
+- `cprojf (inf,-inf)` = `inf,-0x0p+0` (bitwise exact)
+- `cprojf (nan,inf)` = `inf,0x0p+0` (bitwise exact)

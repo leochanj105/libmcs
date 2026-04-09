@@ -31,4 +31,8 @@ They expose these static functions as callable bridge wrappers:
 To use them, add `#include "test_bridge.h"` at the top of test_suite.c.
 Do NOT generate or modify test_bridge.c or test_bridge.h.
 
-Include a main() that calls all test functions. Write the complete test_suite.c.
+## Rules
+- All tests must be deterministic.
+- Print all results in %a hex float format.
+- Include a main() that calls all test functions.
+- Write the complete test_suite.c.

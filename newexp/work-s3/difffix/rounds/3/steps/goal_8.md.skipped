@@ -1,0 +1,21 @@
+# Goal 8: Fix modf NaN propagation to fractional part
+
+## Function
+modf (double)
+
+## Source Files
+- C: /home/leochanj/Desktop/libmcs/libm/mathd/modfd.c
+- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathd.rs (fn modfd, line ~3422)
+
+## What's Wrong
+Output mismatch:
+- `modf(nan)`: C returns frac=nan, int=nan. Rust returns frac=0, int=nan.
+
+When the input is NaN, both the integer and fractional parts should be NaN. The Rust implementation correctly sets the integer part to NaN but returns 0 for the fractional part.
+
+## What Needs to Change
+Fix the NaN special case in modfd. When x is NaN, both `*iptr` and the return value should be NaN. Compare with the C modfd.c to see the correct NaN handling path.
+
+## Success Criteria
+- `modf(nan)` returns frac=nan, int=nan
+- All other modf test cases continue to pass

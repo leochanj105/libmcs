@@ -7,3 +7,6 @@ edition = "2021"
 name = "rust_baseline"
 path = "src/lib.rs"
 crate-type = ["staticlib", "cdylib"]
+
+[profile.release]
+opt-level = 0

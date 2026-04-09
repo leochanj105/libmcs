@@ -168,7 +168,10 @@ for dir in "${OUTDIR}/rounds"/*/; do
     n=$(basename "$dir")
     [[ "$n" =~ ^[0-9]+$ ]] || continue
     [ "$n" -eq 0 ] && continue
-    [ -f "${dir}/.done" ] && start_round=$((n + 1))
+    if [ -f "${dir}/.done" ]; then
+        start_round=$((n + 1))
+        prev_fails=$(parse_fail_count "${dir}/diff_report.txt")
+    fi
 done
 
 stall=0
@@ -208,6 +211,42 @@ for round in $(seq "$start_round" "$MAX_ROUNDS"); do
     if [ ! -f "${ROUND_DIR}/.step2_done" ]; then
         echo "--- Step 2: Analyzing failures ---"
 
+        # Check if previous round caused a regression — if so, include feedback
+        REGRESSION_FEEDBACK=""
+        if [ "$round" -gt 1 ]; then
+            _prev=$((round - 1))
+            _prev_dir="${OUTDIR}/rounds/${_prev}"
+            _prevprev=$((round - 2))
+            _prevprev_report="${OUTDIR}/rounds/${_prevprev}/diff_report.txt"
+            _prev_report="${_prev_dir}/diff_report.txt"
+            if [ -f "$_prevprev_report" ] && [ -f "$_prev_report" ]; then
+                _pp_fails=$(parse_fail_count "$_prevprev_report")
+                _p_fails=$(parse_fail_count "$_prev_report")
+                if [ "$_p_fails" -gt "$_pp_fails" ]; then
+                    _prev_diff=$(cd "${RUST_DIR}" && git diff "pre-round-${_prev}" "post-round-${_prev}" -- src/ 2>/dev/null | head -200 || true)
+                    _prev_failures=$(sed -n '/MISMATCH/,/SUMMARY\|FUNCTION LOC/p' "$_prev_report" 2>/dev/null | head -40 || true)
+                    _prevprev_failures=$(sed -n '/MISMATCH/,/SUMMARY\|FUNCTION LOC/p' "$_prevprev_report" 2>/dev/null | head -40 || true)
+                    REGRESSION_FEEDBACK="
+## REGRESSION WARNING (round ${_prev} made things worse: ${_pp_fails} -> ${_p_fails} failures)
+
+Round ${_prev} changes:
+\`\`\`diff
+${_prev_diff}
+\`\`\`
+
+Before round ${_prev} (${_pp_fails} failures):
+${_prevprev_failures}
+
+After round ${_prev} (${_p_fails} failures):
+${_prev_failures}
+
+Some of these changes may have been good (fixed real bugs) while others introduced
+regressions. Fix the regressions without reverting the good fixes.
+"
+                fi
+            fi
+        fi
+
         ANALYZE_PROMPT="Read the diff report and compact divergences, then generate fix goals.
 
 Working directory: ${OUTDIR}
@@ -216,7 +255,7 @@ Compact divergences: ${ROUND_DIR}/compact_divergences.md
 Goal output directory: ${STEPS_DIR}/
 Rust source: ${RUST_DIR}/
 C source: ${TEST_CASE_DIR}/
-
+${REGRESSION_FEEDBACK}
 $(cat "${EXPANDED_PROMPTS_DIR}/analyze.md")
 "
         # cd into OUTDIR so Claude CLI picks up .claude/settings.json
@@ -317,19 +356,16 @@ $(cat "$goal_file")
 
     [ "$fail_total" -eq 0 ] && { echo "ALL TESTS PASS!"; break; }
 
-    # ── Step 5: Stall check (rollback if worse) ──
-    if [ "$fail_total" -gt "$prev_fails" ]; then
-        echo "  Round made things WORSE (${prev_fails} -> ${fail_total}). Rolling back."
-        _git_rollback "pre-round-${round}"
+    # ── Step 5: Stall check ──
+    if [ "$fail_total" -ge "$prev_fails" ]; then
         stall=$((stall + 1))
         echo "${stall}" > "${OUTDIR}/stall_count"
-        echo "  Stall ${stall}/${STALL_LIMIT}"
-        [ "$stall" -ge "$STALL_LIMIT" ] && { echo "Stalled."; break; }
-        # Don't update prev_fails — we rolled back
-    elif [ "$fail_total" -eq "$prev_fails" ]; then
-        stall=$((stall + 1))
-        echo "${stall}" > "${OUTDIR}/stall_count"
-        echo "No progress (stall ${stall}/${STALL_LIMIT})"
+        if [ "$fail_total" -gt "$prev_fails" ]; then
+            echo "  Regression (${prev_fails} -> ${fail_total}), stall ${stall}/${STALL_LIMIT}"
+            echo "  Keeping code — next round will get regression feedback."
+        else
+            echo "  No progress (stall ${stall}/${STALL_LIMIT})"
+        fi
         [ "$stall" -ge "$STALL_LIMIT" ] && { echo "Stalled."; break; }
     else
         stall=0

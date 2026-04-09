@@ -82,7 +82,7 @@ if $CC $INC_FLAGS -Wno-implicit-function-declaration \
     "$DIFFTEST" $BRIDGE_OBJ "${BDIR}/libc_impl.a" \
     -lm -o "${BDIR}/test_c" 2>"${BDIR}/c_compile_err.txt"; then
     echo "Running C test..."
-    stdbuf -oL timeout 600 "${BDIR}/test_c" > "${BDIR}/c_out.txt" 2>"${BDIR}/c_stderr.txt" || true
+    stdbuf -oL timeout 30 "${BDIR}/test_c" > "${BDIR}/c_out.txt" 2>"${BDIR}/c_stderr.txt" || true
 else
     C_COMPILE_ERR=$(cat "${BDIR}/c_compile_err.txt")
 fi
@@ -105,10 +105,24 @@ else
         -o "${BDIR}/test_r" 2>"${BDIR}/r_compile_err.txt"; then
         echo "Running Rust test..."
         export RUST_BACKTRACE=1
-        stdbuf -oL timeout 600 "${BDIR}/test_r" > "${BDIR}/r_out.txt" 2>"${BDIR}/r_stderr.txt" || true
+        R_EXIT=0
+        stdbuf -oL timeout 30 "${BDIR}/test_r" > "${BDIR}/r_out.txt" 2>"${BDIR}/r_stderr.txt" || R_EXIT=$?
 
-        # Check for panics in stderr
-        if grep -q "panicked\|SIGSEGV\|signal: 11\|Aborted" "${BDIR}/r_stderr.txt" 2>/dev/null; then
+        # Detect timeout, crash, or panic
+        if [ "$R_EXIT" -eq 124 ]; then
+            LAST_LINE=$(tail -1 "${BDIR}/r_out.txt" 2>/dev/null || true)
+            LAST_FUNC=$(echo "$LAST_LINE" | awk '{print $1}')
+            R_PANIC="TIMEOUT: Rust binary hung (likely infinite loop/recursion in '${LAST_FUNC}' or the function after it in test order).
+Last output line: ${LAST_LINE}"
+        elif [ "$R_EXIT" -gt 128 ]; then
+            SIG=$((R_EXIT - 128))
+            LAST_LINE=$(tail -1 "${BDIR}/r_out.txt" 2>/dev/null || true)
+            LAST_FUNC=$(echo "$LAST_LINE" | awk '{print $1}')
+            R_PANIC="CRASH: Rust binary killed by signal ${SIG} ($(kill -l $SIG 2>/dev/null || echo unknown)) near function '${LAST_FUNC}'.
+Last output line: ${LAST_LINE}"
+            [ -s "${BDIR}/r_stderr.txt" ] && R_PANIC="${R_PANIC}
+Stderr: $(cat "${BDIR}/r_stderr.txt")"
+        elif grep -q "panicked\|SIGSEGV\|signal: 11\|Aborted" "${BDIR}/r_stderr.txt" 2>/dev/null; then
             R_PANIC=$(cat "${BDIR}/r_stderr.txt")
         fi
     else

@@ -1,0 +1,27 @@
+# Goal 9: Fix lgamma / lgammaf — signgam not set
+
+## Functions
+`lgamma` (double), `lgammaf` (float)
+
+## Source files
+- C (double): /home/leochanj/Desktop/libmcs/libm/mathd/lgammad.c
+- C (float): /home/leochanj/Desktop/libmcs/libm/mathf/lgammaf.c (and internal/gammaf.c for __lgammaf)
+- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathd.rs (lgamma), /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathf.rs (lgammaf)
+
+## Problem
+lgamma and lgammaf always return signgam=0 instead of the correct sign:
+- lgamma(1) → signgam should be 1, got 0
+- lgamma(2) → signgam should be 1, got 0
+- lgamma(0.5) → signgam should be 1, got 0
+- lgamma(-0.5) → signgam should be -1, got 0
+- lgammaf shows same pattern (all signgam=0)
+
+The computed lgamma values are correct; only signgam is wrong.
+
+## What needs to change
+The Rust implementation likely doesn't write to the global `signgam` variable. In C, lgamma sets a global `extern int signgam`. The Rust bridge must write this value through the FFI. Check how the Rust bridge exposes signgam and ensure the lgamma/lgammaf functions actually set it.
+
+## Success Criteria
+- All lgamma tests produce correct signgam values (1 or -1, matching C)
+- All lgammaf tests produce correct signgam values
+- lgamma/lgammaf computed values remain correct

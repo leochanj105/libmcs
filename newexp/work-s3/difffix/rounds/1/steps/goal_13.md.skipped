@@ -1,0 +1,20 @@
+# Goal 13: Fix log1pf — wrong value at -1
+
+## Function
+`log1pf` (float)
+
+## Source files
+- C: /home/leochanj/Desktop/libmcs/libm/mathf/log1pf.c
+- Rust: /home/leochanj/Desktop/libmcs/newexp/rust-s3/src/mathf.rs
+
+## Problem
+log1pf(-1) = -0x1p+1 (-2.0, Rust) vs -inf (C)
+
+log(1 + (-1)) = log(0) = -infinity. The Rust implementation returns -2 instead of -inf, indicating the special case for x == -1 (pole at zero) is not handled correctly.
+
+## What needs to change
+Compare Rust log1pf against C log1pf.c. Add or fix the special case: when x == -1.0f, return -INFINITY. The C code likely checks for this explicitly.
+
+## Success Criteria
+- `log1pf -0x1p+0` = `-inf` (bitwise exact)
+- All other log1pf tests continue to pass
