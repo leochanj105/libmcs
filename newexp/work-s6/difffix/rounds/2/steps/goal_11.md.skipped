@@ -1,0 +1,26 @@
+# Goal 11: Fix remainder — wrong result for tiny subnormal inputs
+
+## Function
+`remainder` (double precision, aliased from `remainderd`)
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/remainderd.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s6/src/mathd.rs` (line ~3709)
+
+## Problem
+MISMATCH — 1 test failure.
+
+`remainder(1e-320, 5e-324)` returns a nonzero value instead of zero.
+
+Example:
+- C:    `remainder 1e-320 5e-324 = 0x0p+0`
+- Rust: `remainder 1e-320 5e-324 = 0x0.00000000007d8p-1022`
+
+Both inputs are subnormal. The quotient is ~200, so the remainder should be exactly 0 (or very close). The Rust version has accumulated error in the subnormal reduction loop.
+
+## What Needs to Change
+Compare the subnormal handling in the Rust `remainderd` against the C `remainderd.c`. The iterative reduction for large quotients likely has a precision issue when both operands are subnormal. Check the loop that subtracts multiples of y from x.
+
+## Success Criteria
+- `remainder(1e-320, 5e-324)` returns exactly `0x0p+0`.
+- Bitwise-exact match with C output for all remainder test cases.

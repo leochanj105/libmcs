@@ -1,0 +1,28 @@
+# Goal 8: Fix `exp2` exact-power result
+
+## Function
+`exp2` (double-precision base-2 exponential)
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/exp2d.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s6/src/mathd.rs` (around line 2119, `exp2d`)
+
+## Problem
+MISMATCH — 1 test failure. `exp2(3.0)` returns a wildly wrong result.
+
+```
+C:    exp2 0x1.8p+1 = 0x1p+3          (= 8.0, exact)
+Rust: exp2 0x1.8p+1 = 0x1.fffee746db0fcp+5  (≈ 63.99, ~8x too large)
+```
+
+`exp2(3.0)` should be exactly `8.0`. The Rust result is approximately 64, suggesting the computation is producing `exp2(6)` or similar — possibly a scaling/reconstruction error.
+
+## What Needs to Change
+Compare the Rust `exp2d` against C source. Focus on:
+1. The integer-part extraction and scaling step (likely `ldexp` or bit manipulation)
+2. The fractional-part polynomial evaluation
+3. The reconstruction step where the integer exponent is combined with the polynomial result
+
+## Success Criteria
+- `exp2(3.0)` = `0x1p+3` exactly (bitwise match)
+- All other `exp2` tests continue to pass

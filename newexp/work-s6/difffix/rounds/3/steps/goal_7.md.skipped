@@ -1,0 +1,43 @@
+# Goal 7: Fix remainder — subnormal/subnormal returns nonzero instead of 0
+
+## Function
+`remainder` (calls `mathd::remainderd`)
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/remainderd.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s6/src/mathd.rs` (`remainderd` at line 3709)
+
+## Problem
+MISMATCH — 1 test failure.
+
+```
+C:    remainder 1e-320 5e-324 = 0x0p+0
+Rust: remainder 1e-320 5e-324 = 0x0.00000000007d8p-1022
+```
+
+`1e-320` is approximately `2008 * 2^-1074` and `5e-324` is exactly `2^-1074`,
+so `1e-320` is an exact integer multiple of `5e-324` and the IEEE remainder
+must be `+0`. The C `remainder` (which calls `fmod` then optionally adjusts)
+correctly recognizes the exact divisibility. The Rust version returns the
+nonzero value `0x0.00000000007d8p-1022` (~`2008 * 2^-1074` partial), meaning
+its `fmod`-of-subnormals path is leaving leftover bits behind — likely the
+subnormal alignment / shift count for the dividend is one off, or the loop
+exits one iteration early when both operands are denormal.
+
+## What Needs to Change
+Inspect the Rust `remainderd` (and any helper `fmodd` it calls) for the
+subnormal handling block. The C reference normalizes subnormal `x` by
+shifting left until it has an implicit-bit, decrementing a synthetic
+exponent each shift; the same is done for `y`. Verify:
+- The shift counts produced for `x` and `y` are correct.
+- The reduction loop terminates when `hx == 0` (no remaining bits).
+- The final reconstruction of the subnormal result preserves zero when the
+  reduction fully cancels.
+
+Once `fmod(1e-320, 5e-324)` returns exactly `0`, the surrounding `remainder`
+adjustment will not perturb it.
+
+## Success Criteria
+- `remainder(1e-320, 5e-324)` returns exactly `+0.0` (encoded `0x0p+0`).
+- All 1 remainder mismatch resolves to bitwise-exact match with C output.
+- No regressions on the other remainder / fmod test cases.

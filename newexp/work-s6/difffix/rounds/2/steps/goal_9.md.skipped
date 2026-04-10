@@ -1,0 +1,35 @@
+# Goal 9: Fix pow — widespread computation errors
+
+## Function
+`pow` (double precision, aliased from `powd`)
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/powd.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s6/src/mathd.rs` (line ~3504)
+
+## Problem
+MISMATCH — 20 test failures (the most of any function).
+
+The Rust `pow` produces wrong results across many inputs, including trivial cases:
+
+Examples:
+- C: `pow(2, 10) = 0x1p+10` (1024) → Rust: `0x1.b2d809254afbcp+11` (~3493)
+- C: `pow(2, 1000) = 0x1p+1000` → Rust: `0x1.ffffffffbbp+999` (off by ~1 ULP but wrong)
+- C: `pow(2, -1000) = 0x1p-1000` → Rust: `0x1.ffffffffbb4p-1001` (wrong exponent)
+
+Even `pow(2, 10)` is wildly wrong, suggesting a fundamental algorithm bug, not just precision.
+
+## What Needs to Change
+The core `powd` algorithm has a major bug. Compare against the C `powd.c` implementation. Likely issues:
+- Incorrect log2 decomposition or reconstruction
+- Wrong polynomial coefficients
+- Missing or incorrect scaling step
+- Error in the two-part multiplication (hi/lo arithmetic)
+
+This needs careful line-by-line comparison with the C source.
+
+## Success Criteria
+- `pow(2, 10)` returns exactly `0x1p+10` (1024.0).
+- `pow(2, 1000)` returns exactly `0x1p+1000`.
+- `pow(2, -1000)` returns exactly `0x1p-1000`.
+- All 20 pow mismatches resolve to bitwise-exact match with C output.

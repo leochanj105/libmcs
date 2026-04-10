@@ -1,0 +1,23 @@
+# Goal 10: Fix `ilogbf` zero return value
+
+## Function
+`ilogbf` (single-precision integer log base 2)
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathf/ilogbf.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s6/src/mathf.rs` (around line 1971, `ilogbf`)
+
+## Problem
+MISMATCH — 1 test failure. Same `FP_ILOGB0` bug as Goal 9.
+
+```
+C:    ilogbf 0.0f = -2147483647   (FP_ILOGB0)
+Rust: ilogbf 0.0f = -2147483648   (INT_MIN)
+```
+
+## What Needs to Change
+Use the correct `FP_ILOGB0` constant: `-2147483647` instead of `-2147483648`.
+
+## Success Criteria
+- `ilogbf(0.0f)` = `-2147483647` (bitwise match)
+- All other `ilogbf` tests continue to pass

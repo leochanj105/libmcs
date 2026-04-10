@@ -1,0 +1,28 @@
+# Goal 11: Fix `log10` last-bit precision
+
+## Function
+`log10` (double-precision common logarithm)
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/log10d.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s6/src/mathd.rs` (around line 2946, `log10d`)
+
+## Problem
+MISMATCH — 1 test failure. Off by 1 ULP in the last bit.
+
+```
+C:    log10 5.0 = 0x1.65df657b04301p-1
+Rust: log10 5.0 = 0x1.65df657b043p-1
+```
+
+The Rust result is `0x1.65df657b04300p-1` (last nibble `0` vs `1`), a 1-ULP error.
+
+## What Needs to Change
+Compare the Rust `log10d` against the C source. Focus on:
+1. The two-step computation: `log10(x) = log(x) * ivln10` or the hi/lo splitting technique
+2. Coefficient precision — ensure all constants match the C source exactly
+3. The final addition step where hi and lo parts are combined
+
+## Success Criteria
+- `log10(5.0)` = `0x1.65df657b04301p-1` (bitwise match)
+- All other `log10` tests continue to pass

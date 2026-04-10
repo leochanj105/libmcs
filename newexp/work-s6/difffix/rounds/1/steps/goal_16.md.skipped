@@ -1,0 +1,45 @@
+# Goal 16: Fix `pow` algorithm errors
+
+## Function
+`pow` (double-precision power function)
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/powd.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s6/src/mathd.rs` (around line 3504, `powd`)
+
+## Problem
+MISMATCH — 20 test failures. The most broken function — errors range from ULP-level to orders of magnitude.
+
+**Exact-power failures (should be exact):**
+```
+C:    pow 2.0 10.0  = 0x1p+10          (1024, exact)
+Rust: pow 2.0 10.0  = 0x1.b2d809254afbcp+11  (~3475, way off)
+
+C:    pow 2.0 1000.0 = 0x1p+1000
+Rust: pow 2.0 1000.0 = 0x1.ffffffffbbp+999
+```
+
+**Negative exponent failures:**
+```
+C:    pow 2.0 -1000.0 = 0x1p-1000
+Rust: pow 2.0 -1000.0 = 0x1.ffffffffbb4p-1001
+```
+
+The function fails badly even for simple integer exponents like `pow(2, 10)`, suggesting a fundamental algorithm error in the core exp/log decomposition.
+
+## What Needs to Change
+Compare the Rust `powd` against the C source thoroughly. This is a complex function with many paths. Focus on:
+1. The `log2(x)` decomposition (hi/lo splitting)
+2. The `exp2(y * log2(x))` reconstruction
+3. Integer exponent fast paths
+4. Overflow/underflow scaling
+5. All polynomial coefficients must match exactly
+
+Given 20 failures across diverse inputs, this likely requires a careful line-by-line comparison.
+
+## Success Criteria
+- `pow(2.0, 10.0)` = `0x1p+10` (bitwise match)
+- `pow(2.0, 1000.0)` = `0x1p+1000` (bitwise match)
+- `pow(2.0, -1000.0)` = `0x1p-1000` (bitwise match)
+- All 20 failing tests pass with bitwise-exact match
+- All existing passing tests continue to pass

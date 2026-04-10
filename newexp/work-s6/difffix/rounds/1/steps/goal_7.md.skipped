@@ -1,0 +1,32 @@
+# Goal 7: Fix `ctanf` precision errors
+
+## Function
+`ctanf` (complex float tangent)
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/complexf/ctanf.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s6/src/complexf.rs` (around line 241, `ctanf`)
+
+## Problem
+MISMATCH — 4 test failures. Large precision errors near pi/2.
+
+```
+C:    ctanf pi/2+0i     = -0x1.5d1496p+24 + 0x0p+0i
+Rust: ctanf pi/2+0i     = -0x1.52685p+32  + 0x0p+0i    (8 orders of magnitude off)
+
+C:    ctanf near-pi/2   = 0x1.8de6bcp+12 + 0x1.09a042p-8i
+Rust: ctanf near-pi/2   = 0x1.728826p+12 + 0x1.09a042p-8i
+```
+
+The real part at pi/2 is off by ~256x (exponent 24 vs 32), suggesting a fundamental computation error, not just ULP issues. This may stem from the internal `__ctansf` or `__redupif` helpers, or from incorrect argument reduction within the complex tangent.
+
+## What Needs to Change
+Compare the Rust `ctanf` and its helpers (`__ctansf`, `__redupif`) against the C originals. Focus on:
+1. The `__redupif` function (reduces real part modulo pi) — incorrect reduction would explain the magnitude error
+2. The `__ctansf` core computation
+3. Denominator computation where near-zero values amplify errors
+
+## Success Criteria
+- `ctanf(pi/2+0i)` real part = `-0x1.5d1496p+24` (bitwise match)
+- `ctanf(near-pi/2)` real part = `0x1.8de6bcp+12` (bitwise match)
+- All 4 failing tests pass with bitwise-exact match

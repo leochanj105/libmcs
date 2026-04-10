@@ -1,0 +1,25 @@
+# Goal 17: Fix `rem_pio2` NaN sign for infinity
+
+## Function
+`__rem_pio2` (double-precision pi/2 remainder, internal)
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/internal/trigd.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s6/src/mathd.rs` (around line 291, `rem_pio2`)
+
+## Problem
+MISMATCH — 1 test failure. NaN sign differs for infinity input.
+
+```
+C:    rem_pio2 inf: n=0 y0=nan  y1=nan
+Rust: rem_pio2 inf: n=0 y0=-nan y1=-nan
+```
+
+When given infinity, the function correctly returns `n=0` and NaN outputs, but the Rust version returns negative NaN (`-nan`) while C returns positive NaN (`nan`). While both are NaN, the sign bit differs.
+
+## What Needs to Change
+In the infinity handling path of `rem_pio2`, ensure the NaN is produced the same way as C. The C version likely computes `inf - inf` (which gives `+nan`), while Rust may compute it differently or negate the result. Match the exact computation that produces the NaN.
+
+## Success Criteria
+- `rem_pio2(inf)` returns `y0=nan, y1=nan` with positive sign bit (not `-nan`)
+- Bitwise-exact match of the NaN bit pattern with C output

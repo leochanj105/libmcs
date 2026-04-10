@@ -1,0 +1,38 @@
+# Goal 9: Fix `ilogb` subnormal and zero handling
+
+## Function
+`ilogb` (double-precision integer log base 2)
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/ilogbd.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s6/src/mathd.rs` (around line 2753, `ilogbd`)
+
+## Problem
+MISMATCH — 4 test failures. Two distinct bugs:
+
+**Bug A — FP_ILOGB0 value:**
+```
+C:    ilogb 0.0 = -2147483647   (INT_MAX - 1, i.e., FP_ILOGB0)
+Rust: ilogb 0.0 = -2147483648   (INT_MIN)
+```
+The C library defines `FP_ILOGB0 = -2147483647` but Rust uses `-2147483648`.
+
+**Bug B — Subnormal off-by-one:**
+```
+C:    ilogb 0x1p-1074 = -1074
+Rust: ilogb 0x1p-1074 = -1075
+
+C:    ilogb 0x1p-1073 = -1073
+Rust: ilogb 0x1p-1073 = -1074
+```
+Subnormal exponents are consistently 1 too low.
+
+## What Needs to Change
+1. Use the correct `FP_ILOGB0` constant: `-2147483647` (not `INT_MIN`)
+2. Fix the subnormal normalization loop — likely the bit-counting or shift is off by one
+
+## Success Criteria
+- `ilogb(0.0)` = `-2147483647` (bitwise match)
+- `ilogb(0x1p-1074)` = `-1074` (bitwise match)
+- `ilogb(0x1p-1073)` = `-1073` (bitwise match)
+- All 4 failing tests pass; all existing tests continue to pass

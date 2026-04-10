@@ -1,0 +1,29 @@
+# Goal 13: Fix `logb` subnormal exponent
+
+## Function
+`logb` (double-precision extract exponent)
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/logbd.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s6/src/mathd.rs` (around line 3103, `logbd`)
+
+## Problem
+MISMATCH — 2 test failures. Off-by-one for subnormal inputs (same pattern as `ilogb` Bug B).
+
+```
+C:    logb 0x1p-1074 = -0x1.0c8p+10   (= -1074.0)
+Rust: logb 0x1p-1074 = -0x1.0ccp+10   (= -1075.0)
+
+C:    logb 0x1p-1073 = -0x1.0c4p+10   (= -1073.0)
+Rust: logb 0x1p-1073 = -0x1.0c8p+10   (= -1074.0)
+```
+
+Subnormal exponents are consistently 1 too low.
+
+## What Needs to Change
+Fix the subnormal normalization in `logbd`. The leading-zero count or the bias subtraction after normalization is off by one. Compare against the C implementation's subnormal handling path.
+
+## Success Criteria
+- `logb(0x1p-1074)` = `-0x1.0c8p+10` (= -1074.0, bitwise match)
+- `logb(0x1p-1073)` = `-0x1.0c4p+10` (= -1073.0, bitwise match)
+- All other `logb` tests continue to pass

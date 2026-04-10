@@ -1,0 +1,29 @@
+# Goal 6: Fix log1pf — completely wrong for negative inputs
+
+## Function
+`log1pf` (float precision)
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathf/log1pf.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s6/src/mathf.rs` (line ~2099)
+
+## Problem
+MISMATCH — 9 test failures.
+
+The Rust `log1pf` is fundamentally broken for negative inputs. It appears to not handle the domain correctly at all.
+
+Examples:
+- C: `log1pf(-1.0f) = -inf` → Rust: `-0x1p+1` (-2.0)
+- C: `log1pf(-2.0f) = nan` → Rust: `-0x1p+2` (-4.0)
+- C: `log1pf(-0.9f) = -0x1.26bb1ap+1` → Rust: `-0x1.ccccccp+0`
+
+The Rust version seems to be computing something like `2*x` or a linear approximation instead of `log(1+x)`.
+
+## What Needs to Change
+The entire negative-input handling is broken. Compare the Rust implementation line-by-line against the C source. The special cases (x == -1 → -inf, x < -1 → NaN) are missing, and the core computation for -1 < x < 0 is wrong.
+
+## Success Criteria
+- `log1pf(-1.0f)` returns `-inf`.
+- `log1pf(-2.0f)` returns `nan`.
+- `log1pf(-0.9f)` returns `0x1.26bb1ap+1` (negative).
+- All 9 log1pf mismatches resolve to bitwise-exact match with C output.

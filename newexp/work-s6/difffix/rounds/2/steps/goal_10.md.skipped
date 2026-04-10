@@ -1,0 +1,24 @@
+# Goal 10: Fix rem_pio2 — NaN sign difference for infinity input
+
+## Function
+`rem_pio2` (internal helper, double precision)
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/internal/trigd.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s6/src/mathd.rs` (line ~291)
+
+## Problem
+MISMATCH — 1 test failure.
+
+`rem_pio2(inf)` returns `-nan` for y0 and y1 instead of `nan`.
+
+Example:
+- C:    `rem_pio2 inf: n=0 y0=nan y1=nan`
+- Rust: `rem_pio2 inf: n=0 y0=-nan y1=-nan`
+
+## What Needs to Change
+The infinity handling produces a NaN with the sign bit set. The C version produces a positive NaN. This is likely a difference in how `inf - inf` or `inf * 0` is computed, or the NaN is being constructed with the wrong sign bit. Check how the infinity special case generates NaN and ensure the sign bit matches.
+
+## Success Criteria
+- `rem_pio2(inf)` returns `nan` (positive NaN, not `-nan`) for both y0 and y1.
+- Bitwise-exact match with C output for all rem_pio2 test cases.

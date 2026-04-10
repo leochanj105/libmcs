@@ -1,0 +1,36 @@
+# Goal 12: Fix `log1pf` negative argument handling
+
+## Function
+`log1pf` (single-precision log(1+x))
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathf/log1pf.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s6/src/mathf.rs` (around line 2099, `log1pf`)
+
+## Problem
+MISMATCH — 9 test failures. The function is fundamentally broken for negative arguments.
+
+```
+C:    log1pf -1.0f = -inf          Rust: -0x1p+1  (-2.0)
+C:    log1pf -2.0f = nan           Rust: -0x1p+2  (-4.0)
+C:    log1pf -0.9f = -0x1.26bb1ap+1   Rust: -0x1.ccccccp+0
+```
+
+Key issues:
+- `log1pf(-1.0)` should be `-inf` (pole), Rust returns `-2.0`
+- `log1pf(-2.0)` should be `NaN` (domain error, since `1+(-2) < 0`), Rust returns `-4.0`
+- Normal negative args also produce wrong values
+
+The Rust implementation appears to be computing something like `2*x` or a linear approximation instead of the actual logarithm for negative inputs.
+
+## What Needs to Change
+The Rust `log1pf` has a broken algorithm for negative arguments. Compare against C source:
+1. Special cases: `x == -1` must return `-inf`; `x < -1` must return `NaN`
+2. The main computation path for `-1 < x < 0` must use the correct log1p formula
+3. Check if the negative-argument branch was accidentally replaced with a linear function
+
+## Success Criteria
+- `log1pf(-1.0f)` = `-inf` (bitwise match)
+- `log1pf(-2.0f)` = `NaN` (bitwise match)
+- `log1pf(-0.9f)` = `-0x1.26bb1ap+1` (bitwise match)
+- All 9 failing tests pass with bitwise-exact match

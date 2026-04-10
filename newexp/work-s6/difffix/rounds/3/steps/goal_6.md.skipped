@@ -1,0 +1,36 @@
+# Goal 6: Fix rem_pio2 — NaN sign bit on infinite input
+
+## Function
+`rem_pio2` (test bridge calls into Rust `mathd::rem_pio2`)
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/mathd/internal/trigd.c` (`__rem_pio2`)
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s6/src/mathd.rs` (`rem_pio2` at line 291)
+  - Test bridge: `/home/leochanj/Desktop/libmcs/newexp/rust-s6/src/test_bridge.rs:32`
+
+## Problem
+MISMATCH — 1 test failure.
+
+```
+C:    rem_pio2 inf: n=0 y0=nan  y1=nan
+Rust: rem_pio2 inf: n=0 y0=-nan y1=-nan
+```
+
+The function correctly returns NaN for an infinite input, but the NaN's sign
+bit is wrong (negative). The C code computes `y[0] = y[1] = x - x` for the
+inf/nan branch, which yields a NaN with sign bit `0` (positive NaN). The Rust
+code is producing `-nan`, suggesting it uses something like `f64::NAN.copysign(x)`
+or constructs the NaN with the input's sign bit, or computes it via a different
+expression that flips the sign bit.
+
+## What Needs to Change
+In the Rust `rem_pio2` (line 291 of mathd.rs), find the branch that handles
+infinite/NaN input. Replace the NaN construction with the literal `x - x` form
+(or write `f64::NAN` without sign manipulation, or an `(x - x).abs()` if needed)
+so that the sign bit matches the C output of `nan` (positive NaN).
+
+## Success Criteria
+- `rem_pio2(inf)` produces `y[0] = nan`, `y[1] = nan`, `n = 0` where the NaN
+  has the positive sign bit (matching C's `nan`, not `-nan`).
+- All 1 rem_pio2 mismatch resolves to bitwise-exact match with C output.
+- No regressions on finite inputs.

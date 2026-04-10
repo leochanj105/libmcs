@@ -256,6 +256,49 @@ S1 has 785 test cases.
 
 #### Remaining Failures: 0
 
+### S6 Results (with test isolation)
+
+Fixer mode: separate analyze + fix. No regressions occurred.
+
+Results stored in: `work-s6/difffix/`, `rust-s6/`
+
+S6 has 2775 test cases.
+
+#### Per-Round Progression
+
+| Round | Prev Fails | Fails | Passed | Pass Rate | Goals | Active Time | Cost |
+|-------|-----------|-------|--------|-----------|-------|------------|------|
+| Baseline | — | 68 | 2707 | 97.5% | — | — | — |
+| R1 | 68 | 45 | 2730 | 98.4% | 5 | 7.0m | $1.35 |
+| R2 | 45 | 35 | 2740 | 98.7% | 5 | 11.0m | $1.57 |
+| R3 | 35 | 3 | 2772 | 99.9% | 5 | 21.0m | $3.30 |
+| R4 | 3 | 1 | 2774 | 99.96% | 3 | 5.0m | $1.59 |
+| R5 | 1 | 0 | 2775 | 100.0% | 1 | 6.0m | $1.35 |
+| **Total** | | | | | **19** | **50.0m** | **$9.16** |
+
+#### Per-Round Token Usage
+
+| Round | Input | Output | Cache Read | Cache Create | Cost |
+|-------|-------|--------|-----------|-------------|------|
+| R1 | 43 | 21,437 | 755,561 | 123,766 | $1.35 |
+| R2 | 104 | 42,110 | 717,604 | 135,524 | $1.57 |
+| R3 | 81 | 79,176 | 3,346,605 | 195,663 | $3.30 |
+| R4 | 43 | 19,449 | 1,356,355 | 87,782 | $1.59 |
+| R5 | 31 | 19,858 | 972,355 | 66,276 | $1.35 |
+| **Total** | **302** | **182,030** | **7,148,480** | **609,011** | **$9.16** |
+
+#### Per-Round Fixes (audit summary)
+
+| Round | Files touched | Notable fixes |
+|-------|---------------|---------------|
+| R1 | mathd.rs, mathf.rs, complexd.rs | acosh, cosf, fpclassifyf, cprojd — easy semantic fixes |
+| R2 | mathd.rs, mathf.rs, complexf.rs | log10, ilogb/f, modf, partial pow/log1pf |
+| R3 | mathd.rs, mathf.rs | pow (20 mismatches) + log1pf (9) — biggest single jump |
+| R4 | mathd.rs, mathf.rs | log1pf 1-ULP precision fix; rem_pio2 NaN-sign (`x-x` → explicit qNaN for `inf`); remainder switched `%` → `fmodd()` |
+| R5 | mathd.rs | remainder denormal: `while i > 0` (u32) → `while (i as i32) > 0` (signed) so subnormal exponent loop terminates correctly |
+
+#### Remaining Failures: 0
+
 ## Difffix Cross-Scenario Summary
 
 Test cases = individual function calls (one call, one input, one output comparison).
@@ -267,7 +310,7 @@ Test cases = individual function calls (one call, one input, one output comparis
 | S1 | 785 | 15 | 0 | 2 | $2.65 |
 | S2 | 458 | 16 | 0 | 2 | $4.82 |
 | S5 | 2039 | 44 | 0 | 3 | $6.12 |
-| S6 | 2775 | — | — | — | — |
+| S6 | 2775 | 68 | 0 | 5 | $9.16 |
 
 Test case = one library function call with one input. Section headers and FAULT
 lines are excluded. S2 has 1 fenv FAULT (crash).

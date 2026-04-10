@@ -1,0 +1,30 @@
+# Goal 6: Fix `cprojf` infinity projection
+
+## Function
+`cprojf` (complex float projection onto Riemann sphere)
+
+## Source Files
+- C source: `/home/leochanj/Desktop/libmcs/libm/complexf/cprojf.c`
+- Rust source: `/home/leochanj/Desktop/libmcs/newexp/rust-s6/src/complexf.rs` (around line 120, `cprojf`)
+
+## Problem
+MISMATCH — 4 test failures. Same bug pattern as `cproj` (Goal 5) but in the float version.
+
+```
+C:    cprojf inff+1i  = inf+0x0p+0i
+Rust: cprojf inff+1i  = inf+0x1p+0i
+
+C:    cprojf inff-1i  = inf+-0x0p+0i
+Rust: cprojf inff-1i  = inf+0x1p+0i
+
+C:    cprojf inf+1i   = inf+0x0p+0i
+Rust: cprojf inf+1i   = inf+0x1p+0i
+```
+
+## What Needs to Change
+Same fix as Goal 5: when either component is infinite, return `INFINITY + copysign(0.0, imag)`. The float version has the same missing infinity-projection logic.
+
+## Success Criteria
+- `cprojf(inff+1i)` = `inf+0x0p+0i` (bitwise match)
+- `cprojf(inff-1i)` = `inf+-0x0p+0i` (bitwise match, signed zero)
+- All 4 failing tests pass with bitwise-exact match
