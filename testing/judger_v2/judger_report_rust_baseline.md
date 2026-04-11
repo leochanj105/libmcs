@@ -6,12 +6,50 @@
 
 ## Overall Summary
 
-| Source | Tests | Baseline | S2 | S3 | S4 | S5 |
-|--------|------:|---------:|---:|---:|---:|---:|
-| glibc (auto-libm-test-in) | 14,888 | 642 | 501 | 496 | 500 | 495 |
-| glibc (libm-test-*.inc) | 3,704 | 775 | 351 | 317 | 377 | 317 |
-| core-math WC (full) | 15,883,911 | 415,073 | 21,246 | 21,246 | 21,246 | 6,904 |
-| **Total** | **15,902,503** | **416,490** | **22,098** | **22,059** | **22,123** | **7,716** |
+| Source | Tests | Baseline | S1 | S2 | S3 | S4 | S5 | S6 |
+|--------|------:|---------:|---:|---:|---:|---:|---:|---:|
+| glibc (auto-libm-test-in) | 14,888 | 642 | 496 | 501 | 496 | 500 | 495 | 495 |
+| glibc (libm-test-*.inc) | 3,704 | 775 | 325 | 351 | 317 | 377 | 317 | 317 |
+| glibc (extra: misc/snan/signgam) | 136 | 77 | 32 | 0 | 0 | 19 | 19 | 19 |
+| core-math WC (full) | 15,883,911 | 415,073 | 21,246 | 21,246 | 21,246 | 21,246 | 6,904 | 6,904 |
+| **Total** | **15,902,639** | **416,567** | **22,099** | **22,098** | **22,059** | **22,142** | **7,735** | **7,735** |
+
+## glibc extra (test-misc.c, test-signgam-main.c, test-snan.c derived) — 136 tests
+
+Hand-curated tests extracted from glibc's standalone `.c` test files that
+weren't covered by `auto-libm-test-in` or `libm-test-*.inc`:
+- Classification macros (`fpclassify`, `isnan`, `isinf`, `isfinite`, `isnormal`, `signbit`) on special values
+- `nextafter`/`nextafterf` equivalences at `±0 → ±inf` vs `±0 → ±1`
+- Boundary traversals (`DBL_MIN → 0`, `DBL_TRUE_MIN → 0`, `DBL_MAX → INFINITY`)
+- `modf`/`modff` and `frexp`/`frexpf` decomposition on special values
+- `lgamma`/`lgammaf` side-effect on `__signgam` global
+
+| Divergence category | Baseline | S1 | S2 | S3 | S4 | S5 | S6 |
+|---------------------|---------:|---:|---:|---:|---:|---:|---:|
+| fpclassify | 18 | 7 | 0 | 0 | 0 | 0 | 0 |
+| lgamma signgam | 12 | 12 | 0 | 0 | 12 | 12 | 12 |
+| lgammaf signgam | 7 | 7 | 0 | 0 | 7 | 7 | 7 |
+| nextafter/nextafterf specials | 14 | 2 | 0 | 0 | 0 | 0 | 0 |
+| signbit | 6 | 0 | 0 | 0 | 0 | 0 | 0 |
+| isnan | 6 | 2 | 0 | 0 | 0 | 0 | 0 |
+| isinf | 4 | 2 | 0 | 0 | 0 | 0 | 0 |
+| isfinite | 4 | 0 | 0 | 0 | 0 | 0 | 0 |
+| isnormal | 2 | 0 | 0 | 0 | 0 | 0 | 0 |
+| modf/modff | 3 | 0 | 0 | 0 | 0 | 0 | 0 |
+| frexp | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
+
+**Key finding:** S1–S6 are independent scenarios, each starting from the
+same baseline Rust code and running its own transpilation-fix pipeline. S2
+and S3's fix pipelines happened to catch and fix the `signgam` side effect;
+S4/S5/S6's did not. All 19 remaining divergences in S5/S6 for this source
+are `lgamma`/`lgammaf` leaving `__signgam = 0` instead of setting the
+correct sign. The return values are correct — only the global side effect
+is unfixed.
+
+**Linking note:** The baseline Rust lib exports `__fpclassify`/`__signbit`
+(wrong names) instead of libmcs's `__fpclassifyd`/`__signbitd`. Without
+weak-symbol fallbacks in `compat_builtins.c`, the test wouldn't even link
+against the baseline — which is itself a bug.
 
 ## glibc (auto-libm-test-in)
 
@@ -100,27 +138,34 @@
 
 ## Key Findings
 
-1. **Stale binaries invalidated prior results.** S3 and S5 had source changes not reflected in compiled binaries. After rebuild, numbers changed dramatically (e.g., S3 WC: 403,974 → 21,246; S5 WC: 406,028 → 6,904).
+S1–S6 are **independent fix scenarios**, each starting from the same baseline
+Rust code and running its own transpilation-fix pipeline. Differences between
+them reflect which bugs each scenario's test generator + fixer happened to
+catch, not cumulative improvements.
 
-2. **S5 is the best overall** — 7,716 total divergences, down from 416,490 baseline (98.1% reduction).
+1. **Stale binaries invalidated prior results.** S3 and S5 had source changes not reflected in compiled binaries. After rebuild, numbers changed dramatically (e.g., S3 WC: 403,974 → 21,246; S5 WC: 406,028 → 6,904). Always rebuild before testing.
 
-3. **S3/S4 are nearly identical on WC** — Both at 21,246. S4 has more glibc divergences due to cproj and ilogb regressions not present in S3.
+2. **S5 and S6 are tied for best overall** — 7,735 total divergences, down from 416,567 baseline (98.1% reduction).
 
-4. **pow: massive fix** — 367,426 → 108 across S3-S5 (99.97% reduction). 108 remaining divergences are hard-to-round edge cases.
+3. **pow: massive fix** — 367,426 → 108 across S1–S6 (99.97% reduction). 108 remaining divergences are hard-to-round edge cases.
 
-5. **exp2: fixed** — 17,467 → 3 (99.98% reduction). Baseline had 33 infinite-loop timeouts, all eliminated.
+4. **exp2: fixed** — 17,467 → 3 across S1–S6 (99.98% reduction). Baseline had 33 infinite-loop timeouts, all eliminated.
 
-6. **log10: S5 breakthrough** — 14,347 → 5. S3/S4 didn't fix this at all.
+5. **log10: only S5/S6 caught it** — 14,347 → 5. S1–S4 didn't fix this at all. The fix is a one-character change (adding parentheses for floating-point associativity) triggered by `log10(5.0)` appearing in S5's test suite.
 
-7. **log2: unfixed** — 6,693 across all versions. This is the largest remaining WC divergence.
+6. **signgam: only S2/S3 caught it** — 19 divergences on `lgamma`/`lgammaf` in S1, S4–S6 because they don't set the `__signgam` global. S2/S3 correctly export and update it.
 
-8. **tgamma: unfixed** — 447 glibc divergences across all versions. Never addressed by any scenario.
+7. **Classification macros: only baseline/S1 miss these** — `fpclassify`, `isnan`, `isinf`, `signbit`, etc. Baseline exports wrong symbol names (`__fpclassify` instead of `__fpclassifyd`); S1 partially fixes it; S2–S6 fully fix it.
 
-9. **fmod/remainder family: partially fixed** — Reduced but still significant (S3/S5 both at 267 total from .inc tests).
+8. **log2: unfixed by any scenario** — 6,693 WC divergences across all versions. This is the largest remaining WC divergence.
 
-10. **S4 regressions vs S3** — cproj (52 divergences), ilogb (8), ctanf (4 more). These were fixed in S3, broken in S4, re-fixed in S5.
+9. **tgamma: unfixed by any scenario** — 447 glibc divergences across all versions. Never addressed.
 
-## Remaining divergences in best version (S5): 7,716
+10. **fmod/remainder family: partially fixed** — Reduced but still significant (~267 divergences in the .inc tests across all fix scenarios).
+
+11. **No single scenario catches everything** — S2/S3 catch signgam but miss log10. S5/S6 catch log10 but miss signgam. A hypothetical "best combined" would be S3+S5's fixes (22,059 − 14,342 − 19 ≈ 7,698), still not zero.
+
+## Remaining divergences in best version (S5 or S6): 7,735
 
 | Category | Count | Functions |
 |----------|------:|-----------|
@@ -130,6 +175,7 @@
 | pow WC | 108 | pow |
 | powf WC | 67 | powf |
 | rintf/nearbyintf | 28 | rintf, nearbyintf |
+| lgamma/lgammaf signgam | 19 | lgamma, lgammaf (side effect only — return values correct) |
 | cacosh glibc | 15 | cacosh, cacoshf |
 | complex glibc | 14 | ctanf, ctanhf, ctanh, ctan, cexp, cexpf |
 | fdim glibc | 16 | fdim, fdimf |
