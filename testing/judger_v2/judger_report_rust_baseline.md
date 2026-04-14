@@ -51,6 +51,46 @@ is unfixed.
 weak-symbol fallbacks in `compat_builtins.c`, the test wouldn't even link
 against the baseline — which is itself a bug.
 
+## Per-function divergences: fabs/creal/cimag/conj/copysign/fma/fmax/fmin
+
+Divergence counts for trivial / manipulation functions across all scenarios
+(combined from glibc auto-libm-test-in + glibc libm-test-*.inc, not including
+glibc_extra or core-math WC since none of these functions appear there):
+
+| Function | Test source | Tests | Baseline | S1 | S2 | S3 | S4 | S5 | S6 |
+|----------|-------------|------:|---------:|---:|---:|---:|---:|---:|---:|
+| `fabs`      | glibc inc          |  15 |  2 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `fabsf`     | glibc inc          |  15 |  2 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `creal`     | **none**           |   0 |  — | — | — | — | — | — | — |
+| `crealf`    | **none**           |   0 |  — | — | — | — | — | — | — |
+| `cimag`     | **none**           |   0 |  — | — | — | — | — | — | — |
+| `cimagf`    | **none**           |   0 |  — | — | — | — | — | — | — |
+| `conj`      | glibc inc          |  10 |  2 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `conjf`     | glibc inc          |  10 |  2 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `copysign`  | glibc inc          |  64 |  8 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `copysignf` | glibc inc          |  64 |  8 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `fma`       | auto-libm-test-in  | 262 |  0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `fmaf`      | auto-libm-test-in  | 262 |  0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `fmax`      | glibc inc          |  86 | 24 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `fmaxf`     | glibc inc          |  86 | 24 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `fmin`      | glibc inc          |  86 | 24 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `fminf`     | glibc inc          |  86 | 24 | 0 | 0 | 0 | 0 | 0 | 0 |
+| **Total**   |                    |     | **144** | **0** | **0** | **0** | **0** | **0** | **0** |
+
+**Observations:**
+
+1. **`creal`/`crealf`/`cimag`/`cimagf` have zero test coverage** — they're not
+   in any glibc test file (trivial accessors returning the real/imag part of a
+   complex). Our suite doesn't exercise them.
+
+2. **`fma`/`fmaf` — baseline was already correct.** 262 test cases per variant,
+   zero divergences anywhere. The baseline likely delegates to hardware FMA.
+
+3. **`fabs`, `conj`, `copysign`, `fmax`, `fmin` and their `f` variants** —
+   baseline had 144 total divergences across these 10 functions. **All six
+   scenarios fixed every single one to zero.** These are "easy" bugs that any
+   reasonable test generator catches (sNaN/signed-zero handling at boundaries).
+
 ## glibc (auto-libm-test-in)
 
 | Function | Baseline | S3 | S4 | S5 |
@@ -182,3 +222,31 @@ catch, not cumulative improvements.
 | acosh WC | 10 | acosh |
 | misc WC | 18 | acos, asin, atanh, log, log1p, log10 |
 | misc glibc | 33 | sin, sinf, cos, cosf, tan, tanf, nextafter |
+
+## Pipeline cost per scenario
+
+Time/cost/rounds for each scenario's testgen and difffix phases. Times are
+"active time" (AI compute time excluding rate-limit wait) from
+`newexp/experiment_results.md`. Testgen rounds count AI-invocation rounds (S1–S4
+were one-shot; S5/S6 used iterative coverage-guided loops). Difffix rounds count
+fix-application rounds only (round 0 is the initial measurement and is
+excluded).
+
+| Scenario | Testgen rounds | Testgen time | Testgen cost | Difffix rounds | Difffix time | Difffix cost | Total time | Total cost |
+|----------|---:|---:|---:|---:|---:|---:|---:|---:|
+| S1 | 1 | 6.8 min  | $0.91  | 2 | 10.3 min | $2.65  | 17.1 min  | $3.56  |
+| S2 | 1 | 8.7 min  | $1.20  | 2 | 29.7 min | $4.82  | 38.4 min  | $6.02  |
+| S3 | 1 | 10.2 min | $1.33  | 4 | 65.8 min | $11.38 | 76.0 min  | $12.71 |
+| S4 | 1 | 6.8 min  | $0.91  | 2 | 7.4 min  | $2.04  | 14.2 min  | $2.95  |
+| S5 | 5 | 64.8 min (1.08 hr) | $14.19 | 3 | 36.9 min | $6.12  | 101.7 min | $20.31 |
+| S6 | 5 | 88.8 min (1.48 hr) | $17.24 | 5 | 49.6 min | $9.16  | 138.4 min | $26.40 |
+
+**Observations:**
+
+- **S6 is the most expensive overall ($26.40)** — 5 testgen rounds + 5 difffix rounds, consistently high token usage.
+- **S3 had the most expensive difffix ($11.38)** despite being one-shot testgen — 52 initial failures forced 4 fix rounds, and round 1 alone cost $7.03 (10.66M cache-read tokens).
+- **S4 is cheapest ($2.95)** — its test generator produced only 371 tests with only 7 failures, so difffix had little to fix.
+- **Testgen cost scales with rounds** — one-shot runs cost ~$1; S5/S6's 5-round loops cost $14–$17.
+- **Difffix cost scales with initial failures** — not with test count: S5 (2,039 tests, 44 fails) cost less than S3 (1,189 tests, 52 fails).
+- **Best bug-fixing $/divergence** — S5 at ~$20 total eliminates 14,342 log10 WC divergences plus all the S1–S4 fixes; S3 at ~$13 total matches S1/S2/S4 quality. S5's extra $7 buys a 3x reduction in residual divergences.
+
