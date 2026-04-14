@@ -60,8 +60,12 @@ Each directory has an internal/ subdirectory with helper functions.
 CLAUDEEOF
 
     # Settings.json — allow access to libmcs source and experiment directories.
-    # Block ALL of testing/ (judger + other held-out tests) via both tool deny
-    # rules AND Bash deny. Bash deny prevents cat/grep bypass of Read deny.
+    # Block ALL of testing/ (judger + other held-out tests) via:
+    #   1. Tool-level deny for Read/Glob/Grep (absolute-path matching).
+    #   2. A PreToolUse hook (deny_testing_hook.sh) that inspects every Bash
+    #      command string and rejects references to testing/ — this catches
+    #      relative-path bypasses like `ls ../testing/*.sh` which the path
+    #      deny rules alone did not cover.
     cat > "${claude_dir}/settings.json" <<SETTINGSEOF
 {
   "permissions": {
@@ -83,6 +87,19 @@ CLAUDEEOF
       "Read(//home/leochanj/Desktop/libmcs/testing/**)",
       "Glob(//home/leochanj/Desktop/libmcs/testing/**)",
       "Grep(//home/leochanj/Desktop/libmcs/testing/**)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/home/leochanj/Desktop/libmcs/newexp/scripts/deny_testing_hook.sh"
+          }
+        ]
+      }
     ]
   }
 }

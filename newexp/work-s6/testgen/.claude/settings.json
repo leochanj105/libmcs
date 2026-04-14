@@ -19,5 +19,18 @@
       "Glob(//home/leochanj/Desktop/libmcs/testing/**)",
       "Grep(//home/leochanj/Desktop/libmcs/testing/**)"
     ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/home/leochanj/Desktop/libmcs/newexp/scripts/deny_testing_hook.sh"
+          }
+        ]
+      }
+    ]
   }
 }
